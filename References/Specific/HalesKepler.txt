@@ -1,0 +1,13 @@
+@article{2a421699-3309-384b-9c1c-01223c7ebb2e,
+ ISSN = {0003486X},
+ URL = {http://www.jstor.org/stable/20159940},
+ author = {Thomas C. Hales},
+ journal = {Annals of Mathematics},
+ number = {3},
+ pages = {1065--1185},
+ publisher = {Annals of Mathematics},
+ title = {A Proof of the Kepler Conjecture},
+ urldate = {2024-11-14},
+ volume = {162},
+ year = {2005}
+}
