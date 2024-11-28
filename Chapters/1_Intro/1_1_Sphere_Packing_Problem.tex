@@ -1,3 +1,13 @@
 \section{The Sphere Packing Problem}
 
-Hi
+The Sphere Packing problem is a classical optimsation problem in mathematics. The problem can be formulated as follows.
+
+\begin{boxproblem}[The Sphere Packing Problem in Dimensinon $n$]\label{Ch1:Prob:SpherePacking_n}
+    Given some $n \in \N$, what is the densest possible non-overlapping arrangement of $n$-spheres of equal radius in $\R^n$?
+\end{boxproblem}
+
+Despite its rather straightforward formulation, \Cref{Ch1:Prob:SpherePacking_n} is notoriously difficult to solve. Indeed, one obvious question that arises when one looks at the problem statement is how one might define the concept of density. It turns out that the definition is slightly unwieldy, though introducing a periodicity assumption on the sphere packing whose density one wishes to find considerably simplifies this problem.
+
+A key challenge in solving the sphere packing problem in dimension $n$ is not defining and understanding the concept of sphere packing density but the fact that proceeding inductively yields suboptimal results. In other words, knowing what the solution to the sphere packing problem is in dimension $n$ does not, in general, amount to knowing what it is in dimension $n + 1$~\cite{CohnOnViazovska}.
+
+One exception to the above is the solutions in dimension $2$ and $3$. 

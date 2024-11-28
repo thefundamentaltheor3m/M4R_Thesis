@@ -9,12 +9,14 @@
 \newtheorem{conjecture}[theorem]{Conjecture}
 % \newtheorem{algorithm}[theorem]{Algorithm}  % Defined in algorithm2e
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{problem}{Exercise}[section]
+
+\newtheorem{problem}[theorem]{Problem}
 \newenvironment{boxproblem}{
-    \begin{tcolorbox}[colback=white!90!black,colframe=black, breakable, enhanced]\begin{problem}
+    \begin{tcolorbox}[colback=black!25!orange,colframe=black!50!orange, coltext=white, breakable, enhanced]\begin{problem}
 }{
     \end{problem}\end{tcolorbox}
 }
+
 \newenvironment{boxtheorem}{
     \begin{tcolorbox}[colback=yellow!15!white,colframe=orange, breakable, enhanced]\begin{theorem}
 }{
@@ -35,6 +37,12 @@
 }{
     \end{corollary}\end{tcolorbox}
 }
+\newenvironment{boxconjecture}{
+    \begin{tcolorbox}[colback=yellow!15!white,colframe=orange, breakable, enhanced]\begin{conjecture}
+}{
+    \end{conjecture}\end{tcolorbox}
+}
+
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
