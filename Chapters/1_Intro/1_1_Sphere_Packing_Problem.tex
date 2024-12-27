@@ -8,6 +8,27 @@ The Sphere Packing problem is a classical optimsation problem in mathematics. Th
 
 Despite its rather straightforward formulation, \Cref{Ch1:Prob:SpherePacking_n} is notoriously difficult to solve. Indeed, one obvious question that arises when one looks at the problem statement is how one might define the concept of density. It turns out that the definition is slightly unwieldy, though introducing a periodicity assumption on the sphere packing whose density one wishes to find considerably simplifies this problem.
 
-A key challenge in solving the sphere packing problem in dimension $n$ is not defining and understanding the concept of sphere packing density but the fact that proceeding inductively yields suboptimal results. In other words, knowing what the solution to the sphere packing problem is in dimension $n$ does not, in general, amount to knowing what it is in dimension $n + 1$~\cite{CohnOnViazovska}.
+A key challenge in solving the sphere packing problem in dimension $n$ is the fact that proceeding inductively is not always helpful: `stacking' the optimal $n$-dimensional sphere packing onto itself is not guaranteed to yield the optimal sphere packing in $n + 1$ dimensions.~\cite{CohnOnViazovskaICM}. In fact, this appraoch is known to fail in dimensions as low as $10$~\cite{CohnOnViazovskaAMS}. This is not obvious, not least because the approach does, in fact, succeed in the visualisable dimensions of $1$, $2$ and $3$.
 
-One exception to the above is the solutions in dimension $2$ and $3$. 
+The $1$-dimensional case is uninteresting. Visually, one can easily see that the densest possible arrangement of disjoint intervals of the form $\parenth{-r, r}$ on the real lineconsists of intervals centred at all points $2rm$ for $m \in \Z$. Indeed, one can fix $r$ to be $\frac{1}{2}$ by rescaling the real line. The optimal packing therefore consists of half-spheres centred at points on the lattice $\Z \subset \R$.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw[step=1,black,thick] (-3.6, 0) -- (3.6, 0);
+        \foreach \x in {-2, -1, 0, 1, 2} {
+            \draw[fill=yellow, opacity=0.5] (\x - 0.5, 0) -- (\x + 0.5, 0);
+            \node at (\x - 0.5, 0) {$)($};
+            \node at (\x + 0.5, 0) {$)($};
+            \draw[fill=black] (\x, 0) circle (0.1);
+        }
+        \foreach \x in {-4, 4} {
+            \node at (\x,0) {$\cdots$};
+        }
+    \end{tikzpicture}
+\end{figure}
+
+Rescaling gives us a powerful---if straightforward---simplification of the sphere packing problem where we can fix the radius of the spheres to a convenient value. Indeed, we only mention rescaling explicitly because it needs to be explicitly dealt with when formalising the problem. We will resume this discussion in \todo{ADD REFERENCE}. For now, we will take for granted the fact that rescaling does not affect the density of a sphere packing, meaning that we can talk about optimal sphere packings without worrying about the radius of the spheres in question. Bearing in mind that the spheres must all have the same radius, as per the statement of \Cref{Ch1:Prob:SpherePacking_n}, we will henceforth describe sphere packings simply by describing the points at which the spheres are centred.
+
+
+
