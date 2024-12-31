@@ -31,9 +31,11 @@ The $1$-dimensional case is uninteresting. Visually, one can easily see that the
         \draw[fill=black] (3, 0) circle (0.1);
     \end{tikzpicture}
     \caption{The $\Z$ lattice packing in dimension $1$.}
+    \label{Ch1:Fig:Z_Lattice_Packing_1D}
 \end{figure}
 
 Rescaling gives us a powerful---if straightforward---simplification of the sphere packing problem where we can fix the radius of the spheres to a convenient value. Indeed, we only mention rescaling explicitly because it needs to be explicitly dealt with when formalising the problem. We will resume this discussion in \todo{ADD REFERENCE}. For now, we will take for granted the fact that rescaling does not affect the density of a sphere packing, meaning that we can talk about optimal sphere packings without worrying about the radius of the spheres in question. Bearing in mind that the spheres must all have the same radius, as per the statement of \Cref{Ch1:Prob:SpherePacking_n}, we will henceforth describe sphere packings simply by describing the points at which the spheres are centred.
 
+The sphere packing problem in dimension $2$ turns out to be more interesting. A reasonable strategy for finding the densest packing is to `stack' the $\Z$ lattice packing from dimension $1$ onto itself in some manner, but the question remains as to exactly how this should be done. `Stacking' it onto itself would involve extending the lattice $\Z \subset \R \subset \R^2$ into a lattice in $\R^2$ by extending the $\R$-basis $\set{\parenth{1, 0}}$ of $\R$ (viewed as a subspace of $\R^2$) to an $\R$-basis of $\R^2$, and taking its $\Z$-span.
 
-
+One natural way of doing this is to extend the lattice $\Z \subset \R$ to the lattice $\Z^2 \subset \R^2$ consisting of points with integer coordinates. This corresponds to the natural extension of $\set{\parenth{1, 0}}$ to the standard $\R$-basis $\set{\parenth{1, 0}, \parenth{0, 1}}$ of $\R^2$. Unfortunately, this packing turns out to be sub-optimal, 
