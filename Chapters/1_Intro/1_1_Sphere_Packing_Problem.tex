@@ -40,9 +40,9 @@ The sphere packing problem in dimension $2$, also known as the circle packing pr
 
 One natural way of doing this is to extend the lattice $\Z \subset \R$ to the lattice $\Z^2 \subset \R^2$ consisting of points with integer coordinates. This corresponds to the natural extension of $\set{\parenth{1, 0}}$ to the standard $\R$-basis $\set{\parenth{1, 0}, \parenth{0, 1}}$ of $\R^2$. See \Cref{Ch1:Subfig:Z2_lattice_packing_2D}.
 
-Unfortunately, this packing turns out to be sub-optimal \todo{Do we want to add the density?}. A better candidate is the $A_2$ lattice packing, corresponding to the extension of $\set{\parenth{1, 0}}$ to the $A_2$ root basis $\set{\parenth{1, 0}, \parenth{-\frac{1}{2}, \frac{\sqrt{3}}{2}}}$. See \Cref{Ch1:Subfig:A2_lattice_packing_2D}. This packing is sometimes referred to as the honeycomb packing due to the hexagonal arrangement of centres.
+Unfortunately, this packing turns out to be sub-optimal \todo{Do we want to add the density?}. A better candidate is the $A_2$ lattice packing, corresponding to the extension of $\set{\parenth{1, 0}}$ to the $A_2$ root basis $\set{\parenth{1, 0}, \parenth{-\frac{1}{2}, \frac{\sqrt{3}}{2}}}$. See \Cref{Ch1:Subfig:A2_lattice_packing_2D}. This packing is sometimes referred to as the \textit{honeycomb packing} due to the fact that every circle has six neighbours, whose centres form the vertices of a regular hexagon.
 
-It is well-known that the honeycomb packing is \textit{optimal} in $\R^2$. What this means is that no circle packing has a density greater than that of the honeycomb packing. The original proof of this fact is attributed to Thue \cite{Thue}, but there have since been several arguments establishing its validity. One approach based on an idea of Rogers's that does not require particularly sophisticated mathematical tools was outlined by Hales in \cite{CannonHoney}. Indeed, in \Cref{Ch1:fig:Circle_Packings_2D}, we can intuitively see that the $A_2$ packing is denser than the $\Z^2$ packing. While the comparison does not establish the optimality of the $A_2$ packing, it is admittedly not wholly surprising, from looking at \Cref{Ch1:fig:Circle_Packings_2D}, that the density of the $A_2$ packing cannot be improved.
+It is well-known that the honeycomb packing is optimal in $\R^2$. What this means is that no circle packing has a density greater than that of the honeycomb packing. The original proof of this fact is attributed to Thue \cite{Thue}, and it is sometimes referred to in the literature as \textit{Thue's Theorem}. Several other mathematicians have since constructed proofs of Thue's Theorem. One approach based on an idea of Rogers's that does not require particularly sophisticated mathematical tools was outlined by Hales in \cite{CannonHoney}.
 
 \begin{figure}[htb]
     \centering
@@ -78,5 +78,74 @@ It is well-known that the honeycomb packing is \textit{optimal} in $\R^2$. What 
         \label{Ch1:Subfig:A2_lattice_packing_2D}
     \end{subfigure}
     \caption{Circle packings covering the square $\setst{\parenth{x, y} \subset \R^2}{-2.5 \leq x, y \leq 2.5}$.}
-    \label{Ch1:fig:Circle_Packings_2D}
+    \label{Ch1:Fig:Circle_Packings_2D}
+\end{figure}
+
+\begin{wrapfigure}[31]{r}{0.27\linewidth}
+    \centering
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Chapters/1_Intro/Images/Kepler_1.pdf}
+        \caption{}
+        \label{Ch1:Subfig:Kepler_Original_1}
+    \end{subfigure}
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Chapters/1_Intro/Images/Kepler_2.pdf}
+        \caption{}
+        \label{Ch1:Subfig:Kepler_Original_2}
+    \end{subfigure}
+    \caption{Diagrams from Kepler's 1611 essay \cite{KeplerSnowflake} whose title translates to \textit{The Six-Cornered Snowflake}.}
+\end{wrapfigure}
+
+While we do not offer an exposition of Hales's or any other proof of Thue's Theorem, we include a small discussion of the sphere packing problem in two dimensions to offer some intuition as to why the $A_2$ packing is optimal. For simplicity, we will work under the assumption that the optimal packing in $\R^2$ is some extension of the $\Z$ lattice packing in $\R$, as defined above. We use the strategy of stacking $\Z$ packings on top of each other `row by row', shifting rows around till their density cannot be further increased.
+
+From \Cref{Ch1:Fig:Circle_Packings_2D}, one can convince oneself with relative ease that the $A_2$ packing is denser than the $\Z^2$ packing. This makes it denser than any packing that is sparser than the $\Z^2$ packing. In particular, we only need to improve the $\Z^2$ packing to construct the optimal packing. Since vertical shifts only push rows further apart, rendering the packing sparser, it suffices to consider horizontal row shifts. In the $\Z^2$ packing, each circle in a given row is in contact with only one sphere from the row below. A natural improvement is to shift rows about so each circle is in contact with \textit{two} circles from the row below. This results in the $A_2$ lattice packing. This packing cannot be improved because it is impossible for a circle to be in contact with \textit{three} circles from the row below due to the separation between circles in the one-dimension $\Z$ packing. See \Cref{Ch1:Subfig:Kepler_Original_1}.
+
+While this is far from a rigorous argument, this approach illustrates why we should not be surprised that the $A_2$ sphere packing is optimal: the key observation is that the $A_2$ packing maximises the number of neighbours a circle can have. Admittedly, it is neither obvious why this optimises density nor why the optimal packing involves stacking the $\Z$ packing repeatedly on itself, not least because we have yet to formally define the density of a sphere packing. We merely reassure the reader, at this stage, that the definitions and characteristics of the sphere packing problem in $\R^2$ strongly agree with visual intuition. With this, we close our discussion of the sphere packing problem in two dimensions.
+
+In dimension $3$, too, it is tempting to replicate this strategy: we can attempt to stack the $A_2$ packing on top of itself, in layers instead of rows, in such a manner as maximises the number of neighbours a sphere can have. From trial and error, it appears to be the case that a sphere cannot be in contact with more than three neighbours from the layer below. This suggests that the optimal sphere packing in dimension $3$ is given by stacking honeycomb arrangements on top of each other with spheres in each layer being nestled in the gaps between three spheres in the layer below.
+
+As it turns out, unlike dimension $2$, a characterisation in terms of the number of neighbours in the layer below does not describe a unique packing. In $\R^3$, spheres are so large that it is not possible to stack honeycomb arrangements on top of each other such that \textit{all} gaps between spheres in one layer are occupied by spheres in the next. There is no unique stacking of honeycomb layers such that each sphere has exactly three neighbours in the layer below: in different stackings, the spheres in a layer might fill a different arrangement of gaps between spheres in the layer below, as shown in \Cref{Ch1:Fig:2_Optimal_3D_Packings}. One can construct many different sphere packings in $\R^3$, all of which are as dense as possible, by varying how successive layers are placed. For instance, the sphere packing obtained by successively repeating the arrangement in \Cref{Ch1:Subfig:3D_Triangular_Stacking} and that obtained by alternating between the arrangements in \Cref{Ch1:Subfig:3D_Triangular_Stacking} and \Cref{Ch1:Subfig:3D_Hexagonal_Stacking} are globally different, despite having the same density and identical layers. The former is referred to as the \textit{face-centred cubic packing} and the latter is referred to as the \textit{hexagonal close-packing}.
+
+\begin{figure}[htb]
+    \centering
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \begin{tikzpicture}[scale=1.25]
+            \clip (-2.5, -2.5) rectangle ++(5, 5);
+            \foreach \x in {-4, -3, -2, -1, 0, 1, 2, 3, 4} {
+                \foreach \y in {-3, -2, -1, 0, 1, 2, 3} {
+                    \latticecircle{\x - \y * 0.5}{\y * 0.8660254038}
+                }
+            }
+            \foreach \x in {-3, -2, -1, 0, 1, 2} {
+                \foreach \y in {-3, -2, -1, 0, 1, 2} {
+                    \latticecirclegrey{\x - \y * 0.5}{\y * 0.8660254038 + 0.5773502692}
+                }
+            }
+        \end{tikzpicture}
+        \subcaption{}
+        \label{Ch1:Subfig:3D_Triangular_Stacking}
+    \end{subfigure}
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \begin{tikzpicture}[scale=1.25]
+            \clip (-2.5, -2.5) rectangle ++(5, 5);
+            \foreach \x in {-4, -3, -2, -1, 0, 1, 2, 3, 4} {
+                \foreach \y in {-3, -2, -1, 0, 1, 2, 3} {
+                    \latticecircle{\x - \y * 0.5}{\y * 0.8660254038}
+                }
+            }
+            \foreach \x in {-2, -1, 0, 1, 2, 3} {
+                \foreach \y in {-2, -1, 0, 1, 2, 3} {
+                    \latticecirclegrey{\x - \y * 0.5}{\y * 0.8660254038 - 0.5773502692}
+                }
+            }
+        \end{tikzpicture}
+        \subcaption{}
+        \label{Ch1:Subfig:3D_Hexagonal_Stacking}
+    \end{subfigure}
+    \caption{Two different ways of stacking the honeycomb packing on itself.}
+    \label{Ch1:Fig:2_Optimal_3D_Packings}
 \end{figure}

@@ -18,6 +18,10 @@
     \draw[fill=yellow, opacity=0.5] (#1, #2) circle (0.5);
     \node at (#1, #2) {\color{gray}{$\bullet$}};
 }
+\newcommand{\latticecirclegrey}[2]{
+    \draw[fill=gray, opacity=0.75] (#1, #2) circle (0.5);
+    \node at (#1, #2) {\color{black}{$\bullet$}};
+}
 \usetikzlibrary{decorations.markings}
 \tikzset{->-/.style={decoration={
       markings,
