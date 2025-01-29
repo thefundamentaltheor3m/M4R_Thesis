@@ -2,11 +2,43 @@
 
 Before we begin defining things formally, we must include a small disclaimer about the terminology we have been using---and will continue to use---in this project. While \Cref{Ch1:Prob:SpherePacking_n} is usually referred to as the \textit{sphere} packing problem, a sphere is not usually thought to have an interior. Typically, in any metric space $X$ with metric $d$, the \textit{sphere} of radius $r \geq 0$ centred at $x \in X$ is defined to be $\setst{y \in X}{d(x, y) = r}$. In other words, the sphere consists only of a surface. In contrast, the sphere packing problem involves packing \textit{solid balls}. One can see why, in \cite{CannonHoney}, Hales opines that a more proper term for the problem would be the \textit{ball packing problem}. Nevertheless, in this project, we will continue to use the standard terminology, but we include this disclaimer so the reader bears in mind two things: first, that we will often mean `ball' when we use the word `sphere', and second, that we work with balls instead of spheres in Lean. We will also mention that it is convenient to require that the balls in question be open, so that the condition that spheres cannot overlap but merely touch tangentially can be shortened to that of disjointedness. We introduce notation.
 
-% \begin{boxnotation}
-%     For some $d \in \N$, $x \in \R^d$ and $r > 0$, we denote
-%     \begin{align*}
-%         B_d(x, r) := \setst{y \in \R^d}{\norm{x - y} < r}
-%     \end{align*}
-% \end{boxnotation}
+\begin{boxnotation}
+    For some $d \in \N$, $x \in \R^d$ and $r > 0$, we denote
+    \begin{align*}
+        B_d(x, r) := \setst{y \in \R^d}{\norm{x - y} < r}
+    \end{align*}
+\end{boxnotation}
 
 We begin by defining a sphere packing. As we have stated, we want sphere packings to consist of disjoint spheres of the same radius. Given that lying on the interior of a certain sphere corresponds to being within some distance from its centre, we can capture this notion of disjointedness by imposing a separation condition on the set of centres of the sphere packing.
+
+\begin{boxdefinition}[Sphere Packing]
+    Fix $d \in \N$ and $X \subset \R^d$. Assume that there exists a real number $r > 0$, known as the \textbf{separation radius}, such that
+    \begin{align*}
+        \norm{x - y} \geq r
+    \end{align*}
+    for all distinct $x, y \in X$. We define the \textbf{sphere packing with centres at $X$} to be
+    \begin{align*}
+        \Pa(X) := \bigcup_{x \in X} B_d(x, r)
+    \end{align*}
+\end{boxdefinition}
+
+Note that the assumption that a separation radius exists is very important.
+
+\begin{boxnexample}
+    Let $d = 1$ and $X = \R$. Consider the set
+    \begin{align*}
+        \bigcup_{x \in \R} B_1(x, r) = \bigcup_{x \in \R} \parenth{x-r, x+r}
+    \end{align*}
+    For any $r > 0$, the above union is all of $\R$. However, it does not make sense to construct a sphere packing whose set of centres is the entirety of $\R$, as this would involve spheres overlapping. It is precisely to avoid such constructions that we impose the condition that $r$ be a separation radius on the set of centres.
+\end{boxnexample}
+
+Since all the information about a sphere packing is encoded in its set of centres and the corresponding separation radius (which must exist in order for the set of centres to be a valid set of centres for a sphere packing), it was decided that a sphere packing would be formalised purely as a set of centres with a valid separation, and that a separate definition would be made to obtain the open balls that constitute the packing. This is a subtle, but important, distinction that is explicit in Lean but that we will often ignore when reasoning less formally.
+
+We now define density, an indicator of how much of a bounded region of space a sphere packing covers.
+
+\begin{boxdefinition}[Finite Density]
+    Let $\Pa$ be a sphere packing. For all $R > 0$, define the \textbf{finite density} to be the quantity
+    \begin{align*}
+        \Delta_\Pa(R) := \frac{}{}
+    \end{align*}
+\end{boxdefinition}
