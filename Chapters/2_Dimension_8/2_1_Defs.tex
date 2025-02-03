@@ -9,6 +9,10 @@ Before we begin defining things formally, we must include a small disclaimer abo
     \end{align*}
 \end{boxnotation}
 
+We organise this section into three subsections. The first defines fundamental notions about sphere packings. The second introduces the properties of two important, and closely related, classes of sphere packings, namely, lattice packings and periodic packings. The third subsection studies the most important sphere packing for our project: the $E_8$ lattice packing.
+
+\subsection{Fundamentals on Sphere Packings}
+
 We begin by defining a sphere packing. As we have stated, we want sphere packings to consist of disjoint spheres of the same radius. Given that lying on the interior of a certain sphere corresponds to being within some distance from its centre, we can capture this notion of disjointedness by imposing a separation condition on the set of centres of the sphere packing.
 
 \begin{boxdefinition}[Sphere Packing]
@@ -34,12 +38,35 @@ Note that the assumption that a separation radius exists is very important.
 
 Since all the information about a sphere packing is encoded in its set of centres and the corresponding separation radius (which must exist in order for the set of centres to be a valid set of centres for a sphere packing), it was decided that a sphere packing would be formalised purely as a set of centres with a valid separation, and that a separate definition would be made to obtain the open balls that constitute the packing. This is a subtle, but important, distinction that is explicit in Lean but that we will often ignore when reasoning less formally.
 
-We now define density, an indicator of how much of a bounded region of space a sphere packing covers.
+We now define finite density, an indicator of how much of a bounded region of space a sphere packing covers.
 
-\begin{boxdefinition}[Finite Density]
-    Let $\Pa$ be a sphere packing. For all $R > 0$, define the \textbf{finite density} to be the quantity
+\begin{boxdefinition}[Finite Density]\label{Ch2:Def:FiniteDensity}
+    Let $\Pa$ be a sphere packing. For all $R > 0$, define the \textbf{finite density} to be
     \begin{align*}
         \Delta_\Pa(R) := \frac{\Volof{\Pa \cap B_d(0, R)}}{\Volof{B_d(0, R)}}
     \end{align*}
     where $\Vol$ is the Lebesgue measure on $\R^d$.
 \end{boxdefinition}
+
+Finite density is a somewhat local notion, in that it expresses sphere how closely packed spheres are in a bounded region. The sphere packing problem, on the other hand, examines the notion of closeness on a more global level. While taking the limit of finite densities as the radius of the bounding region approaches infinity might seem like a natural way to define density, it is not obvious that this limit always exists. Therefore, we define density to be the limit superior instead.
+
+\begin{boxdefinition}[Density]\label{Ch2:Def:Density}
+    Let $\Pa$ be a sphere packing. Define the \textbf{density} of $\Pa$ to be
+    \begin{align*}
+        \Delta(\Pa) := \limsup_{R \to \infty} \Delta_\Pa(R)
+    \end{align*}
+    where $\Delta_\Pa(R)$ is the finite density of $\Pa$, as defined in \Cref{Ch2:Def:FiniteDensity}.
+\end{boxdefinition}
+
+The sphere packing problem asks for the sphere packing that achieves the highest possible density. We can be formal about the notion of the highest possible density.
+
+\begin{boxdefinition}[Sphere Packing Constant]
+    The \textbf{sphere packing constant} in $\R^d$, for any $d > 0$, is defined to be
+    \begin{align*}
+        \Delta_d := \sup\!\parenth{{\setst{\Delta_{\Pa}}{\Pa \text{ is a sphere packing in } \R^d}}}
+    \end{align*}
+\end{boxdefinition}
+
+\subsection{Lattice and Periodic Sphere Packings}
+
+\subsection{The $E_8$ Lattice Packing}

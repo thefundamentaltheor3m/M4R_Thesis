@@ -1,12 +1,13 @@
 \section{The Formalisation Movement}
 
-\begin{comment}
-
-In a project description that was published after Hales's paper, he wrote, of his motivations,
+While Hales announced his intent to formally verify his proof of the Kepler Conjecture in 2003, it was not till 2006, after Hales's solution appeared in the \textit{Annals}, that a formal description of Hales's formalisation project was published. Of his motivations, Hales wrote:
 \begin{quote}
-    \textit{In response to the lingering doubt about the correctness of the proof, at the beginning of 2003, I launched the \emph{Flyspeck} project, whose aim is a complete formal verification of the Kepler Conjecture. In truth, my motivations for the project are far more complex than a simple hope of removing residual doubt from the minds of few referees. Indeed, I see formal methods as fundamental to the long-term growth of mathematics.} \cite{FlyspeckAnnouncement}
+    \textit{In response to the lingering doubt about the correctness of the proof, at the beginning of 2003, I launched the \emph{Flyspeck} project, whose aim is a complete formal verification of the Kepler Conjecture. In truth, my motivations for the project are far more complex than a simple hope of removing residual doubt from the minds of few referees. Indeed, I see formal methods as fundamental to the long-term growth of mathematics.}~\cite{FlyspeckAnnouncement}
 \end{quote}
+Formal theorem proving was not unheard of in 2006. Interactive theorem provers, such as Coq and PRL, have existed since the 1980s. However, it was still a relatively young field, and the amount of mathematics that had been formalised was limited. Hales's project was immensely ambitious, and the fact that it succeeded, despite taking over a decade, is impressive.
 
-NOTE TO SELF: Say something about the prophetic nature of the second half of his statement ("In truth..."). Use that to introduce the formalisation movement.
+There is something prophetic about Hales's ``far more complex'' motivations for launching the Flyspeck project. The field of formal theorem proving has grown rapidly in the last decade, and interactive theorem provers like Lean are slowly making their way into mainstream mathematics. An excellent example of this is the formal verification of Gowers, Green, Manners and Tao's proof of Marton's Conjecture~\cite{PFROriginalPaper}, which was formally verified in Lean in just three weeks. In particular, their proof was formally verified \textit{before} their paper was submitted for publication. The paper is set to appear in the \textit{Annals}.\todo{Update with actual publication date if published before thesis deadline. Also update citation accordingly.}
 
-\end{comment}
+There are many advantages of formal theorem proving. One advantage is the fact that formally proved theorems are verified by a proof assistant. When code written in proof assistants is compiled, if there are no errors, then the proof can be thought of as being `correct', in the sense of  being consistent with the axioms of the proof assistant.\todo{Finish}
+
+% Continue...
