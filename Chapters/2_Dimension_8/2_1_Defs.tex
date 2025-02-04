@@ -67,6 +67,28 @@ The sphere packing problem asks for the sphere packing that achieves the highest
     \end{align*}
 \end{boxdefinition}
 
+There is a trivial upper-bound on sphere packing density.
+
+\begin{boxlemma}
+    For any sphere packing $\Pa$ and $R > 0$, we have that $\Delta_{\Pa}(R) \leq 1$.
+\end{boxlemma}
+\begin{proof}
+    This is an immediate consequence of the fact that $\Pa \cap B_d(0, R) \subseteq B_d(0, R)$.
+\end{proof}
+This immediately gives us the following basic facts.
+\begin{boxcorollary}
+    For any sphere packing $\Pa$, we have that $\Delta_{\Pa} \leq 1$.
+\end{boxcorollary}
+\begin{boxcorollary}
+    For any $d \in \N$, $\Delta_d \leq 1$
+\end{boxcorollary}
+
+This is not a very good upper-bound. However, it tells us that the sphere packing constant in any number of dimensions is a finite real number in the interval $(0, 1]$. There is still some work to be done before we can give better bounds on the sphere packing constant. Furthermore, it is unclear whether the sphere packing constant actually is, for a general $d$, the density of a sphere packing in $\R^d$. Nevertheless, this is a good starting point.
+
+A great deal of basic sphere packing API was developed in July 2024. The majority of it was written by Gareth Ma
+
+In the next subsection, we discuss a special class of sphere packings that have periodicity properties with respect to lattices.
+
 \subsection{Lattice and Periodic Sphere Packings}
 
 \subsection{The $E_8$ Lattice Packing}
