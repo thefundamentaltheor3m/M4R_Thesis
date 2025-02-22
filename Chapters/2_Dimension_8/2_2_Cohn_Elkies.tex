@@ -1,1 +1,13 @@
 \section{The Cohn-Elkies Linear Programming Bounds}\label{Ch2:Sec:CohnElkies}
+
+\begin{boxtheorem}\label{SP:Thm:CohnElkies:Blueprint} % Make sure to include the original version before this and then this adaptation
+    If $f : \R^d \to \R$ is a Schwartz function satisfying the conditions
+    \begin{enumerate}[label = \normalfont(CE\arabic*)]
+        \item For all $x \in \R^d$, if $\norm{x} \geq 1$ then $f(x) \leq 0$.
+        \item For all $x \in \R^d$, $\hat{f}(x) \geq 0$.
+    \end{enumerate}
+    then we have the following bound on the sphere packing constant $\Delta_d$:
+    \begin{align*}
+        \Delta_d \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
+    \end{align*}
+\end{boxtheorem}
