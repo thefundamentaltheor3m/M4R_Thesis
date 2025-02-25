@@ -65,6 +65,19 @@ Finite density is a somewhat local notion, in that it expresses sphere how close
     where $\Delta_\Pa(R)$ is the finite density of $\Pa$, as defined in \Cref{Ch2:Def:FiniteDensity}.
 \end{boxdefinition}
 
+As one might expect, finite density and density are invariant under scaling.
+
+\begin{boxproposition}\label{Ch2:Prop:Scaling_Sphere_Packings}
+    Let $\Pa$ be a sphere packing. Fix $\lambda > 0$. Denoting by $\lambda \Pa$ the sphere packing obtained by scaling the spheres and the set of centres in $\Pa$ by a factor of $\lambda$, we have
+    \begin{align*}
+        \Delta_{\Pa}\of{R} = \Delta_{\lambda \Pa}\of{\lambda R}
+    \end{align*}
+    for all $R > 0$. Similarly, we have
+    \begin{align*}
+        \Delta\of{\Pa} = \Delta\of{\lambda \Pa}
+    \end{align*}
+\end{boxproposition}
+
 The sphere packing problem asks for the sphere packing that achieves the highest possible density. We can be formal about the notion of the highest possible density.
 
 \begin{boxdefinition}[Sphere Packing Constant]
@@ -74,7 +87,18 @@ The sphere packing problem asks for the sphere packing that achieves the highest
     \end{align*}
 \end{boxdefinition}
 
-There is a trivial upper-bound on sphere packing density.
+\Cref{Ch2:Prop:Scaling_Sphere_Packings} tells us that it suffices to take the supremum over sphere packings of separation $1$, because a sphere packing $\Pa$ can be scaled down by its separation radius to obtain a sphere packing of separation $1$.
+
+\begin{boxproposition}
+    For all $d$, we have
+    \begin{align*}
+        \Delta_d = \sup\!\parenth{{\setst{\Delta_{\Pa}}{\Pa \text{ is a sphere packing in } \R^d \text{ with separation } 1}}}
+    \end{align*}
+\end{boxproposition}
+
+As intuitive as this result might seem, we do mention it here because it is something we have to deal with explicitly when formalising the theory of sphere packings in Lean. The first instance when we really see it in action is the proof of \Cref{SP:Thm:CohnElkies}.
+
+The objective of the sphere packing problem in any dimension $d$ is to optimise the sphere packing constant $\Delta_d$. As we have seen, this is a highly non-trivial thing to do. We can, however, offer a trivial upper-bound on sphere packing density.
 
 \begin{boxlemma}
     For any sphere packing $\Pa$ and $R > 0$, we have that $\Delta_{\Pa}(R) \leq 1$.
@@ -87,7 +111,7 @@ This immediately gives us the following basic facts.
     For any sphere packing $\Pa$, we have that $\Delta_{\Pa} \leq 1$.
 \end{boxcorollary}
 \begin{boxcorollary}
-    For any $d \in \N$, $\Delta_d \leq 1$
+    For any $d \in \N$, $\Delta_d \leq 1$.
 \end{boxcorollary}
 
 This is not a very good upper-bound. However, it tells us that the sphere packing constant in any number of dimensions is a finite real number in the interval $(0, 1]$. There is still some work to be done before we can give better bounds on the sphere packing constant. Furthermore, it is unclear whether the sphere packing constant actually is, for a general $d$, the density of a sphere packing in $\R^d$. Nevertheless, this is a good starting point.

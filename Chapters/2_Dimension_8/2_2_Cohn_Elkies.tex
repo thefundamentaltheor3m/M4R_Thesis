@@ -1,13 +1,34 @@
 \section{The Cohn-Elkies Linear Programming Bounds}\label{Ch2:Sec:CohnElkies}
 
-\begin{boxtheorem}\label{SP:Thm:CohnElkies:Blueprint} % Make sure to include the original version before this and then this adaptation
+Arguably, the result that most radically changed the sphere packing game was the linear programming bound constructed by Henry Cohn and Noam Elkies~\cite[Theorem 3.1]{CohnElkies}. The bound transforms the sphere packing problem from a geometric one to an analytic one. For all $d \in \N$, it posits the existence of a family of upper-bounds on the sphere packing constant $\Delta_d$, indexed by functions $f : \R^d \to \R$ that satisfy certain conditions.
+
+The power of this result is that it offers a systematic approach to prove that a certain sphere packing $\Pa$ is optimal in $\R^d$. The optimality condition means that the density of $\Pa$ is equal to the sphere packing constant $\Delta_d$, which is equivalent to requiring that the density of $\Pa$ be greater than or equal to the density of any other packing in $\R^d$. The theorem proved by Cohn and Elkies tells us we can accomplish this by
+\begin{enumerate}
+    \item identifying a function $f : \R^d \to \R$ that satisfies the conditions of the theorem, giving an upper-bound for $\Delta_d$, and
+    \item showing that the upper-bound indexed by $f$ is equal to the density of the packing $\Pa$.
+\end{enumerate}
+As simple as this sounds, it took close to fourteen years from the publication of Cohn and Elkies's paper for it to be used to concretely construct an optimal sphere packing. The real trick is to construct the right function $f$ to use in the process outlined above. We shall soon see the non-triviality of this task first-hand.
+
+The original result~\cite[Theorem 3.1]{CohnElkies} is a bit different from the version that was chosen to be formalised. Firstly, the original result was stated for a very general class of functions known as \textit{admissible functions}. For our purposes, however, it suffices to look at Schwartz functions, which are not only admissible but also have useful properties that we will exploit later. We will remark, however, that at the time when Cohn and Elkies proposed their bound, it was not known that the solution to the sphere packing problem in dimensions $8$ and $24$ would only involve Schwartz functions. Furthermore, it might be possible that solutions in other dimensions would require the full generality of Cohn and Elkies's original result. Nevertheless, we will restrict our attention to Schwartz functions for the time being, not only because it is sufficient for our purposes but also because the theory of Schwartz functions has been developed quite substantially in \mathlib.
+
+Another minor difference between the original result and the version we work with is that the original result was stated as an upper-bound on all \textit{centre densities} of sphere packings. The centre density of a sphere packing is merely a rescaling of its density by a factor of $\Volof{B_d\of{0, 1}}\inv$. Instead of encoding the information of the amount of sphere packing volume per unit volume of the ambient space, the centre density encodes the information of the number of centres of the sphere packing per unit volume of the ambient space. We sidestep these nuances by stating the result in terms of quantities we have defined.
+
+\begin{boxtheorem}[Cohn and Elkies, 2003~{\cite[Theorem 3.1]{CohnElkies}}]\label{SP:Thm:CohnElkies} % Make sure to include the original version before this and then this adaptation
     If $f : \R^d \to \R$ is a Schwartz function satisfying the conditions
     \begin{enumerate}[label = \normalfont(CE\arabic*)]
-        \item For all $x \in \R^d$, if $\norm{x} \geq 1$ then $f(x) \leq 0$.
-        \item For all $x \in \R^d$, $\hat{f}(x) \geq 0$.
+        \item\label{SP:CE1} $f$ is not identically zero.
+        \item\label{SP:CE2} For all $x \in \R^d$, if $\norm{x} \geq 1$ then $f(x) \leq 0$.
+        \item\label{SP:CE3} For all $x \in \R^d$, $\hat{f}(x) \geq 0$.
     \end{enumerate}
     then we have the following bound on the sphere packing constant $\Delta_d$:
     \begin{align*}
         \Delta_d \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
     \end{align*}
 \end{boxtheorem}
+\begin{proof}
+    Let $f : \R^d \to \R$ be a Schwartz function satisfying the conditions~\ref{SP:CE1}-\ref{CE3}. By \Cref{Ch2:Prop:Periodic_Const_eq_Const}, it suffices to prove that
+    \begin{align*}
+        \Delta_d^{\text{periodic}} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
+    \end{align*}
+
+\end{proof}

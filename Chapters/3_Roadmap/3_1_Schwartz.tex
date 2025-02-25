@@ -1,6 +1,6 @@
 \section{Radial Schwartz Functions}
 
-In the statement of~\Cref{SP:Thm:CohnElkies:Blueprint}, we require the function in terms of which we bound the sphere packing constant in dimension $d$ to be Schwartz. However, we have yet to formally define what this means. Intuitively, a Schwartz function is a smooth function whose every derivative decays faster than any inverse power of the norm. Below, we give a more formal definition that is adapted from the definition of the \verb|structure| \verb|SchwartzMap| in \mathlib.\todo{cite}
+In the statement of~\Cref{SP:Thm:CohnElkies}, we require the function in terms of which we bound the sphere packing constant in dimension $d$ to be Schwartz. However, we have yet to formally define what this means. Intuitively, a Schwartz function is a smooth function whose every derivative decays faster than any inverse power of the norm. Below, we give a more formal definition that is adapted from the definition of the \verb|structure| \verb|SchwartzMap| in \mathlib.\todo{cite}
 
 \begin{boxdefinition}[Schwartz Function]
     Let $E$ and $F$ be normed $\R$-vector spaces. We say that $f : E \to F$ is \textbf{Schwartz} if it is infinitely continuously differentiable and for all $n, k \in \N$, there exists some $C \in \R$ such that for all $x \in E$,
@@ -15,7 +15,7 @@ One can show that $\R$-linear combinations of Schwartz functions are Schwartz fu
     Let $E$ and $F$ be normed $\R$-vector spaces. We define the \textbf{Schwartz space} $\Sch(E, F)$ to be the set of all Schwartz functions from $E$ to $F$, viewed as a vector space over $\R$.
 \end{boxdefinition}
 
-At the outset, it might appear that the reason we are interested in Schwartz functions is that this is a requirement of the Poisson Summation Formula\todo{cross reference}, which is used in the proof of the \CELP\ (\Cref{SP:Thm:CohnElkies:Blueprint}). However, this turns out to be a sufficient condition for the Poisson Summation Formula to hold, not a necessary condition. There is a deeper reason why we are interested in Schwartz functions: the \CEC\ immediately show us that we should also consider the properties of the Fourier transform of the magic function, and Fourier transforms of Schwartz functions turn out to be Schwartz. In fact, we can say something stronger when we view the Fourier transform as an operator on the Schwartz space.
+At the outset, it might appear that the reason we are interested in Schwartz functions is that this is a requirement of the Poisson Summation Formula\todo{cross reference}, which is used in the proof of the \CELP\ (\Cref{SP:Thm:CohnElkies}). However, this turns out to be a sufficient condition for the Poisson Summation Formula to hold, not a necessary condition. There is a deeper reason why we are interested in Schwartz functions: the \CEC\ immediately show us that we should also consider the properties of the Fourier transform of the magic function, and Fourier transforms of Schwartz functions turn out to be Schwartz. In fact, we can say something stronger when we view the Fourier transform as an operator on the Schwartz space.
 
 \begin{boxtheorem}
     Let $V$ be a finite-dimensional inner-product space over $\R$ and let $E$ be a normed vector space over $\C$. The Fourier transform
