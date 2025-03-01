@@ -13,12 +13,38 @@ The original result~\cite[Theorem 3.1]{CohnElkies} is a bit different from the v
 
 Another minor difference between the original result and the version we work with is that the original result was stated as an upper-bound on all \textit{centre densities} of sphere packings. The centre density of a sphere packing is merely a rescaling of its density by a factor of $\Volof{B_d\of{0, 1}}\inv$. Instead of encoding the information of the amount of sphere packing volume per unit volume of the ambient space, the centre density encodes the information of the number of centres of the sphere packing per unit volume of the ambient space. We sidestep these nuances by stating the result in terms of quantities we have defined.
 
+Before we prove the result, we need to state an important dependency: the \textbf{Poisson Summation Formula over Lattices}. Again, we only state it for Schwartz functions, but it applies in greater generality. The Formula does not exist in \mathlib, and there is some debate as to the generality in which it must be stated in the library. It has been stated as part of the sphere packing formalisation effort, but has not been proven.\todo{include code reference}
+
+Before we can state the Formula, we need to define a dual space analogue of lattices.
+
+\begin{boxdefinition}[Dual Lattice]
+    Fix $d > 0$ and let $\Lambda \subset \R^d$ be a lattice. We define the \textbf{dual lattice} of $\Lambda$ to be
+    \begin{align*}
+        \Lambda^* := \setst{y \in \R^d}{\cycl{x, y} \in \Z \text{ for all } x \in \Lambda}
+    \end{align*}
+\end{boxdefinition}
+
+Indeed, if we identify each $y \in \Lambda^*$ with the map $\cycl{\text{-}, y} \in \parenth{\R^d}^*$, then we can see that $\Lambda^*$ is the dual $\Z$-submodule of $\Lambda \subset \R^d$ in the dual space $\parenth{\R^{d}}^*$. But, for our convenience, we will stick to the definition above, which views $\Lambda^*$ as a subset of $\R^d$.
+
+We can now state the Poisson Summation Formula over lattices.
+
+\begin{boxtheorem}[Poisson Summation Formula over Lattices]
+    Let $d > 0$ and let $\Lambda \subset \R^d$ be a lattice. Let $f : \R^d \to \R$ be a Schwartz function. For all vectors $v \in \R^d$, we have
+    \begin{align*}
+        \sum_{\ell \in \Lambda} \fof{\ell + v} = \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}} \sum_{m \in \Lambda^*} \hat{f}(y) e^{-2\pi i \cycl{v, m}}
+    \end{align*}
+\end{boxtheorem}
+
+The proof of this result can be found in \sorry\todo{FIND A PROOF ONLINE!}. % Could potentially say `this is well known' and skip the proof saying it's out of scope...
+
+Armed with this important result, we are ready to state and prove the Cohn-Elkies Linear Programming Bound for Schwartz functions.
+
 \begin{boxtheorem}[Cohn and Elkies, 2003~{\cite[Theorem 3.1]{CohnElkies}}]\label{SP:Thm:CohnElkies} % Make sure to include the original version before this and then this adaptation
     If $f : \R^d \to \R$ is a Schwartz function satisfying the conditions
     \begin{enumerate}[label = \normalfont(CE\arabic*)]
-        \item\label{SP:CE1} $f$ is not identically zero.
-        \item\label{SP:CE2} For all $x \in \R^d$, if $\norm{x} \geq 1$ then $f(x) \leq 0$.
-        \item\label{SP:CE3} For all $x \in \R^d$, $\hat{f}(x) \geq 0$.
+        \item\label{CE1} $f$ is not identically zero.
+        \item\label{CE2} For all $x \in \R^d$, if $\norm{x} \geq 1$ then $f(x) \leq 0$.
+        \item\label{CE3} For all $x \in \R^d$, $\hat{f}(x) \geq 0$.
     \end{enumerate}
     then we have the following bound on the sphere packing constant $\Delta_d$:
     \begin{align*}
@@ -26,9 +52,12 @@ Another minor difference between the original result and the version we work wit
     \end{align*}
 \end{boxtheorem}
 \begin{proof}
-    Let $f : \R^d \to \R$ be a Schwartz function satisfying the conditions~\ref{SP:CE1}-\ref{CE3}. By \Cref{Ch2:Prop:Periodic_Const_eq_Const}, it suffices to prove that
+    Let $f : \R^d \to \R$ be a Schwartz function satisfying the conditions~\ref{CE1}-\ref{CE3}. By \Cref{Ch2:Prop:Periodic_Const_eq_Const}, it suffices to prove that
     \begin{align*}
-        \Delta_d^{\text{periodic}} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
+        \Delta_d^{\periodic} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
     \end{align*}
-
+    Fix a sphere packing $\Pa$ that is periodic with respect to some lattice $\Lambda$. We need to show that $\Delta_{\Pa} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}$/ By \Cref{Ch2:Prop:Scaling_Sphere_Packings}, we can assume that the separation radius of $\Pa$ is $1$: if it is not, we can scale it appropriately, and this will not affect its density. Denote the set of centres of $\Pa$ by $X$. By \Cref{Ch2:Eq:Periodic_Density}, we need to show that
+    \begin{align*}
+        \frac{\abs{\quotient{X}{\Lambda}}}{\Volof{\quotient{\R^d}{\Lambda}}} \cdot \Volof{B_d\of{0, \frac{1}{2}}} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
+    \end{align*}
 \end{proof}

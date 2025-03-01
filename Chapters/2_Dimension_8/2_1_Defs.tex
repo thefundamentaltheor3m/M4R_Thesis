@@ -89,7 +89,7 @@ The sphere packing problem asks for the sphere packing that achieves the highest
 
 \Cref{Ch2:Prop:Scaling_Sphere_Packings} tells us that it suffices to take the supremum over sphere packings of separation $1$, because a sphere packing $\Pa$ can be scaled down by its separation radius to obtain a sphere packing of separation $1$.
 
-\begin{boxproposition}
+\begin{boxproposition}\label{Ch2:Prop:Scaling_Sphere_Packing_Constant}
     For all $d$, we have
     \begin{align*}
         \Delta_d = \sup\!\parenth{{\setst{\Delta_{\Pa}}{\Pa \text{ is a sphere packing in } \R^d \text{ with separation } 1}}}
@@ -177,7 +177,7 @@ Just as we defined the sphere packing constant for any dimension $d \in \N$, we 
 \begin{boxdefinition}[Periodic Sphere Packing Constant]
     For all $d \in \N$, define the \textbf{periodic sphere packing constant in dimension $d$} to be
     \begin{align*}
-        \Delta_{d}^{\text{periodic}} = \sup\of{{\setst{\Delta_{\Pa}}{\Pa \text{ is a periodic sphere packing in } \R^d}}}
+        \Delta_{d}^{\periodic} = \sup\of{{\setst{\Delta_{\Pa}}{\Pa \text{ is a periodic sphere packing in } \R^d}}}
     \end{align*}
 \end{boxdefinition}
 
@@ -186,13 +186,20 @@ The power of periodic sphere packings is illustrated by a rather surprising fact
 \begin{boxproposition}\label{Ch2:Prop:Periodic_Const_eq_Const}
     For all $d \in \N$,
     \begin{align*}
-        \Delta_{d} = \Delta_{d}^{\text{periodic}}
+        \Delta_{d} = \Delta_{d}^{\periodic}
     \end{align*}
 \end{boxproposition}
 
-We do not prove this result here, as it is beyond the scope of this M4R. A proof can be found in \cite[Appendix A]{CohnElkies}.
+We do not prove this result here, as it is beyond the scope of this M4R. A proof can be found in \cite[Appendix A]{CohnElkies}. We do, however, mention that \Cref{Ch2:Prop:Periodic_Const_eq_Const} can be combined with \Cref{Ch2:Prop:Scaling_Sphere_Packing_Constant} to give the following.
 
-\Cref{Ch2:Prop:Periodic_Const_eq_Const} tells us that finding a sphere packing that satisfies the \textit{periodic} sphere packing constant gives us the optimal sphere packing in dimension $d$. We will exploit this fact in \Cref{Ch2:Sec:CohnElkies}, where we will construct an upper bound for all sphere packing densities in dimension $d$ by constructing an upper-bound for the periodic sphere packing constant in dimension $d$. When constructing this upper-bound, we will exploit the fact that periodic sphere packings admit a `nice' density formula (cf. \Cref{Ch2:Prop:Periodic_Density}). The results we have seen about periodic sphere packings will thus greatly simplify our task of finding the optimal sphere packing in dimension $8$.
+\begin{boxproposition}\label{Ch2:Prop:Scaling_Periodic_Constant}
+    For all $d \in \N$,
+    \begin{align*}
+        \Delta_{d} = \sup\of{{\setst{\Delta_{\Pa}}{\Pa \text{ is a periodic sphere packing in } \R^d \text{ with separation } 1}}}
+    \end{align*}
+\end{boxproposition}
+
+\Cref{Ch2:Prop:Periodic_Const_eq_Const} tells us that finding a sphere packing that satisfies the \textit{periodic} sphere packing constant gives us the optimal sphere packing in dimension $d$. \Cref{Ch2:Prop:Scaling_Periodic_Constant} allows us to focus our search even more. We will exploit these two facts in \Cref{Ch2:Sec:CohnElkies}, where we will construct an upper bound for all sphere packing densities in dimension $d$ by constructing an upper-bound for the periodic sphere packing constant in dimension $d$. When constructing this upper-bound, we will exploit the fact that periodic sphere packings admit a `nice' density formula (cf. \Cref{Ch2:Prop:Periodic_Density}). The results we have seen about periodic sphere packings will thus greatly simplify our task of finding the optimal sphere packing in dimension $8$.
 
 We are now ready to discuss a special sphere packing in $\R^8$: the $E_8$ sphere packing.
 
