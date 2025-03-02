@@ -27,3 +27,8 @@ At the outset, it might appear that the reason we are interested in Schwartz fun
 
 A formal proof of this result can be found in \mathlib.
 
+It turns out that there is another condition we can impose to simplify our hunt for the magic function. The key idea is to find a function satisfying the conditions~\ref{CE1}-\ref{CE3}. Observe, for $x \in \R^d$, that \ref{CE1} does not depend on $x$, and \ref{CE2} and \ref{CE3} only depend on $\norm{x}$. This allows us to narrow our search to \textbf{radial functions}, which we define as follows.
+
+\begin{boxdefinition}[Radial Functions]
+    Let $E$ be a normed $\R$-vector space and $\alpha$ an arbitrary set. We say that $f : E \to \alpha$ is \textbf{radial} if for all $x, y \in E$, if $\norm{x} = \norm{y}$, then $f(x) = f(y)$.
+\end{boxdefinition}
