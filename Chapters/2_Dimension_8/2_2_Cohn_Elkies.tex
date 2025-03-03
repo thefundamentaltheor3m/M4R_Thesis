@@ -15,6 +15,62 @@ Another minor difference between the original result and the version we work wit
 
 Before we prove the result, we need to state an important dependency: the \textbf{Poisson Summation Formula over Lattices}. Again, we only state it for Schwartz functions, but it applies in greater generality. The Formula does not exist in \mathlib, and there is some debate as to the generality in which it must be stated in the library. It has been stated as part of the sphere packing formalisation effort, but has not been proven.\todo{include code reference}
 
+The Poisson Summation Formula essentially relates a sum of a Schwartz function over a lattuce to a sum of its Fourier transform over another lattice. Therefore, before we state the Poisson Summation Formula, we say a few words about Fourier transforms, Fourier inversion, and the formalisation of these definitions in Lean.
+
+\subsection{A Word on Fourier Transforms}
+
+The subject of Fourier analysis is deep, and has applications to a number of areas in pure and applied mathematics. There are deeper undertones to the role of the Fourier transform in Viazovska's proof of the optimality of the $E_8$ lattice packing in $\R^8$: much of the underlying motivation comes from broader Fourier interpolation results that are beyond the scope of this thesis and this formalisation project. In this subsection, we do not do more than define the Fourier transform and its inverse. We will also very briefly discuss the formalisation of these definitions in Lean.
+
+We begin by defining the Fourier transform of a function.
+
+\begin{boxdefinition}[Fourier Transform]
+    Fix $m, n \in \N$ and let $f : \R^m \to \C^n$ be an $L^1$ function. We define the \textbf{Fourier transform} of $f$ to be the function
+    \begin{align*}
+        \F(f) : \R^m \to \C^n : \xi \mapsto \int_{\R^d} \fx e^{-2 \pi i \cycl{x, \xi}} \dx
+    \end{align*}
+\end{boxdefinition}
+
+In the \mathlib\ definition of the Fourier transform \todo{cite}, we have no assumptions on $f$. This is because the integral of a function that is not integrable is defined to be zero.
+% https://github.com/leanprover-community/mathlib4/blob/72bf52f21e463ed123c31426cecc3ba6a5878092/Mathlib/Analysis/Fourier/FourierTransform.lean#L376
+
+As is often done in the literature, we adopt the following alternative notation for the Fourier transform.
+
+\begin{boxnotation}
+    Given an $L^1$ function $f : \R^m \to \C^n$, we denote its Fourier transform by $\hat{f}$.
+\end{boxnotation}
+
+We use this notation interchangeably.
+
+We can also define the inverse Fourier transform.
+
+\begin{boxdefinition}[Inverse Fourier Transform]
+    Fix $m, n \in \N$ and let $f : \R^m \to \C^n$ be an $L^1$ function. We define the \textbf{inverse Fourier transform} of $f$ to be the function
+    \begin{align*}
+         \F\inv(f) : \R^m \to \C^n : x \mapsto \int_{\R^d} \fof{\xi} e^{2 \pi i \cycl{x, \xi}} \diff{\xi}
+    \end{align*}
+\end{boxdefinition}
+
+Again, in the \mathlib\ definition, we have no assumptions on $f$.
+
+Confusingly, the inverse Fourier transform is not always the inverse of the Fourier transform---at least, not as per the \mathlib\ definition, because we do not assume integrability. Proving ``Fourier inversion'' formally---that is, that $\F\of{\F\of{f}} = f$ for some function $f$---is therefore highly nontrivial, and requires assumptions on $f$. We will see that this is true for an important class of functions called Schwartz functions.
+
+That being said, it turns out the following result is true for \textit{all} functions $f$, if we define the Fourier and inverse Fourier transforms the way they are defined in \mathlib.
+
+\begin{boxlemma}\label{Ch2:Lemma:Fourier_Inverse_Fourier_Neg}
+    Let $m, n \in \N$ and let $f : \R^m \to \C^n$ be $L^1$. For all $x \in \R^m$, we have that
+    \begin{align*}
+        \F\inv\of{f}\of{x} = \F\of{f}\of{-x}
+    \end{align*}
+\end{boxlemma}
+
+The proof is straightforward, and has been formalised in \mathlib.
+
+We do not need any more general results on Fourier transforms and inverse Fourier transforms in this thesis. Any further results will be specific to certain classes of functions.
+
+We can now define the ingredients for the Poisson Summation Formula.
+
+\subsection{The Poisson Summation Formula over Lattices}
+
 Before we can state the Formula, we need to define a dual space analogue of lattices.
 
 \begin{boxdefinition}[Dual Lattice]
@@ -38,6 +94,10 @@ We can now state the Poisson Summation Formula over lattices.
 The proof of this result can be found in \sorry\todo{FIND A PROOF ONLINE!}. While it has been stated in Lean, it has not been proven yet due to an ongoing debate on the generality in which it should be stated and proven in \mathlib. % Could potentially say `this is well known' and skip the proof saying it's out of scope...
 
 Armed with this important result, we are ready to state and prove the Cohn-Elkies Linear Programming Bound for Schwartz functions.
+
+\subsection{The \CELP}
+
+We now state the most important intermediate result in the proof of the optimality of the $E_8$ lattice packing in $\R^8$.
 
 \begin{boxtheorem}[Cohn and Elkies, 2003~{\cite[Theorem 3.1]{CohnElkies}}]\label{SP:Thm:CohnElkies} % Make sure to include the original version before this and then this adaptation
     If $f : \R^d \to \R$ is a Schwartz function satisfying the conditions
@@ -72,13 +132,13 @@ Armed with this important result, we are ready to state and prove the Cohn-Elkie
     \begin{align*}
         \sum_{x \in X} \sum_{y \in {\tiny \quotient{X}{\Lambda}}} \fof{x - y}
         =
-        \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}}\sum_{m \in \Lambda^*} \hat{f}(m) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i m x}}^2
+        \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}}\sum_{m \in \Lambda^*} \hat{f}(m) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i \cycl{x, m}}}^2
     \end{align*}
     \ref{CE3} tells us this is a sum of non-negative real numbers. We can therefore bound this sum below by the term corresponding to $x = 0$. Therefore,
     \begin{align*}
-        \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}}\sum_{m \in \Lambda^*} \hat{f}(m) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i m x}}^2
+        \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}}\sum_{m \in \Lambda^*} \hat{f}(m) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i \cycl{x, m}}}^2
         &\geq
-        \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}} \hat{f}(0) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i m 0}}^2 \\
+        \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}} \hat{f}(0) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i \cycl{0, m}}}^2 \\
         &= \frac{\abs{\quotient{X}{\Lambda}}^2}{\Volof{\quotient{\R^d}{\Lambda}}} \cdot \hat{f}(0)
     \end{align*}
     Putting these computations together gives us the desired result.

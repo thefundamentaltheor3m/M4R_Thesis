@@ -32,3 +32,20 @@ It turns out that there is another condition we can impose to simplify our hunt 
 \begin{boxdefinition}[Radial Functions]
     Let $E$ be a normed $\R$-vector space and $\alpha$ an arbitrary set. We say that $f : E \to \alpha$ is \textbf{radial} if for all $x, y \in E$, if $\norm{x} = \norm{y}$, then $f(x) = f(y)$.
 \end{boxdefinition}
+
+Radial Schwartz functions interact with the Fourier Transform in an even nicer way than ordinary Schwartz functions.
+
+\begin{boxproposition}\label{Ch3:Prop:RadialSchwartzFourier}
+    Let $f : \R^d \to \C$ be a radial Schwartz function. Then,
+    \begin{align*}
+        \F\of{\F\of{f}} = f
+    \end{align*}
+\end{boxproposition}
+\begin{proof}
+    Fix $x \in \R^d$. Applying \Cref{Ch2:Lemma:Fourier_Inverse_Fourier_Neg} to $\F\of{f}$ and $-x$, we have
+    \begin{align*}
+        \F\of{\F\of{f}}\of{x} = \F\inv\of{\F\of{f}}\of{-x} = f\of{-x} = f\of{x}
+    \end{align*}
+    where the fact that $\F\inv\of{\F\of{f}} = f$ follows from the fact that $f$ is Schwartz and the fact that $\fof{-x} = \fof{x}$ follows from the fact that $f$ is radial.
+\end{proof}
+
