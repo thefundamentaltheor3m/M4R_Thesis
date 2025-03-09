@@ -4,9 +4,10 @@ In the statement of~\Cref{SP:Thm:CohnElkies}, we require the function in terms o
 
 \begin{boxdefinition}[Schwartz Function]
     Let $E$ and $F$ be normed $\R$-vector spaces. We say that $f : E \to F$ is \textbf{Schwartz} if it is infinitely continuously differentiable and for all $n, k \in \N$, there exists some $C \in \R$ such that for all $x \in E$,
-    \begin{align*}
+    \begin{align}
         \norm{x}^k \cdot \norm{f^{(n)}(x)} \leq C
-    \end{align*}
+        \label{Ch3:Eq:SchwartzDecayProperty}
+    \end{align}
 \end{boxdefinition}
 
 One can show that $\R$-linear combinations of Schwartz functions are Schwartz functions. Then, given any $E$ and $F$, we can define the Schwartz space $\Sch(E, F)$.
@@ -49,3 +50,27 @@ Radial Schwartz functions interact with the Fourier Transform in an even nicer w
     where the fact that $\F\inv\of{\F\of{f}} = f$ follows from the fact that $f$ is Schwartz and the fact that $\fof{-x} = \fof{x}$ follows from the fact that $f$ is radial.
 \end{proof}
 
+\Cref{Ch3:Prop:RadialSchwartzFourier} indirectly provides us with a mechanism for constructing the magic function that is beautifully outlined in~\cite{CohnOnViazovskaICM}. Observe that if $f$ is a radial Schwartz function, we can write
+\begin{align*}
+    f = \underbrace{\frac{f - \hat{f}}{2}}_{=: f_{-}} + \underbrace{\frac{f + \hat{f}}{2}}_{=: f_{+}}
+\end{align*}
+The functions $f_{-}$ and $f_{+}$ have the properties that
+\begin{align*}
+    \F\of{f_{-}} &= \frac{1}{2} \parenth{\F\of{f} - \F\of{\hat{f}}} = \frac{1}{2} \parenth{\hat{f} - f} = -f_{-} \\
+    \F\of{f_{+}} &= \frac{1}{2} \parenth{\F\of{f} + \F\of{\hat{f}}} = \frac{1}{2} \parenth{\hat{f} + f} = f_{+}
+\end{align*}
+where we use \Cref{Ch3:Prop:RadialSchwartzFourier} to show that $\hat{\hat{f}} = f$. In other words, $f_{-}$ and $f_{+}$ are \textbf{eigenfunctions of the Fourier transform} with eigenvalues $-1$ and $+1$ respectively. In fact, if
+\begin{align*}
+    f = \lambda f_1 + \mu f_2
+\end{align*}
+for \textit{any} two functions $f_1$ and $f_2$ such that $\hat{f_1} = -f_1$ and $\hat{f_2} = f_2$, then one can show, by computing $f_{-}$ and $f_{+}$, that $\lambda f_1 = f_{-}$ and $\mu b = f_{+}$. This allows us to break down the problem of computing the magic function into two smaller problems, namely, computing its constituent Fourier $\pm 1$-eigenfunctions.
+
+Before discussing the other properties we seek in our magic function---or its constituent Fourier eigenfunctions---we develop some very useful machinery that allows us to show that radial functions are Schwartz. We usually treat radial functions as $\R \to \C$ functions, because all information about the input that is necessary to compute the corresponding output is captured by a (non-negative) real number: its norm. The decaying property \eqref{Ch3:Eq:SchwartzDecayProperty} of Schwartz functions is something that, at first glance, makes it a bit tricky to ignore the dimension of the domain when dealing with radial Schwartz functions. Ideally, we would want to only show that the decaying property holds for the corresponding $\R \to \C$ function. We can show this for a class of radial Schwartz functions that only depend on $\norm{x}^2$.
+
+\begin{boxproposition}
+    Let $f : \R \to \C$ be a Schwartz function. For all $d \in \N$, the function
+    \begin{align*}
+        f_d : \R^d \to \C : x \mapsto \fof{\norm{x}^2}
+    \end{align*}
+    is Schwartz.
+\end{boxproposition}
