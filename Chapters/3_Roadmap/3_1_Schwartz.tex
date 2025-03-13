@@ -67,10 +67,16 @@ for \textit{any} two functions $f_1$ and $f_2$ such that $\hat{f_1} = -f_1$ and 
 
 Before discussing the other properties we seek in our magic function---or its constituent Fourier eigenfunctions---we develop some very useful machinery that allows us to show that radial functions are Schwartz. We usually treat radial functions as $\R \to \C$ functions, because all information about the input that is necessary to compute the corresponding output is captured by a (non-negative) real number: its norm. The decaying property \eqref{Ch3:Eq:SchwartzDecayProperty} of Schwartz functions is something that, at first glance, makes it a bit tricky to ignore the dimension of the domain when dealing with radial Schwartz functions. Ideally, we would want to only show that the decaying property holds for the corresponding $\R \to \C$ function. We can show this for a class of radial Schwartz functions that only depend on $\norm{x}^2$.
 
-\begin{boxproposition}
+\begin{boxproposition}\label{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}
     Let $f : \R \to \C$ be a Schwartz function. For all $d \in \N$, the function
     \begin{align*}
         f_d : \R^d \to \C : x \mapsto \fof{\norm{x}^2}
     \end{align*}
     is Schwartz.
 \end{boxproposition}
+
+We do not prove this result here, but we do mention that there is a \sorry-free Lean proof of it in our repository.\todo{cross reference}
+
+The point of \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz} is that it gives us a criterion to show that radial functions in higher dimensions that are functions not of the norm but of the norm \textit{squared} are Schwartz, purely by considering the corresponding function that takes in a one-dimensional input. This will be instrumental in our argument.
+
+With this, we end our discussion of radial Schwartz functions. The key takeaway is that while Schwartzness is a necessary condition for our magic function to satisfy, we can also impose the condition of radiality to simplify our construction. We will now take a closer look at Cohn and Elkies's groundbreaking result (\Cref{SP:Thm:CohnElkies}) to determine further properties for the magic function to satisfy.
