@@ -1,1 +1,31 @@
 \section{The \CEC}
+
+So far, we have examined the statement of \Cref{SP:Thm:CohnElkies} in detail: it immediately tells us that we want the magic function to be Schwartz and satisfy the conditions~\ref{CE1}-\ref{CE3}, and upon noticing that these conditions only depend on the norm and that radial functions are very well-behaved, we have narrowed our search to radial Schwartz function obeying \ref{CE1}-\ref{CE3}. It turns out that we can learn even more about the magic function when we examine the \textit{proof} of \Cref{SP:Thm:CohnElkies} when we specialise to the case where the function $f$ is optimal. Our examination of the proof of \Cref{SP:Thm:CohnElkies} is based on an insightful discussion in~\cite[p. 8]{CohnOnViazovskaICM}.
+
+Specifically, let $f$ be a (radial) Schwartz function satisfying \ref{CE1}, \ref{CE2} and \ref{CE3}. What it means for $f$ to be optimal is that there exists a sphere packing $\Pa(X)$ in $\R^d$ such that the Cohn-Elkies bound indexed by $f$ is precisely the density of this sphere packing. This would make $\Pa(X)$ an optimal sphere packing in $\R^d$ and $f$ an optimal function.
+
+Since it is enough to prove the upper-bound property for periodic sphere packings, we can simplify our search for the right $f$ by assuming the Cohn-Elkies bound corresponding to $f$ is the density of a \textit{periodic} packing. In other words, we can assume there exists some lattice $\Lambda \subset \R^d$ such that the set of centres $X$ is periodic with respect to $\Lambda$. This turns out to be helpful because we can then use the exact forms of the inequalities in the proof to deduce properties that $f$ must have if it is optimal, corresponding to some optimal periodic packing.
+
+In our argument, we fix an arbitrary $\Lambda$-periodic sphere packing $\Pa(X)$ of separation $1$ and show the inequality~\eqref{Ch2:Eq:CohnElkies_Ineq_1}. In the case where $f$ is optimal, in the sense that the upper-bound is achieved, we must have that \eqref{Ch2:Eq:CohnElkies_Ineq_1} is, in fact, an \textbf{equality}. The same must be true of the equivalent inequality, \eqref{Ch2:Eq:CohnElkies_Ineq_2}. This tells us that the intermediate inequalities \eqref{Ch2:Eq:CohnElkies_Ineq_3} and \eqref{Ch2:Eq:CohnElkies_Ineq_4} must \textit{also} be equalities, because the chain of inequalities begins and ends at the same quantity. In particular, we can take a closer look at \eqref{Ch2:Eq:CohnElkies_Ineq_3}: the way we prove it is by writing
+\begin{align*}
+    \abs{\quotient{X}{\Lambda}}  \cdot f(0)
+    = \sum_{x \in {\tiny{\quotient{X}{\Lambda}}}} \fof{x - x}
+    = \sum_{x \in X} \sum_{\substack{y \in {\tiny \quotient{X}{\Lambda}} \\ y = x}}
+    \geq \sum_{x \in X} \sum_{y \in {\tiny \quotient{X}{\Lambda}}} \fof{x - y}
+\end{align*}
+The terms we discard to prove the inequality are non-positive, as they are of the form $\fof{x - y}$ for $y \neq x$ (meaning $\norm{y - x} \geq 1$, allowing us to apply \ref{CE2}). If this inequality is an equality, then all the terms we discard must not merely be non-positive: they must, in fact, be zero. That is, we need
+\begin{align}
+    \fof{x - y} = 0 \text{ for all \textbf{distinct} } x \in X \text{ and } y \in \quotient{X}{\Lambda}
+    \label{Ch3:Eq:OptimalFunctionVanishing_fun}
+\end{align}
+By definition of $\quotient{X}{\Lambda}$, \textit{every} element of $\Lambda$ is expressible as $x - y$ for some $x \in X$ and $y \in \quotient{X}{\Lambda}$, because $X$ consists of \textit{all} $\Lambda$-translates of $y$. So, all non-zero lattice points are expressible as $x - y$ for $x$ and $y$ as in \eqref{Ch3:Eq:OptimalFunctionVanishing_fun}. We can therefore conclude that \textbf{an optimal function $f$ with Cohn-Elkies bound equal to the density of a periodic sphere packing must vanish at all non-zero lattice points}.
+
+It turns out that examining \ref{CE2} gives us an \textit{even stronger} condition on $f$. First, note that we must have $0 \leq f(0)$: the bound
+\begin{align*}
+    \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
+\end{align*}
+is greater than or equal to a non-negative constant, and both $\Volof{B_d\of{0, \frac{1}{2}}}$ (as a volume) and $\hat{f}(0)$ (by \ref{CE3}) are non-negative, meaning $f(0)$ cannot possibly be negative. Indeed, this is true regardless of whether $f$ is optimal. Since \ref{CE2} tells us that $f$ is nonnegative at points with norm at least $1$, we can conclude that $f$ not only has zeroes but \textbf{double zeroes} at all but finitely many lattice points: the behaviour of $f$, viewed as an $\R \to \R$ function of the norm $r$ of a point on $\R^d$, is such that a sign-change from non-negative to non-positive occurs at the first zero, and thereafter, there are no more sign changes, because such changes are prohibited by \ref{CE2}.
+
+Putting these conclusions about single and double zeroes together with our observation about splitting radial Schwartz functions into their constituent $\pm 1$-Fourier eigenfunctions, we can conclude that we need to find \textbf{Fourier eigenfunctions with double zeroes at lattice points}. It is no accident that this is precisely the title of \cite[Section 4]{Viazovska8}.
+
+
