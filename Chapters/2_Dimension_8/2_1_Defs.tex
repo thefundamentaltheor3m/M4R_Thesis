@@ -202,6 +202,19 @@ We do not prove this result here, as it is beyond the scope of this M4R. A proof
 
 \Cref{Ch2:Prop:Periodic_Const_eq_Const} tells us that finding a sphere packing that satisfies the \textit{periodic} sphere packing constant gives us the optimal sphere packing in dimension $d$. \Cref{Ch2:Prop:Scaling_Periodic_Constant} allows us to focus our search even more. We will exploit these two facts in \Cref{Ch2:Sec:CohnElkies}, where we will construct an upper bound for all sphere packing densities in dimension $d$ by constructing an upper-bound for the periodic sphere packing constant in dimension $d$. When constructing this upper-bound, we will exploit the fact that periodic sphere packings admit a `nice' density formula (cf. \Cref{Ch2:Prop:Periodic_Density}). The results we have seen about periodic sphere packings will thus greatly simplify our task of finding the optimal sphere packing in dimension $8$.
 
+We will end with a discussion on dual lattices, which will come up soon when we discuss the Poisson Summation Formula, an integral tool that not only proves the all-important \CELP\ but also narrows our search for the elusive magic function by pointing us towards Schwartz functions.
+
+The dual lattice of a lattice is essentially its dual space analogue. Viewing a lattice in $\R^d$ as a free $\Z$-submodule of $\R^d$, we can view its dual lattice as its dual $\Z$-submodule of the dual $\Z$-module $\parenth{\R^d}^*$. Indeed, this is how we use the dual lattice of a lattice in Lean. For our purposes, however, we offer a slightly more convenient definition.
+
+\begin{boxdefinition}[Dual Lattice]\label{Ch2:Def:Dual_Lattice}
+    Fix $d > 0$ and let $\Lambda \subset \R^d$ be a lattice. We define the \textbf{dual lattice} of $\Lambda$ to be
+    \begin{align*}
+        \Lambda^* := \setst{y \in \R^d}{\cycl{x, y} \in \Z \text{ for all } x \in \Lambda}
+    \end{align*}
+\end{boxdefinition}
+
+If we identify each $y \in \Lambda^*$ with the map $\cycl{\text{-}, y} \in \parenth{\R^d}^*$, then we can see that $\Lambda^*$ is indeed the dual $\Z$-submodule of $\Lambda \subset \R^d$ in the dual space $\parenth{\R^{d}}^*$. The primary convenience of our definition is that it views $\Lambda^*$ as a subset of $\R^d$. This will be useful.
+
 We are now ready to discuss a special sphere packing in $\R^8$: the $E_8$ sphere packing.
 
 \subsection{The $E_8$ Lattice Packing}\label{Ch2:Subsec:E8}
@@ -220,4 +233,10 @@ The $E_8$ root system consists of $240$ vectors in $\R^8$ that are permuted by a
 
 % From a motivational standpoint, this is quite important. So mention facts like distances between lattice points and things like that. Important for construction of magic function.
 
+\sorry
 
+\begin{boxtheorem}\label{Ch2:Thm:E8_Self_Dual}
+    The dual lattice of the $E_8$ lattice is the $E_8$ lattice itself. That is, $\parenth{E_8}^* = E_8$ as free $\Z$-submodules of $\R^8$.
+\end{boxtheorem}
+
+This follows directly from the definitions of the dual lattice (\Cref{Ch2:Def:Dual_Lattice}) and the $E_8$ lattice (\sorry). This result will be useful later on, as it will give us an insight into the desired properties of the magic function.

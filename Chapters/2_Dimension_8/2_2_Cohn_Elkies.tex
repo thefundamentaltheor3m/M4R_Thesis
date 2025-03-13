@@ -17,7 +17,7 @@ Before we prove the result, we need to state an important dependency: the \textb
 
 The Poisson Summation Formula essentially relates a sum of a Schwartz function over a lattuce to a sum of its Fourier transform over another lattice. Therefore, before we state the Poisson Summation Formula, we say a few words about Fourier transforms, Fourier inversion, and the formalisation of these definitions in Lean.
 
-\subsection{A Word on Fourier Transforms}
+\subsection{Fourier Analysis and the Poisson Summation Formula}
 
 The subject of Fourier analysis is deep, and has applications to a number of areas in pure and applied mathematics. There are deeper undertones to the role of the Fourier transform in Viazovska's proof of the optimality of the $E_8$ lattice packing in $\R^8$: much of the underlying motivation comes from broader Fourier interpolation results that are beyond the scope of this thesis and this formalisation project. In this subsection, we do not do more than define the Fourier transform and its inverse. We will also very briefly discuss the formalisation of these definitions in Lean.
 
@@ -65,24 +65,7 @@ That being said, it turns out the following result is true for \textit{all} func
 
 The proof is straightforward, and has been formalised in \mathlib.
 
-We do not need any more general results on Fourier transforms and inverse Fourier transforms in this thesis. Any further results will be specific to certain classes of functions.
-
-We can now define the ingredients for the Poisson Summation Formula.
-
-\subsection{The Poisson Summation Formula over Lattices}
-
-Before we can state the Formula, we need to define a dual space analogue of lattices.
-
-\begin{boxdefinition}[Dual Lattice]
-    Fix $d > 0$ and let $\Lambda \subset \R^d$ be a lattice. We define the \textbf{dual lattice} of $\Lambda$ to be
-    \begin{align*}
-        \Lambda^* := \setst{y \in \R^d}{\cycl{x, y} \in \Z \text{ for all } x \in \Lambda}
-    \end{align*}
-\end{boxdefinition}
-
-Indeed, if we identify each $y \in \Lambda^*$ with the map $\cycl{\text{-}, y} \in \parenth{\R^d}^*$, then we can see that $\Lambda^*$ is the dual $\Z$-submodule of $\Lambda \subset \R^d$ in the dual space $\parenth{\R^{d}}^*$. But, for our convenience, we will stick to the definition above, which views $\Lambda^*$ as a subset of $\R^d$.
-
-We can now state the Poisson Summation Formula over lattices.
+We now recall the definition of the dual of a lattice (\Cref{Ch2:Def:Dual_Lattice}). The reason why the concept of a dual lattice is relevant is that it allows us to state the \textbf{Poisson Summation Formula}, which relates the sum of a function over a lattice to the sum of its Fourier transform over the dual lattice.
 
 \begin{boxtheorem}[Poisson Summation Formula over Lattices]\label{Ch2:Thm:Poisson_Summation}
     Let $d > 0$ and let $\Lambda \subset \R^d$ be a lattice. Let $f : \R^d \to \R$ be a Schwartz function. For all vectors $v \in \R^d$, we have
@@ -117,30 +100,33 @@ We now state the most important intermediate result in the proof of the optimali
         \Delta_d^{\periodic} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
     \end{align*}
     Fix a sphere packing $\Pa$ that is periodic with respect to some lattice $\Lambda$. We need to show that $\Delta_{\Pa} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}$/ By \Cref{Ch2:Prop:Scaling_Sphere_Packings}, we can assume that the separation radius of $\Pa$ is $1$: if it is not, we can scale it appropriately, and this will not affect its density. Denote the set of centres of $\Pa$ by $X$. By \Cref{Ch2:Prop:Periodic_Density}, we need to show that
-    \begin{align*}
+    \begin{align}
         \frac{\abs{\quotient{X}{\Lambda}}}{\Volof{\quotient{\R^d}{\Lambda}}} \cdot \Volof{B_d\of{0, \frac{1}{2}}} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
-    \end{align*}
+        \label{Ch2:Eq:CohnElkies_Ineq_1}
+    \end{align}
     It turns out to be easier to show the equivalent inequality
-    \begin{align*}
+    \begin{align}
         \frac{\abs{\quotient{X}{\Lambda}}^2}{\Volof{\quotient{\R^d}{\Lambda}}} \cdot \hat{f}(0) \leq \abs{\quotient{X}{\Lambda}} \cdot f(0)
-    \end{align*}
+        \label{Ch2:Eq:CohnElkies_Ineq_2}
+    \end{align}
     Applying \ref{CE2} to our assumption that $\norm{x - y} \geq 1$ for all distinct $x, y \in X$, one can show that
-    \begin{align*}
+    \begin{align}
         \abs{\quotient{X}{\Lambda}} \cdot f(0) \geq \sum_{x \in X} \sum_{y \in {\tiny \quotient{X}{\Lambda}}} \fof{x - y}
-    \end{align*}
+        \label{Ch2:Eq:CohnElkies_Ineq_3}
+    \end{align}
     One can then apply the Poisson Summation Formula (cf. \Cref{Ch2:Thm:Poisson_Summation}) and perform some computations to show that
     \begin{align*}
         \sum_{x \in X} \sum_{y \in {\tiny \quotient{X}{\Lambda}}} \fof{x - y}
         =
         \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}}\sum_{m \in \Lambda^*} \hat{f}(m) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i \cycl{x, m}}}^2
     \end{align*}
-    \ref{CE3} tells us this is a sum of non-negative real numbers. We can therefore bound this sum below by the term corresponding to $x = 0$. Therefore,
-    \begin{align*}
+    \ref{CE3} tells us this is a sum of non-negative real numbers. We can therefore bound this sum below by the term corresponding to $m = 0$. Therefore,
+    \begin{align}
         \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}}\sum_{m \in \Lambda^*} \hat{f}(m) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i \cycl{x, m}}}^2
         &\geq
-        \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}} \hat{f}(0) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i \cycl{0, m}}}^2 \\
-        &= \frac{\abs{\quotient{X}{\Lambda}}^2}{\Volof{\quotient{\R^d}{\Lambda}}} \cdot \hat{f}(0)
-    \end{align*}
+        \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}} \hat{f}(0) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i \cycl{x, 0}}}^2 \label{Ch2:Eq:CohnElkies_Ineq_4} \\
+        &= \frac{\abs{\quotient{X}{\Lambda}}^2}{\Volof{\quotient{\R^d}{\Lambda}}} \cdot \hat{f}(0) \nonumber
+    \end{align}
     Putting these computations together gives us the desired result.
 \end{proof}
 
