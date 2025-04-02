@@ -1,0 +1,45 @@
+\section{A Strategy for Constructing the Fourier Eigenfunctions}
+% WHAT DO I CALL THIS SECTION????????
+
+Before we outline the strategy used by Viazovska to construct the $\pm 1$-Fourier eigenfunctions (and subsequently, the magic function), we outline the properties we would like the magic function to have. We then examine which of these properties come from the eigenfunctions and explore ways of using this information to construct them. For the remainder of this thesis, we will fix the following notation.
+
+\begin{boxnotation}
+    Going forward, the magic function for $8$-dimensional sphere packing shall be denoted $g$, its $+1$-eigenfunction shall be denoted $a$, and its $-1$-eigenfunction shall be denoted $b$.
+\end{boxnotation}
+
+We now list the properties we would like $g$ to have.
+
+\begin{enumerate}
+    \item $g$ needs to be a Schwartz function.
+    \item It suffices for $g$ to be radial.
+    \item $g$ needs to satisfy the Cohn-Elkies conditions \ref{CE1}, \ref{CE2} and \ref{CE3}.
+    \item $g$ needs to have single zeroes at all non-zero points in $\Lambda_8$.
+    \item $g$ needs to have double zeroes at all but finitely many points in $\Lambda_8$.
+    \item The \CELP\ indexed by $g$ must be equal to the density of the $E_8$ sphere packing. That is, we need
+    \begin{align*}
+        \frac{g(0)}{\hat{g}(0)} \cdot \Volof{B_8\of{0, \frac{1}{2}}} = \frac{\pi^4}{384}.
+    \end{align*}
+\end{enumerate}
+
+Of these properties, the following would be inherited from $a$ and $b$:
+
+\begin{enumerate}
+    \item Schwartzness
+    \item Radiality
+    \item Having single zeroes at all non-zero points in $\Lambda_8$
+    \item Having double zeroes at all but finitely many points in $\Lambda_8$
+\end{enumerate}
+
+That is, if we can construct $a$ and $b$ such that they satisfy the above properties, then $g$ will satisfy them as well. The remaining properties will have to do with the coefficients of the linear combination of $a$ and $b$ that makes up $g$.
+
+While the properties of $g$ inform the properties we would like $a$ and $b$ to have, we construct $a$ and $b$ \textit{before} constructing $g$. That is, we are not so much constructing a magic function and splitting it into its constituent eigenfunctions as we are computing Fourier eigenfunctions and showing that a particular linear combination of them is the desired magic function. In the formalisation, too, it is necessary that the construction of $a$ and $b$ precede that of $g$. One advantage of this is that constructing $a$ and $b$ as terms of the right \verb|SchwartzMap| type means that any linear combination will yield a term of the same \verb|SchwartzMap| type, because there is a \verb|Module| instance in \mathlib\ on \verb|SchwartzMap| objects that tells us that the Schwartz space is a vector space. In similar fashion, if less directly, the other `inherited' properties will be easy to prove for the linear combination if we prove $a$ and $b$ satisfy those properties.
+
+\begin{comment}
+    ** Note: we gotta include PolyFourierCoeffBound somewhere!! **
+
+    Maybe it's better to say ``here's how Viazovska did it'' and just outline her paper and then say ``here's what's different about the overall structure in Lean'' and outline a few things like the way we decided to structure the MagicFunction bit of the repo. Things like
+    1. Wanting reusability: keeping `PolyFourierCoeffBound` separate
+    2. Modularity: splitting it up from `ModularForms`
+    3. Namespacing to avoid clashes (eg. a as a function and a as a SchwartzMap term)
+    4. The strategy for the integrals: using real parametrisations and using straight contours instead of circular ones
+\end{comment}
