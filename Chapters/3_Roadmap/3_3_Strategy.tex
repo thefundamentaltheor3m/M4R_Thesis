@@ -1,7 +1,7 @@
-\section{A Strategy for Constructing the Fourier Eigenfunctions}
+\section{Viazovska's Fourier Eigenfunctions}
 % WHAT DO I CALL THIS SECTION????????
 
-Before we outline the strategy used by Viazovska to construct the $\pm 1$-Fourier eigenfunctions (and subsequently, the magic function), we outline the properties we would like the magic function to have. We then examine which of these properties come from the eigenfunctions and explore ways of using this information to construct them. For the remainder of this thesis, we will fix the following notation.
+We begin by summarising the properties we would like the magic function to have. We then examine which of these properties come from the eigenfunctions and explore ways of using this information to construct them. Finally, we will mention tools that are used to show that both its $\pm 1$-Fourier eigenfunctions satisfy the conditions we list below and give an overview of the challenges encountered and anticipated during formalisation. For the remainder of this thesis, we will fix the following notation.
 
 \begin{boxnotation}
     Going forward, the magic function for $8$-dimensional sphere packing shall be denoted $g$, its $+1$-eigenfunction shall be denoted $a$, and its $-1$-eigenfunction shall be denoted $b$.
@@ -33,6 +33,8 @@ Of these properties, the following would be inherited from $a$ and $b$:
 That is, if we can construct $a$ and $b$ such that they satisfy the above properties, then $g$ will satisfy them as well. The remaining properties will have to do with the coefficients of the linear combination of $a$ and $b$ that makes up $g$.
 
 While the properties of $g$ inform the properties we would like $a$ and $b$ to have, we construct $a$ and $b$ \textit{before} constructing $g$. That is, we are not so much constructing a magic function and splitting it into its constituent eigenfunctions as we are computing Fourier eigenfunctions and showing that a particular linear combination of them is the desired magic function. In the formalisation, too, it is necessary that the construction of $a$ and $b$ precede that of $g$. One advantage of this is that constructing $a$ and $b$ as terms of the right \verb|SchwartzMap| type means that any linear combination will yield a term of the same \verb|SchwartzMap| type, because there is a \verb|Module| instance in \mathlib\ on \verb|SchwartzMap| objects that tells us that the Schwartz space is a vector space. In similar fashion, if less directly, the other `inherited' properties will be easy to prove for the linear combination if we prove $a$ and $b$ satisfy those properties.
+
+ In \Cref{Ch2:Sec:ModForms}, we briefly introduced the theory of modular forms, but we have yet to employ any of the theory we introduced. It is in the construction of the magic function that this theory becomes relevant. Viazovska's strategy was to express her magic function as an integral transform of some function and use the conditions desired of the magic function to deduce properties of this integrand. Expressing it as the product of a function $\psi$ with Gaussians, she was able to deduce that $\psi$ had to have an important slash-invariant property. T
 
 \begin{comment}
     ** Note: we gotta include PolyFourierCoeffBound somewhere!! **
