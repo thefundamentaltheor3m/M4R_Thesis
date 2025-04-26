@@ -1,7 +1,10 @@
-\section{Viazovska's Fourier Eigenfunctions}
+\section{The Properties Desired of Viazovska's Fourier Eigenfunctions}
+\label{Ch3:Sec:Properties}
 % WHAT DO I CALL THIS SECTION????????
 
-We begin by summarising the properties we would like the magic function to have. We then examine which of these properties come from the eigenfunctions and explore ways of using this information to construct them. Finally, we will mention tools that are used to show that both its $\pm 1$-Fourier eigenfunctions satisfy the conditions we list below and give an overview of the challenges encountered and anticipated during formalisation. For the remainder of this thesis, we will fix the following notation.
+We begin by summarising the properties we would like the magic function to have. We then examine which of these properties come from the eigenfunctions. Finally, we will mention tools that are used to show that both its $\pm 1$-Fourier eigenfunctions satisfy the conditions we list below.
+
+For the remainder of this thesis, we will fix the following notation.
 
 \begin{boxnotation}
     Going forward, the magic function for $8$-dimensional sphere packing shall be denoted $g$, its $+1$-eigenfunction shall be denoted $a$, and its $-1$-eigenfunction shall be denoted $b$.
@@ -32,9 +35,9 @@ Of these properties, the following would be inherited from $a$ and $b$:
 
 That is, if we can construct $a$ and $b$ such that they satisfy the above properties, then $g$ will satisfy them as well. The remaining properties will have to do with the coefficients of the linear combination of $a$ and $b$ that makes up $g$.
 
-While the properties of $g$ inform the properties we would like $a$ and $b$ to have, we construct $a$ and $b$ \textit{before} constructing $g$. That is, we are not so much constructing a magic function and splitting it into its constituent eigenfunctions as we are computing Fourier eigenfunctions and showing that a particular linear combination of them is the desired magic function. In the formalisation, too, it is necessary that the construction of $a$ and $b$ precede that of $g$. One advantage of this is that constructing $a$ and $b$ as terms of the right \verb|SchwartzMap| type means that any linear combination will yield a term of the same \verb|SchwartzMap| type, because there is a \verb|Module| instance in \mathlib\ on \verb|SchwartzMap| objects that tells us that the Schwartz space is a vector space. In similar fashion, if less directly, the other `inherited' properties will be easy to prove for the linear combination if we prove $a$ and $b$ satisfy those properties.
+% While the properties of $g$ inform the properties we would like $a$ and $b$ to have, we construct $a$ and $b$ \textit{before} constructing $g$. That is, we are not so much constructing a magic function and splitting it into its constituent eigenfunctions as we are computing Fourier eigenfunctions and showing that a particular linear combination of them is the desired magic function. In the formalisation, too, it is necessary that the construction of $a$ and $b$ precede that of $g$. One advantage of this is that constructing $a$ and $b$ as terms of the right \verb|SchwartzMap| type means that any linear combination will yield a term of the same \verb|SchwartzMap| type, because there is a \verb|Module| instance in \mathlib\ on \verb|SchwartzMap| objects that tells us that the Schwartz space is a vector space. In similar fashion, if less directly, the other `inherited' properties will be easy to prove for the linear combination if we prove $a$ and $b$ satisfy those properties.
 
- In \Cref{Ch2:Sec:ModForms}, we briefly introduced the theory of modular forms, but we have yet to employ any of the theory we introduced. It is in the construction of the magic function that this theory becomes relevant. Viazovska's strategy was to express her magic function as an integral transform of some function and use the conditions desired of the magic function to deduce properties of this integrand. Expressing it as the product of a function $\psi$ with Gaussians, she was able to deduce that $\psi$ had to have an important slash-invariant property. T
+%  In \Cref{Ch2:Sec:ModForms}, we briefly introduced the theory of modular forms, but we have yet to employ any of the theory we introduced. It is in the construction of the magic function that this theory becomes relevant. Viazovska's strategy was to express her magic function as an integral transform of some function and use the conditions desired of the magic function to deduce properties of this integrand. Expressing it as the product of a function $\psi$ with Gaussians, she was able to deduce that $\psi$ had to have an important slash-invariant property. T
 
 \begin{comment}
     ** Note: we gotta include PolyFourierCoeffBound somewhere!! **
@@ -45,3 +48,7 @@ While the properties of $g$ inform the properties we would like $a$ and $b$ to h
     3. Namespacing to avoid clashes (eg. a as a function and a as a SchwartzMap term)
     4. The strategy for the integrals: using real parametrisations and using straight contours instead of circular ones
 \end{comment}
+
+Our use of the theory of modular forms will primarily be to define the eigenfunctions. We do not go into much detail about the theory of modular forms in this exposition: the formalisation of these details is being handled by other collaborators, and the informal and formal aspects of it are beyond the scope of this M4R. We will also avoid discussing motivational elements that come from the theory of modular forms, and instead refer the reader to a beautiful reverse-engineered exposition of Viazovska's construction by Henry Cohn published in the proceedings of the 2022 ICM \cite{CohnOnViazovskaICM}.
+
+We structure the remainder of this thesis as follows. We will begin by informally discussing the construction of Viazovska's magic function, first discussing a general bounding technique that is necessary to prove that both eigenfunctions are Schwartz, then proving Schwartzness and double zeroes, before discussing the construction of the magic function as a linear combination of the two eigenfunctions. We will primarily be following the contents of the blueprint \cite{blueprint}, though the structure of our exposition will differ slightly: instead of discussing both eigenfunctions separately, we will prove their properties in parallel, to highlight the similarities in the two constructions that allow us to reuse formalised code.

@@ -1,0 +1,86 @@
+\section{Defining Viazovska's Fourier Eigenfunctions}
+
+The $\pm$-eigenfunctions of $g$---and, by extension, $g$ itself---are defined in terms of modular and quasimodular forms (recall the definitions of these terms from \Cref{Ch2:Sec:ModForms}). Specifically, the $+1$-eigenfunction $a$ is defined in terms of the so-called $\phi$- and $\psi$-functions, which are in turn defined in terms of the Eisenstein series (cf. \sorry) and the discriminant form (cf. \sorry), while the $-1$-eigenfunction $b$ is defined in terms of the Jacobi Theta functions (cf. \sorry)\todo{Define in Chapter 2 and cross-ref here}.
+
+We begin by defining the $+1$-eigenfunction $a$.
+
+\subsection{The $+1$-Eigenfunction}
+
+We begin by defining the $\phi$-functions.
+
+\begin{boxdefinition}[The $\phi$-Functions]\label{Ch4:Def:phis}
+    Define the functions $\phi_0, \phi_{-2}, \phi_{-4} : \Halfplane \to \C$ by
+    \begin{align}
+        \phi_{-4} &:= \frac{E_4^2}{\Delta}
+            \label{Ch4:Eq:phi_-4_def} \\
+        \phi_{-2} &:= \frac{E_4\parenth{E_2 E_4 - E_6}}{\Delta}
+            \label{Ch4:Eq:phi_-2_def} \\
+        \phi_{0} &:= \frac{\parenth{E_2 E_4 - E_6}^2}{\Delta}
+            \label{Ch4:Eq:phi_0_def}
+    \end{align}
+\end{boxdefinition}
+
+We are now ready to define the $+1$-eigenfunction $a$.
+
+\begin{boxdefinition}[Viazovska's $+1$-Fourier Eigenfunction]\label{Ch4:Def:a}
+    Define $a\rad : \R \to \C$ by
+    \begin{align}
+        a\rad\of{r} := I_1(r) + I_2(r) + I_3(r) + I_4(r)
+            \label{Ch4:Eq:a_rad_def}
+    \end{align}
+    where, for all $r \in \R$,
+    \begin{align}
+        I_1(r) &:= \int_{-1}^{i} \phi_0\of{\frac{-1}{z+1}} \,
+                                 \parenth{z + 1}^2 \,
+                                 e^{\pi i r z} \,
+                                 \diff{z}
+            \label{Ch4:Eq:I_1_def} \\
+        I_2(r) &:= \int_{1}^{i} \phi_0\of{\frac{-1}{z - 1}} \,
+                                \parenth{z - 1}^2 \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:I_2_def} \\
+        I_3(r) &:= -2 \int_{0}^{i} \phi_0\of{\frac{-1}{z}} \,
+                                z^2 \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:I_3_def} \\
+        I_4(r) &:= 2 \int_{i}^{i \infty} \phi_0\of{z} \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:I_4_def}
+    \end{align}
+    Define the $+1$-Fourier eigenfunction $a : \R^8 \to \C$ by
+    \begin{align}
+        a(x) := a\rad\of{\norm{x}^2}
+            \label{Ch4:Eq:a_def}
+    \end{align}
+\end{boxdefinition}
+
+It is immediate from \eqref{Ch4:Eq:a_def} that $a$ is radial. All of its properties are determined by its radial part $a\rad$. There are similar definitions in Lean.
+
+There is an important remark that must be made about the definitions in \eqref{Ch4:Eq:I_1_def}-\eqref{Ch4:Eq:I_4_def}: we have not specified \textit{contours} along which to perform the integration for any of the four integrals that constitute $a\rad$. While the most `classical' choice would be quarter-circular contours for $I_1$ and $I_2$ and straight contours for $I_3$ and $I_4$, it is also possible to use straight lines for all four, or even rectangular contours for $I_1$ and $I_2$. The reason for this is that the integrands are holomorphic at all but finitely many points in the region of the upper half plane contained between these curves. In fact, the integrands are holomorphic, except for removable singularities at $z = -1$ for $I_1$, $z = 1$ for $I_2$ and $z = 0$ for $I_3$. The reason for this is that we have the following transformation rules for $\phi_0$ (which also tell us why we defined $\phi_{-2}$ and $\phi_{-4}$, which do not feature in \Cref{Ch4:Def:a}).
+
+\begin{boxlemma}
+    For all $z \in \Halfplane$,
+    \begin{align}
+        \phi_0\of{z + 1}
+        &= \phi_0\of{z}
+        \label{Ch4:Eq:phi_0_add_one} \\
+        \phi_0\of{\frac{-1}{z}}
+        &= \phi_0\of{z}
+        - \frac{12 i}{\pi} \cdot \frac{1}{z} \cdot \phi_{-2}\of{z}
+        - \frac{36}{\pi^2} \cdot \frac{1}{z^2} \cdot \phi_{-4}\of{z}
+        \label{Ch4:Eq:phi_0_neg_inv}
+    \end{align}
+\end{boxlemma}
+
+The proofs of these involve transformations of $E_2$, $E_4$, $E_6$, and $\Delta$, and can be found in \cite{blueprint}.
+
+The reason we mention these transformation rules is that in the integrands of $I_1$, $I_2$ and $I_3$, we multiply terms of the form $\phi_0\of{\frac{-1}{z}}$ by $z^2$. If we apply \eqref{Ch4:Eq:phi_0_neg_inv} and multiply through, it is clear that we are removing any singularities introduced by $\frac{1}{z^2}$ and $\frac{1}{z}$ factors. We can then use the fact that $\Delta\of{z} \neq 0$ for all $z \in \Halfplane$ to conclude that the integrands are holomorphic up to these removable singularities. In particular, such singularities only occur at the base of the contours involved in the definitions of $I_1$, $I_2$ and $I_3$, so any of deformation of the contours for $I_1$ and $I_2$---from quarter-circles to straight lines to the two sides that are not on the axes of the square with a third vertex at $0$---are valid.
+
+% Insert a visual here for I_1, and say I_2 is analogous
+
+We are now ready to define the $-1$-eigenfunction $b$.
+
+\subsection{The $-1$-Eigenfunction}
