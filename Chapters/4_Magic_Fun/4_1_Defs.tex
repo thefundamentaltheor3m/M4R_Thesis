@@ -20,46 +20,7 @@ We begin by defining the $\phi$-functions.
     \end{align}
 \end{boxdefinition}
 
-We are now ready to define the $+1$-eigenfunction $a$.
-
-\begin{boxdefinition}[Viazovska's $+1$-Fourier Eigenfunction]\label{Ch4:Def:a}
-    Define $a\rad : \R \to \C$ by
-    \begin{align}
-        a\rad\of{r} := I_1(r) + I_2(r) + I_3(r) + I_4(r)
-            \label{Ch4:Eq:a_rad_def}
-    \end{align}
-    where, for all $r \in \R$,
-    \begin{align}
-        I_1(r) &:= \int_{-1}^{i} \phi_0\of{\frac{-1}{z+1}} \,
-                                 \parenth{z + 1}^2 \,
-                                 e^{\pi i r z} \,
-                                 \diff{z}
-            \label{Ch4:Eq:I_1_def} \\
-        I_2(r) &:= \int_{1}^{i} \phi_0\of{\frac{-1}{z - 1}} \,
-                                \parenth{z - 1}^2 \,
-                                e^{\pi i r z} \,
-                                \diff{z}
-            \label{Ch4:Eq:I_2_def} \\
-        I_3(r) &:= -2 \int_{0}^{i} \phi_0\of{\frac{-1}{z}} \,
-                                z^2 \,
-                                e^{\pi i r z} \,
-                                \diff{z}
-            \label{Ch4:Eq:I_3_def} \\
-        I_4(r) &:= 2 \int_{i}^{i \infty} \phi_0\of{z} \,
-                                e^{\pi i r z} \,
-                                \diff{z}
-            \label{Ch4:Eq:I_4_def}
-    \end{align}
-    Define the $+1$-Fourier eigenfunction $a : \R^8 \to \C$ by
-    \begin{align}
-        a(x) := a\rad\of{\norm{x}^2}
-            \label{Ch4:Eq:a_def}
-    \end{align}
-\end{boxdefinition}
-
-It is immediate from \eqref{Ch4:Eq:a_def} that $a$ is radial. All of its properties are determined by its radial part $a\rad$. There are similar definitions in Lean.
-
-There is an important remark that must be made about the definitions in \eqref{Ch4:Eq:I_1_def}-\eqref{Ch4:Eq:I_4_def}: we have not specified \textit{contours} along which to perform the integration for any of the four integrals that constitute $a\rad$. While the most `classical' choice would be quarter-circular contours for $I_1$ and $I_2$ and straight contours for $I_3$ and $I_4$, it is also possible to use straight lines for all four, or even rectangular contours for $I_1$ and $I_2$. The reason for this is that the integrands are holomorphic at all but finitely many points in the region of the upper half plane contained between these curves. In fact, the integrands are holomorphic, except for removable singularities at $z = -1$ for $I_1$, $z = 1$ for $I_2$ and $z = 0$ for $I_3$. The reason for this is that we have the following transformation rules for $\phi_0$ (which also tell us why we defined $\phi_{-2}$ and $\phi_{-4}$, which do not feature in \Cref{Ch4:Def:a}).
+These functions admit important transformation properties that are necessary to prove that the $+1$-eigenfunction is made up of integrals of holomorphic functions. This fact will in turn allow us to apply the Cauchy-Goursat Theorem (and variants thereof) that will allow us to shift contours of integration.
 
 \begin{boxlemma}
     For all $z \in \Halfplane$,
@@ -75,9 +36,118 @@ There is an important remark that must be made about the definitions in \eqref{C
     \end{align}
 \end{boxlemma}
 
-The proofs of these involve transformations of $E_2$, $E_4$, $E_6$, and $\Delta$, and can be found in \cite{blueprint}.
+The proofs of these involve transformations of $E_2$, $E_4$, $E_6$, and $\Delta$, and can be found in \cite{blueprint}. We now define the $+1$-eigenfunction $a$.
 
-The reason we mention these transformation rules is that in the integrands of $I_1$, $I_2$ and $I_3$, we multiply terms of the form $\phi_0\of{\frac{-1}{z}}$ by $z^2$. If we apply \eqref{Ch4:Eq:phi_0_neg_inv} and multiply through, it is clear that we are removing any singularities introduced by $\frac{1}{z^2}$ and $\frac{1}{z}$ factors. We can then use the fact that $\Delta\of{z} \neq 0$ for all $z \in \Halfplane$ to conclude that the integrands are holomorphic up to these removable singularities. In particular, such singularities only occur at the base of the contours involved in the definitions of $I_1$, $I_2$ and $I_3$, so any of deformation of the contours for $I_1$ and $I_2$---from quarter-circles to straight lines to the two sides that are not on the axes of the square with a third vertex at $0$---are valid.
+\begin{boxdefinition}[Viazovska's $+1$-Fourier Eigenfunction]\label{Ch4:Def:a}
+    Define $a\rad : \R \to \C$ by
+    \begin{align}
+        a\rad\of{r} := I_1(r) + I_2(r) + I_3(r) + I_4(r) + I_5(r) + I_6(r)
+            \label{Ch4:Eq:a_rad_def}
+    \end{align}
+    where, for all $r \in \R$,
+    \begin{align}
+        I_1(r) &:= \int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z+1}} \,
+                                 \parenth{z + 1}^2 \,
+                                 e^{\pi i r z} \,
+                                 \diff{z}
+            \label{Ch4:Eq:I_1_def} \\
+        I_2(r) &:= \int_{-1 + i}^{i} \phi_0\of{\frac{-1}{z+1}} \,
+                                 \parenth{z + 1}^2 \,
+                                 e^{\pi i r z} \,
+                                 \diff{z}
+            \label{Ch4:Eq:I_2_def} \\
+        I_3(r) &:= \int_{1}^{1 + i} \phi_0\of{\frac{-1}{z - 1}} \,
+                                \parenth{z - 1}^2 \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:I_3_def} \\
+        I_4(r) &:= \int_{1 + i}^{i} \phi_0\of{\frac{-1}{z - 1}} \,
+                                \parenth{z - 1}^2 \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:I_4_def} \\
+        I_5(r) &:= -2 \int_{0}^{i} \phi_0\of{\frac{-1}{z}} \,
+                                z^2 \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:I_5_def} \\
+        I_6(r) &:= 2 \int_{i}^{i \infty} \phi_0\of{z} \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:I_6_def}
+    \end{align}
+    Define the $+1$-Fourier eigenfunction $a : \R^8 \to \C$ by
+    \begin{align}
+        a(x) := a\rad\of{\norm{x}^2}
+            \label{Ch4:Eq:a_def}
+    \end{align}
+\end{boxdefinition}
+
+It is immediate from \eqref{Ch4:Eq:a_def} that $a$ is radial. All of its properties are determined by its radial part $a\rad$. There are similar definitions in Lean.
+
+There is an important remark that must be made about the definitions in \eqref{Ch4:Eq:I_1_def}-\eqref{Ch4:Eq:I_6_def}: in the original paper \cite{Viazovska8}, the integrals $I_1$ and $I_2$ are combined, as are $I_3$ and $I_4$, and expressed in the following manner:
+\begin{align*}
+    I_1(r) + I_2(r) &= \int_{-1}^{i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+    I_3(r) + I_4(r) &= \int_{1}^{i} \phi_0\of{\frac{-1}{z - 1}} \, \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z}
+\end{align*}
+with the contours not specified. The most `classical' choice would be quarter-circular contours, though the same results can be achieved working with straight and rectangular contours.
+
+\begin{figure}[ht]
+    \centering
+    % First subfigure: quarter-circular contour
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1]
+            % Axes
+            \draw[->] (-2.2,0) -- (2.2,0) node[right] {Re};
+            \draw[->] (0,-2.2) -- (0,2.2) node[above] {Im};
+
+            % Quarter-circle from -1 to 1 (semi-circle in upper half)
+            \draw[thick, domain=180:0] plot ({cos(\x)}, {sin(\x)});
+            % Arrow in middle (at 90 degrees)
+            \draw[->, thick] (0,-1) arc (-90:-80:1);
+        \end{tikzpicture}
+        \caption{Quarter-circular contour}
+    \end{subfigure}
+    \hfill
+    % Second subfigure: straight line
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1]
+            % Axes
+            \draw[->] (-2.2,0) -- (2.2,0) node[right] {Re};
+            \draw[->] (0,-2.2) -- (0,2.2) node[above] {Im};
+
+            % Straight line from -1 to 1
+            \draw[thick, ->] (-1,0) -- (0,0);
+            \draw[thick] (0,0) -- (1,0);
+        \end{tikzpicture}
+        \caption{Straight line from $-1$ to $1$}
+    \end{subfigure}
+    \hfill
+    % Third subfigure: rectangular contour
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1]
+            % Axes
+            \draw[->] (-2.2,0) -- (2.2,0) node[right] {Re};
+            \draw[->] (0,-2.2) -- (0,2.2) node[above] {Im};
+
+            % Rectangular contour
+            \draw[thick] (-1,0) -- (-1,1);
+            \draw[thick] (-1,1) -- (0,1);
+
+            % Arrows indicating direction
+            \draw[->, thick] (-1,0.5) -- (-1,0.51); % upward
+            \draw[->, thick] (-0.5,1) -- (-0.49,1); % rightward
+        \end{tikzpicture}
+        \caption{Rectangular contour}
+    \end{subfigure}
+    \caption{Different contour choices for the integrals that make up $a$}
+    \label{Ch4:fig:a_contours}
+\end{figure}
+
+The reason the choice of contours does not matter is that in the integrands of $I_1, \ldots, I_5$, we multiply terms of the form $\phi_0\of{\frac{-1}{z}}$ by $z^2$. If we apply \eqref{Ch4:Eq:phi_0_neg_inv} and multiply through, it is clear that we are removing any singularities introduced by $\frac{1}{z^2}$ and $\frac{1}{z}$ factors. We can then use the fact that $\Delta\of{z} \neq 0$ for all $z \in \Halfplane$ to conclude that the integrands are holomorphic up to these removable singularities.
 
 % Insert a visual here for I_1, and say I_2 is analogous
 
