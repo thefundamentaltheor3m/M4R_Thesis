@@ -155,17 +155,40 @@ We are now ready to define the $-1$-eigenfunction $b$.
 
 \subsection{The $-1$-Eigenfunction}
 
-Recall the definitions of the $H$-functions defined in \sorry\ to be the fourth powers of the thetanullwerte. We begin by defining the $\psi$-functions in terms of these $H$-functions.\todo{check these with original paper}
+Recall the definitions of the $H$-functions defined in \sorry\ to be the fourth powers of the thetanullwerte. We begin by defining the $h$ function, in terms of which we will define the $\psi$-functions.
 
-\begin{boxdefinition}[The $\psi$-Fucntions]\label{Ch4:Def:psis}
+\begin{boxdefinition}[The $h$-Function]\label{Ch4:Def:h}
+    Define the function $h : \Halfplane \to \C$ by
+    \begin{align}
+        h\of{z} := 128 \frac{H_3(z) + H_4(z)}{H_2(z)^2} \label{Ch4:Eq:h_def}
+    \end{align}
+    where $H_2, H_3, H_4$ are as defined in \sorry.
+\end{boxdefinition}
+
+In \cite{Viazovska8}, the $\psi$-functions are defined in terms of the $h$-function via slash actions. We express them in terms of $h$ more directly.
+
+\begin{boxdefinition}[The $\psi$-Functions]\label{Ch4:Def:psi}
     Define the functions $\psi_I, \psi_S, \psi_T : \Halfplane \to \C$ by
     \begin{align}
-        \psi_I &:= \frac{H_4^3\parenth{2 H_4^2 + 5 H_4 H_2 + 5 H_2^2}}{2 \Delta}
+        \psi_I\of{z} &:= h\of{z}^3
             \label{Ch4:Eq:psi_I_def} \\
-        \psi_S &:= \frac{- H_2^3 \parenth{2 H_2^3 + 5 H_2 H_4 + 5 H_4^2}}{2 \Delta}
+        \psi_S\of{z} &:= -h\of{z}^3
             \label{Ch4:Eq:psi_S_def} \\
-        \psi_T &:= \psi_I - \psi_S
+        \psi_T\of{z} &:= h\of{z}^3 - h\of{z}^3
             \label{Ch4:Eq:psi_T_def}
     \end{align}
     
 \end{boxdefinition}
+
+\begin{boxproposition}[The $\psi$-Fucntions]\label{Ch4:Def:psis}
+    We can express $\psi_I, \psi_S, \psi_T$ in the following manner:
+    \begin{align}
+        \psi_I &= \frac{H_4^3\parenth{2 H_4^2 + 5 H_4 H_2 + 5 H_2^2}}{2 \Delta}
+            \label{Ch4:Eq:psi_I_def} \\
+        \psi_S &= \frac{- H_2^3 \parenth{2 H_2^3 + 5 H_2 H_4 + 5 H_4^2}}{2 \Delta}
+            \label{Ch4:Eq:psi_S_def} \\
+        \psi_T &= \psi_I - \psi_S
+            \label{Ch4:Eq:psi_T_def}
+    \end{align}
+    where $\Delta$ is the discriminant form.
+\end{boxproposition}
