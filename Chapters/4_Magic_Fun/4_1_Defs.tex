@@ -97,57 +97,71 @@ with the contours not specified. The most `classical' choice would be quarter-ci
     % First subfigure: quarter-circular contour
     \begin{subfigure}{0.3\textwidth}
         \centering
-        \begin{tikzpicture}[scale=1]
+        \begin{tikzpicture}[scale=1.75]
             % Axes
-            \draw[->] (-2.2,0) -- (2.2,0) node[right] {Re};
-            \draw[->] (0,-2.2) -- (0,2.2) node[above] {Im};
+            \draw[->] (-1.2,0) -- (1.2,0) node[right] {$\Re$};
+            \draw[->] (0,-1.2) -- (0,1.2) node[above] {$\Im$};
 
-            % Quarter-circle from -1 to 1 (semi-circle in upper half)
-            \draw[thick, domain=180:0] plot ({cos(\x)}, {sin(\x)});
-            % Arrow in middle (at 90 degrees)
-            \draw[->, thick] (0,-1) arc (-90:-80:1);
+            % Quarter-circle from -1 to i
+            \draw[thick, domain=180:135, ->] plot ({cos(\x)}, {sin(\x)}) node[above left] {$I_1 + I_2$};
+            \draw[thick, domain=135:90, -] plot ({cos(\x)}, {sin(\x)}) ;
+
+            % Points of interest
+            \labelledpoint{-1}{0}{0}{-0.8}{$-1$}
+            \labelledpoint{0}{1}{0.25}{-0.4}{$i$}
         \end{tikzpicture}
-        \caption{Quarter-circular contour}
+        \label{Ch4:subfig:a_circ_contour}
+        \caption{Quarter-Circular Contour}
     \end{subfigure}
     \hfill
     % Second subfigure: straight line
     \begin{subfigure}{0.3\textwidth}
         \centering
-        \begin{tikzpicture}[scale=1]
+        \begin{tikzpicture}[scale=1.75]
             % Axes
-            \draw[->] (-2.2,0) -- (2.2,0) node[right] {Re};
-            \draw[->] (0,-2.2) -- (0,2.2) node[above] {Im};
+            \draw[->] (-1.2,0) -- (1.2,0) node[right] {$\Re$};
+            \draw[->] (0,-1.2) -- (0,1.2) node[above] {$\Im$};
 
             % Straight line from -1 to 1
-            \draw[thick, ->] (-1,0) -- (0,0);
-            \draw[thick] (0,0) -- (1,0);
+            \draw[thick, ->] (-1,0) -- (-0.5,0.5) node[above left] {$I_1 + I_2$};
+            \draw[thick, -] (-0.5,0.5) -- (0,1);
+
+            % Points of interest
+            \labelledpoint{-1}{0}{0}{-0.8}{$-1$}
+            \labelledpoint{0}{1}{0.25}{-0.4}{$i$}
         \end{tikzpicture}
-        \caption{Straight line from $-1$ to $1$}
+        \label{Ch4:subfig:a_lin_contour}
+        \caption{Straight Line Contour}
     \end{subfigure}
     \hfill
     % Third subfigure: rectangular contour
     \begin{subfigure}{0.3\textwidth}
         \centering
-        \begin{tikzpicture}[scale=1]
+        \begin{tikzpicture}[scale=1.75]
             % Axes
-            \draw[->] (-2.2,0) -- (2.2,0) node[right] {Re};
-            \draw[->] (0,-2.2) -- (0,2.2) node[above] {Im};
+            \draw[->] (-1.2,0) -- (1.2,0) node[right] {$\Re$};
+            \draw[->] (0,-1.2) -- (0,1.2) node[above] {$\Im$};
 
             % Rectangular contour
-            \draw[thick] (-1,0) -- (-1,1);
-            \draw[thick] (-1,1) -- (0,1);
+            \draw[thick, ->] (-1,0) -- (-1,0.5);
+            \draw[thick, -] (-1,0.5) -- (-1,1);
+            \draw[thick, ->] (-1,1) -- (-0.5,1);
+            \draw[thick, -] (-0.5,1) -- (0,1);
 
-            % Arrows indicating direction
-            \draw[->, thick] (-1,0.5) -- (-1,0.51); % upward
-            \draw[->, thick] (-0.5,1) -- (-0.49,1); % rightward
+            % Points of interest
+            \labelledpoint{-1}{0}{0}{-0.8}{$-1$}
+            \labelledpoint{0}{1}{0.25}{-0.4}{$i$}
         \end{tikzpicture}
-        \caption{Rectangular contour}
+        \label{Ch4:subfig:a_rect_contour}
+        \caption{Rectangular Contour}
     \end{subfigure}
-    \caption{Different contour choices for the integrals that make up $a$}
+    \caption{\centering Different contours along which we can integrate the integrand of $I_1$ and $I_2$ to get an integral equal to $I_1 + I_2$}
     \label{Ch4:fig:a_contours}
 \end{figure}
 
 The reason the choice of contours does not matter is that in the integrands of $I_1, \ldots, I_5$, we multiply terms of the form $\phi_0\of{\frac{-1}{z}}$ by $z^2$. If we apply \eqref{Ch4:Eq:phi_0_neg_inv} and multiply through, it is clear that we are removing any singularities introduced by $\frac{1}{z^2}$ and $\frac{1}{z}$ factors. We can then use the fact that $\Delta\of{z} \neq 0$ for all $z \in \Halfplane$ to conclude that the integrands are holomorphic up to these removable singularities.
+
+The choice of rectangular contours (as in \Cref{Ch4:subfig:a_rect_contour}) as opposed to quarter-circles or straight lines for $I_1 + I_2$ and $I_3 + I_4$ is motivated by the versions of the Cauchy-Goursat Theorem that have been formalised in Lean.
 
 % Insert a visual here for I_1, and say I_2 is analogous
 
@@ -177,7 +191,7 @@ In \cite{Viazovska8}, the $\psi$-functions are defined in terms of the $h$-funct
         \psi_T\of{z} &:= h\of{z}^3 - h\of{z}^3
             \label{Ch4:Eq:psi_T_def}
     \end{align}
-    
+    where $h$ is as defined in \Cref{Ch4:Def:h}.
 \end{boxdefinition}
 
 \begin{boxproposition}[The $\psi$-Fucntions]\label{Ch4:Prop:psi_as_div_disc}

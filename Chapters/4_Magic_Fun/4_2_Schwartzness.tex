@@ -4,11 +4,19 @@ We know that the Schwartz space is a $\C$-vector space, making it closed under a
 
 It turns out that we can establish a general result that yields an upper-bound for functions of the form $\frac{f}{\Delta}$, where $\Delta$ is the discriminant form and there is a polynomial growth condition on the Fourier coefficients of $f$. We take advantage of the fact that the $\phi$- and $\psi$-functions can be expressed in this form (cf. \Cref{Ch4:Def:phis} and \Cref{Ch4:Prop:psi_as_div_disc}). The condition on their Fourier coefficients comes from the theory of modular forms.
 
-We begin with the statement and proof of the general result.
+We begin with the statement and proof of the general result \cite[Lemma 7.4]{blueprint}.\todo{UPDATE LEMMA NUMBER BEFORE SUBMITTING}
 
-\begin{boxtheorem}
-    
+\begin{boxtheorem}\label{SP:PolyFourierCoeffBound}
+    Let $f : \C \to \C$ be holomorphic. Denote by $c_f(n)$ its $n$th Fourier coefficient of $f$ with $c_f\of{n_0} \neq 0$, so that
+    \begin{align*}
+        f(z) = \sum_{n=n_0}^{\infty} c_f(n) \, e^{i \pi n z}
+    \end{align*}
+    If $c_f(n)$ has polynomial growth in $n$---that is, if there exists $k \in \N$ such that $c_f(n) = \BigO{n^k}$---then there exists a constant $C_f > 0$ such that for all $z \in \Halfplane$ with $\Im\of{z} \geq \frac{1}{2}$,
+    \begin{align*}
+        \abs{\frac{f(z)}{\Delta(z)}} \leq C_f \, e^{-\pi \parenth{n_0 - 2} \Im(z)}
+    \end{align*}
 \end{boxtheorem}
+
 
 \subsection{The $+1$-Eigenfunction}
 

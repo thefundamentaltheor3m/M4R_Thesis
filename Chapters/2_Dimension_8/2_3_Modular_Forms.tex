@@ -9,3 +9,24 @@ Things to discuss:
 We can reference things like the q-expansions of the Eisenstein series, the transformation rules for the Jacobi theta functions, and the product formula for the discriminant form.
 \end{comment}
 
+In this section, we give a brief introduction to the theory of modular forms. Birkbeck, Loeffler and others have formalised several results in the theory of modular forms, and a significant portion of their work has been merged into \mathlib. Definitions and results from this section that pertain to Viazovska's solution to the sphere packing problem in $\R^8$ that do not feature in \mathlib\ are being actively formalised by Birkbeck and Lee, with contributions from Ma.
+
+First, we introduce the following useful notation.
+
+\begin{boxnotation}
+    For the remainder of this paper, denote the Complex upper-half plane by $\Halfplane$. That is, define $\Halfplane := \setst{z \in \C}{0 < \Im(z)}$.
+\end{boxnotation}
+
+This corresponds to the \mathlib\ notation for the upper-half plane.
+
+A key motivating idea in the study of modular forms is the study of the action of $\SL{2, \C}$ on $\Halfplane$ by Möbius transformations via
+\begin{align*}
+    \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}
+    \cdot z := \frac{az + b}{cz + d}
+\end{align*}
+That matrix multiplication corresponds to the composition of Möbius transformations is a well-known fact in Complex Analysis. One can hence show that the above is indeed a group action.
+
+
+

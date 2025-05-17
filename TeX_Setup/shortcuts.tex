@@ -47,6 +47,10 @@
     ({#1}, -{#1}) node [anchor=north west] {D} -- cycle;
 }
 
+\newcommand{\labelledpoint}[5]{ % Takes x coord, y coord, label x-position relative to point, label y-position relative to point, label text as arguments
+    \node [label={[shift={(#3,#4)}]#5}] at (#1, #2) {$\bullet$};
+}
+
 % DELIMITERS:
 
 \newcommand{\parenth}[1]{\left( #1 \right)}
@@ -271,6 +275,13 @@
 \newcommand{\periodic}{\operatorname{periodic}}
 
 \newcommand{\Halfplane}{\mathbb{H}} % Using Lean notation for the upper-half plane instead of Viazovska's
+
+\newcommand{\BigO}[1]{\operatorname{O}\of{#1}}
+
+% COMPLEX ANALYSIS
+
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
 
 \newcommand{\rad}{_{\operatorname{rad}}}
 
