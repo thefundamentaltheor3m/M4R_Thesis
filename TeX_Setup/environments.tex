@@ -1,4 +1,16 @@
 \usepackage{amsthm}
+% Gives theorem and definition names the same font style as the words "theorem"/"definition": see https://tex.stackexchange.com/questions/43966/how-to-make-the-optional-title-of-a-theorem-bold-with-amsthm
+\makeatletter
+\def\th@plain{%
+  \thm@notefont{}% same as heading font
+  \itshape % body font
+}
+\def\th@definition{%
+  \thm@notefont{}% same as heading font
+  \normalfont % body font
+}
+\makeatother
+
 \usepackage{cleveref}
 
 \newtheorem*{theorem*}{Theorem}

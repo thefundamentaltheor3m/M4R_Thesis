@@ -143,14 +143,15 @@ with the contours not specified. The most `classical' choice would be quarter-ci
             \draw[->] (0,-1.2) -- (0,1.2) node[above] {$\Im$};
 
             % Rectangular contour
-            \draw[thick, ->] (-1,0) -- (-1,0.5);
+            \draw[thick, ->] (-1,0) -- (-1,0.5) node[left] {$I_1$};
             \draw[thick, -] (-1,0.5) -- (-1,1);
-            \draw[thick, ->] (-1,1) -- (-0.5,1);
+            \draw[thick, ->] (-1,1) -- (-0.5,1) node[above] {$I_2$};m
             \draw[thick, -] (-0.5,1) -- (0,1);
 
             % Points of interest
             \labelledpoint{-1}{0}{0}{-0.8}{$-1$}
             \labelledpoint{0}{1}{0.25}{-0.4}{$i$}
+            \labelledpoint{-1}{1}{-0.7}{-0.2}{$-1 + i$}
         \end{tikzpicture}
         \label{Ch4:subfig:a_rect_contour}
         \caption{Rectangular Contour}

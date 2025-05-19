@@ -212,6 +212,7 @@
 \newcommand{\quotient}[2]{
     \left.\raisebox{.2em}{${#1}$} \middle/ \raisebox{-.2em}{${#2}$} \right.
 }
+\newcommand{\Zmod}[1]{\quotient{\Z}{{#1}\Z}}
 
 \newcommand{\Vof}[1]{V\!\parenth{#1}}
 
@@ -277,6 +278,9 @@
 \newcommand{\Halfplane}{\mathbb{H}} % Using Lean notation for the upper-half plane instead of Viazovska's
 
 \newcommand{\BigO}[1]{\operatorname{O}\of{#1}}
+
+\newcommand{\fm}{f \mid}
+\newcommand{\fmof}[3]{\parenth{\fm_{#1} {#2}}\of{#3}}
 
 % COMPLEX ANALYSIS
 
