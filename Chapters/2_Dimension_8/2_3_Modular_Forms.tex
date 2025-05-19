@@ -30,7 +30,7 @@ That matrix multiplication corresponds to the composition of Möbius transformat
 
 Both the identity $I \in \SL{2, \Z}$ and the negative identity $-I \in \SL{2, \Z}$ have the same (trivial) action on $\Halfplane$. Indeed, the $\SL{2, \Z}$ action descends to a faithful action of $\PSL{2, \Z} = \quotient{\SL{2, \Z}}{\set{\pm I}}$ on $\Halfplane$. Since we are more interested in the \textit{actions} of matrices in $\SL{2, \Z}$ and $\PSL{2, \Z}$ than we are in their entries, we often do not distinguish between the two groups.
 
-The \mathlib\ definition of a modular form is more general than the first definitions of modular forms often seen in literature (see \cite[Chapter VII, \S 2, Definition 4]{SerreArith} and \cite[Definition 1.1.2]{DiamondShurman}). Modular forms are usually described as functions that are holomorphic on the upper half-plane that are invariant under the $\SL{2, \Z}$-action up to an \textit{automorphy factor} of a certain \textit{weight}. This \textit{weight} is defined as the \textit{weight of the modular form}. However, one is often interested in invariance under not all of $\SL{2, \Z}$, but certain \textit{congruence subgroups} or subgroups containing such subgroups. Each congruence subgroup has a \textit{level}, which is defined to be the \textit{level} of the modular form. Modular forms, as they are defined in \mathlib\ and in the blueprint \cite{blueprint}, are therefore indexed by two properties: a \textit{subgroup of $\SL{2, \Z}$}, which indicates the scope of invariance under the $\SL{2, \Z}$-action, and a \textit{weight}, which gives the extent of invariance under the action of elements of the subgroup in question.
+The \mathlib\ definition of a modular form is more general than the first definitions of modular forms often seen in literature (see \cite[Chapter VII, \S 2, Definition 4]{SerreArith} and \cite[Definition 1.1.2]{DiamondShurman}), and instead matches subsequent definitions that generalise these first definitions. Modular forms are usually described as functions that are holomorphic on the upper half-plane that are invariant under the $\SL{2, \Z}$-action up to an \textit{automorphy factor} of a certain \textit{weight}. This \textit{weight} is defined as the \textit{weight of the modular form}. However, one is often interested in invariance under not all of $\SL{2, \Z}$, but certain \textit{principal congruence subgroups} or subgroups containing such subgroups, known as \textit{congruence subgroups}. Each principal congruence subgroup has a \textit{level}, which is defined to be the \textit{level} of a modular form whose congruence subgroup is principal. Modular forms, as they are defined in \mathlib\ and in the blueprint \cite{blueprint}, are therefore indexed by two properties: a \textit{congruence subgroup of $\SL{2, \Z}$}, which indicates the scope of invariance under the $\SL{2, \Z}$-action, and a \textit{weight}, which gives the extent of invariance under the action of elements of the subgroup in question.
 
 To give a complete definition of the weight of a modular form, we need to define automorphy factors and the slash action notation.
 
@@ -48,7 +48,9 @@ To give a complete definition of the weight of a modular form, we need to define
     The action of $\gamma$ mapping $f$ to $\fm_k \gamma$ via the weight $k$ slash operator is sometimes referred to as a \textbf{slash action}.
 \end{boxdefinition}
 
-To give a complete definition of the level of a modular form, we need to define congruence subgroups. The idea is that the extent of invariance exhibited by a modular form is expressed in the language of modular arithmetic.
+It is clear, from the above definition, that $\fm_0 \gamma = f \circ \gamma$ for al $\gamma \in \SL{2, \Z}$. That is, if $f = \fm_0 \gamma$, then $f = f \circ \gamma$, that is, $f$ is invariant under composition with (the action of) $\gamma$. If $f = \fm_k \gamma$ for some $k \in \Z$ and $\gamma \in \SL{2, \Z}$, we can view the weight $k$ as indicating the `extent of invariance' of $f$ under composition with $\gamma$.
+
+To give a complete definition of the congruence subgroup/level of a modular form, we need to define congruence subgroups. The idea is to express the scope of the slash-invariance exhibited by a modular form with respect to the action of $\SL{2, \Z}$---that is, the set of elements of $\SL{2, \Z}$ under which we have slash-invariance---in the language of modular arithmetic.
 
 \begin{boxdefinition}[Congruence Subgroup]\label{Ch2:Def:Cong_Subgroup}
     Fix $N \in \N$. The \textbf{level $N$ principal congruence subgroup} of $\SL{2, \Z}$, denoted $\Gamma(N)$, is defined to be the kernel of the surjective group homomorphism from $\SL{2, \Z}$ to $\SL{2, \Zmod{N}}$ that comes from reducing modulo $N$. That is,
@@ -70,7 +72,7 @@ To give a complete definition of the level of a modular form, we need to define 
     More generally, a subgroup $\Gamma$ of $\SL{2, \Z}$ is called a \textbf{congruence subgroup} if $\Gamma(N) \subset \Gamma$ for some $N \in \N$.
 \end{boxdefinition}
 
-We already have enough to define what it means for a holomorphic function to be invariant under the slash action of a congruence subgroup. In the definition of modular forms, however, we include an additional condition that is often referred to as \textit{holomorphicity at $i\infty$}, the purpose of which is to ensure that spaces of modular forms, which turn out to admit $\C$-vector space structures, are, in fact, finite-dimensional \cite{KevinFamilies}.
+We now have enough to define what it means for a holomorphic function to be invariant under the slash action of a congruence subgroup. In the definition of modular forms, however, we include an additional condition that is often referred to as \textit{holomorphicity at $i\infty$}, the purpose of which is to ensure that spaces of modular forms, which turn out to admit $\C$-vector space structures, are, in fact, finite-dimensional \cite{KevinFamilies}.
 
 The theory of modular forms is often thought to lie in the very rich intersection of algebra and analysis. Our definitions so far have been largely algebraic, but our next one is analytic. Consider the mapping $q : \Halfplane \to \C : z \mapsto e^{2\pi i z}$. This maps $\Halfplane$ to the punctured, open unit disc
 \begin{align*}
@@ -94,10 +96,12 @@ for all $w \in D$. If we write $w = q(z)$ for $z \in \Halfplane$, the above seri
     That is, $f$ admits a Fourier expansion with no negative powers of $q(z)$.
 \end{boxdefinition}
 
-A modular form is intuitively a function that satisfies the definitions stated above in a slash-invariant manner. We give a more precise definition below.
+The holomorphicity of $f$ at $i\infty$ essentially means that the Fourier expansion of $f$ is a holomorphic $D \to \C$ function in $q(z)$, with the added constraint that $\abs{f(z)}$ remains bounded as $\Im(z) \to \infty$, that is, the corresponding $D \to \C$ function in $q(z)$ extends to a holomorphic function that is defined and bounded at $0$. There is a rich theory of functions where $c_0 = 0$, but we will not explore that theory here.
+
+We are now ready to define modular forms. Intuitively, a modular form is a function that satisfies the above definitions in a slash-invariant manner. More precisely, we have the following.
 
 \begin{boxdefinition}[Modular Form]
-    Fix $k \in \Z$ and let $\Gamma$ be a congruence subgroup of $\SL{2, \Z}$. We say a function $f : \Halfplane \to \C$ is a \textbf{modular form of weight $k$ with respect to $\Gamma$} if $f$ is \textbf{slash-invariant} under the slash action of $\Gamma$ and \textbf{holomorphic at $i\infty$} under the slash action of $\SL{2, \Z}$. That is,
+    Fix $k \in \Z$ and let $\Gamma$ be a congruence subgroup of $\SL{2, \Z}$. We say a function $f : \Halfplane \to \C$ is a \textbf{modular form of weight $k$ with respect to $\Gamma$} if $f$ is \textbf{invariant} under the slash action of $\Gamma$ and \textbf{holomorphic at $i\infty$} under the slash action of $\SL{2, \Z}$. That is,
     \begin{enumerate}
         \item For all $\gamma \in \Gamma$, $\fm_k \gamma = f$ (cf. \Cref{Ch2:Def:Aut_Factor_Slash_Action}).
         \item For all $\gamma \in \SL{2, \Z}$, $\fm_k \gamma$ is holomorphic at $i\infty$ (cf. \Cref{Ch2:Def:Holo_at_ImInfty}).
@@ -105,3 +109,10 @@ A modular form is intuitively a function that satisfies the definitions stated a
     We denote by $M_k(\Gamma)$ the space of modular forms of weight $k$ and congruence subgroup $\Gamma$. If $\Gamma = \Gamma(N)$ for some $N \in \N$, we say an element of $M_k(\Gamma)$ has \textbf{level $N$}.
 \end{boxdefinition}
 
+There is an immensely rich theory of modular forms, and for the purposes of practicality, it was decided not to explore this theory in great detail in this project, particularly because the formalisation of the aspects of Viazovska's proof that stem from this theory is being led by Birkbeck, Lee and Ma. We will instead use the remainder of this section to discuss three specific (families of) modular forms and those of their properties that Viazovska uses to construct her magic function.
+
+\subsection{The Eisenstein Series}
+
+\subsection{The Thetanullwerte}
+
+\subsection{The Discriminant Form}
