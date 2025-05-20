@@ -113,6 +113,69 @@ There is an immensely rich theory of modular forms, and for the purposes of prac
 
 \subsection{The Eisenstein Series}
 
+The Eisenstein Series are an important family of slash-invariant forms that will prove essential to the construction of the magic function. The Eisenstein Series whose \textit{weight} is an even integer that is at least $4$ are modular forms, though we will also need to work with the Eisenstein Series of weight $2$, which, despite not being a modular form, is sufficiently well-behaved for our purposes. We will define it separately from those Eisenstein Series that are modular forms.
+
+Let $k \geq 4$ be an even integer. We denote by $E_k$ the weight $k$ Eisenstein Series. There is more than one way to define $E_k$. In this report, we give the definition that was formalised by Birkbeck for this project. Birkbeck's definition in the project repository is a particular case of the \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ModularForms/EisensteinSeries/Basic.lean#L28-L35}{\mathlib\ definition}, which defines it as a \texttt{ModularForm} structure combining the function \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ModularForms/EisensteinSeries/Defs.lean#L107}{\texttt{eisensteinSeries}} with the proofs of the properties that make it a modular form. The \mathlib\ definition is more general than the one we study here, and involves imposing congruence conditions on the subsets of the lattice $\Z^2$ over which the Eisenstein Series are summed. It is not necessary for this project.
+
+\begin{boxdefinition}[The Eisenstein Series of Even Weight $\geq 4$]\label{Ch2:Def:EisensteinSeries_geq_4}
+    For $k \geq 4$ even, define the \textbf{weight $k$ Eisenstein Series} to be the function $E_k : \Halfplane \to \C$ given by
+    \begin{align*}
+        E_k(z) := \frac{1}{2} \sum_{\substack{\parenth{m, n} \in \Z^2 \\ \gcd(m, n) = 1}} \frac{1}{\parenth{mz + n}^k}
+    \end{align*}
+    with the defining summation converging absolutely.
+\end{boxdefinition}
+
+Note that the Eisenstein Series can also be defined as
+\begin{align*}
+    E_k(z) = \frac{1}{2\zeta(k)} \sum_{\parenth{m, n} \in \Z^2 \setminus \set{0}} \frac{1}{\parenth{mz + n}^k}
+\end{align*}
+with $\zeta$ here denoting the Riemann zeta function. It is shown in \cite[Equation (4.1), pp. 109-110]{DiamondShurman} that this definition matches the definition formalised by Birkbeck in the project repository and stated informally in \Cref{Ch2:Def:EisensteinSeries_geq_4}.\todo{Blueprint gives zeta def whereas repo gives coprime def. WHOOPSIE!}
+
+It is shown in \cite[pp. 4-5]{DiamondShurman} that $E_k$ is a weight $k$, level $1$ modular form for even integers $k \geq 4$. That is, $E_k$ is invariant under the weight $k$ slash-action of every element of $\SL{2, \Z}$. As important special cases of this, $E_k$ satisfies two important functional equations.
+
+\begin{boxproposition}\label{Ch2:Prop:Eisenstein_func_eq}
+    For all even $k \geq 4$ and $z \in \Halfplane$, the following both hold:
+    \begin{align}
+        E_k\of{z + 1} &= E_k \label{Ch2:Eq:Ek_func_eq_one_add} \\
+        E_k\of{-\frac{1}{z}} &= z^k E_k(z) \label{Ch2:Eq:Ek_func_eq_neg_one_div}
+    \end{align}
+\end{boxproposition}
+\begin{proof}
+    Both of these are just slash-invariance properties in disguise. We have\todo{Fix slash formatting}
+    \begin{align*}
+        E_k(z + 1) = \parenth{E_k \; \middle\vert_k \; {\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}}}\of{z} = \parenth{0z + 1}^{k} E_k(z) = E_k(z)
+    \end{align*}
+    Similarly, we have
+    \begin{align*}
+        E_k\of{-\frac{1}{z}} = \parenth{E_k \; \middle\vert_k \; {\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}}}\of{z} = \parenth{1z + 0}^k E_k(z) = z^k E_k(z)
+    \end{align*}
+    as required.
+\end{proof}
+
+The functional equations \eqref{Ch2:Eq:Ek_func_eq_one_add} and \eqref{Ch2:Eq:Ek_func_eq_neg_one_div} yield similar results for an important function that will be used in constructing the magic function. We will explore this idea in \Cref{Ch4:Chapter}.
+
+The final result we will state about the Eisenstein Series (of weight $\geq 4$) is that their Fourier expansions take a particular form. We will be particularly interested in $E_4$ and $E_6$, which will show up in the definition of the magic function. First, we need to define the arithmetic function $\sigma_k(n)$, which is defined in \mathlib\ as \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ArithmeticFunction.lean#L797-L799}{\texttt{ArithmeticFunction.sigma}}.
+
+\begin{boxtheorem}\label{Ch2:Thm:Ek_qexpansion}
+    For all even $k \geq 4$ and $z \in \Halfplane$, $E_k(z)$ can be expressed as the Fourier series
+    \begin{align*}
+        E_k(z) &= 1 + C_k \sum_{n=1}^{\infty} \sigma_{k-1}\of{n} e^{2\pi i n z}
+    \end{align*}
+    where
+    \begin{align*}
+        C_k = \frac{1}{\zeta(k)} \cdot \frac{\parenth{-2 \pi i}^k}{\parenth{k-1}!}
+    \end{align*}
+    In particular, $C_4 = 240$ and $C_6 = -504$. That is, $E_4$ and $E_6$ have the following Fourier expansions:
+    \begin{align}
+        E_4(z) &= 1 + 240 \sum_{n=1}^{\infty} \sigma_3(n) e^{2 \pi i n z} \label{Ch2:Eq:E4_qexpansion} \\
+        E_6(z) &= 1 - 504 \sum_{n=1}^{\infty} \sigma_5(n) e^{2 \pi i n z} \label{Ch2:Eq:E6_qexpansion}
+    \end{align}
+\end{boxtheorem}
+
+The statement and proof of the general Fourier expansion of $E_k$ for even $k \geq 4$ have been \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/Eisensteinqexpansions.lean#L301}{formalised by Birkbeck} in the Sphere Packing repository.\todo{Here, again, the repo disagrees with the blueprint. FIX!} Substituting $k = 4$ and $k = 6$ in the expression for $C_k$ and evaluating it using software like Wolfram|Alpha gives the desired result.
+
+% TODO: RAISE THIS ON ZULIP. Mention that we need to correct the blueprint to reflect the repo version.
+
 \subsection{The Thetanullwerte}
 
 \subsection{The Discriminant Form}
