@@ -97,20 +97,36 @@ In the forthcoming subsections, we explore the motivation and technique used to 
 
 \subsection{Complex Computations are Complex}
 
-Computations in general are quite challenging to perform in interactive theorem provers. This is because such languages are designed for \textit{proof} rather than \textit{computation}. Indeed, tactics that simplify goals do not do so merely by simplifying expressions: they construct proofs that the simplified expression is, indeed, equal to the original expression. Existing tactics like \lstinline|norm_num|, \lstinline|simp| and \lstinline|field_simp| do not always do this successfully when the expressions in question are in $\C$.
+Computations in general are quite challenging to perform in interactive theorem provers. This is because such languages are designed for \textit{proof} rather than \textit{computation}. Indeed, tactics that simplify goals do not do so merely by simplifying expressions: they construct proofs that the simplified expression is, indeed, equal to the original expression. Existing tactics like \lstinline|norm_num|, \lstinline|simp| and \lstinline|field_simp| do not always do this successfully when the expressions in question are in $\C$. \lstinline|simp| and \lstinline|field_simp| are very general tactics that work in a wide variety of settings. They both work by constructing a special set of equality or biconditional lemmas by sifting through the library and performing repeated rewrite operations to transform the goal into a simpler form. \lstinline|field_simp| is specifically designed to simplify expressions in fields, and can handle operations like clearing denominators. However, it does not have access to the particularities of the field in question (such as the fact that $i^2 = -1$ in $\C$). The tactic that we will be most interested in, specifically because it is designed to handle simplifications of \textit{numerals} in \textit{specific} settings, is \lstinline|norm_num|.
 
-It is worth mentioning that these tactics do not always simplify expressions in $\R$, either. This is due to the immense technical detail baked into the very definition of $\R$. That being said, expressions in $\R$ that are images of expressions in $\Q$ or $\Z$ via the canonical inclusions\footnote{We would call these `coercions' or `casts' in Lean} are often handled by \lstinline|norm_num|. In $\C$, there are numerous 
+\lstinline|norm_num| is a tactic that handles expressions involving numerals. It works best in $\N$, $\Z$ and $\Q$. For example, it handles the following.
+\begin{lstlisting}[caption={\lstinline|norm_num| simplifying expressions in $\N$, $\Z$ and $\Q$}]
+example : (1 : ℕ) + 2 + 3 + 4 = 10 := by norm_num
+example : (-2 : ℚ) * (3 + 8/9) = -70/9 := by norm_num
+example : (-9 : ℤ) + 5 * (6 - 20) = -79 := by norm_num
+\end{lstlisting}
+It is worth mentioning, however, that \lstinline|norm_num| often has difficulties in $\R$. This is due to the immense technical detail baked into the very definition of $\R$ in Lean, which allows for the existence of transcendental numbers. In the following example, none of \lstinline|norm_num|, \lstinline|field_simp|, \lstinline|ring| and \lstinline|simp| can prove the result in one line, because they are unable to treat $\pi$ as more than a symbol. Indeed, the entire proof rests on a \mathlib\ result, \lstinline|Real.pi_gt_three|.
 
-Consider the following example.\footnote{Note that in Lean, the imaginary constant is denoted by an uppercase \lstinline|I| instead of a lowercase $i$. We will adhere to standard mathematical conventions and use a lowercase $i$ when referring to the imaginary constant in informal contexts.}
+\begin{lstlisting}[caption=An expression in $\R$ not handled immediately by simplification tactics, label=Ch5:Listing:pi_sub_one_norm_num_fail]
+example : (π - 1) / (π - 1) = 1 := by
+  have h₁ : (1 : ℝ) < 3 := by norm_num
+  have h₂ : 1 ≠ π := ne_of_lt <| h₁.trans pi_gt_three
+  have h₃ : π - 1 ≠ 0 := sub_ne_zero_of_ne h₂.symm
+  field_simp [h₃]
+\end{lstlisting}
 
-\begin{lstlisting}[caption={A nontrivial computation in $\C$, done formally}, label=Ch5:Listing:long_tactic_pf_example]
+Observe, however, that \lstinline|norm_num| \textit{is} able to prove the inequality $1 < 3$ despite it being an expression in $\R$. The reason is that \lstinline|norm_num| can navigate the canonical inclusions from $\N$, $\Z$ and $\Q$ into $\R$, meaning that it can simplify expressions in $\R$ that come from expressions it can simplify in $\N$, $\Z$ or $\Q$.\footnote{We say \lstinline|norm_num| can handle coercions.} It cannot, however, show that $1 < \pi$, because it does not understand $\pi$ \textit{as a numeral}. In $\C$, \lstinline|norm_num| faces this challenge not only with real transcendental numbers like $\pi$ but also with the imaginary constant $i$. Consider the following example.\footnote{Note that in Lean, the imaginary constant is denoted by an uppercase \lstinline|I| instead of a lowercase $i$. We will adhere to standard mathematical conventions and use a lowercase $i$ when referring to the imaginary constant in informal contexts.}
+
+\begin{lstlisting}[caption={A nontrivial computation in $\C$, done formally}, label=Ch5:Listing:long_tactic_pf_example_complex]
 example : (1 + I) * (1 + I * I * I) = 2 := by
   simp only [I_mul_I, neg_mul, one_mul, mul_add, mul_one, mul_neg, add_mul, neg_add_rev, neg_neg]
   ring
 \end{lstlisting}
 
-The simplification tactics one would typically aim to use to prove such a goal---namely, \lstinline|simp|, \lstinline|field_simp|, \lstinline|ring| and \lstinline|norm_num|---all fail to prove that $\parenth{1 + i}\parenth{1 + i \cdot i \cdot i} = 2$. This is in spite of the fact that $\parenth{1 + i}\parenth{1 + i \cdot i \cdot i}$ contains no variables and lies in $\Z[i]$.
+Again, \lstinline|simp|, \lstinline|field_simp|, \lstinline|ring| and \lstinline|norm_num| all fail, because $i$, like $\pi$ in \Cref{Ch5:Listing:pi_sub_one_norm_num_fail}, is not handled as a numeral. Observe, however, that $\parenth{1 + i}\parenth{1 + i \cdot i \cdot i}$ lies in $\Z[i]$. This means that if it is expressed as $a + bi$, with $a$ and $b$ both being (not necessarily simplified) real expressions, then in fact, $a$ and $b$ are both images of expressions in $\Z$. This means that \lstinline|norm_num| would be able to individually handle both $a$ and $b$, resulting in a simplified expression of the form $a' + b'i$, with $a'$ and $b'$ being simplified. This suggests that the key to writing a tactic that can simplify expressions like those in \Cref{Ch5:Listing:long_tactic_pf_example_complex} is to find a way to separate them into their real and imaginary parts, which in turn involves navigating the fact that $i^2 = -1$.
 
 \subsection{Normalisation and Simplification}
 
 \subsection{Scope for Further Development}
+
+The benefits of having such a tactic cannot be overstated. There are numerous instances across the project where the collaborators have had to repeatedly prove facts like $1 + i \neq 0$ or clear complex denominators to separate into real and imaginary parts. 
