@@ -99,7 +99,7 @@ In the forthcoming subsections, we explore the motivation and technique used to 
 
 Computations in general are quite challenging to perform in interactive theorem provers. This is because such languages are designed for \textit{proof} rather than \textit{computation}. Indeed, tactics that simplify goals do not do so merely by simplifying expressions: they construct proofs that the simplified expression is, indeed, equal to the original expression. Existing tactics like \lstinline|norm_num|, \lstinline|simp| and \lstinline|field_simp| do not always do this successfully when the expressions in question are in $\C$.
 
-It is worth mentioning that the challenges faced in $\C$ are different from the challenges sometimes faced in $\R$. Since
+It is worth mentioning that these tactics do not always simplify expressions in $\R$, either. This is due to the immense technical detail baked into the very definition of $\R$. That being said, expressions in $\R$ that are images of expressions in $\Q$ or $\Z$ via the canonical inclusions\footnote{We would call these `coercions' or `casts' in Lean} are often handled by \lstinline|norm_num|. In $\C$, there are numerous 
 
 Consider the following example.\footnote{Note that in Lean, the imaginary constant is denoted by an uppercase \lstinline|I| instead of a lowercase $i$. We will adhere to standard mathematical conventions and use a lowercase $i$ when referring to the imaginary constant in informal contexts.}
 
