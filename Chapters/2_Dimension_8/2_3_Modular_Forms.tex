@@ -1,5 +1,6 @@
 \section{A Word on Modular Forms}
 \label{Ch2:Sec:ModForms}
+% SHOULD I MAYBE TURN THIS INTO AN APPENDIX? IT'S LOOKING PRETTY LONG...
 
 \begin{comment}
 Things to discuss:
@@ -96,7 +97,7 @@ for all $w \in D$. If we write $w = q(z)$ for $z \in \Halfplane$, the above seri
     That is, $f$ admits a Fourier expansion with no negative powers of $q(z)$.
 \end{boxdefinition}
 
-The holomorphicity of $f$ at $i\infty$ essentially means that the Fourier expansion of $f$ is a holomorphic $D \to \C$ function in $q(z)$, with the added constraint that $\abs{f(z)}$ remains bounded as $\Im(z) \to \infty$, that is, the corresponding $D \to \C$ function in $q(z)$ extends to a holomorphic function that is defined and bounded at $0$. There is a rich theory of functions where $c_0 = 0$, but we will not explore that theory here.
+The holomorphicity of $f$ at $i\infty$ essentially means that the Fourier expansion of $f$ is a holomorphic $D \to \C$ function in $q(z)$, with the added constraint that $\abs{f(z)}$ remains bounded as $\Im(z) \to \infty$, that is, the corresponding $D \to \C$ function in $q(z)$ extends to a holomorphic function that is defined and bounded at $0$. There is a rich theory of functions where $c_0 = 0$, but we will not explore that theory here.\footnote{Modular forms with this property are known as \textbf{cusp forms}. One modular form we will need to construct the magic function is the discriminant form, which will turn out to be a cusp form.}
 
 We are now ready to define modular forms. Intuitively, a modular form is a function that satisfies the above definitions in a slash-invariant manner. More precisely, we have the following.
 
@@ -119,16 +120,18 @@ Let $k \geq 4$ be an even integer. We denote by $E_k$ the weight $k$ Eisenstein 
 
 \begin{boxdefinition}[The Eisenstein Series of Even Weight $\geq 4$]\label{Ch2:Def:EisensteinSeries_geq_4}
     For $k \geq 4$ even, define the \textbf{weight $k$ Eisenstein Series} to be the function $E_k : \Halfplane \to \C$ given by
-    \begin{align*}
+    \begin{align}
         E_k(z) := \frac{1}{2} \sum_{\substack{\parenth{m, n} \in \Z^2 \\ \gcd(m, n) = 1}} \frac{1}{\parenth{mz + n}^k}
-    \end{align*}
+        \label{Ch2:Eq:Eisenstein_def_Chris}
+    \end{align}
     with the defining summation converging absolutely.
 \end{boxdefinition}
 
 Note that the Eisenstein Series can also be defined as
-\begin{align*}
+\begin{align}
     E_k(z) = \frac{1}{2\zeta(k)} \sum_{\parenth{m, n} \in \Z^2 \setminus \set{0}} \frac{1}{\parenth{mz + n}^k}
-\end{align*}
+    \label{Ch2:Eq:Eisenstein_def_with_zeta_normalisation}
+\end{align}
 with $\zeta$ here denoting the Riemann zeta function. It is shown in \cite[Equation (4.1), pp. 109-110]{DiamondShurman} that this definition matches the definition formalised by Birkbeck in the project repository and stated informally in \Cref{Ch2:Def:EisensteinSeries_geq_4}.\todo{Blueprint gives zeta def whereas repo gives coprime def. WHOOPSIE!}
 
 It is shown in \cite[pp. 4-5]{DiamondShurman} that $E_k$ is a weight $k$, level $1$ modular form for even integers $k \geq 4$. That is, $E_k$ is invariant under the weight $k$ slash-action of every element of $\SL{2, \Z}$. As important special cases of this, $E_k$ satisfies two important functional equations.
@@ -156,15 +159,30 @@ The functional equations \eqref{Ch2:Eq:Ek_func_eq_one_add} and \eqref{Ch2:Eq:Ek_
 
 The final result we will state about the Eisenstein Series (of weight $\geq 4$) is that their Fourier expansions take a particular form. We will be particularly interested in $E_4$ and $E_6$, which will show up in the definition of the magic function. First, we need to define the arithmetic function $\sigma_k(n)$, which is defined in \mathlib\ as \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ArithmeticFunction.lean#L797-L799}{\texttt{ArithmeticFunction.sigma}}.
 
+\begin{boxdefinition}[The $\sigma$-Function]
+    The \textbf{$\sigma$-function} $\sigma : \N \times \N \to \N$ is given by
+    \begin{align*}
+        \sigma_k\of{n} := \sum_{d \mid n} d^k
+    \end{align*}
+\end{boxdefinition}
+
+In \mathlib, for every natural number \texttt{k}, \texttt{ArithmeticFunction.sigma k} is defined as an \href{https://github.com/leanprover-community/mathlib4/blob/bc10be4a66942c0fc2547b54f7f8715df72ff28c/Mathlib/NumberTheory/ArithmeticFunction.lean#L76-L80}{\texttt{ArithmeticFunction $\N$}} structure, meaning it is an $\N \to \N$ map that maps $0$ to $0$.
+
+Somewhat unexpectedly, the $\sigma$-function shows up in the Fourier expansions of the Eisenstein series. The fact that $\sigma$ is well-behaved and that its behaviour is easily formalised makes it easy to prove properties about the Fourier coefficients of the Eisenstein series, which we will need to do for Schwartzness proofs later on.
+
+We now give the Fourier expansions of the Eisenstein Series.
+
 \begin{boxtheorem}\label{Ch2:Thm:Ek_qexpansion}
     For all even $k \geq 4$ and $z \in \Halfplane$, $E_k(z)$ can be expressed as the Fourier series
-    \begin{align*}
+    \begin{align}
         E_k(z) &= 1 + C_k \sum_{n=1}^{\infty} \sigma_{k-1}\of{n} e^{2\pi i n z}
-    \end{align*}
+        \label{Ch2:Eq:Ek_qexpansion}
+    \end{align}
     where
-    \begin{align*}
+    \begin{align}
         C_k = \frac{1}{\zeta(k)} \cdot \frac{\parenth{-2 \pi i}^k}{\parenth{k-1}!}
-    \end{align*}
+        \label{Ch2:Eq:Ck_Ek_qexpansion_const}
+    \end{align}
     In particular, $C_4 = 240$ and $C_6 = -504$. That is, $E_4$ and $E_6$ have the following Fourier expansions:
     \begin{align}
         E_4(z) &= 1 + 240 \sum_{n=1}^{\infty} \sigma_3(n) e^{2 \pi i n z} \label{Ch2:Eq:E4_qexpansion} \\
@@ -176,6 +194,83 @@ The statement and proof of the general Fourier expansion of $E_k$ for even $k \g
 
 % TODO: RAISE THIS ON ZULIP. Mention that we need to correct the blueprint to reflect the repo version.
 
-\subsection{The Thetanullwerte}
+We finally turn our attention to $E_2$. It is tempting to define $E_2$ via the summation used in \Cref{Ch2:Eq:Eisenstein_def_Chris} or \Cref{Ch2:Eq:Eisenstein_def_with_zeta_normalisation}. Unfortunately, when $k = 2$, these sums do not converge absolutely. That being said, Birkbeck has \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/summable_lems.lean#L1680}{shown formally} that for all $m \in \Z$, $z \in \Halfplane$, and $k \geq 2$, the summation
+\begin{align*}
+    \sum_{n \in \Z} \frac{1}{\parenth{mz + n}^k}
+\end{align*}
+converges absolutely. He then shows, through several \sorry-free lemmas, that
+\begin{align*}
+    \lim_{N \to \infty} \sum_{m = -N}^{N - 1} \sum_{n \in \Z} \frac{1}{\parenth{mz + n}^k}
+\end{align*}
+exists, allowing us to define $E_2$ in the following manner.
+
+\begin{boxdefinition}[$E_2$]
+    For all $z \in \Halfplane$, define
+    \begin{align*}
+        E_2(z) := \frac{1}{2\zeta(2)} \lim_{N \to \infty} \sum_{m = -N}^{N - 1} \sum_{n \in \Z} \frac{1}{\parenth{mz + n}^k}
+    \end{align*}
+\end{boxdefinition}
+
+The difference between this definition and \eqref{Ch2:Eq:Eisenstein_def_with_zeta_normalisation} with $k = 2$ is that here, we specify an order of summation for the outer sum, whereas for $k \geq 4$, in both \eqref{Ch2:Eq:Eisenstein_def_with_zeta_normalisation} and \eqref{Ch2:Eq:Eisenstein_def_Chris}, the order is immaterial due to absolute convergence. Interestingly, the Fourier expansion of $E_2$ agrees with \eqref{Ch2:Eq:Ek_qexpansion}.
+
+\begin{boxtheorem}
+    For all $z \in \Halfplane$, $E_2(z)$ can be expressed as the Fourier series
+    \begin{align}
+        E_2(z) = 1 - 24 \sum_{n=1}^{\infty} \sigma_1(n) e^{2 \pi i n z}
+        \label{Ch2:Eq:E2_qexpansion}
+    \end{align}
+\end{boxtheorem}
+
+We treat this separately (ie, we do not include this fact in the statement of \Cref{Ch2:Thm:Ek_qexpansion}) because Birkbeck treats it separately in the repository. He gives a formal proof over the course of several \sorry-free lemmas in \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/E2.lean#L736}{\texttt{SpherePacking.ModularForms.E2.lean}}. Interestingly, substituting $k = 2$ in \eqref{Ch2:Eq:Ck_Ek_qexpansion_const} yields precisely $-24$.
+
+It is noteworthy that $E_2$ is \textit{not a weight $2$, level $1$ modular form}, in contrast to the fact that for $k \geq 4$ even, $E_k$ is a weight $k$, level $1$ modular form. The reason for this is that it does not quite exhibit weight $2$, level $1$ slash-invariance.
+
+\begin{boxlemma}
+    For all $\gamma = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \in \SL{2, \Z}$, we have
+    \begin{align*}
+        E_2 \mid_2 \gamma = \parenth{cz + d}^{-2} E_2\of{\frac{az + b}{cz + d}} = E_2(z) - \frac{6ic}{\pi\parenth{cz + d}}
+    \end{align*}
+\end{boxlemma}
+
+The proof uses results about the discriminant form, which we define in the next subsection. We do not prove the above result here, as it is significantly beyond the scope of this project, but we point the reader to the blueprint \cite[Lemma 6.39]{blueprint}.\todo{Update blueprint reference before submitting}
 
 \subsection{The Discriminant Form}
+
+The discriminant form is a weight $12$, level $1$ modular form. As was briefly alluded to earlier, it is a cusp form. It is defined in terms of the Eisenstein series $E_4$ and $E_6$.
+
+\begin{boxdefinition}[The Discriminant Form]\label{Ch2:Def:DiscForm}
+    The \textbf{discriminant form} $\Delta$ is defined by
+    \begin{align}
+        \Delta := \frac{E_4^3 - E_6^2}{1728}
+        \label{Ch2:Eq:DiscForm_def}
+    \end{align}
+\end{boxdefinition}
+
+The discriminant form has important positivity and non-vanishing properties that we will use repeatedly, either directly or indirectly, in the construction of the magic function. The discriminant form will often show up in denominators, making these properties essential to prove properties like holomorphicity. The key to these properties is the so-called product formula.
+
+\begin{boxtheorem}[Product Formula for $\Delta$]
+    For all $z \in \Halfplane$, $\Delta(z)$ is expressible as the following infinite product:
+    \begin{align}
+        \Delta(z) = e^{2 \pi i z} \prod_{n=1}^{\infty} \parenth{1 - e^{2 \pi i n z}}^{24}
+    \end{align}
+\end{boxtheorem}
+
+% ASK CHRIS ABOUT LEAN PROOF OF PRODUCT FORMULA!
+
+A proof can be found in \cite[Chapter VII, §4, Theorem 6, p. 95]{SerreArith}.
+
+As a remark, we mention that not as much of the theory of infinite/arbitrary products has been formalised in Lean as the theory of infinite/arbitrary sums. In fact, much of the theory of infinite products was actually designed to be about infinite sums. The author has, in a different project, formalised some results about infinite products that would strengthen the existing theory, and hopes to make pull requests in the near future to merge them into \mathlib.
+
+% Do we want to say anything at all about infinite products in Lean? I think it's a bad idea, because it's too much of a rabbit-hole (and will lead to too much overlap with formalising maths courseworks 1 and 2)
+
+We now state the positivity and nonvanishing properties of $\Delta$ that we will use when constructing the magic function.
+
+\begin{boxcorollary}
+    The discriminant form has the following important properties.
+    \begin{enumerate}
+        \item For all $t > 0$, we have $\Delta\of{it} > 0$. That is, $\Delta$ is real and positive on the positive imaginary axis.
+        \item For all $z \in \Halfplane$, $\Delta\of{z} \neq 0$. That is, $\Delta$ is nonvanishing on the upper half-plane.
+    \end{enumerate}
+\end{boxcorollary}
+
+\subsection{The Jacobi Theta Functions}

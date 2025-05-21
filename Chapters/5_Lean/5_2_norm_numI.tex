@@ -1,0 +1,43 @@
+\section{A Metaprogramming Approach}
+
+\begin{comment}
+Begin by saying a few words about what metaprogramming is. Then go into subsections. Idea:
+1. Establish difficulty of doing computations in \C. Give examples, yes, but also stress that existing automation was unable to unpack the structural nuances of the way \C is defined. Also maybe talk about the whole "is I a numeral" debate, but I think this might be a rabbit-hole...
+2. Talk about the algorithm behind norm_numI. Talk about the original version we worked on with Heather and Edison at/after metaprogramming and at Xena.
+3. Say something about what Heather's latest modifications look like. Maybe also talk about how the approach can be generalised to quaternion algebras or splitting fields (what's similar and what's different between norm_numI and these things), but don't talk about the maths of either of these. Stress that this is still under development, and that this opens the door to a world of metaprogramming possibilities.
+\end{comment}
+
+In this section, we discuss an unexpected biproduct of this project: the development of a normalisation-simplification automation for performing computations in the complex numbers.
+
+Lean, like other interactive theorem provers, primarily interacts with its users through \textbf{tactics}. Fundamentally, the proof of a theorem in Lean is given by a \textbf{proof term}, which can be thought of as a concise expression that captures the information of how the hypotheses or inputs of the theorem are transformed into its conclusion by giving exactly the conclusion into which these inputs are transformed. A tactic is a command that, when invoked by a Lean user, performs a step in the construction of the proof term for a theorem.
+
+The most basic tactics can be thought of as being `syntax sugar' rather than invocations of computation or reasoning algorithms. Consider the following code.
+\begin{lstlisting}[caption=A tactic proof of the associativity of $\land$, label=Ch5:Listing:And_assoc_tactic]
+example (P Q R : Prop) : P ∧ (Q ∧ R) ↔ (P ∧ Q) ∧ R := by
+  constructor
+  · intro h
+    constructor
+    · constructor
+      · exact h.1
+      · exact h.2.1
+    · exact h.2.2
+  · intro h
+    constructor
+    · exact h.1.1
+    · constructor
+      · exact h.1.2
+      · exact h.2
+\end{lstlisting}
+
+This proof demonstrates how the \lstinline|constructor|, \lstinline|intro| and \lstinline|exact| tactics work. These tactics give the Lean compiler the following instructions:
+\begin{itemize}
+    \item \lstinline|constructor|: ``Prove the goal by proving the two statements it consists of." It works on conjunctions and biconditionals, that is, if the goal is of the form \lstinline|A ∧ B|, then \lstinline|constructor| replaces it with two goals, namely, \lstinline|A| and \lstinline|B|, and if the goal is of the form \lstinline|A ↔ B|, then \lstinline|constructor| replaces it with two goals, namely, \lstinline|A → B| and \lstinline|B → A|.
+    
+    \item \lstinline|intro|: ``Prove the goal by introducing the assumption term and proving the conclusion term." It works on implications and universal quantifications, that is, if the goal is of the form \lstinline|A → B|, then \lstinline|intro h| introduces an assumption \lstinline|h| of \lstinline|A| and replaces the goal with \lstinline|B|, and if the goal is of the form \lstinline|∀ (x : A), B|, then \lstinline|intro a| introduces term \lstinline|a| of type \lstinline|A| and replaces the goal with \lstinline|B|.
+\end{itemize}
+
+\subsection{Complex Computations are Complex}
+
+\subsection{Normalisation and Simplification}
+
+\subsection{Scope for Further Development}
