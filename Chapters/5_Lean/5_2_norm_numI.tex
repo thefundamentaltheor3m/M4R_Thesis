@@ -12,7 +12,7 @@ In this section, we discuss an unexpected biproduct of this project: the develop
 Lean, like other interactive theorem provers, primarily interacts with its users through \textbf{tactics}. Fundamentally, the proof of a theorem in Lean is given by a \textbf{proof term}, which can be thought of as a concise expression that captures the information of how the hypotheses or inputs of the theorem are transformed into its conclusion by giving exactly the conclusion into which these inputs are transformed. A tactic is a command that, when invoked by a Lean user, performs a step in the construction of the proof term for a theorem.
 
 The most basic tactics can be thought of as being `syntax sugar' rather than invocations of computation or reasoning algorithms. Consider the following code.
-\begin{lstlisting}[caption=A tactic proof of the associativity of $\land$, label=Ch5:Listing:And_assoc_tactic]
+\begin{lstlisting}[caption=A tactic-mode proof of the associativity of $\land$, label=Ch5:Listing:And_assoc_tactic]
 example (P Q R : Prop) : P ∧ (Q ∧ R) ↔ (P ∧ Q) ∧ R := by
   constructor
   · intro h
@@ -34,7 +34,64 @@ This proof demonstrates how the \lstinline|constructor|, \lstinline|intro| and \
     \item \lstinline|constructor|: ``Prove the goal by proving the two statements it consists of." It works on conjunctions and biconditionals, that is, if the goal is of the form \lstinline|A ∧ B|, then \lstinline|constructor| replaces it with two goals, namely, \lstinline|A| and \lstinline|B|, and if the goal is of the form \lstinline|A ↔ B|, then \lstinline|constructor| replaces it with two goals, namely, \lstinline|A → B| and \lstinline|B → A|.
     
     \item \lstinline|intro|: ``Prove the goal by introducing the assumption term and proving the conclusion term." It works on implications and universal quantifications, that is, if the goal is of the form \lstinline|A → B|, then \lstinline|intro h| introduces an assumption \lstinline|h| of \lstinline|A| and replaces the goal with \lstinline|B|, and if the goal is of the form \lstinline|∀ (x : A), B|, then \lstinline|intro a| introduces term \lstinline|a| of type \lstinline|A| and replaces the goal with \lstinline|B|.
+
+    \item \lstinline|exact|: ``Prove the goal with the following." It works on any goal where the proof of that goal is already known, that is, if the goal is \verb|B| and some proof \lstinline|h| of \lstinline|B| is already known, then \lstinline|exact h| proves the goal with \lstinline|h|.
 \end{itemize}
+
+In addition, the terms \lstinline|h.1|, \lstinline|h.2.1|, etc are shorthand for ``the first constituent of \lstinline|h|'', ``the first constituent of (the second constituent of \lstinline|h|)'', etc, where by ``first constituent'' and ``second constituent'', we mean the terms respectively to the left and right of the $\land$ symbol.
+
+What the tactics used in \Cref{Ch5:Listing:And_assoc_tactic} are actually doing is constructing the following \textbf{term-mode proof} of the same result.
+
+\begin{lstlisting}[caption=A term-mode proof of the associativity of $\land$, label=Ch5:Listing:And_assoc_term]
+example (P Q R : Prop) : P ∧ (Q ∧ R) ↔ (P ∧ Q) ∧ R :=
+  ⟨fun h ↦ ⟨⟨h.1, h.2.1⟩, h.2.2⟩,
+   fun h ↦ ⟨h.1.1, ⟨h.1.2, h.2⟩⟩⟩
+\end{lstlisting}
+
+% Try and end the discussion here. The point we were trying to make is that tactics generate proof terms. I think that point has been made! The remainder of this section can maybe be a discussion in an appendix. We can say something like "here's some fun facts about theorem proving in Lean" and include this and maybe even some other fun stuff from the book
+
+This proof is significantly shorter than the tactic-mode proof see in \Cref{Ch5:Listing:And_assoc_tactic}. While the code is arguably less readable than the tactic-mode proof, it is not too difficult to dissect:
+\begin{itemize}
+    \item The \lstinline|constructor| occurrences in \Cref{Ch5:Listing:And_assoc_tactic} correspond to the use of the so-called \textit{anonymous constructors} \lstinline|⟨,⟩| in \Cref{Ch5:Listing:And_assoc_term}.
+
+    \item The \lstinline|intro h| occurrences in \Cref{Ch5:Listing:And_assoc_tactic} correspond to the function definitions \lstinline|fun h ↦| in \Cref{Ch5:Listing:And_assoc_term}.
+
+    \item The \lstinline|exact| occurrences in \Cref{Ch5:Listing:And_assoc_tactic} correspond to the terms inside the anonymous constructors in \Cref{Ch5:Listing:And_assoc_term}.
+\end{itemize}
+
+In particular, the proof in \Cref{Ch5:Listing:And_assoc_term} consists solely of functions and constructors. No tactics occur anywhere in the argument (note the absence of the \lstinline|by| keyword, which marks the beginning of a tactic-mode proof).
+
+It turns out that \Cref{Ch5:Listing:And_assoc_term} still contains some syntax sugar. It is possible to use helper lemmas like \verb|Iff.intro| and \verb|And.intro| to avoid using the anonymous constructors, but a proof term completely devoid of the constructor syntax would look like the following.
+
+\begin{lstlisting}[caption=A proof term for the associativity of $\land$, label=Ch5:Listing:And_assoc_proof_term, escapeinside=``]
+example (P Q R : Prop) : P ∧ (Q ∧ R) ↔ (P ∧ Q) ∧ R := {
+  mp := fun a ↦ {
+    left := {
+      left := And.casesOn a fun left right ↦ And.casesOn right fun _ _ ↦ left
+      right := And.casesOn a fun _ right ↦ And.casesOn right fun left _ ↦ left
+    }
+    right := And.casesOn a fun _ right ↦ And.casesOn right fun _ right ↦ right
+  }
+  mpr := fun a ↦ {
+    left := And.casesOn a fun left _right ↦ And.casesOn left fun left _ ↦ left `\newpage`
+    right := {
+      left := And.casesOn a fun left _ ↦ And.casesOn left fun _ right ↦ right
+      right := And.casesOn a fun left right ↦ And.casesOn left fun _ _ ↦ right
+    }
+  }
+}
+\end{lstlisting}
+
+Proof terms, as we can see from \Cref{Ch5:Listing:And_assoc_proof_term}, are often long and do not clearly communicate the mathematical ideas they represent. Tactics overcome this by constructing proof terms without revealing them to the user. Indeed, there are tactics that serve as more than just syntax sugar: for example, results in intuitionistic propositional logic (such as the associativity of $\land$) can be proved by the tactic \lstinline|itauto|. That is, the following code compiles.
+
+
+\begin{lstlisting}[caption=A one-line tactic proof for the associativity of $\land$, label=Ch5:Listing:And_assoc_itauto]
+example (P Q R : Prop) : P ∧ (Q ∧ R) ↔ (P ∧ Q) ∧ R := by itauto
+\end{lstlisting}
+
+Other tactics like \lstinline|tauto| and \lstinline|simp| also work.
+
+\textbf{Metaprogramming} is the science of writing tactics in Lean. While syntax-sugar tactics are incredibly useful (compare \Cref{Ch5:Listing:And_assoc_tactic,Ch5:Listing:And_assoc_term,Ch5:Listing:And_assoc_proof_term}
 
 \subsection{Complex Computations are Complex}
 
