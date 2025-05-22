@@ -115,7 +115,7 @@ example : (π - 1) / (π - 1) = 1 := by
   field_simp [h₃]
 \end{lstlisting}
 
-Observe, however, that \lstinline|norm_num| \textit{is} able to prove the inequality $1 < 3$ despite it being an expression in $\R$. The reason is that \lstinline|norm_num| can navigate the canonical inclusions from $\N$, $\Z$ and $\Q$ into $\R$, meaning that it can simplify expressions in $\R$ that come from expressions it can simplify in $\N$, $\Z$ or $\Q$.\footnote{We say \lstinline|norm_num| can handle coercions.} It cannot, however, show that $1 < \pi$, because it does not understand $\pi$ \textit{as a numeral}. In $\C$, \lstinline|norm_num| faces this challenge not only with real transcendental numbers like $\pi$ but also with the imaginary constant $i$. Consider the following example.\footnote{Note that in Lean, the imaginary constant is denoted by an uppercase \lstinline|I| instead of a lowercase $i$. We will adhere to standard mathematical conventions and use a lowercase $i$ when referring to the imaginary constant in informal contexts.}
+Observe, however, that \lstinline|norm_num| \textit{is} able to prove the inequality $1 < 3$ despite it being an expression in $\R$. The reason is that \lstinline|norm_num| can navigate the canonical inclusions from $\N$, $\Z$ and $\Q$ into $\R$, meaning that it can simplify expressions in $\R$ that come from expressions it can simplify in $\N$, $\Z$ or $\Q$.\footnote{We say \lstinline|norm_num| can handle coercions.} It cannot, however, show that $1 < \pi$, because it does not treat $\pi$ \textit{as a numeral}. In $\C$, \lstinline|norm_num| faces this challenge not only with real transcendental numbers like $\pi$ but also with the imaginary constant $i$. Consider the following example.\footnote{Note that in Lean, the imaginary constant is denoted by an uppercase \lstinline|I| instead of a lowercase $i$. We will adhere to standard mathematical conventions and use a lowercase $i$ when referring to the imaginary constant in informal contexts.}
 
 \begin{lstlisting}[caption={A nontrivial computation in $\C$, done formally}, label=Ch5:Listing:long_tactic_pf_example_complex]
 example : (1 + I) * (1 + I * I * I) = 2 := by
@@ -125,8 +125,177 @@ example : (1 + I) * (1 + I * I * I) = 2 := by
 
 Again, \lstinline|simp|, \lstinline|field_simp|, \lstinline|ring| and \lstinline|norm_num| all fail, because $i$, like $\pi$ in \Cref{Ch5:Listing:pi_sub_one_norm_num_fail}, is not handled as a numeral. Observe, however, that $\parenth{1 + i}\parenth{1 + i \cdot i \cdot i}$ lies in $\Z[i]$. This means that if it is expressed as $a + bi$, with $a$ and $b$ both being (not necessarily simplified) real expressions, then in fact, $a$ and $b$ are both images of expressions in $\Z$. This means that \lstinline|norm_num| would be able to individually handle both $a$ and $b$, resulting in a simplified expression of the form $a' + b'i$, with $a'$ and $b'$ being simplified. This suggests that the key to writing a tactic that can simplify expressions like those in \Cref{Ch5:Listing:long_tactic_pf_example_complex} is to find a way to separate them into their real and imaginary parts, which in turn involves navigating the fact that $i^2 = -1$.
 
-\subsection{Normalisation and Simplification}
+\subsection{Parsing and Normalisation}
+
+The core idea behind \lstinline|norm_num| is that it simplifies expressions by computing normal forms. In its most basic form, \lstinline|norm_num| attempts to prove equalities of by putting the left and right hand sides in unique normal forms that can simply be inspected to check if the two sides are equal. For example, in the natural numbers, simple arithmetic facts are true by \textit{reflexivity}, that is, they are proved by the tactic \lstinline|rfl|, which proves definitional equality. Hence, the right normal form for numerical expressions in $\N$ is to just compute them and express them as a single natural number (ie, as the right number of applications of the successor function to $0$). Then, by inspection, two expressions are equal if and only if their normal forms---that is, their simplifications into single natural numbers---are equal. Inequalities work similarly.
+
+While the working of \lstinline|norm_num| may appear trivial in $\N$, its versatility becomes clearer in \textit{semirings}. Recall that a semiring is an algebraic structure that is a commutative, additive monoid and a multiplicative monoid, with the quintessential example being $\N$. If $A$ is any semiring, there is a natural semiring homomorphism $\uparrow : \N \to A$ given by
+\begin{align*}
+    \uparrow\!0 &:= 0 \\
+    \uparrow\!1 &:= 1 \\
+    \uparrow\!2 &:= 1 + 1 \\
+    &\ \ \ \vdots
+\end{align*}
+A \textbf{numeral} in $A$ is then any element of the image of $\uparrow$, and \lstinline|norm_num| puts expressions involving numerals in normal forms by recognising them as numerals, computing the normal form of their pre-images in $\uparrow$, and pushing the image back through $\uparrow$. The nontriviality of \lstinline|norm_num| for numerical expressions in $A$ is then not how it computes normal forms in $\N$ but how it navigates $\uparrow$. For more on how \lstinline|norm_num| works in semirings, follow the tutorial in \cite[\texttt{Metaprogramming/NormNum}]{HeatherMetaprogramming}. We will not discuss it in any more detail here, but will instead discuss the working of \lstinline|norm_numI|---specifically, what the desired normal form is and how it is computed.
+
+Since $\R$ is a subfield of $\C$, the constraints that the standard \lstinline|norm_num| faces in $\R$ are also constraints it can reasonably be expected to face in $\C$. The goal of \lstinline|norm_numI| is not to overcome \textit{these} constraints, but to overcome the \textit{additional} constraints that come from not treating $i$ as a numeral. The target normal form for an expression in $\C$ is therefore given by separating it into its real and imaginary parts, both of which are real expressions, and normalising them as much as possible.
+
+The key to \lstinline|norm_numI| is the \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/05f51ee8f61972da1b0a5ee360c4c57c1b599cca/SpherePacking/Tactic/NormNumI.lean#L72}{\lstinline|parse| function}. It separates an expression $z \in \C$ into its real and imaginary parts by performing a recursive pattern-match. For example, if the outermost operation is addition---ie, if $z = z_1 + z_2$---then it calls itself on both $z_j$, obtaining real and imaginary parts $a_j, b_j \in \R$ and proofs that $z_j = a_j + b_ji$, and returns the expression $\parenth{a_1 + a_2} + \parenth{b_1 + b_2}i$ as well as a proof that $z = \parenth{a_1 + a_2} + \parenth{b_1 + b_2}i$, which it obtains via a helper lemma \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/05f51ee8f61972da1b0a5ee360c4c57c1b599cca/SpherePacking/Tactic/NormNumI.lean#L20}{\lstinline|split_add|}. It performs similar recursive actions if $z$ is of the form $z_1 \cdot z_2$, $z_1\inv$, $z_1 / z_2$, $-z_1$, $z_1 - z_2$, $\overline{z_1}$, $z_1^n$ for some $n \in \N$, $i$, or a decimal/natural number. The recursion is guaranteed to terminate, because an expression that is fed into the function cannot contain infinitely many characters.
+
+\begin{boxexample}\label{Ch5:Eg:Parse}
+    The expression $z = \parenth{1 + i}\parenth{1 + i \cdot i \cdot i}$ (cf. \Cref{Ch5:Listing:long_tactic_pf_example_complex}) would be parsed in the following manner.
+    \begin{enumerate}[noitemsep]
+        \item To parse $z$, write $z = z_1 \cdot z_2$, where $z_1 = 1 + i$ and $z_2 = 1 + i \cdot i \cdot i$.
+        \item To parse $z_1$, write $z_1 = z_{11} + z_{12}$ where $z_{11} = 1$ and $z_{12} = i$.
+        \item $z_{11}$ is parsed as $1 + 0i$.
+        \item $z_{12}$ is parsed as $0 + 1i$.
+        \item By \lstinline|split_add|, $z_1 = z_{11} + z_{12}$ is parsed as
+              \begin{align*}
+                  \parenth{1 + 0} + \parenth{0 + 1}i
+              \end{align*}
+        \item To parse $z_2$, write $z_2 = z_{21} + z_{22}$, where $z_{21} = 1$ and $z_{22} = i \cdot i \cdot i$.
+        \item $z_{21}$ is parsed as $1 + 0i$.
+        \item To parse $z_{22}$, write $z_{22} = z_{221} \cdot z_{222}$, where $z_{221} = i \cdot i$ and $z_{222} = i$.
+        \item To parse $z_{221}$, write $z_{221} = z_{2211} \cdot z_{2212}$, where $z_{2211} = i$ and $z_{2212} = i$.
+        \item $z_{2211}$ is parsed as $0 + 1i$.
+        \item $z_{2212}$ is parsed as $0 + 1i$.
+        \item By \lstinline|split_mul|, $z_{221} = z_{2211} \cdot z_{2212}$ is parsed as
+              \begin{align*}
+                  \parenth{0 \cdot 0 - 1 \cdot 1} + \parenth{0 \cdot 1 + 0 \cdot 1}i
+              \end{align*}
+        \item $z_{222}$ is parsed as $0 + 1i$.
+        \item By \lstinline|split_mul|, $z_{22} = z_{221} \cdot z_{222}$ is parsed as
+              \begin{align*}
+                  \parenth{
+                    \parenth{0 \cdot 0 - 1 \cdot 1}
+                        \cdot
+                    0
+                    -
+                    \parenth{0 \cdot 1 + 1 \cdot 0}
+                        \cdot
+                    1
+                  } + \parenth{
+                    \parenth{0 \cdot 0 - 1 \cdot 1}
+                        \cdot
+                    1
+                    +
+                    0
+                        \cdot
+                    \parenth{0 \cdot 1 + 1 \cdot 0}
+                  }i
+              \end{align*}
+        \item By \lstinline|split_add|, $z_2 = z_{21} + z_{22}$ is parsed as
+              \begin{align*}
+                  &\parenth{1 + \parenth{
+                    \parenth{0 \cdot 0 - 1 \cdot 1}
+                        \cdot
+                    0
+                    -
+                    \parenth{0 \cdot 1 + 1 \cdot 0}
+                        \cdot
+                    1
+                  }} \\
+                  + &\parenth{0 + \parenth{
+                    \parenth{0 \cdot 0 - 1 \cdot 1}
+                        \cdot
+                    1
+                    +
+                    0
+                        \cdot
+                    \parenth{0 \cdot 1 + 1 \cdot 0}
+                  }}i
+              \end{align*}
+        \item By \lstinline|split_mul|, $z = z_1 + z_2$ is parsed as
+              \hspace{-2em}
+              \begin{align*}
+                  &\Big(
+                    \parenth{1 + 0}
+                        \cdot
+                    \parenth{1 + \parenth{
+                        \parenth{0 \cdot 0 - 1 \cdot 1}
+                            \cdot
+                        0
+                        -
+                        \parenth{0 \cdot 1 + 1 \cdot 0}
+                            \cdot
+                        1
+                    }} \\
+                    & -
+                    \parenth{0 + 1}
+                        \cdot
+                    \parenth{0 + \parenth{
+                        \parenth{0 \cdot 0 - 1 \cdot 1}
+                            \cdot
+                        1
+                        +
+                        0
+                            \cdot
+                        \parenth{0 \cdot 1 + 1 \cdot 0}
+                    }}
+                  \Big) \\
+                  + &\Big(
+                    \parenth{1 + 0}
+                        \cdot
+                    \parenth{0 + \parenth{
+                        \parenth{0 \cdot 0 - 1 \cdot 1}
+                            \cdot
+                        1
+                        +
+                        0
+                            \cdot
+                        \parenth{0 \cdot 1 + 1 \cdot 0}
+                    }} \\
+                    & +
+                    \parenth{1 + \parenth{
+                        \parenth{0 \cdot 0 - 1 \cdot 1}
+                            \cdot
+                        0
+                        -
+                        \parenth{0 \cdot 1 + 1 \cdot 0}
+                            \cdot
+                        1
+                    }}
+                        \cdot
+                    \parenth{0 + 1}
+                  \Big)i
+              \end{align*}
+    \end{enumerate}
+\end{boxexample}
+
+\begin{wrapfigure}{r}{0.4\linewidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{Chapters/5_Lean/Images/norm_numI_parse_output.png}
+    \caption{The Lean output of the steps shown in \Cref{Ch5:Eg:Parse}.}
+    \label{Ch5:Fig:Parse_Example}
+\end{wrapfigure}
+
+Note that in Lean, the result of parsing does not appear as an expression of the form $a + bi$, but rather, as a \lstinline|structure| with fields \lstinline|re| and \lstinline|im| for the real and imaginary parts. However, the underlying idea is no different from what we have described.
+
+Clearly, despite being mathematically valid, the result of parsing can be long and uninformative, making it an unsuitable choice of normal form for our purposes. However, by separating complex expressions into their real and imaginary parts, \lstinline|parse| perfectly sets up a very simple normalisation procedure that will put our expression in an appropriate normal form. Since we know of such a procedure for real expressions---namely, \lstinline|norm_num|---and since \lstinline|parse| expresses any complex expression as a combination of two real expressions, the normalisation procedure simply makes calls to \lstinline|norm_num| to express each of them in a \textit{real} normal form. The result is a complex number in a normal form $a + bi$ (or, in Lean notation, \lstinline|{re := a, im := b}|) with $a$ and $b$ both simplified to the greatest extent possible (as expressions in $\R$) by applying \lstinline|norm_num|.
+
+Note that \lstinline|norm_numI| is currently implemented as a \lstinline|conv| tactic rather than a full tactic, meaning that it is only capable of modifying expressions (and providing a proof that the modification is valid). It is not currently capable of proving goals, which are necessarily logical statements, such as equalities. This means that it needs to be used as follows.
+
+\begin{lstlisting}[caption=Using \lstinline|norm_numI| as a \lstinline|conv| tactic, label=Ch5:Listing:norm_numI_as_conv]
+example : (1 + I) * (1 + I * I * I) = 2 := by
+  conv_lhs => norm_numI
+  conv_rhs => norm_numI
+\end{lstlisting}
+
+Unpacking the code,
+\begin{itemize}
+    \item \lstinline|conv_lhs => norm_numI| applies the parsing-normalisation procedure outlined above to convert the expression \lstinline|(1 + I) * (1 + I * I * I)| on the left-hand side to \lstinline|{re := 2, im := 0}|.
+    \item \lstinline|conv_rhs => norm_numI| applies the parsing-normalisation procedure outlined above to convert the expression \lstinline|2| on the right-hand side to \lstinline|{re := 2, im := 0}|.
+\end{itemize} 
+Since the two sides are then exactly the same, the goal is proved. Note that both lines are necessary: $2$ on its own has not been separated into real and imaginary parts. The imaginary part needs to be explicitly shown to be $0$, which the \lstinline|parse| function does.
+
+After Macbeth, Xie and the author's initial success with this \lstinline|conv| tactic, Macbeth proceded to create an \textit{extension} of the existing \lstinline|norm_num| tactic that uses the parsing technique outlined above to handle complex expressions. This tactic is still being developed, but is being tested on active code from the project with immensely promising results.
 
 \subsection{Scope for Further Development}
 
-The benefits of having such a tactic cannot be overstated. There are numerous instances across the project where the collaborators have had to repeatedly prove facts like $1 + i \neq 0$ or clear complex denominators to separate into real and imaginary parts. 
+The benefits of having such a tactic cannot be overstated. There are numerous instances across the project where the collaborators have had to repeatedly prove computational facts in $\C$, such as $1 + i \neq 0$, or clear complex denominators to separate expressions into their real and imaginary parts.
+
+% Give an explicit example here from the repo
+
+The applicability of \lstinline|norm_numI|---or, at the very least, of the underlying idea, that the right normal form for expressions in $\C$ is to separate them into real and imaginary parts and express those in a normal form---extends well beyond expressions in $\C$. A key motivation for Xie, one of the co-creators of \lstinline|norm_numI| and an ardent algebraist, was to create a similar tactic that would normalise and simplify expressions in quaternion algebras. A discussion at a London Learning Lean event hosted at the London Institute of Mathematical Sciences in March 2025 sparked speculation among well-regarded members of the Lean Community that similar ideas might be applicable in other field extensions (with $\C$ regarded as $\quotient{\R[X]}{\parenth{X^2 + 1}}$ and $i$ as the image of $X$ via the quotient map). The idea would be that the separation into components corresponds to taking advantage of some linear independence criterion, with algebraic dependences not handled by the simplification step being captured by the helper lemmas in the normalisation step.
+
+There are numerous technical difficulties with implementing such a tactic that can work in other contexts, chief amongst them the fact that there would need to be a single modification to the tactic capable of handling very differently behaved algebraic structures (for instance, it would need to work the same way in quadratic, cubic, quartic and higher degree field extensions). It would hence need to have some awareness of the behaviours of each field in which it is applied, which is technically challenging. Nevertheless, the development of \lstinline|norm_numI| and the subsequent \lstinline|norm_num| modification marks a significant, and long overdue, step in the right direction, so that fewer nontrivial proofs are needed to prove trivial facts.
