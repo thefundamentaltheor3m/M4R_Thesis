@@ -275,6 +275,7 @@ Clearly, despite being mathematically valid, the result of parsing can be long a
 
 Note that \lstinline|norm_numI| is currently implemented as a \lstinline|conv| tactic rather than a full tactic, meaning that it is only capable of modifying expressions (and providing a proof that the modification is valid). It is not currently capable of proving goals, which are necessarily logical statements, such as equalities. This means that it needs to be used as follows.
 
+% Why is there an error in the following listing?
 \begin{lstlisting}[caption=Using \lstinline|norm_numI| as a \lstinline|conv| tactic, label=Ch5:Listing:norm_numI_as_conv]
 example : (1 + I) * (1 + I * I * I) = 2 := by
   conv_lhs => norm_numI
@@ -288,7 +289,7 @@ Unpacking the code,
 \end{itemize} 
 Since the two sides are then exactly the same, the goal is proved. Note that both lines are necessary: $2$ on its own has not been separated into real and imaginary parts. The imaginary part needs to be explicitly shown to be $0$, which the \lstinline|parse| function does.
 
-After Macbeth, Xie and the author's initial success with this \lstinline|conv| tactic, Macbeth proceded to create an \textit{extension} of the existing \lstinline|norm_num| tactic that uses the parsing technique outlined above to handle complex expressions. This tactic is still being developed, but is being tested on active code from the project with immensely promising results.
+After Macbeth, Xie and the author's initial success with this \lstinline|conv| tactic, Macbeth proceeded to create an \textit{extension} of the existing \lstinline|norm_num| tactic that uses the parsing technique outlined above to handle complex expressions. This tactic is still being developed, but is being tested on active code from the project with immensely promising results.
 
 \subsection{Scope for Further Development}
 
