@@ -26,11 +26,171 @@ We now show that the $+1$-eigenfunction $a$ is Schwartz.
 
 \subsection{The $+1$-Eigenfunction}
 
-We begin by proving that $I_1, \ldots, I_6$ are smooth. The key to proving this is the Leibniz Integral Rule, which states that under mild conditions, the derivative with respect to one variable of the integral with respect to the other variable of a function of two variables is given by the integral of the corresponding partial derivative, which implies the analogous differentiability criterion.
+We begin by proving that $I_1, \ldots, I_6$ are smooth. The key to proving this is the Leibniz Integral Rule\footnote{Also known as Leibniz's technique for `differentiating under the integral sign'}, which states that under mild conditions, the derivative with respect to one variable of the integral with respect to the other variable of a function of two variables is given by the integral of the corresponding partial derivative, which implies the analogous differentiability criterion.
 
 % Add details
 
 We are now ready to prove that $I_1, \ldots, I_6$ and their derivatives decay rapidly enough. The strategy to do this will be to bound the $I_j$ (and their by derivatives) rapidly enough decaying functions. For conciseness, we only prove the result for the zeroth derivatives of $I_1$, $I_2$ and $I_6$ and only reduce the $n$th derivative case to the zeroth derivative case for $I_1$. The others are proved quite similarly.
+
+As a first step towards bounding the $I_j$, we need to show that we can apply \Cref{SP:PolyFourierCoeffBound} to obtain upper-bounds for $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$.
+
+\begin{boxlemma}\label{Ch4:Lemma:PolyFourierCoeffBound_Apply}
+    There exist real numbers $C_0, C_{-2}, C_{-4} > 0$ such that
+    \begin{align*}
+        \abs{\phi_0\of{z}} &\leq C_{0} e^{-2\pi\Im(z)} \\
+        \abs{\phi_{-2}\of{z}} &\leq C_{-2} \\
+        \abs{\phi_{-4}\of{z}} &\leq C_{-4} e^{2\pi\Im(z)}
+    \end{align*}
+    for all $z \in \Halfplane$ with $\Im(z) > \frac{1}{2}$.
+\end{boxlemma}
+\begin{proof}
+    Fix $z \in \Halfplane$ and assume that $\Im(z) > \frac{1}{2}$. The following is a consequence of a result proved by Ramanujan \todo{find citation for original paper} in the theory of (quasi-)modular forms:
+    \begin{align}
+        E_2 E_4 - E_6 &= 720 \sum_{n=1}^{\infty} n \, \sigma_3(n) \, e^{2\pi i nz}
+        \label{Ch4:Eq:E2E4_sub_E6_qexpansion}
+    \end{align}
+    with the sum converging absolutely. Furthermore, it is easily seen that $\sigma_3(n) = \BigO{n^4}$, since $\sigma_3(n)$ is the sum of at most $n$ elements that are each at most $n^3$. Then, combining \eqref{Ch4:Eq:E2E4_sub_E6_qexpansion} and \eqref{Ch2:Eq:E4_qexpansion}, one can show that $E_4^2$, $E_4\parenth{E_2 E_4 - E_6}$, and $\parenth{E_2 E_4 - E_6}$ all have Fourier expansions in which each Fourier coefficient is $\BigO{n^{10}}$.  For instance, we know
+    \begin{align}
+        \parenth{E_2 E_4 - E_6}^2 = 720^2 \sum_{m=1}^{\infty} \sum_{n=1}^{\infty} n \, \sigma_3(n) \, e^{2\pi i z \parenth{m + n}}
+        \label{Ch4:Eq:E2E4_sub_E6_sq_qexpansion}
+    \end{align}
+    The Fourier coefficient corresponding to a term of the form $e^{2 \pi i z \parenth{m + n}}$ is a sum of at most $m + n$ terms that are each bounded above by $\parenth{\parenth{m + n}\sigma_3\of{m + n}}^2$, which is $\BigO{\parenth{m + n}^{10}}$. Similar computations can be performed for $E_4^2$ and $E_4\parenth{E_2 E_4 - E_6}$, proving that the polynomial growth assumption of \Cref{SP:PolyFourierCoeffBound} is satisfied by $\phi_{-4}$, $\phi_{-2}$ and $\phi_0$.
+
+    We also note from \eqref{Ch4:Eq:E2E4_sub_E6_sq_qexpansion} that the smallest nonzero Fourier coefficient corresponds to $m + n = 2$. Reconciling this with the fact that in the statement of \Cref{SP:PolyFourierCoeffBound}, we express the Fourier series in terms of powers of $e^{\pi i z}$ and not $e^{2 \pi i z}$, we conclude that the right choice of $n_0$ to bound $\phi_0$ is $4$. Similar computations show that the right value for $\phi_{-2}$ is $2$ and that for $\phi_{-4}$ is $0$, which allows us to apply \Cref{SP:PolyFourierCoeffBound} and conclude that there exist $C_0, C_{-2}, C_{-4} > 0$ such that
+    \begin{align*}
+        \abs{\phi_0\of{z}} &\leq C_{0} e^{-2\pi\Im(z)} \\
+        \abs{\phi_{-2}\of{z}} &\leq C_{-2} \\
+        \abs{\phi_{-4}\of{z}} &\leq C_{-4} e^{2\pi\Im(z)}
+    \end{align*}
+    as required.
+\end{proof}
+
+We can now bound $I_1$, $I_3$ and $I_5$.
+
+\begin{boxlemma}\label{Ch4:Lemma:Bound_I1_I3_I5}
+    There exists a positive real number $C_0$ such that for all $r \in \R$,
+    \begin{align*}
+        \abs{I_1(r)}, \abs{I_3(r)}, \abs{I_5(r)} &\leq \int_{1}^{\infty} C_0 \, e^{-2\pi s} \, e^{-\pi r/s} \, \diff{s}
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    For conciseness, we only bound $\abs{I_1}$ explicitly. Parametrise $z = -1 + it$ in \eqref{Ch4:Eq:I_1_def}. Then, for all $r \in \R$, we can write
+    \begin{align*}
+        I_1(r) &= -i \int_{0}^{1}
+            \phi_0\of{\frac{-1}{it}} \,
+            t^2 \,
+            e^{-\pi i r} \,
+            e^{\pi r t}\,
+            \diff{t}
+    \end{align*}
+    Writing $s = \frac{1}{t}$ and simplifying, we get that
+    \begin{align*}
+        I_1(r) &= -i \int_{1}^{\infty}
+            \phi_0\of{is} \,
+            s^{-4} \,
+            e^{-\pi i r} \,
+            e^{-\pi r / s}\,
+            \diff{t}
+    \end{align*}
+    Applying the triangle inequality, multiplicativity and monotonicity, we get
+    \begin{align*}
+        \abs{I_1(r)} &\leq \int_{1}^{\infty} \abs{
+            \phi_0\of{is} \,
+            s^{-4} \,
+            e^{-\pi i r} \,
+            e^{-\pi r / s}\,
+            } \diff{t}
+        \leq \int_{1}^{\infty}
+            \abs{\phi_0\of{is}} \,
+            e^{-\pi i r/s}
+    \end{align*}
+    Finally, since $s > \frac{1}{2}$ inside the integral, we know from \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply} that $\exists C_0 > 0$ such that
+    \begin{align*}
+        \abs{I_1(r)} \leq \int_{1}^{\infty} C_0 \, e^{-2\pi s} \, e^{-\pi r/s} \, \diff{s}
+    \end{align*}
+    as required. The bounds on $\abs{I_3}$ and $\abs{I_5}$ are computed similarly.
+\end{proof}
+
+Now that we have bounds on the integrals with bounded vertical contours, we compute bounds on the integrals with bounded horizontal contours.
+
+\begin{boxlemma}\label{Ch4:Lemma:Bound_I2_I4}
+    There exists a positive real number $C_1$ such that for all $r \in \R$,
+    \begin{align*}
+        \abs{I_2(r)}, \abs{I_4(r)} &\leq C_1 \, e^{-\pi r}
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    For conciseness, we only bound $\abs{I_2}$ explicitly. Parametrise $z = -1 + t + i$ in \eqref{Ch4:Eq:I_2_def}. Then, for all $r \in \R$, we can write
+    \begin{align*}
+        I_2(r) = \int_{0}^{1}
+            \phi_0\of{\frac{-1}{t + i}} \,
+            \parenth{t + i}^2 \,
+            e^{-\pi i r} \,
+            e^{\pi i r t} \,
+            e^{-\pi r} \,
+            \diff{t}
+    \end{align*}
+    Applying the triangle inequality, multiplicativity and monotonicity, we get
+    \begin{align*}
+        \abs{I_2(r)} &\leq \int_{0}^{1} \abs{\phi_0\of{\frac{-1}{t + i}}} \cdot 2e^{-\pi r} \, dt
+    \end{align*}
+    It is therefore enough to show that \Cref{SP:PolyFourierCoeffBound} applies. To that end, we manipulate the expression inside $\phi_0$:
+    \begin{align*}
+        \frac{-1}{t + i} = \frac{t}{t^2 + 1} + \frac{1}{t^2 + 1}i
+    \end{align*}
+    From this, we can deduce that its imaginary part is greater than $\frac{1}{2}$ for all $t \in \parenth{0, 1}$. Then, \Cref{SP:PolyFourierCoeffBound} tells us that $\exists C_0 > 0$ such that
+    \begin{align*}
+        \abs{\phi_0\of{\frac{-1}{t + i}}}
+        \leq C_0 \, e^{-2 \pi \cdot \frac{1}{t^2 + 1}}
+        \leq C_0 \, e^{-2\pi \cdot \frac{1}{2}} = C_0 \, e^{-\pi}
+    \end{align*}
+    Then, taking $C_1 := 2 \, C_0 \, e^{-\pi}$ and applying monotonicity,
+    \begin{align*}
+        \abs{I_2(r)} \leq \int_{0}^{1} C_1 \, e^{-\pi r} \, \diff{t} = C_1 \, e^{-\pi r}
+    \end{align*}
+    as required. The bound on $\abs{I_4}$ is computed similarly.
+\end{proof}
+
+Finally, we bound the integral with the unbounded vertical contour.
+
+\begin{boxlemma}\label{Ch4:Lemma:Bound_I6}
+    There exists a positive real number $C_2$ such that for all $r \in \R$,
+    \begin{align*}
+        \abs{I_6(r)} &\leq C_2 \, \frac{e^{-\pi \parenth{r + 2}}}{r + 2}
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    Parametrise $z = it$ in \eqref{Ch4:Eq:I_6_def}. Then, for all $r \in \R$, we can write
+    \begin{align*}
+        I_6(r) &= -2i \int_{1}^{\infty} \phi_0\of{it} \, e^{- \pi r t} \, \diff{t}
+    \end{align*}
+    Applying the triangle inequality, multiplicativity and monotonicity, we get
+    \begin{align*}
+        \abs{I_6(r)} \leq 2\int_{1}^{\infty}
+            \abs{\phi_0\of{it}} \,
+            e^{-\pi r t} \,
+            \diff{t}
+    \end{align*}
+    Let $C_0$ be as in \Cref{SP:PolyFourierCoeffBound} and define $C_1 := 2 C_0$. Then,
+    \begin{align*}
+        \abs{I_6(r)} \leq 2\int_{1}^{\infty}
+            C_0 \,
+            e^{-2 \pi t} \,
+            e^{-\pi r t} \,
+            \diff{t}
+        = C_1 \int_{1}^{\infty} e^{-\parenth{2\pi + \pi r}t} \, \diff{t}
+        = C_1 \frac{e^{-\pi\parenth{r + 2}}}{\pi\parenth{r + 2}}
+    \end{align*}
+    Defining $C_2 := \frac{C_1}{\pi}$ then yields the desired result.
+\end{proof}
+
+The formal proofs of the bounds in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} are complete up to proofs of integrability, which are needed to apply monotonicity of the integral due to the definition of the integral in \mathlib. The evaluation of the final integral in \Cref{Ch4:Lemma:Bound_I6} is also currently a \sorry.\todo{Update}
+
+We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to the case we saw in \Cref{Ch4:Lemma:Bound_I1_I3_I5}. Analogous results can be proved for the other $I_j$.
+
+% Add details
+
+With all higher derivative cases reduced to the zeroth derivative cases, all that remains to prove that $a$ is Schwartz is to prove that the bounds computed in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} do, indeed, decay faster than any inverse power of $r$. This fact is obvious for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$, but less so for $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$.
 
 % Add details
 
