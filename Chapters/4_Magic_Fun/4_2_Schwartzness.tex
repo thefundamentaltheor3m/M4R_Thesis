@@ -1,6 +1,8 @@
 \section{Establishing the Schwartzness Property}
 
-We know that the Schwartz space is a $\C$-vector space, making it closed under addition. To show that $a$ and $b$ are Schwartz functions, we show that their constituent integrals $I_1, \ldots, I_6$ and $J_1, \ldots, J_6$ are Schwartz. We need to show both smoothness and rapid decay. Smoothness is fairly straightforward. Rapid decay, on the other hand, requires an additional ingredient.
+The magic function is a linear combination of $a$ and $b$, which are each defined as compositions of $a\rad$ and $b\rad$ with the norm-squared function. From \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}, we know that it is enough to establish that $a\rad$ and $b\rad$ are Schwartz to establish that $a$ and $b$ are Schwartz. In particular, this means the smoothness and decaying conditions need to be satisfied with respect to $\R$ inputs instead of $\R^8$ inputs, a substantial simplification. We can further simplify the problem by taking advantage of linearity.
+
+We know that the Schwartz space is a $\C$-vector space, making it closed under addition. To show that $a\rad$ and $b\rad$ are Schwartz functions, we show that their constituent integrals $I_1, \ldots, I_6$ and $J_1, \ldots, J_6$ are Schwartz. We need to show both smoothness and rapid decay. Smoothness is fairly straightforward. Rapid decay, on the other hand, requires an additional ingredient.
 
 It turns out that we can establish a general result that yields an upper-bound for functions of the form $\frac{f}{\Delta}$, where $\Delta$ is the discriminant form and there is a polynomial growth condition on the Fourier coefficients of $f$. We take advantage of the fact that the $\phi$- and $\psi$-functions can be expressed in this form (cf. \Cref{Ch4:Def:phis} and \Cref{Ch4:Prop:psi_as_div_disc}). The condition on their Fourier coefficients comes from the theory of modular forms.
 
@@ -22,13 +24,27 @@ We begin with the statement and proof of the general result \cite[Lemma 7.4]{blu
 
 As mentioned earlier, the strategy we will use to prove that the $\pm 1$-eigenfunctions are Schwartz is proving that their constituent integrals are Schwartz. The key to proving this is \Cref{SP:PolyFourierCoeffBound}: we establish that they satisfy the rapid decay condition by bounding their integrands above using \Cref{SP:PolyFourierCoeffBound}.
 
-We now show that the $+1$-eigenfunction $a$ is Schwartz.
+We now show that $a\rad$, the radial version of the $+1$-eigenfunction, is Schwartz.
 
 \subsection{The $+1$-Eigenfunction}
 
 We begin by proving that $I_1, \ldots, I_6$ are smooth. The key to proving this is the Leibniz Integral Rule\footnote{Also known as Leibniz's technique for `differentiating under the integral sign'}, which states that under mild conditions, the derivative with respect to one variable of the integral with respect to the other variable of a function of two variables is given by the integral of the corresponding partial derivative, which implies the analogous differentiability criterion.
 
-% Add details
+\begin{boxlemma}
+    For all $1 \leq j \leq 6$ and $k \in \N$, $I_j(r)$ is $k$ times differentiable.
+\end{boxlemma}
+\begin{proof}
+    Fix $1 \leq j \leq 6$. We know, from \Cref{Ch4:Def:a}, that
+    \begin{align*}
+        I_j(r) = \int_{X_j} g_j\of{z} \, e^{\pi i r z} \, \diff{z}
+    \end{align*}
+    for intervals $X_j$ and holomorphic functions $g_j : \Halfplane \to \C$. The Leibniz Integral Rule then tells us that for all $k \in \N$, the $k$th derivative of $I_j$ at some $r \in \R$ is given by
+    \begin{align}
+        \int_{X_j} g_j\of{z} \, \parenth{\pi i z}^{k} \, e^{\pi i r z} \, \diff{z}
+        \label{Ch4:Eq:Ij_deriv}
+    \end{align}
+    In particular, $I_j$ is smooth (in $r$) for all $j$.
+\end{proof}
 
 We are now ready to prove that $I_1, \ldots, I_6$ and their derivatives decay rapidly enough. The strategy to do this will be to bound the $I_j$ (and their by derivatives) rapidly enough decaying functions. For conciseness, we only prove the result for the zeroth derivatives of $I_1$, $I_2$ and $I_6$ and only reduce the $n$th derivative case to the zeroth derivative case for $I_1$. The others are proved quite similarly.
 
@@ -49,7 +65,7 @@ As a first step towards bounding the $I_j$, we need to show that we can apply \C
         E_2 E_4 - E_6 &= 720 \sum_{n=1}^{\infty} n \, \sigma_3(n) \, e^{2\pi i nz}
         \label{Ch4:Eq:E2E4_sub_E6_qexpansion}
     \end{align}
-    with the sum converging absolutely. Furthermore, it is easily seen that $\sigma_3(n) = \BigO{n^4}$, since $\sigma_3(n)$ is the sum of at most $n$ elements that are each at most $n^3$. Then, combining \eqref{Ch4:Eq:E2E4_sub_E6_qexpansion} and \eqref{Ch2:Eq:E4_qexpansion}, one can show that $E_4^2$, $E_4\parenth{E_2 E_4 - E_6}$, and $\parenth{E_2 E_4 - E_6}$ all have Fourier expansions in which each Fourier coefficient is $\BigO{n^{10}}$.  For instance, we know
+    with the sum converging absolutely. Furthermore, it is easily seen that $\sigma_3(n) = \BigO{n^4}$, since $\sigma_3(n)$ is the sum of at most $n$ elements that are each at most $n^3$. Then, combining \eqref{Ch4:Eq:E2E4_sub_E6_qexpansion} and \eqref{Ch2:Eq:E4_qexpansion}, one can show that $E_4^2$, $E_4\parenth{E_2 E_4 - E_6}$, and $\parenth{E_2 E_4 - E_6}$ all have Fourier expansions in which each Fourier coefficient is $\BigO{n^{10}}$. For instance, we know
     \begin{align}
         \parenth{E_2 E_4 - E_6}^2 = 720^2 \sum_{m=1}^{\infty} \sum_{n=1}^{\infty} n \, \sigma_3(n) \, e^{2\pi i z \parenth{m + n}}
         \label{Ch4:Eq:E2E4_sub_E6_sq_qexpansion}
@@ -104,7 +120,7 @@ We can now bound $I_1$, $I_3$ and $I_5$.
             \abs{\phi_0\of{is}} \,
             e^{-\pi i r/s}
     \end{align*}
-    Finally, since $s > \frac{1}{2}$ inside the integral, we know from \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply} that $\exists C_0 > 0$ such that
+    Since $s > \frac{1}{2}$ inside the integral, we know from \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply} that $\exists C_0 > 0$ such that
     \begin{align*}
         \abs{I_1(r)} \leq \int_{1}^{\infty} C_0 \, e^{-2\pi s} \, e^{-\pi r/s} \, \diff{s}
     \end{align*}
@@ -184,9 +200,23 @@ Finally, we bound the integral with the unbounded vertical contour.
     Defining $C_2 := \frac{C_1}{\pi}$ then yields the desired result.
 \end{proof}
 
-The formal proofs of the bounds in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} are complete up to proofs of integrability, which are needed to apply monotonicity of the integral due to the definition of the integral in \mathlib. The evaluation of the final integral in \Cref{Ch4:Lemma:Bound_I6} is also currently a \sorry.\todo{Update}
+The formal proofs of the bounds in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} are complete up to proofs that they are bounded by integrable functions, which is necessary to apply monotonicity of the integral due to the definition of the integral in \mathlib. The evaluation of the final integral in \Cref{Ch4:Lemma:Bound_I6} is also currently a \sorry.\todo{Update}
 
 We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to the case we saw in \Cref{Ch4:Lemma:Bound_I1_I3_I5}. Analogous results can be proved for the other $I_j$.
+
+\begin{boxlemma}
+    For all $k \in \N$, there exists a positive real number $C_0^{(k)}$ such that for all $r \in \R$,
+    \begin{align*}
+        \abs{I_1^{(k)}\of{r}} \leq \int_{1}^{\infty} C_0^{(k)} \, e^{-2\pi s} \, e^{- \pi r / s} \, \diff{s}
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    Fix $k \in \N$. As we showed in \eqref{Ch4:Eq:Ij_deriv}, the $k$th derivative of $I_1$ with respect to $r$ can be expressed as
+    \begin{align*}
+        I_1^{(k)}\of{r} = \int_{-1}^{-1+i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z+1}^2 \, \parenth{\pi i z}^k \, e^{\pi i r z} \, \diff{z}
+    \end{align*}
+    
+\end{proof}
 
 % Add details
 
