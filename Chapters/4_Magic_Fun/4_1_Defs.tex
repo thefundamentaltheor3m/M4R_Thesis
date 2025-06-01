@@ -180,7 +180,7 @@ Recall the $H$-functions defined as the fourth powers of the Theta functions in 
     where $H_2$, $H_3$ and $H_4$ are as defined in \Cref{Ch2:Def:Theta_H}.
 \end{boxdefinition}
 
-In \cite{Viazovska8}, the $\psi$-functions are defined in terms of the $h$-function via slash actions. We express them in terms of $h$ more directly.
+In \cite{Viazovska8}, the $\psi$-functions are defined in terms of the $h$-function via slash actions.
 
 \begin{boxdefinition}[The $\psi$-Functions]\label{Ch4:Def:psis}
     Define the functions $\psi_I, \psi_S, \psi_T : \Halfplane \to \C$ by
@@ -195,6 +195,14 @@ In \cite{Viazovska8}, the $\psi$-functions are defined in terms of the $h$-funct
     where $h$ is as defined in \Cref{Ch4:Def:h}.
 \end{boxdefinition}
 
+By merely unfolding definitions, it is possible to show that the $\psi$-functions can be expressed directly in terms of the $H$-functions.
+
+\begin{boxlemma}
+    
+\end{boxlemma}
+
+It will be useful, particularly to prove Schwartzness, to express the $\psi$-functions in an alternate form, as fractions with the discriminant in the denominator.
+
 \begin{boxproposition}[The $\psi$-Fucntions]\label{Ch4:Prop:psi_as_div_disc}
     We can express $\psi_I, \psi_S, \psi_T$ in the following manner:
     \begin{align}
@@ -207,3 +215,69 @@ In \cite{Viazovska8}, the $\psi$-functions are defined in terms of the $h$-funct
     \end{align}
     where $\Delta$ is the discriminant form.
 \end{boxproposition}
+
+This proposition can be proved by clearing denominators in
+
+The $\psi$-functions satisfy the following relations.
+
+\begin{boxlemma}\label{Ch4:Lemma:psi_var_change}
+    For all $z \in \Halfplane$,
+    \begin{align*}
+        \psi_T(z) &= \parenth{z+1}^2 \psi_S\of{\frac{-1}{z+1}} \\
+        \psi_I(z) &= z^2 \psi_S\of{\frac{-1}{z}}
+    \end{align*}
+\end{boxlemma}
+
+These relations can be deduced directly from \Cref{Ch4:Def:psis}.
+
+We are now ready to define the $-1$-eigenfunction, denoted $b$.
+
+\begin{boxdefinition}[Viazovska's $-1$-Fourier Eigenfunction]\label{Ch4:Def:b}
+    Define $b\rad : \R \to \C$ by
+    \begin{align}
+        b\rad\of{r} := J_1(r) + J_2(r) + J_3(r) + J_4(r) + J_5(r) + J_6(r)
+        \label{Ch4:Eq:b_rad_def}
+    \end{align}
+    where, for all $r \in \R$,
+    \begin{align}
+        J_1(r) &:= \int_{-1}^{-1 + i} \psi_T\of{z} \,
+                                 e^{\pi i r z} \,
+                                 \diff{z}
+            \label{Ch4:Eq:J_1_def} \\
+        J_2(r) &:= \int_{-1 + i}^{i} \psi_T\of{z} \,
+                                 e^{\pi i r z} \,
+                                 \diff{z}
+            \label{Ch4:Eq:J_2_def} \\
+        J_3(r) &:= \int_{1}^{1 + i} \psi_T\of{z} \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:J_3_def} \\
+        J_4(r) &:= \int_{1 + i}^{i} \psi_T\of{z} \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:J_4_def} \\
+        J_5(r) &:= -2 \int_{0}^{i} \psi_I\of{z} \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:J_5_def} \\
+        J_6(r) &:= 2 \int_{i}^{i \infty} \psi_S\of{z} \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:J_6_def}
+    \end{align}
+    Define the $-1$-Fourier eigenfunction $a : \R^8 \to \C$ by
+    \begin{align}
+        b(x) := b\rad\of{\norm{x}^2}
+            \label{Ch4:Eq:b_def}
+    \end{align}
+\end{boxdefinition}
+
+Note that by applying the relations in \Cref{Ch4:Lemma:psi_var_change}, we can express $J_1, \ldots, J_5$ in the following manner:
+\begin{align*}
+    J_1(r) &= \int_{-1}^{-1 + i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
+    J_2(r) &= \int_{-1 + i}^{i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
+    J_3(r) &= \int_{1}^{1 + i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
+    J_4(r) &= \int_{1 + i}^{i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
+    J_5(r) &= -2 \int_{0}^{i} \psi_I\of{z} \, z^2 \, e^{\pi i n z} \, \diff{z}
+\end{align*}
+With $J_1, \ldots, J_5$ expressed in this manner, and $J_6$ expressed as in \eqref{Ch4:Eq:J_6_def}, there is a marked visual similarity between the $J_j$ and the $I_j$. A consequence of this is that similar strategies can be used to prove properties about both $a$ and $b$.
