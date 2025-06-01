@@ -157,7 +157,9 @@ It is shown in \cite[pp. 4-5]{DiamondShurman} that $E_k$ is a weight $k$, level 
 
 The functional equations \eqref{Ch2:Eq:Ek_func_eq_one_add} and \eqref{Ch2:Eq:Ek_func_eq_neg_one_div} yield similar results for an important function that will be used in constructing the magic function. We will explore this idea in \Cref{Ch4:Chapter}.
 
-The final result we will state about the Eisenstein Series (of weight $\geq 4$) is that their Fourier expansions take a particular form. We will be particularly interested in $E_4$ and $E_6$, which will show up in the definition of the magic function. First, we need to define the arithmetic function $\sigma_k(n)$, which is defined in \mathlib\ as \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ArithmeticFunction.lean#L797-L799}{\texttt{ArithmeticFunction.sigma}}.
+One of the most important properties of the Eisenstein Series---at least, for our purposes---is that their Fourier coefficients\footnote{The slash-invariant properties of modular forms mean that they have periodicity properties. Computing their Fourier series is hence a natural strategy when attempting to dissect their properties.} grow polynomially. We will be particularly interested in $E_4$ and $E_6$, which are defined as above, and their cousin $E_2$, which we will treat separately. These functions show up in the definition of Viazovska's magic function, and the polynomial growth property allows us to prove that the magic function is Schwartz.
+
+Our strategy to prove that the Fourier coefficients have polynomial growth will be to compute them explicitly. First, we need to define the arithmetic function $\sigma_k(n)$, which is defined in \mathlib\ as \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ArithmeticFunction.lean#L797-L799}{\texttt{ArithmeticFunction.sigma}}.
 
 \begin{boxdefinition}[The $\sigma$-Function]
     The \textbf{$\sigma$-function} $\sigma : \N \times \N \to \N$ is given by
@@ -168,9 +170,7 @@ The final result we will state about the Eisenstein Series (of weight $\geq 4$) 
 
 In \mathlib, for every natural number \texttt{k}, \texttt{ArithmeticFunction.sigma k} is defined as an \href{https://github.com/leanprover-community/mathlib4/blob/bc10be4a66942c0fc2547b54f7f8715df72ff28c/Mathlib/NumberTheory/ArithmeticFunction.lean#L76-L80}{\texttt{ArithmeticFunction $\N$}} structure, meaning it is an $\N \to \N$ map that maps $0$ to $0$.
 
-Somewhat unexpectedly, the $\sigma$-function shows up in the Fourier expansions of the Eisenstein series. The fact that $\sigma$ is well-behaved and that its behaviour is easily formalised makes it easy to prove properties about the Fourier coefficients of the Eisenstein series, which we will need to do for Schwartzness proofs later on.
-
-We now give the Fourier expansions of the Eisenstein Series.
+The reason we defined the $\sigma$-function is that the Fourier coefficients of the Eisenstein series are given in terms of $\sigma$.
 
 \begin{boxtheorem}\label{Ch2:Thm:Ek_qexpansion}
     For all even $k \geq 4$ and $z \in \Halfplane$, $E_k(z)$ can be expressed as the Fourier series
@@ -192,9 +192,11 @@ We now give the Fourier expansions of the Eisenstein Series.
 
 The statement and proof of the general Fourier expansion of $E_k$ for even $k \geq 4$ have been \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/Eisensteinqexpansions.lean#L301}{formalised by Birkbeck} in the Sphere Packing repository.\todo{Here, again, the repo disagrees with the blueprint. FIX!} Substituting $k = 4$ and $k = 6$ in the expression for $C_k$ and evaluating it using software like Wolfram|Alpha gives the desired result.
 
+Now, it is immediate that the Fourier coefficients exhibit polynomial growth: for all $k, n \in \N$, $\sigma_k(n)$ is a sum of at most $n$ numbers that are each at most $n^k$, meaning $\sigma_k(n) \leq n^{k+1}$.
+
 % TODO: RAISE THIS ON ZULIP. Mention that we need to correct the blueprint to reflect the repo version.
 
-We finally turn our attention to $E_2$. It is tempting to define $E_2$ via the summation used in \Cref{Ch2:Eq:Eisenstein_def_Chris} or \Cref{Ch2:Eq:Eisenstein_def_with_zeta_normalisation}. Unfortunately, when $k = 2$, these sums do not converge absolutely. That being said, Birkbeck has \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/summable_lems.lean#L1680}{shown formally} that for all $m \in \Z$, $z \in \Halfplane$, and $k \geq 2$, the summation
+For the remainder of this subsection, we will focus on a cousin of the weight $\geq 4$ Eisenstein Series: the weight $2$ Eisenstein Series, denoted $E_2$. The reason why we treat $E_2$ separately is that it is not a modular form. Furthermore, it cannot be defined via the summation used in \Cref{Ch2:Eq:Eisenstein_def_Chris} or \Cref{Ch2:Eq:Eisenstein_def_with_zeta_normalisation}: unfortunately, when $k = 2$, these sums do not converge absolutely. That being said, Birkbeck has \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/summable_lems.lean#L1680}{shown formally} that for all $m \in \Z$, $z \in \Halfplane$, and $k \geq 2$, the summation
 \begin{align*}
     \sum_{n \in \Z} \frac{1}{\parenth{mz + n}^k}
 \end{align*}
@@ -213,7 +215,7 @@ exists, allowing us to define $E_2$ in the following manner.
 
 The difference between this definition and \eqref{Ch2:Eq:Eisenstein_def_with_zeta_normalisation} with $k = 2$ is that here, we specify an order of summation for the outer sum, whereas for $k \geq 4$, in both \eqref{Ch2:Eq:Eisenstein_def_with_zeta_normalisation} and \eqref{Ch2:Eq:Eisenstein_def_Chris}, the order is immaterial due to absolute convergence. Interestingly, the Fourier expansion of $E_2$ agrees with \eqref{Ch2:Eq:Ek_qexpansion}.
 
-\begin{boxtheorem}
+\begin{boxtheorem}\label{Ch2:Thm:E2_qexpansion}
     For all $z \in \Halfplane$, $E_2(z)$ can be expressed as the Fourier series
     \begin{align}
         E_2(z) = 1 - 24 \sum_{n=1}^{\infty} \sigma_1(n) e^{2 \pi i n z}
@@ -221,9 +223,9 @@ The difference between this definition and \eqref{Ch2:Eq:Eisenstein_def_with_zet
     \end{align}
 \end{boxtheorem}
 
-We treat this separately (ie, we do not include this fact in the statement of \Cref{Ch2:Thm:Ek_qexpansion}) because Birkbeck treats it separately in the repository. He gives a formal proof over the course of several \sorry-free lemmas in \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/E2.lean#L736}{\texttt{SpherePacking.ModularForms.E2.lean}}. Interestingly, substituting $k = 2$ in \eqref{Ch2:Eq:Ck_Ek_qexpansion_const} yields precisely $-24$.
+Birkbeck gives a formal proof of this over the course of several \sorry-free lemmas in \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/E2.lean#L736}{\texttt{SpherePacking.ModularForms.E2.lean}}. Interestingly, substituting $k = 2$ in \eqref{Ch2:Eq:Ck_Ek_qexpansion_const} yields precisely $-24$. Observe, from \Cref{Ch2:Thm:Ek_qexpansion,Ch2:Thm:E2_qexpansion}, that for all even $k \geq 2$, the Fourier coefficients of $E_k$ grow polynomially. This will be crucial later on.
 
-It is noteworthy that $E_2$ is \textit{not a weight $2$, level $1$ modular form}, in contrast to the fact that for $k \geq 4$ even, $E_k$ is a weight $k$, level $1$ modular form. The reason for this is that it does not quite exhibit weight $2$, level $1$ slash-invariance.
+ $E_2$ is \textit{not a weight $2$, level $1$ modular form}. The reason for this is that it does not quite exhibit weight $2$, level $1$ slash-invariance.
 
 \begin{boxlemma}
     For all $\gamma = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \in \SL{2, \Z}$, we have
@@ -273,4 +275,25 @@ We now state the positivity and nonvanishing properties of $\Delta$ that we will
     \end{enumerate}
 \end{boxcorollary}
 
-\subsection{The Jacobi Theta Functions}
+\subsection{The Theta Functions}
+
+In this subsection, we define and state some basic properties of the Theta functions $\Theta_2$, $\Theta_3$ and $\Theta_4$, the fourth powers of which define the corresponding $H$-functions. The $H$-functions will be important ingredients in the construction of the magic function.
+
+\begin{boxdefinition}[The $\Theta$- and $H$-Functions]
+    Define $\Theta_2, \Theta_3, \Theta_4 : \Halfplane \to \C$ by
+    \begin{align*}
+        \Theta_2(z) &= \sum_{n \in \Z} e^{\pi i \parenth{n + \frac{1}{2}}^2 z} \\
+        \Theta_3(z) &= \sum_{n \in \Z} e^{\pi i n^2 z} \\
+        \Theta_4(z) &= \sum_{n \in \Z} \parenth{-1}^n e^{\pi i n^2 z}
+    \end{align*}
+    for all $z \in \Halfplane$. Define $H_2, H_3, H_4 : \Halfplane \to \C$ by
+    \begin{align*}
+        H_2 &= \Theta_2^4 \\
+        H_3 &= \Theta_3^4 \\
+        H_4 &= \Theta_4^4
+    \end{align*}
+\end{boxdefinition}
+
+It can be shown that the $H$-functions are modular forms of weight $2$ and level $2$. In fact, $\set{H_2, H_3, H_4}$ is a basis for the space $M_2\of{\Gamma\of{2}}$.
+
+Given the manner in which the $H$-functions are defined, it is tedious to compute their Fourier expansions explicitly. However, just as the purpose of computing the Fourier expansions of 

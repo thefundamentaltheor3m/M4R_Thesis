@@ -202,7 +202,7 @@ Finally, we bound the integral with the unbounded vertical contour.
 
 The formal proofs of the bounds in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} are complete up to proofs that they are bounded by integrable functions, which is necessary to apply monotonicity of the integral due to the definition of the integral in \mathlib. The evaluation of the final integral in \Cref{Ch4:Lemma:Bound_I6} is also currently a \sorry.\todo{Update}
 
-We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to the case we saw in \Cref{Ch4:Lemma:Bound_I1_I3_I5}. Analogous results can be proved for the other $I_j$.
+We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to the case we saw in \Cref{Ch4:Lemma:Bound_I1_I3_I5}.
 
 \begin{boxlemma}
     For all $k \in \N$, there exists a positive real number $C_0^{(k)}$ such that for all $r \in \R$,
@@ -211,17 +211,47 @@ We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to t
     \end{align*}
 \end{boxlemma}
 \begin{proof}
-    Fix $k \in \N$. As we showed in \eqref{Ch4:Eq:Ij_deriv}, the $k$th derivative of $I_1$ with respect to $r$ can be expressed as
+    Fix $k \in \N$ and $r \in \R$. As we showed in \eqref{Ch4:Eq:Ij_deriv}, the $k$th derivative of $I_1$ at $r$ can be expressed as
     \begin{align*}
         I_1^{(k)}\of{r} = \int_{-1}^{-1+i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z+1}^2 \, \parenth{\pi i z}^k \, e^{\pi i r z} \, \diff{z}
     \end{align*}
-    
+    Parametrise $z = -1 + it$. Then,
+    \begin{align*}
+        I_1^{(k)}\of{r} = -i \int_{0}^{1} \phi_0\of{\frac{-1}{it}} \, t^2 \, \parenth{-\pi i - \pi t}^k \, e^{-\pi i r} \, e^{\pi r t} \, \diff{z}
+    \end{align*}
+    Writing $s = \frac{1}{t}$ and simplifying, we get that
+    \begin{align*}
+        I_1^{(k)}\of{r} &= -i \int_{1}^{\infty}
+            \phi_0\of{is} \,
+            s^{-4} \,
+            \parenth{-\pi i - \frac{\pi}{s}}^k \,
+            e^{-\pi i r} \,
+            e^{-\pi r / s}\,
+            \diff{t}
+    \end{align*}
+    Observe that for all $s \in \Ico{1, \infty}$,
+    \begin{align*}
+        \abs{-\pi i - \frac{\pi}{s}} = \pi \abs{i + \frac{1}{s}} \leq \pi \sqrt{2}
+    \end{align*}
+    Combining this with the bound computed in the proof of \Cref{Ch4:Lemma:Bound_I1_I3_I5}, we know $\exists C_0 > 0$ such that
+    \begin{align*}
+        \abs{I_1^{(k)}\of{r}} \leq \int_{1}^{\infty} C_0 \parenth{\pi \sqrt{2}}^{k} \, e^{-2\pi s} \, e^{- \pi r / s} \, \diff{s}
+    \end{align*}
+    Defining $C_0^{(k)} := C_0 \parenth{\pi \sqrt{2}}^{k}$ then gives the desired result.
 \end{proof}
 
-% Add details
+Analogous results can be proved for the other $I_j$, with any arising constants subsumed into the constants defined in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6}. Therefore, if we can show that the functions (without the constants) on the right-hand sides of \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} decay faster than any inverse power of $r$, we will have the result.
 
-With all higher derivative cases reduced to the zeroth derivative cases, all that remains to prove that $a$ is Schwartz is to prove that the bounds computed in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} do, indeed, decay faster than any inverse power of $r$. This fact is obvious for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$, but less so for $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$.
+This fact is obvious for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$, but less so for $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$. In these cases, the result is actually a consequence of a deeper result involving modified Bessel functions of the second kind.
 
-% Add details
+% Existing proof is wrong... find workaround (or a good reference).
+
+An important comment we make here is that the fact that the functions that (up to constants) bound the $I_j$ and their derivatives decay rapidly also establishes that the integrals $I_j$ converge absolutely. In particular, their integrands are integrable, which will be a stepping stone to applying results like Fubini's Theorem later on.
+
+We now show that similar results hold for the $-1$-eigenfunction.
 
 \subsection{The $-1$-Eigenfunction}
+
+A theme we will see repeatedly is that there are analogues for the $-1$-eigenfunction of many results on the $+1$-eigenfunction. The proof of the Schwartzness property is no exception to this rule.
+
+Given that the contours used are similar, the main step in which the proof that $b\rad$ is Schwartz differs from the proof that $a\rad$ is Schwartz is the step in which we show that \Cref{SP:PolyFourierCoeffBound} is applicable.
