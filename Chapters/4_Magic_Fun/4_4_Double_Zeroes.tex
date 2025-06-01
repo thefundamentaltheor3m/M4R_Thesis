@@ -4,7 +4,40 @@ The way we prove that $a$ and $b$ have double zeroes at $E_8$ lattice points wit
 
 The strategy to prove these two equalities will be to perform a change of contours using a version of the Cauchy-Goursat Theorem and use the relations and transformation rules between the $\phi$- and $\psi$-functions to combine integrals so that the result is exactly $a\rad$ or $b\rad$.
 
+The version of the Cauchy-Goursat Theorem we use is the following.
 
+\begin{boxtheorem}[Cauchy-Goursat for Unbounded Contours]\label{Ch4:Thm:CauchyGoursat_Unbounded}
+    Suppose $f : \C \to \C$ is a function such that $f(z) \to 0$ as $\Im(z) \to \infty$. Then, for all $x_1, y_1, x_2, y_2 \in \R$, if $f$ is holomorphic at $z$ for all $z \in \C$ with $x_1 < \Re(z) < x_2$ and $y_1 < \Im(z)$, then
+    \begin{align*}
+        \int_{x_1 + iy_!}^{x_1 + i\infty} f(z) \, \diff{z}
+        = \int_{x_1 + iy_1}^{x_1 + iy_2} f(z) \, \diff{z}
+        + \int_{x_1 + iy_2}^{x_2 + iy_2} f(z) \, \diff{z}
+        + \int_{x_2 + iy_2}^{x_2 + i\infty} f(z) \, \diff{z}
+    \end{align*}
+\end{boxtheorem}
+
+\begin{wrapfigure}{r}{0.4\linewidth}
+    \centering
+    \begin{tikzpicture}[scale=1.75]
+        % Axes
+        \draw[->] (-1.2,0) -- (1.2,0) node[right] {$\Re$};
+        \draw[->] (0,-1.2) -- (0,1.2) node[above] {$\Im$};
+    
+        % x_1
+        \draw[thick, ->] (-0.8, 0) -- (-0.8,0.3);
+        \draw[thick, ->] (-0.8,0.3) -- (-0.8, 1.2);
+        \draw[thick, ->] (0.5, 0) -- (0.5,0.3);
+        \draw[thick, ->] (0.5,0.3) -- (0.5, 1.2);
+    
+        % Points of interest
+        \labelledpoint{-1}{0}{0}{-0.8}{$-1$}
+        \labelledpoint{0}{1}{0.25}{-0.4}{$i$}
+    \end{tikzpicture}
+    \caption{A visualisation of the contour deformation given by \Cref{Ch4:Thm:CauchyGoursat_Unbounded}.}    
+\end{wrapfigure}
+We discuss the informal and formal proofs of this theorem in \Cref{Ch5:Sec:Cauchy-Goursat}.
+
+For each eigenfunction, we begin by estimating certain quantities to show that the integrals in their alternate representation converge. We then prove that an important vanishing condition needed
 
 \subsection{The $+1$-Eigenfunction}
 
