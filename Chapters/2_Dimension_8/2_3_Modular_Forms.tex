@@ -223,9 +223,9 @@ The difference between this definition and \eqref{Ch2:Eq:Eisenstein_def_with_zet
     \end{align}
 \end{boxtheorem}
 
-Birkbeck gives a formal proof of this over the course of several \sorry-free lemmas in \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/E2.lean#L736}{\texttt{SpherePacking.ModularForms.E2.lean}}. Interestingly, substituting $k = 2$ in \eqref{Ch2:Eq:Ck_Ek_qexpansion_const} yields precisely $-24$. Observe, from \Cref{Ch2:Thm:Ek_qexpansion,Ch2:Thm:E2_qexpansion}, that for all even $k \geq 2$, the Fourier coefficients of $E_k$ grow polynomially. This will be crucial later on.
+Birkbeck gives a formal proof of this over the course of several \sorry-free lemmas in \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/E2.lean#L736}{\texttt{SpherePacking.ModularForms.E2.lean}}. Interestingly, substituting $k = 2$ in \eqref{Ch2:Eq:Ck_Ek_qexpansion_const} yields precisely $-24$. Moreover, the same argument we used earlier demonstrates that the Fourier coefficients of $E_2$ also grow polynomially. We will mention this result again in \Cref{Ch4:Chapter}, where we will prove that the magic function is Schwartz.
 
- $E_2$ is \textit{not a weight $2$, level $1$ modular form}. The reason for this is that it does not quite exhibit weight $2$, level $1$ slash-invariance.
+ We end our discussion on the Eisenstein Series by giving an explicit counterexample to weight $2$, level $1$ slash-invariance that shows that $E_2$ is not a weight $2$, level $1$ modular form.
 
 \begin{boxlemma}
     For all $\gamma = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \in \SL{2, \Z}$, we have
@@ -276,10 +276,11 @@ We now state the positivity and nonvanishing properties of $\Delta$ that we will
 \end{boxcorollary}
 
 \subsection{The Theta Functions}
+\label{Ch2:Subsec:ThetaFunctions}
 
 In this subsection, we define and state some basic properties of the Theta functions $\Theta_2$, $\Theta_3$ and $\Theta_4$, the fourth powers of which define the corresponding $H$-functions. The $H$-functions will be important ingredients in the construction of the magic function.
 
-\begin{boxdefinition}[The $\Theta$- and $H$-Functions]
+\begin{boxdefinition}[The $\Theta$- and $H$-Functions]\label{Ch2:Def:Theta_H}
     Define $\Theta_2, \Theta_3, \Theta_4 : \Halfplane \to \C$ by
     \begin{align*}
         \Theta_2(z) &= \sum_{n \in \Z} e^{\pi i \parenth{n + \frac{1}{2}}^2 z} \\
@@ -288,12 +289,45 @@ In this subsection, we define and state some basic properties of the Theta funct
     \end{align*}
     for all $z \in \Halfplane$. Define $H_2, H_3, H_4 : \Halfplane \to \C$ by
     \begin{align*}
-        H_2 &= \Theta_2^4 \\
-        H_3 &= \Theta_3^4 \\
-        H_4 &= \Theta_4^4
+        H_2 = \Theta_2^4 \qquad\qquad
+        H_3 = \Theta_3^4 \qquad\qquad
+        H_4 = \Theta_4^4
     \end{align*}
 \end{boxdefinition}
 
-It can be shown that the $H$-functions are modular forms of weight $2$ and level $2$. In fact, $\set{H_2, H_3, H_4}$ is a basis for the space $M_2\of{\Gamma\of{2}}$.
+It can be shown that the $H$-functions are modular forms of weight $2$ and level $2$.
 
-Given the manner in which the $H$-functions are defined, it is tedious to compute their Fourier expansions explicitly. However, just as the purpose of computing the Fourier expansions of 
+Given the manner in which the $H$-functions are defined, it is tedious to compute their Fourier expansions explicitly. However, the purpose of computing the Fourier expansions of the Eisenstein Series was to determine that their Fourier coefficients grow polynomially. It turns out that in the case of the $H$-functions, we can do this without explicitly computing their Fourier series.
+
+The Fourier coefficients of $H_3$ and $H_4$ grow polynomially because those of $\Theta_3$ and $\Theta_4$ grow polynomially: defining
+\begin{align*}
+    c_3(m) &=
+    \begin{cases}
+        1 \quad\quad\quad & \text{ if } m = n^2 \text{ for some } n \in \Z \\
+        0 \quad\quad\quad & \text{ otherwise}
+    \end{cases} \\
+    c_4(m) &=
+    \begin{cases}
+        \parenth{-1}^n & \text{ if } m = n^2 \text{ for some } n \in \Z \\
+        0 & \text{ otherwise}
+    \end{cases}
+\end{align*}
+it is clear that $\abs{c_3(m)}, \abs{c_4(m)} \leq 1$ for all $m \in \Z$. The Fourier expansions of $\Theta_3$ and $\Theta_4$ are then given by
+\begin{align*}
+    \Theta_{3}\of{z} &= \sum_{m \in \Z} c_3(m) \, e^{i\pi m z} \\
+    \Theta_{4}\of{z} &= \sum_{m \in \Z} c_4(m) \, e^{i\pi m z}
+\end{align*}
+The fact that the Fourier coefficients of $H_3$ and $H_4$ also grow polynomially can then be deduced by expressing $\Theta_3^4$ and $\Theta_4^4$ as iterated sums. This is tedious, and we do not do it here.
+
+Unfortunately, due to the fractional term in the exponents of the summands in the definition of $\Theta_2$, it is not possible to use the same technique to show that its Fourier coefficients grow polynomially. Fortunately, we can still prove the result for $H_2$, because raising $\Theta_2$ to the fourth power gets rid of the fractional exponent. That is,
+\begin{align*}
+    H_2 = \Theta_2^4
+    &= \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n + \frac{1}{2}}^2 z}}^4
+    = \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n + \frac{1}{4}} z}}^4 \\
+    &= \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n} z} \, e^{\frac{\pi i z}{4}}}^4
+    = \parenth{e^{\frac{\pi i z}{4}}}^4  \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n} z}}^4
+    = e^{\pi i z} \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n} z}}^4
+\end{align*}
+This can be explicitly computed as an iterated sum with coefficients that grow polynomially.
+
+The Theta functions obey
