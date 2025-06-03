@@ -43,9 +43,14 @@ It turns out that we can establish a an upper-bound for all functions of the for
     we can see that $\abs{\frac{f(z)}{\Delta(z)}} \leq C_f \, e^{-\pi \parenth{n_0 - 2} \Im(z)}$, as desired.
 \end{proof}
 
-A key step in showing that $a\rad$ and $b\rad$ are Schwartz will be to bound the $\phi$- and $\psi$-functions using \Cref{SP:PolyFourierCoeffBound}. Since these functions are defined as sums and products of the Eisenstein series and the $H$-functions, whose Fourier coefficients have polynomial growth (as seen in \Cref{Ch2:Sec:ModForms}) and admit indices $n_0$ below which all Fourier coefficients are zero, it is enough to show that sums and products of functions that exhibit this property inherit it. This is clear for sums, and we omit the proof, but we prove it explicitly for products.
+The purpose of the above is to bound the $\phi$- and $\psi$-functions using \Cref{SP:PolyFourierCoeffBound}. Since these functions are defined as sums and products of the Eisenstein series and the $H$-functions, whose Fourier series have the properties that
+\begin{enumerate}
+    \item the coefficients grow polynomially
+    \item there is an index $n_0$ below which all Fourier coefficients are zero
+\end{enumerate}
+it is enough to show that sums and products of functions exhibiting this property inherit it. Note that this also explicitly establishes a fact we mentioned in passing in \Cref{Ch2:Subsec:ThetaFunctions}, where we argued that the Fourier coefficients of $H_3$ and $H_4$ grow polynomially because those of $\Theta_3$ and $\Theta_4$ do.
 
-\begin{boxproposition}
+\begin{boxproposition}\label{Ch4:Prop:PolyGrowth_of_mul}
     Let $f_1, f_2 : \Halfplane \to \C$ be functions with (absolutely convergent) Fourier expansions
     \begin{align*}
         f_1(z) &= \sum_{n=n_1}^{\infty} c_1(n) \, e^{\pi i n z} \\
@@ -76,7 +81,18 @@ A key step in showing that $a\rad$ and $b\rad$ are Schwartz will be to bound the
     we can bound $\abs{c(\ell)}$ above by a sum of finitely many terms of the form $C' \abs{c_2(m)}$, $D' \abs{c_1(n)}$, and $\abs{c_1(n)} \cdot \abs{c_2(m)}$, with $n \geq N$ and $m \geq M$. Take $k = k_1 + k_2$. Then, $\abs{c_1(n)} \leq C n^{k_1} \leq C \parenth{m+n}^{k_1}$ and $\abs{c_2(n)} \leq D m^{k_1} \leq D \parenth{m+n}^{k_2}$, so $c(\ell) = \BigO{\parenth{m+n}^{k_1 + k_2}} = \BigO{\ell^k}$.
 \end{proof}
 
-We now show that $a\rad$, the radial version of the $+1$-eigenfunction, is Schwartz.
+The analogous result for sums is clear, with $n_0 \geq \min\of{n_1, n_2}$ and $k = \max\of{k_1, k_2}$. Note that for sums, $n_0$ may not be exactly $\min\of{n_1, n_2}$ because the Fourier coefficients of smallest index may cancel each other out. For the remainder of this thesis, we use the following notation.
+
+\begin{boxnotation}
+    For a function $f$ with a Fourier expansion, denote by
+    \begin{itemize}
+        \item $n_0\of{f}$ the smallest index $n$ such that $c_f(n) \neq 0$ (if it exists)
+        \item $c_f(n)$ the $n$th Fourier coefficient of $f$
+    \end{itemize}
+    We will not use this notation for functions for which $n_0\of{f}$ does not exist.
+\end{boxnotation}
+
+In the following subsections, we apply the above results and show that $a\rad$ and $b\rad$ are Schwartz functions. In each case, since the bound in \Cref{SP:PolyFourierCoeffBound} is given in terms of $n_0$, we compute the values of $n_0$ explicitly.
 
 \subsection{The $+1$-Eigenfunction}
 
