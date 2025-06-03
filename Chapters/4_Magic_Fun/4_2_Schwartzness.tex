@@ -4,11 +4,9 @@ The magic function is a linear combination of $a$ and $b$, which are each define
 
 We know that the Schwartz space is a $\C$-vector space, making it closed under addition. To show that $a\rad$ and $b\rad$ are Schwartz functions, we show that their constituent integrals $I_1, \ldots, I_6$ and $J_1, \ldots, J_6$ are Schwartz. We need to show both smoothness and rapid decay. Smoothness is fairly straightforward. Rapid decay, on the other hand, requires an additional ingredient.
 
-It turns out that we can establish a general result that yields an upper-bound for functions of the form $\frac{f}{\Delta}$, where $\Delta$ is the discriminant form and there is a polynomial growth condition on the Fourier coefficients of $f$. We take advantage of the fact that the $\phi$- and $\psi$-functions can be expressed in this form (cf. \Cref{Ch4:Def:phis} and \Cref{Ch4:Prop:psi_as_div_disc}). The condition on their Fourier coefficients comes from the theory of modular forms.
+It turns out that we can establish a an upper-bound for all functions of the form $\frac{f}{\Delta}$, where $\Delta$ is the discriminant form and $f$ admits a Fourier expansion whose coefficients grow polynomially.
 
-We begin with the statement and proof of the general result \cite[Lemma 7.4]{blueprint}.\todo{UPDATE LEMMA NUMBER BEFORE SUBMITTING}
-
-\begin{boxtheorem}\label{SP:PolyFourierCoeffBound}
+\begin{boxtheorem}[{\cite[Lemma 7.4]{blueprint}}]\label{SP:PolyFourierCoeffBound}
     Let $f : \C \to \C$ be holomorphic. Denote by $c_f(n)$ its $n$th Fourier coefficient, with $c_f\of{n_0} \neq 0$, so that
     \begin{align*}
         f(z) = \sum_{n=n_0}^{\infty} c_f(n) \, e^{i \pi n z}
