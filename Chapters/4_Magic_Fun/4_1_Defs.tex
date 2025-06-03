@@ -22,7 +22,7 @@ We begin by defining the $\phi$-functions.
 
 These functions admit important transformation properties that are necessary to prove that the $+1$-eigenfunction is made up of integrals of holomorphic functions. This fact will in turn allow us to apply the Cauchy-Goursat Theorem (and variants thereof) that will allow us to shift contours of integration.
 
-\begin{boxlemma}
+\begin{boxlemma}\label{Ch4:Lemma:phi_transformations}
     For all $z \in \Halfplane$,
     \begin{align}
         \phi_0\of{z + 1}
@@ -36,7 +36,9 @@ These functions admit important transformation properties that are necessary to 
     \end{align}
 \end{boxlemma}
 
-The proofs of these involve transformations of $E_2$, $E_4$, $E_6$, and $\Delta$, and can be found in \cite{blueprint}. We now define the $+1$-eigenfunction $a$.
+We do not prove these here, but mention that they both follow from the weight $k$ slash action formulae on $E_k$ for $k \in \set{2, 4, 6}$. When $k = 4$ and $k = 6$, we have weight $k$ invariance, because $E_4$ and $E_6$ are modular forms, but when $k = 2$, we need to use \Cref{Ch2:Lemma:E2_slash_action}. A detailed proof of these transformations can be found in \cite{blueprint}.
+
+We now define the $+1$-eigenfunction $a$.
 
 \begin{boxdefinition}[Viazovska's $+1$-Fourier Eigenfunction]\label{Ch4:Def:a}
     Define $a\rad : \R \to \C$ by

@@ -116,24 +116,27 @@ We begin by proving that $I_1, \ldots, I_6$ are smooth. The key to proving this 
 
 We are now ready to prove that $I_1, \ldots, I_6$ and their derivatives satisfy the decaying property. As a first step, we show that we can apply \Cref{SP:PolyFourierCoeffBound}.
 
-\begin{boxlemma}\label{Ch4:Lemma:PolyFourierCoeffBound_Apply}
+\begin{boxlemma}\label{Ch4:Lemma:PolyFourierCoeffBound_Apply_a}
     There exist real numbers $C_0, C_{-2}, C_{-4} > 0$ such that
-    \begin{align*}
-        \abs{\phi_0\of{z}} &\leq C_{0} e^{-2\pi\Im(z)} \\
-        \abs{\phi_{-2}\of{z}} &\leq C_{-2} \\
+    \begin{align}
+        \abs{\phi_0\of{z}} &\leq C_{0} e^{-2\pi\Im(z)}  
+            \label{Ch4:Eq:PolyFourierCoeffBound_phi_0} \\
+        \abs{\phi_{-2}\of{z}} &\leq C_{-2}  
+            \label{Ch4:Eq:PolyFourierCoeffBound_phi_neg_2} \\
         \abs{\phi_{-4}\of{z}} &\leq C_{-4} e^{2\pi\Im(z)}
-    \end{align*}
+            \label{Ch4:Eq:PolyFourierCoeffBound_phi_neg_4}
+    \end{align}
     for all $z \in \Halfplane$ with $\Im(z) > \frac{1}{2}$.
 \end{boxlemma}
 \begin{proof}
     Fix $z \in \Halfplane$ and assume that $\Im(z) > 1/2$. Since the Fourier coefficients of $E_2$, $E_4$ and $E_6$ grow polynomially (see \Cref{Ch2:Thm:E2_qexpansion,Ch2:Thm:Ek_qexpansion}), by \Cref{Ch4:Prop:PolyGrowth_of_mul}, the Fourier coefficients of the numerators of $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$ grow polynomially as well. All that remains is to compute $n_0$ for the numerators of $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$. Denote these $N_0$, $N_{-2}$ and $N_{-4}$ respectively. Note that $n_0\of{E_2} = n_0\of{E_4} = n_0\of{E_6} = 0$, with $c_{E_2}\of{0} = c_{E_4}\of{0} = C_{E_6}\of{0} = 1$.
 
     \begin{itemize}
-        \item \underline{$N_0 = 4$.} Recall that the numerator of $\phi_0$ is $\parenth{E_2 E_4 - E_6}^2$. \Cref{Ch4:Prop:PolyGrowth_of_mul} then tells us that $n_0\of{E_2 E_4} = 0$ as well. So, $n_0\of{E_2 E_4 - E_6} \geq 0$. In fact, the $0$th coefficients of both $E_2 E_4$ and $E_6$ are $1$, so they cancel. Hence, $n_0\of{E_2 E_4 - E_6} = 2$. Hence, by $n_0\of{\parenth{E_2 E_4 - E_6}^2} = 4$.
+        \item \underline{$N_0 = 4$.} Recall that the numerator of $\phi_0$ is $\parenth{E_2 E_4 - E_6}^2$. \Cref{Ch4:Prop:PolyGrowth_of_mul} then tells us that $n_0\of{E_2 E_4} = 0$. So, $n_0\of{E_2 E_4 - E_6} \geq 0$. In fact, the $0$th coefficients of both $E_2 E_4$ and $E_6$ are $1$, so they cancel. Hence, $n_0\of{E_2 E_4 - E_6} = 2$. Hence, by $n_0\of{\parenth{E_2 E_4 - E_6}^2} = 4$.
         
         \item \underline{$N_{-2} = 2$.} Recall that the numerator of $\phi_{-2}$ is $E_4\parenth{E_2 E_4 - E_6}$. $n_0\of{E_2 E_4 - E_6} = 2$ as shown above. Hence, $n_0\of{E_4\parenth{E_2 E_4 - E_6}} = 2$.
         
-        \item \underline{$N_{-4} = 0$.} Recall that the numerator of $\phi_0$ is $\parenth{E_2 E_4 - E_6}^2$. \Cref{Ch4:Prop:PolyGrowth_of_mul} then tells us that $n_0\of{E_2 E_4} = 0$ as well. So, $n_0\of{E_2 E_4 - E_6} \geq 0$. In fact, the $0$th coefficients of both $E_2 E_4$ and $E_6$ are $1$, so they cancel. Hence, $n_0\of{E_2 E_4 - E_6} = 2$. Hence, by $n_0\of{\parenth{E_2 E_4 - E_6}^2} = 4$.
+        \item \underline{$N_{-4} = 0$.} Recall that the numerator of $\phi_0$ is $E_4^2$. Hence, $n_0\of{E_4^2} = 0$.
     \end{itemize}
     Substituting these values into \Cref{SP:PolyFourierCoeffBound} then gives us the desired bounds.
     \begin{comment}
@@ -198,7 +201,7 @@ We can now bound $I_1$, $I_3$ and $I_5$.
             \abs{\phi_0\of{is}} \,
             e^{-\pi i r/s}
     \end{align*}
-    Since $s > \frac{1}{2}$ inside the integral, we know from \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply} that $\exists C_0 > 0$ such that
+    Since $s > \frac{1}{2}$ inside the integral, we know from \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_a} that $\exists C_0 > 0$ such that
     \begin{align*}
         \abs{I_1(r)} \leq \int_{1}^{\infty} C_0 \, e^{-2\pi s} \, e^{-\pi r/s} \, \diff{s}
     \end{align*}

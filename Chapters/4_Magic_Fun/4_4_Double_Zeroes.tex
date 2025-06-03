@@ -1,6 +1,22 @@
 \section{Establishing the Double Zeroes Property}
 
-The way we prove that $a$ and $b$ have double zeroes at $E_8$ lattice points with norm $> \sqrt{2}$ (or at normalised $E_8$ lattice points with norm $> 1$) is by expressing the functions $a\rad$ and $b\rad$ as products of the $\sin^2$ function and another function, expressed as an integral.
+% At some point earlier on, maybe in Chapter 3, we need to stress that double zeroes means double zeroes in the radial sense, except double zeroes after composition with just the norm and not the norm squared. (We are using norm squared so that we can prove Schwartzness. Just the norm isn't enough because the norm isn't smooth.)
+
+The way we prove that $a$ and $b$ have double zeroes at $E_8$ lattice points with norm $> \sqrt{2}$ (or at normalised $E_8$ lattice points with norm $> 1$) is by showing that $a\rad$ and $b\rad$ agree, for $r > 2$, with functions that have double zeroes at \textit{all} even integers. It will then follow that $a$ and $b$ have double zeroes at all points on the $E_8$ lattice with norm $> \sqrt{2}$, since all elements of $\Lambda_8$ have norm of the form $\sqrt{2n}$ for some $n \in \N$ (cf. \sorry).\todo{ADD RESULT TO E8 SECTION}
+
+The strategy to prove these two equalities will be to perform a change of contours using a version of the Cauchy-Goursat Theorem and use the relations and transformation rules between the $\phi$- and $\psi$-functions to combine integrals so that the result is exactly $a\rad$ or $b\rad$.
+
+The version of the Cauchy-Goursat Theorem we use is the following.
+
+\begin{boxtheorem}[Cauchy-Goursat for Unbounded Contours]\label{Ch4:Thm:CauchyGoursat_Unbounded}
+    Suppose $f : \C \to \C$ is a function such that $f(z) \to 0$ as $\Im(z) \to \infty$. Then, for all $x_1, y_1, x_2, y_2 \in \R$, if $f$ is holomorphic at $z$ for all $z \in \C$ with $x_1 < \Re(z) < x_2$ and $y_1 < \Im(z)$, then
+    \begin{align*}
+        \int_{x_1 + iy_1}^{x_1 + i\infty} f(z) \, \diff{z}
+        = \int_{x_1 + iy_1}^{x_1 + iy_2} f(z) \, \diff{z}
+        + \int_{x_1 + iy_2}^{x_2 + iy_2} f(z) \, \diff{z}
+        + \int_{x_2 + iy_2}^{x_2 + i\infty} f(z) \, \diff{z}
+    \end{align*}
+\end{boxtheorem}
 
 \begin{wrapfigure}[7]{r}{0.4\linewidth}
     \vspace{-0.7em}
@@ -27,30 +43,107 @@ The way we prove that $a$ and $b$ have double zeroes at $E_8$ lattice points wit
     \caption{Visualising the contours in \Cref{Ch4:Thm:CauchyGoursat_Unbounded}.}  
 \end{wrapfigure}
 
-The strategy to prove these two equalities will be to perform a change of contours using a version of the Cauchy-Goursat Theorem and use the relations and transformation rules between the $\phi$- and $\psi$-functions to combine integrals so that the result is exactly $a\rad$ or $b\rad$.
-
-The version of the Cauchy-Goursat Theorem we use is the following.
-
-\begin{boxtheorem}[Cauchy-Goursat for Unbounded Contours]\label{Ch4:Thm:CauchyGoursat_Unbounded}
-    Suppose $f : \C \to \C$ is a function such that $f(z) \to 0$ as $\Im(z) \to \infty$. Then, for all $x_1, y_1, x_2, y_2 \in \R$, if $f$ is holomorphic at $z$ for all $z \in \C$ with $x_1 < \Re(z) < x_2$ and $y_1 < \Im(z)$, then
-    \begin{align*}
-        \int_{x_1 + iy_1}^{x_1 + i\infty} f(z) \, \diff{z}
-        = \int_{x_1 + iy_1}^{x_1 + iy_2} f(z) \, \diff{z}
-        + \int_{x_1 + iy_2}^{x_2 + iy_2} f(z) \, \diff{z}
-        + \int_{x_2 + iy_2}^{x_2 + i\infty} f(z) \, \diff{z}
-    \end{align*}
-\end{boxtheorem}
-
 We discuss the informal and formal proofs of this theorem in \Cref{Ch5:Sec:Cauchy-Goursat}.
 
-For each eigenfunction, we begin by estimating certain quantities to show that the integrals in their alternate representation converge. We then prove that they satisfy the conditions of \Cref{Ch4:Thm:CauchyGoursat_Unbounded}. We will conclude by applying \Cref{Ch4:Thm:CauchyGoursat_Unbounded} and manipulating expressions.
+For both $a\rad$ and $b\rad$, we begin by their alternate expressions for them. We then make estimates to prove that the integrals in these expressions converge. We finally manipulate the expressions and apply \Cref{Ch4:Thm:CauchyGoursat_Unbounded} to show that they do, indeed, agree with $a\rad$ and $b\rad$ on inputs $> 2$.
 
 \subsection{The $+1$-Eigenfunction}
 
 We begin by defining the integral by which we represent $a\rad$.
 
 \begin{boxdefinition}[Alternate Representation of $a$]
-    Define $d\rad : \R \to \C$ by
+    Define $d : \parenth{2, \infty} \to \C$ by
+    \begin{align*}
+        d\of{r} = -4 \sinsq{\frac{\pi r}{2}} \int_{0}^{i\infty} \phi_0\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z} \, \diff{z}
+    \end{align*}
+    for all $r \in \parenth{2, \infty}$.
 \end{boxdefinition}
+
+It is clear that we can parametrise the integral in $d$ by $z = it$ for $t \in \parenth{0, \infty}$, and write
+\begin{align}
+    d(r) = 4i \sinsq{\frac{\pi r}{2}} \int_{0}^{\infty} \phi_0\of{\frac{i}{t}} \, t^2 \, e^{-\pi r t} \, \diff{t}
+    \label{Ch4:Eq:d_parametrised}
+\end{align}
+
+We begin by showing that this integral converges for $r > 2$. We do this by estimating the integrand.
+
+\begin{boxlemma}
+    $\exists C_0 > 0$ such that for $t \in \parenth{0, 2}$, $\abs{\phi_0\of{\frac{i}{t}}} \leq C_0 \, e^{-2\pi/t}$.
+\end{boxlemma}
+\begin{proof}
+    The result then follows immediately from \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}, with $z = i/t$.
+\end{proof}
+
+We can hence conclude that for $t \in \parenth{0, 2}$, the integrand in \eqref{Ch4:Eq:d_parametrised} is bounded:
+\begin{align*}
+    \abs{\phi_0\of{\frac{i}{t}} \, t^2 \, e^{-\pi r t}} 
+    \leq 4 C_0 \, e^{-2\pi / t} \, e^{-\pi r t}
+    \leq 4 C_0
+\end{align*}
+
+We can also estimate the integrand for $t \geq 2$.
+
+\begin{boxlemma}\label{Ch4:Lemma:d_integral_estimate_above}
+    $\exists C > 0$ such that for $t \geq 2$, $\abs{\phi_{0}\of{\frac{i}{t}}} \leq C t^{-2} e^{2\pi t}$.
+\end{boxlemma}
+\begin{proof}
+    From \eqref{Ch4:Eq:phi_0_neg_inv}, we know that for all $t \geq 2$,
+    \begin{align*}
+        \abs{\phi_0\of{\frac{i}{t}}}
+        = \abs{\phi_{0}\of{\frac{-1}{it}}}
+        \leq \abs{\phi_{0\of{it}}} + \frac{12}{\pi t} \abs{\phi_{-2}\of{it}} + \frac{36}{\pi^2 t^2} \abs{\phi_{-4}\of{it}}
+    \end{align*}
+    Estimating each of these terms using \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_a}, we know $\exists C_0, C_{-2}, C_{-4} > 0$ such that
+    \begin{align*}
+        \abs{\phi_{0}\of{it}} + \frac{12}{\pi t} \abs{\phi_{-2}\of{it}} + \frac{36}{\pi^2 t^2} \abs{\phi_{-4}\of{it}}
+        \leq C_0 e^{-2 \pi t} + \frac{12}{\pi t} C_{-2} + \frac{36}{\pi^2 t^2} C_{-4} e^{2 \pi t}
+    \end{align*}
+    For $t \geq 2$, $C_0 e^{-2 \pi t}$ and $\frac{12}{\pi t} C_{-2}$ are clearly bounded by constants, and the growth of the above expression is dominated by $t^{-2} e^{2\pi t}$. Hence, we can conclude that $\exists C > 0$ such that for $t \geq 2$, $\abs{\phi_0\of{\frac{i}{t}}} \leq C t^{-2} e^{2 \pi t}$, as required.
+\end{proof}
+
+We can hence conclude that for $t \geq 2$, the integrand in \eqref{Ch4:Eq:d_parametrised} is bounded by an integrable function:
+\begin{align*}
+    \abs{\phi_0\of{\frac{i}{t}} \, t^2 \, e^{-\pi r t}} 
+    \leq C \parenth{t^{-2} e^{2\pi t}} \parenth{t^2 e^{-\pi r t}}
+    = C e^{\pi t \parenth{2 - r}}
+\end{align*}
+Here, we require $r > 2$ so that the exponent is negative. Since $d$ was defined precisely on such $r$, we can conclude that the integral in the definition of $d$ converges absolutely.
+
+Arguing as above yields another important result.
+\begin{boxlemma}
+    For all $r > 2$ and $z \in \Halfplane$, as $\Im(z) \to \infty$,
+    \begin{align*}
+        \phi_{0}\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z} \to 0
+    \end{align*}
+\end{boxlemma}
+\begin{proof}[Proof sketch]
+    We do not offer more than a sketch here because the proof is almost identical to that of \Cref{Ch4:Lemma:d_integral_estimate_above}. The idea is to apply \eqref{Ch4:Eq:phi_0_neg_inv}, multiply through, apply \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_a} to bound the expression in absolute value, and use the fact that $r > 2$ to conclude that the bound decays exponentially as $\Im(z) \to \infty$.
+\end{proof}
+
+The function $z \mapsto \phi_{0}\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z}$ is also holomorphic on $\Halfplane$, a fact that is again seen by applying \eqref{Ch4:Eq:phi_0_neg_inv} and the fact that the numerators of the $\phi$-function are holomorphic and the denominators are non-vanishing on $\Halfplane$.
+
+We are now ready to show the following.
+
+\begin{boxproposition}
+    For all $r > 2$, $d(r) = a\rad(r)$.
+\end{boxproposition}
+\begin{proof}
+    Fix $r > 2$. We begin by performing the following manipulation:
+    \begin{align*}
+        -4 \sinsq{\frac{\pi r}{2}}
+        = -4 \parenth{\frac{e^{i \pi r / 2} - e^{-i \pi r / 2}}{2i}}^2
+        = \parenth{e^{i \pi r / 2} - e^{- i \pi r / 2}}^2
+        = e^{i \pi r} - 2 + e^{-i \pi r}
+    \end{align*}
+    Therefore, for all $r > 2$,
+    \begin{align*}
+        d(r)
+        &= -4 \sinsq{\frac{\pi r}{2}} \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z} \, \diff{z}
+        = \parenth{e^{i \pi r} - 2 + e^{-i \pi r}} \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z} \, \diff{z} \\
+        &= \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r \parenth{z + 1}} \, \diff{z}
+        -2 \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
+        + \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r \parenth{z - 1}} \, \diff{z}
+    \end{align*}
+\end{proof}
 
 \subsection{The $-1$-Eigenfunction}
