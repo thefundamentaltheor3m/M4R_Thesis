@@ -4,7 +4,21 @@
 
 In this section, we show that the $\pm$-Eigenfunctions are, indeed, $\pm$-Eigenfunctions of the Fourier transform.
 
-In the previous section, we did not really work 
+In the previous section, we did not work with $a$ and $b$ directly as it was sufficient to work with $a\rad$ and $b\rad$ instead. In this section, however, we will need to use the following formula for the $n$-dimensional Fourier transform of the $n$-dimensional Gaussian.
+
+\begin{boxtheorem}[Fourier Transform of a Gaussian]\label{Ch4:Thm:GaussianFourier}
+    Fix $n \in \N$ and $b \in \C$, with $\Re(b) > 0$. If $F : \R^n \to \C$ is given by
+    \begin{align*}
+        F(x) = e^{-b \norm{x}^2}
+    \end{align*}
+    then the Fourier transform of $F$ is given by
+    \begin{align*}
+        \hat{F}\of{\omega} = \parenth{\frac{\pi}{b}}^{{n} / {2}} e^{{- \pi^2 \norm{\omega}^2} / {b}}
+    \end{align*}
+\end{boxtheorem}
+A \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/SpecialFunctions/Gaussian/FourierTransform.lean#L360-L363}{formal proof} exists in \mathlib.
+
+We will also use Schwartzness to conclude that the integrals that make up the Fourier transforms of $a$ and $b$ converge absolutely. We will finally use a contour deformation to show that the Fourier transforms of $a$ and $b$ act on their constituent integrals in a manner that proves the eigenfunction property.
 
 \subsection{The $+1$-Eigenfunction}
 
