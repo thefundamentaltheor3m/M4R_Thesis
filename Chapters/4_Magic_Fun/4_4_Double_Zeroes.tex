@@ -9,13 +9,14 @@ The strategy to prove these two equalities will be to perform a change of contou
 The version of the Cauchy-Goursat Theorem we use is the following.
 
 \begin{boxtheorem}[Cauchy-Goursat for Unbounded Contours]\label{Ch4:Thm:CauchyGoursat_Unbounded}
-    Suppose $f : \C \to \C$ is a function such that $f(z) \to 0$ as $\Im(z) \to \infty$. Then, for all $x_1, y_1, x_2, y_2 \in \R$, if $f$ is holomorphic at $z$ for all $z \in \C$ with $x_1 < \Re(z) < x_2$ and $y_1 < \Im(z)$, then
+    Suppose $f : \C \to \C$ is a function such that $f(z) \to 0$ as $\Im(z) \to \infty$. Then, for all $x_1, y_1, x_2, y_2 \in \R$, if $f$ is holomorphic at $z$ for all $z \in \C$ with $x_1 < \Re(z) < x_2$ and $y_2 < \Im(z)$, then
     \begin{align*}
         \int_{x_1 + iy_1}^{x_1 + i\infty} f(z) \, \diff{z}
         = \int_{x_1 + iy_1}^{x_1 + iy_2} f(z) \, \diff{z}
         + \int_{x_1 + iy_2}^{x_2 + iy_2} f(z) \, \diff{z}
         + \int_{x_2 + iy_2}^{x_2 + i\infty} f(z) \, \diff{z}
     \end{align*}
+    provided that $f$ is integrable on the unbounded vertical contours.
 \end{boxtheorem}
 
 \begin{wrapfigure}[7]{r}{0.4\linewidth}
@@ -144,6 +145,51 @@ We are now ready to show the following.
         -2 \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
         + \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r \parenth{z - 1}} \, \diff{z}
     \end{align*}
+    By a simple change of variables, we can rewrite the first and third integrals as follows. We can also split the second integral into two parts as shown below.
+    \begin{align*}
+        \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r \parenth{z - 1}} \, \diff{z}
+        &=
+        \int_{-1}^{-1 + i \infty} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r \parenth{z + 1}} \, \diff{z}
+        &=
+        \int_{1}^{1 + i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        -2 \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
+        &=
+        -2 \int_{0}^{i} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
+        -2 \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z} \\
+        &= I_5(r) - 2\int_{i}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
+    \end{align*}
+    We can now apply \Cref{Ch4:Thm:CauchyGoursat_Unbounded} to the first and third integrals, noting that the required integrability conditions do hold because the integrals making up $d$ and $a\rad$ converge absolutely.
+    \begin{align*}
+        \int_{-1}^{-1 + i \infty} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z}
+        =& \int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        &+ \int_{-1 + i}^{i} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        &+ \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        =& I_1(r) + I_2(r) + \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        \int_{1}^{1 + i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z}
+        =& \int_{1}^{1 + i} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        &+ \int_{1 + i}^{i} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        &+ \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        =& I_3(r) + I_4(r) + \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z}
+    \end{align*}
+    Hence, we can express $d(r)$ as the sum of the following six integrals:
+    \begin{align*}
+        d(r) =& I_1(r) + I_2(r) + I_3(r) + I_4(r) + I_5(r) \\
+        &+ \int_{i}^{i\infty} \parenth{
+            \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} +
+            \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} - 2
+            \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z}
+        } \, \diff{z}
+    \end{align*}
+    One can show, by applying \eqref{Ch4:Eq:phi_0_neg_inv} and simplifying, that
+    \begin{align*}
+        \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 +
+        \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 +
+        \phi_0\of{\frac{-1}{z}} z^2 = 2\phi_0
+    \end{align*}
+    Hence, the sixth integral above is precisely $I_6$, proving that $d(r) = a\rad(r)$ for all $r > 2$.
 \end{proof}
+
+The factor of $-4\sinsq{\pi r / 2}$ in the definition of $d$ then ensures that $a\rad$ has double zeroes at all even integers except possibly $0$ and $\pm 2$, which allows us to conclude that $a$ has double zeroes at all points in $\R^8$---particularly those lying on $\Lambda_8$---with norm of the form $\sqrt{2n}$ for $n \in \N \setminus \set{0, 1}$.
 
 \subsection{The $-1$-Eigenfunction}
