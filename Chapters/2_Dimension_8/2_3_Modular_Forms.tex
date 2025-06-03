@@ -250,7 +250,7 @@ The discriminant form is a weight $12$, level $1$ modular form. As was briefly a
 
 The discriminant form has important positivity and non-vanishing properties that we will use repeatedly, either directly or indirectly, in the construction of the magic function. The discriminant form will often show up in denominators, making these properties essential to prove properties like holomorphicity. The key to these properties is the so-called product formula.
 
-\begin{boxtheorem}[Product Formula for $\Delta$]
+\begin{boxtheorem}[Product Formula for $\Delta$]\label{Ch2:Thm:Delta_Product_Formula}
     For all $z \in \Halfplane$, $\Delta(z)$ is expressible as the following infinite product:
     \begin{align}
         \Delta(z) = e^{2 \pi i z} \prod_{n=1}^{\infty} \parenth{1 - e^{2 \pi i n z}}^{24}
@@ -259,9 +259,9 @@ The discriminant form has important positivity and non-vanishing properties that
 
 % ASK CHRIS ABOUT LEAN PROOF OF PRODUCT FORMULA!
 
-A proof can be found in \cite[Chapter VII, §4, Theorem 6, p. 95]{SerreArith}.
+A proof can be found in \cite[Chapter VII, §4, Theorem 6, p. 95]{SerreArith}. Birkbeck has \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/ba092be9cdebb1a9c170a22c234e71ca1842a173/SpherePacking/ModularForms/multipliable_lems.lean#L107}{shown formally} that the above product converges for all $z \in \Halfplane$.
 
-As a remark, we mention that not as much of the theory of infinite/arbitrary products has been formalised in Lean as the theory of infinite/arbitrary sums. In fact, much of the theory of infinite products was actually designed to be about infinite sums. The author has, in a different project, formalised some results about infinite products that would strengthen the existing theory, and hopes to make pull requests in the near future to merge them into \mathlib.
+As a remark, we mention that the theory of infinite products is not as well-developed in Lean as the theory of infinite sums. The definition of convergence of infinite products in \href{https://github.com/leanprover-community/mathlib4/blob/a98ecd2e7d46e2d29c4b572b1195c367b0106bf2/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L92}{\mathlib} is designed to yield a strong notion of convergence of infinite sums involving invariance under rearrangements, and is stronger than the notion of pointwise convergence. We do not discuss the details here, but note that the condition is sufficiently strong for our purposes.
 
 % Do we want to say anything at all about infinite products in Lean? I think it's a bad idea, because it's too much of a rabbit-hole (and will lead to too much overlap with formalising maths courseworks 1 and 2)
 

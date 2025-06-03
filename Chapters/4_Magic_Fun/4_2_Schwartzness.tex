@@ -9,20 +9,82 @@ It turns out that we can establish a general result that yields an upper-bound f
 We begin with the statement and proof of the general result \cite[Lemma 7.4]{blueprint}.\todo{UPDATE LEMMA NUMBER BEFORE SUBMITTING}
 
 \begin{boxtheorem}\label{SP:PolyFourierCoeffBound}
-    Let $f : \C \to \C$ be holomorphic. Denote by $c_f(n)$ its $n$th Fourier coefficient of $f$ with $c_f\of{n_0} \neq 0$, so that
+    Let $f : \C \to \C$ be holomorphic. Denote by $c_f(n)$ its $n$th Fourier coefficient, with $c_f\of{n_0} \neq 0$, so that
     \begin{align*}
         f(z) = \sum_{n=n_0}^{\infty} c_f(n) \, e^{i \pi n z}
     \end{align*}
-    If $c_f(n)$ has polynomial growth in $n$---that is, if there exists $k \in \N$ such that $c_f(n) = \BigO{n^k}$---then there exists a constant $C_f > 0$ such that for all $z \in \Halfplane$ with $\Im\of{z} \geq \frac{1}{2}$,
+    If there exists $k \in \N$ such that $c_f(n) = \BigO{n^k}$ as $n \to \infty$, then there exists a constant $C_f > 0$ such that for all $z \in \Halfplane$ with $\Im\of{z} > 1/2$,
     \begin{align*}
         \abs{\frac{f(z)}{\Delta(z)}} \leq C_f \, e^{-\pi \parenth{n_0 - 2} \Im(z)}
     \end{align*}
 \end{boxtheorem}
 \begin{proof}
-    
+    Fix $z \in \Halfplane$ and assume $\Im(z) > 1/2$. Recall from \Cref{Ch2:Thm:Delta_Product_Formula} that $\Delta$ can be expressed as a (convergent) infinite product. We can hence write
+    \begin{align*}
+        \abs{\frac{f(z)}{\Delta(z)}}
+        = \abs{\frac{\sum_{n = n_0}^{\infty} c_f(n) \, e^{\pi i n z}}{e^{2 \pi i z} \prod_{n=1}^{\infty} \parenth{1 - e^{2 \pi i n z}}^{24}}}
+        = \abs{e^{\pi i \parenth{n_0 - 2} z}} \cdot \frac{\abs{\sum_{n=n_0}^{\infty} c_f(n) \, e^{\pi i \parenth{n - n_0} z}}}{\prod_{n=1}^{\infty} \abs{1 - e^{2 \pi i n z}}^{24}}
+    \end{align*}
+    Noting that $\abs{e^{iz}} = e^{-\Im(z)}$ and $\Im(z) > \frac{1}{2}$, we can see that
+    \begin{align*}
+        \abs{e^{\pi i \parenth{n_0 - 2} z}} \cdot \frac{\abs{\sum_{n=n_0}^{\infty} c_f(n) \, e^{\pi i \parenth{n - n_0} z}}}{\abs{\prod_{n=1}^{\infty} {1 - e^{2 \pi i n z}}^{24}}}
+        \leq
+        e^{-\pi \parenth{n - n_0} \Im(z)} \cdot \frac{\sum_{n=0}^{\infty} \abs{c_f(n)} \, e^{-\pi \parenth{n - n_0}/2}}{\abs{\prod_{n=1}^{\infty} {1 - e^{2 \pi i n z}}^{24}}}
+    \end{align*}
+    It has been \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Topology/Algebra/InfiniteSum/Order.lean#L379-L380}{verified formally} that the absolute value of a convergent infinite product is the product of the absolute values, and moreover, that the product of the absolute values is \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Topology/Algebra/InfiniteSum/Order.lean#L373-L374}{convergent}. It has also been \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/ba092be9cdebb1a9c170a22c234e71ca1842a173/SpherePacking/ForMathlib/tprod.lean#L28}{verified formally} that the infinite product is monotonic on convergent infinite products whose terms are nonnegative. Hence,
+    \begin{align*}
+        \abs{\prod_{n=1}^{\infty} \parenth{1 - e^{2 \pi i n z}}^{24}}
+        = \prod_{n=1}^{\infty} \abs{1 - e^{2 \pi i n z}}^{24}
+        \geq \prod_{n=1}^{\infty} \parenth{1 - e^{-2 \pi n \Im(z)}}^{24}
+        \geq \prod_{n=1}^{\infty}\parenth{1 - e^{-\pi n}}^{24}
+    \end{align*}
+    We note that the third and fourth products are convergent because they are expressible, via the product formula, as $e^{2\pi\Im(z)} \Delta\of{i \cdot \Im(z)}$ and $e^{\pi} \Delta\of{i/2}$ respectively. Hence, defining
+    \begin{align*}
+        C_f := \frac{\sum_{n=0}^{\infty} \abs{c_f(n)} \, e^{-\pi \parenth{n - n_0}/2}}{\prod_{n=1}^{\infty}\parenth{1 - e^{-\pi n}}^{24}}
+    \end{align*}
+    we can see that $\abs{\frac{f(z)}{\Delta(z)}} \leq C_f \, e^{-\pi \parenth{n_0 - 2} \Im(z)}$, as desired.
 \end{proof}
 
-As mentioned earlier, the strategy we will use to prove that the $\pm 1$-eigenfunctions are Schwartz is proving that their constituent integrals are Schwartz. The key to proving this is \Cref{SP:PolyFourierCoeffBound}: we establish that they satisfy the rapid decay condition by bounding their integrands above using \Cref{SP:PolyFourierCoeffBound}.
+A key step in showing that $a\rad$ and $b\rad$ are Schwartz will be to bound the $\phi$- and $\psi$-functions using \Cref{SP:PolyFourierCoeffBound}. Since these functions are defined as sums and products of the Eisenstein series and the $H$-functions, whose Fourier coefficients have polynomial growth (as seen in \Cref{Ch2:Sec:ModForms}) and admit indices $n_0$ below which all Fourier coefficients are zero, it is enough to show that sums and products of functions that exhibit this property inherit it. This is clear for sums, and we omit the proof, but we prove it explicitly for products.
+
+\begin{boxproposition}
+    Let $f_1, f_2 : \Halfplane \to \C$ be functions with (absolutely convergent) Fourier expansions
+    \begin{align*}
+        f_1(z) &= \sum_{n=n_1}^{\infty} c_1(n) \, e^{\pi i n z} \\
+        f_2(z) &= \sum_{n=n_2}^{\infty} c_2(n) \, e^{\pi i n z}
+    \end{align*}
+    such that for $i \in \set{1, 2}$, $c_i(n_i) \neq 0$ and $\exists k_i \in \N$ such that $c_i(n) = \BigO{n^{k_i}}$ as $n \to \infty$. Then, their product $f_1 f_2$ is expressible as an absolutely convergent Fourier series
+    \begin{align*}
+        f_1(z) f_2(z) &= \sum_{n = n_0}^{\infty} c(n) \, e^{\pi i n z}
+    \end{align*}
+    such that $c(n_0) \neq 0$ and $\exists k \in \N$ such that $c(n) = \BigO{n^k}$ as $n \to \infty$.
+\end{boxproposition}
+\begin{proof}
+    Fix $z \in \Halfplane$. Then, due to absolute convergence, we can write
+    \begin{align*}
+        f_1(z) f_2(z) &= \parenth{\sum_{n=n_1}^{\infty} c_1(n) \, e^{\pi i n z}} \parenth{\sum_{m=n_2}^{\infty} c_2(m) \, e^{\pi i m z}} \\
+        &= \sum_{n = n_1}^{\infty} \sum_{m = n_2}^{\infty} c_1(n) c_2(m) \, e^{\pi i \parenth{n + m} z}
+    \end{align*}
+    The smallest value of $m + n$ is clearly $n_1 + n_2$, so we can take this to be $n_0$. So, we can write
+    \begin{align*}
+        f_1(z) f_2(z) &= \sum_{\ell = n_0}^{\infty} c(n) \, e^{\pi i \ell z}
+    \end{align*}
+    we have, for $\ell \geq n_0$,
+    \begin{align*}
+        c(\ell) = \sum_{n = n_1}^{\ell - n_2} c_1(n) c_2(\ell - n)
+    \end{align*}
+    For large $\ell$, both $n$ and $\ell-n$ are large for most terms in the sum, so
+    \[
+        |c_1(n)| \leq C n^{k_1}, \quad |c_2(\ell-n)| \leq D (\ell-n)^{k_2}
+    \]
+    Thus,
+    \begin{align*}
+        |c(\ell)| &\leq \sum_{n = n_1}^{\ell - n_2} |c_1(n)|\,|c_2(\ell-n)| \\
+        &\leq \sum_{n = n_1}^{\ell - n_2} C n^{k_1} D (\ell-n)^{k_2} \\
+        &\leq CD \sum_{n=0}^{\ell} n^{k_1} (\ell-n)^{k_2}
+    \end{align*}
+    The sum is bounded above by $CD \cdot \ell \cdot \ell^{k_1} \ell^{k_2} = CD \cdot \ell^{k_1 + k_2 + 1}$, so $|c(\ell)| = O(\ell^{k_1 + k_2 + 1})$ as $\ell \to \infty$. The lowest index with nonzero coefficient is $n_0 = n_1 + n_2$, since $c_1(n_1) \neq 0$ and $c_2(n_2) \neq 0$, so $c(n_0) = c_1(n_1)c_2(n_2) \neq 0$. This completes the proof.
+\end{proof}
 
 We now show that $a\rad$, the radial version of the $+1$-eigenfunction, is Schwartz.
 
@@ -46,9 +108,7 @@ We begin by proving that $I_1, \ldots, I_6$ are smooth. The key to proving this 
     In particular, $I_j$ is smooth (in $r$) for all $j$.
 \end{proof}
 
-We are now ready to prove that $I_1, \ldots, I_6$ and their derivatives decay rapidly enough. The strategy to do this will be to bound the $I_j$ (and their by derivatives) rapidly enough decaying functions. For conciseness, we only prove the result for the zeroth derivatives of $I_1$, $I_2$ and $I_6$ and only reduce the $n$th derivative case to the zeroth derivative case for $I_1$. The others are proved quite similarly.
-
-As a first step towards bounding the $I_j$, we need to show that we can apply \Cref{SP:PolyFourierCoeffBound} to obtain upper-bounds for $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$.
+We are now ready to prove that $I_1, \ldots, I_6$ and their derivatives satisfy the decaying property. As a first step, we show that we can apply \Cref{SP:PolyFourierCoeffBound}.
 
 \begin{boxlemma}\label{Ch4:Lemma:PolyFourierCoeffBound_Apply}
     There exist real numbers $C_0, C_{-2}, C_{-4} > 0$ such that
