@@ -69,21 +69,7 @@ A key step in showing that $a\rad$ and $b\rad$ are Schwartz will be to bound the
     \begin{align*}
         f_1(z) f_2(z) &= \sum_{\ell = n_0}^{\infty} c(n) \, e^{\pi i \ell z}
     \end{align*}
-    we have, for $\ell \geq n_0$,
-    \begin{align*}
-        c(\ell) = \sum_{n = n_1}^{\ell - n_2} c_1(n) c_2(\ell - n)
-    \end{align*}
-    For large $\ell$, both $n$ and $\ell-n$ are large for most terms in the sum, so
-    \[
-        |c_1(n)| \leq C n^{k_1}, \quad |c_2(\ell-n)| \leq D (\ell-n)^{k_2}
-    \]
-    Thus,
-    \begin{align*}
-        |c(\ell)| &\leq \sum_{n = n_1}^{\ell - n_2} |c_1(n)|\,|c_2(\ell-n)| \\
-        &\leq \sum_{n = n_1}^{\ell - n_2} C n^{k_1} D (\ell-n)^{k_2} \\
-        &\leq CD \sum_{n=0}^{\ell} n^{k_1} (\ell-n)^{k_2}
-    \end{align*}
-    The sum is bounded above by $CD \cdot \ell \cdot \ell^{k_1} \ell^{k_2} = CD \cdot \ell^{k_1 + k_2 + 1}$, so $|c(\ell)| = O(\ell^{k_1 + k_2 + 1})$ as $\ell \to \infty$. The lowest index with nonzero coefficient is $n_0 = n_1 + n_2$, since $c_1(n_1) \neq 0$ and $c_2(n_2) \neq 0$, so $c(n_0) = c_1(n_1)c_2(n_2) \neq 0$. This completes the proof.
+    where for each $\ell \geq n_0$, $c(\ell)$ is a sum of finitely many terms of the form $c_1(n) c_2(m)$, with $n + m = \ell$. Now, we know $\exists C, D \in \R$ and $N, M \in \N$ such that for all $n \geq N$ and $m \geq M$, $\abs{c_1(n)} \leq C \abs{n^{k_1}}$ and $\abs{c_2(m)} \leq D \abs{m^{k_2}}$. Then, \sorry
 \end{proof}
 
 We now show that $a\rad$, the radial version of the $+1$-eigenfunction, is Schwartz.
