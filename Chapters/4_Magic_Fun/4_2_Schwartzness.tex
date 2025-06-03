@@ -58,9 +58,9 @@ it is enough to show that sums and products of functions exhibiting this propert
     \end{align*}
     such that for $i \in \set{1, 2}$, $c_i(n_i) \neq 0$ and $\exists k_i \in \N$ such that $c_i(n) = \BigO{n^{k_i}}$ as $n \to \infty$. Then, their product $f_1 f_2$ is expressible as an absolutely convergent Fourier series
     \begin{align*}
-        f_1(z) f_2(z) &= \sum_{n = n_0}^{\infty} c(n) \, e^{\pi i n z}
+        f_1(z) f_2(z) &= \sum_{n = n_1 + n_2}^{\infty} c(n) \, e^{\pi i n z}
     \end{align*}
-    such that $c(n_0) \neq 0$ and $\exists k \in \N$ such that $c(n) = \BigO{n^k}$ as $n \to \infty$.
+    such that $c(n_1 + n_2) \neq 0$ and $\exists k \in \N$ such that $c(n) = \BigO{n^k}$ as $n \to \infty$.
 \end{boxproposition}
 \begin{proof}
     Fix $z \in \Halfplane$. Then, due to absolute convergence, we can write
@@ -68,7 +68,7 @@ it is enough to show that sums and products of functions exhibiting this propert
         f_1(z) f_2(z) &= \parenth{\sum_{n=n_1}^{\infty} c_1(n) \, e^{\pi i n z}} \parenth{\sum_{m=n_2}^{\infty} c_2(m) \, e^{\pi i m z}} \\
         &= \sum_{n = n_1}^{\infty} \sum_{m = n_2}^{\infty} c_1(n) c_2(m) \, e^{\pi i \parenth{n + m} z}
     \end{align*}
-    The smallest value of $m + n$ is clearly $n_1 + n_2$, so we can take this to be $n_0$. So, we can write
+    The smallest value of $m + n$ is clearly $n_1 + n_2$. Denoting this by $n_0$, we can write
     \begin{align*}
         f_1(z) f_2(z) &= \sum_{\ell = n_0}^{\infty} c(n) \, e^{\pi i \ell z}
     \end{align*}
@@ -126,7 +126,18 @@ We are now ready to prove that $I_1, \ldots, I_6$ and their derivatives satisfy 
     for all $z \in \Halfplane$ with $\Im(z) > \frac{1}{2}$.
 \end{boxlemma}
 \begin{proof}
-    Fix $z \in \Halfplane$ and assume that $\Im(z) > \frac{1}{2}$. The following is a consequence of a result proved by Ramanujan \todo{find citation for original paper} in the theory of (quasi-)modular forms:
+    Fix $z \in \Halfplane$ and assume that $\Im(z) > 1/2$. Since the Fourier coefficients of $E_2$, $E_4$ and $E_6$ grow polynomially (see \Cref{Ch2:Thm:E2_qexpansion,Ch2:Thm:Ek_qexpansion}), by \Cref{Ch4:Prop:PolyGrowth_of_mul}, the Fourier coefficients of the numerators of $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$ grow polynomially as well. All that remains is to compute $n_0$ for the numerators of $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$. Denote these $N_0$, $N_{-2}$ and $N_{-4}$ respectively. Note that $n_0\of{E_2} = n_0\of{E_4} = n_0\of{E_6} = 0$, with $c_{E_2}\of{0} = c_{E_4}\of{0} = C_{E_6}\of{0} = 1$.
+
+    \begin{itemize}
+        \item \underline{$N_0 = 4$.} Recall that the numerator of $\phi_0$ is $\parenth{E_2 E_4 - E_6}^2$. \Cref{Ch4:Prop:PolyGrowth_of_mul} then tells us that $n_0\of{E_2 E_4} = 0$ as well. So, $n_0\of{E_2 E_4 - E_6} \geq 0$. In fact, the $0$th coefficients of both $E_2 E_4$ and $E_6$ are $1$, so they cancel. Hence, $n_0\of{E_2 E_4 - E_6} = 2$. Hence, by $n_0\of{\parenth{E_2 E_4 - E_6}^2} = 4$.
+        
+        \item \underline{$N_{-2} = 2$.} Recall that the numerator of $\phi_{-2}$ is $E_4\parenth{E_2 E_4 - E_6}$. $n_0\of{E_2 E_4 - E_6} = 2$ as shown above. Hence, $n_0\of{E_4\parenth{E_2 E_4 - E_6}} = 2$.
+        
+        \item \underline{$N_{-4} = 0$.} Recall that the numerator of $\phi_0$ is $\parenth{E_2 E_4 - E_6}^2$. \Cref{Ch4:Prop:PolyGrowth_of_mul} then tells us that $n_0\of{E_2 E_4} = 0$ as well. So, $n_0\of{E_2 E_4 - E_6} \geq 0$. In fact, the $0$th coefficients of both $E_2 E_4$ and $E_6$ are $1$, so they cancel. Hence, $n_0\of{E_2 E_4 - E_6} = 2$. Hence, by $n_0\of{\parenth{E_2 E_4 - E_6}^2} = 4$.
+    \end{itemize}
+    Substituting these values into \Cref{SP:PolyFourierCoeffBound} then gives us the desired bounds.
+    \begin{comment}
+    The following is a consequence of a result proved by Ramanujan \todo{find citation for original paper} in the theory of (quasi-)modular forms:
     \begin{align}
         E_2 E_4 - E_6 &= 720 \sum_{n=1}^{\infty} n \, \sigma_3(n) \, e^{2\pi i nz}
         \label{Ch4:Eq:E2E4_sub_E6_qexpansion}
@@ -145,6 +156,7 @@ We are now ready to prove that $I_1, \ldots, I_6$ and their derivatives satisfy 
         \abs{\phi_{-4}\of{z}} &\leq C_{-4} e^{2\pi\Im(z)}
     \end{align*}
     as required.
+    \end{comment}
 \end{proof}
 
 We can now bound $I_1$, $I_3$ and $I_5$.
