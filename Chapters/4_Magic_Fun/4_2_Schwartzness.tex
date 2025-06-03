@@ -69,13 +69,13 @@ A key step in showing that $a\rad$ and $b\rad$ are Schwartz will be to bound the
     \begin{align*}
         f_1(z) f_2(z) &= \sum_{\ell = n_0}^{\infty} c(n) \, e^{\pi i \ell z}
     \end{align*}
-    where for each $\ell \geq n_0$, $c(\ell)$ is a sum of finitely many terms of the form $c_1(n) c_2(m)$, with $n + m = \ell$. Now, we know there exist positive numbers $\exists C, D \in \R$ and $N, M \in \N$ such that for all $n \geq N$ and $m \geq M$, $\abs{c_1(n)} \leq C \abs{n^{k_1}} = C n^{k_1}$ and $\abs{c_2(m)} \leq D \abs{m^{k_2}} = D m^{k_2}$. Furthermore, we know that the sets $\set{n_1, \ldots, N}$ and $\set{n_2, \ldots, M}$ are finite. Defining
+    where for each $\ell \geq n_0$, $c(\ell)$ is a sum of finitely many terms of the form $c_1(n) c_2(m)$, with $n + m = \ell$. Now, we know there exist positive numbers $C, D \in \R$ and $N, M \in \N$ such that for all $n \geq N$ and $m \geq M$, $\abs{c_1(n)} \leq C \abs{n^{k_1}} = C n^{k_1}$ and $\abs{c_2(m)} \leq D \abs{m^{k_2}} = D m^{k_2}$. Defining
     \begin{align*}
         C' := \sum_{n=n_1}^{N} \abs{c_1(n)}
         \qquad \qquad
         D' := \sum_{m=n_2}^{M} \abs{c_2(m)}
     \end{align*}
-    we can bound $\abs{c(\ell)}$ above by a sum of finitely many terms of the form $C' \abs{c_2(m)}$, $D' \abs{c_1(n)}$, and $\abs{c_1(n)} \cdot \abs{c_2(m)}$, with $n \geq N$ and $m \geq M$. Hence, bounding $\abs{c_1(n)} \leq C n^{k_1} \leq C \parenth{m+n}^{k_1}$ and $\abs{c_2(n)} \leq D m^{k_1} \leq D \parenth{m+n}^{k_2}$, we can see that $c(\ell) = \BigO{\ell^{k_1 + k_2}}$. Taking $k = k_1 + k_2$ concludes the proof.
+    we can bound $\abs{c(\ell)}$ above by a sum of finitely many terms of the form $C' \abs{c_2(m)}$, $D' \abs{c_1(n)}$, and $\abs{c_1(n)} \cdot \abs{c_2(m)}$, with $n \geq N$ and $m \geq M$. Take $k = k_1 + k_2$. Then, $\abs{c_1(n)} \leq C n^{k_1} \leq C \parenth{m+n}^{k_1}$ and $\abs{c_2(n)} \leq D m^{k_1} \leq D \parenth{m+n}^{k_2}$, so $c(\ell) = \BigO{\parenth{m+n}^{k_1 + k_2}} = \BigO{\ell^k}$.
 \end{proof}
 
 We now show that $a\rad$, the radial version of the $+1$-eigenfunction, is Schwartz.
