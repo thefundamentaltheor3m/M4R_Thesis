@@ -171,6 +171,7 @@ The choice of rectangular contours (as in \Cref{Ch4:subfig:a_rect_contour}) as o
 We are now ready to define the $-1$-eigenfunction $b$.
 
 \subsection{The $-1$-Eigenfunction}
+\label{Ch4:Subsec:b_def}
 
 Recall the $H$-functions defined as the fourth powers of the Theta functions in \Cref{Ch2:Def:Theta_H}. We begin by defining the $h$ function, in terms of which we define the $\psi$-functions.
 
@@ -184,28 +185,40 @@ Recall the $H$-functions defined as the fourth powers of the Theta functions in 
 
 In \cite{Viazovska8}, the $\psi$-functions are defined in terms of the $h$-function via slash actions.
 
-\begin{boxdefinition}[The $\psi$-Functions]\label{Ch4:Def:psis}
+\begin{boxdefinition}[The $\psi$-Functions]\label{Ch4:Def:psis_in_terms_of_h}
     Define the functions $\psi_I, \psi_S, \psi_T : \Halfplane \to \C$ by
-    % \begin{align} % What nonsense have I written... gotta fix this! XD
-    %     \psi_I\of{z} &:= h\of{z}^3
-    %         \label{Ch4:Eq:psi_I_def} \\
-    %     \psi_S\of{z} &:= -h\of{z}^3
-    %         \label{Ch4:Eq:psi_S_def} \\
-    %     \psi_T\of{z} &:= h\of{z}^3 - h\of{z}^3
-    %         \label{Ch4:Eq:psi_T_def}
-    % \end{align}
-    where $h$ is as defined in \Cref{Ch4:Def:h}.
+    \begin{align*}
+        \psi_I := h - h\mid_{-2} ST
+        \qquad\qquad
+        \psi_T := \psi_I \mid_{-2} T
+        \qquad\qquad
+        \psi_S := \psi_I \mid_{-2} S
+    \end{align*}
+    where $h$ is as defined in \Cref{Ch4:Def:h} and $I, S, T \in \SL{2, \Z}$ are as defined just before \Cref{Ch2:Prop:H_Rels}.
 \end{boxdefinition}
 
-By merely unfolding definitions, it is possible to show that the $\psi$-functions can be expressed directly in terms of the $H$-functions.
+Note that unpacking the slash action notation immediately gives us the relations
+\begin{align}
+    \psi_T(z) &= \parenth{z+1}^2 \psi_S\of{\frac{-1}{z+1}} \label{Ch4:Eq:psi_T_to_psi_S} \\
+    \psi_I(z) &= z^2 \psi_S\of{\frac{-1}{z}} \label{Ch4:Eq:psi_I_to_psi_S}
+\end{align}
+between the $\psi$-functions for all $z \in \Halfplane$.
 
-\begin{boxlemma}
-    
+By unfolding definitions and applying slash-action properties of the $H$-functions, it is possible to show that the $\psi$-functions can be expressed in the following manner.
+
+\begin{boxlemma}\label{Ch4:Lemma:psi_explicitly}
+    The $\psi$-functions can be expressed in the following manner:
+    % Note that there's a missing - sign in the blueprint (need to fix ALL of the typos next week!)
+    \begin{align*}
+        \psi_I &= 128 \parenth{\frac{H_3 + H_4}{H_2^2} + \frac{H_4 - H_2}{H_3^2}} \\
+        \psi_T &= 128 \parenth{\frac{H_3 + H_4}{H_2^2} + \frac{H_2 + H_3}{H_4^2}} \\
+        \psi_S &= 128 \parenth{\frac{H_4 - H_2}{H_3^2} - \frac{H_2 + H_3}{H_4^2}}
+    \end{align*}
 \end{boxlemma}
 
 It will be useful, particularly to prove Schwartzness, to express the $\psi$-functions in an alternate form, as fractions with the discriminant in the denominator.
 
-\begin{boxproposition}[The $\psi$-Fucntions]\label{Ch4:Prop:psi_as_div_disc}
+\begin{boxproposition}\label{Ch4:Prop:psi_as_div_disc}
     We can express $\psi_I, \psi_S, \psi_T$ in the following manner:
     \begin{align}
         \psi_I &= \frac{H_4^3\parenth{2 H_4^2 + 5 H_4 H_2 + 5 H_2^2}}{2 \Delta}
@@ -218,19 +231,7 @@ It will be useful, particularly to prove Schwartzness, to express the $\psi$-fun
     where $\Delta$ is the discriminant form.
 \end{boxproposition}
 
-This proposition can be proved by clearing denominators in
-
-The $\psi$-functions satisfy the following relations.
-
-\begin{boxlemma}\label{Ch4:Lemma:psi_var_change}
-    For all $z \in \Halfplane$,
-    \begin{align*}
-        \psi_T(z) &= \parenth{z+1}^2 \psi_S\of{\frac{-1}{z+1}} \\
-        \psi_I(z) &= z^2 \psi_S\of{\frac{-1}{z}}
-    \end{align*}
-\end{boxlemma}
-
-These relations can be deduced directly from \Cref{Ch4:Def:psis}.
+This proposition can be proved by finding common denominators for the expressions in \Cref{Ch4:Lemma:psi_explicitly} and applying \eqref{Ch2:Eq:H_Jacobi} and \eqref{Ch2:Eq:Disc_H}. Note that \Cref{Ch4:Prop:psi_as_div_disc} gives us a way of seeing that the $\psi$-functions are holomorphic on the upper half-plane, because $\Delta$ is non-vanishing and the numerators are made entirely of holomorphic functions.
 
 We are now ready to define the $-1$-eigenfunction, denoted $b$.
 
@@ -274,7 +275,7 @@ We are now ready to define the $-1$-eigenfunction, denoted $b$.
     \end{align}
 \end{boxdefinition}
 
-Note that by applying the relations in \Cref{Ch4:Lemma:psi_var_change}, we can express $J_1, \ldots, J_5$ in the following manner:
+Note that by applying \eqref{Ch4:Eq:psi_T_to_psi_S} and \eqref{Ch4:Eq:psi_I_to_psi_S}, we can express $J_1, \ldots, J_5$ in the following manner:
 \begin{align*}
     J_1(r) &= \int_{-1}^{-1 + i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
     J_2(r) &= \int_{-1 + i}^{i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\

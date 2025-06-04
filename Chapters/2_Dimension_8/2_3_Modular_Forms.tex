@@ -350,19 +350,31 @@ Finally, we mention some important relations that we will take advantage of when
     \end{align*}
 \end{boxnotation}
 
-We now state important properties of the $H$-functions.
+We now state important properties of the $H$-functions. These have been taken from \cite[\S 6]{blueprint}. The first version of of this section which was written by Viazovska herself, but it has subsequently been modified by Birkbeck and Lee, with contributions from Ma, to reflect the current state of the formalisation of the theory of modular forms, in \mathlib\ as well as the project repository and Birkbeck's own code.
 
 \begin{boxproposition}\label{Ch2:Prop:H_Rels}
-    The following slash-action relations hold.
-    Furthermore, the $H$-functions are related to the other modular forms we have explored in the following manner.
-    \begin{enumerate}
-        \item 
-    \end{enumerate}
-    Finally, the $H$-functions satisfy the Jacobi identity:
+    The following slash action relations hold.
     \begin{align*}
-        H_2 + H_4 = H_3
+        H_2 \mid_0 S &= -H_4
+        &
+        H_3 \mid_0 S &= -H_3
+        &
+        H_4 \mid_0 S &= -H_2
+        \\
+        H_2 \mid_0 T &= -H_2
+        &
+        H_3 \mid_0 T &= H_4
+        &
+        H_4 \mid_0 T &= H_3
     \end{align*}
+    Furthermore, the $H$-functions are invariant under the weight $0$ slash action of $\Gamma(2)$. Finally, the $H$-functions are related to each other, $E_4$, $E_6$ and $\Delta$ in the following manner.
+    \begin{align}
+        0 &= H_2 - H_3 + H_4 \label{Ch2:Eq:H_Jacobi} \\
+        E_4 &= \frac{1}{2} \parenth{H_2^2 + H_3^2 + H_4^2} \label{Ch2:Eq:E4_H} \\
+        E_6 &= \frac{1}{2} \parenth{H_2 + H_3}\parenth{H_3 + H_4}\parenth{H_4 - H_2} \label{Ch2:Eq:E6_H} \\
+        \Delta &= \frac{1}{256} \parenth{H_2 \, H_3 \, H_4}^2 \label{Ch2:Eq:Disc_H}
+    \end{align}
+    Further relations can be obtained by writing $H_3 = H_2 + H_4$ in \eqref{Ch2:Eq:E4_H} and \eqref{Ch2:Eq:E6_H}.
 \end{boxproposition}
 
-We do not prove this proposition here, as it is beyond the scope of this thesis. Proofs of the individual results can be found in \cite{blueprint}.
-
+The proofs of these identities are significantly beyond the scope of this thesis.
