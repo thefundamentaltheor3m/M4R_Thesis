@@ -325,7 +325,9 @@ We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to t
 
 Analogous results can be proved for the other $I_j$, with any arising constants subsumed into the constants defined in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6}. Therefore, if we can show that the functions (without the constants) on the right-hand sides of \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} decay faster than any inverse power of $r$, we will have the result.
 
-This fact is obvious for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$, but less so for $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$. In these cases, the result is actually a consequence of a deeper result involving modified Bessel functions of the second kind.
+% I HAD WRITTEN AN EXPLICIT PROOF OF THIS... WHERE DID IT GO???????? WHERE ON EARTH DID IT GO????????????????!!!!!!!!!!
+
+% This fact is obvious for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$, but less so for $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$. In these cases, the result is actually a consequence of a deeper result involving modified Bessel functions of the second kind.
 
 % Existing proof is wrong... find workaround (or a good reference).
 
@@ -354,10 +356,15 @@ A more nontrivial step involves proving an analogue of \Cref{Ch4:Lemma:PolyFouri
     for all $z \in \Halfplane$ with $\Im(z) > 1/2$.
 \end{boxlemma}
 \begin{proof}
-    From \eqref{Ch2:Eq:H2_qexpansion_explicit}, we can see that $n_0\of{H_2} = 1$. Furthermore, from \Cref{Ch2:Def:Theta_H}, we can see that $n_0\of{\Theta_3} = n_0\of{\Theta_4} = 0$, from which we can conclude that $n_0\of{H_3} = n_0\of{H_4} = 0$. Finally, $c_{H_2}\of{1} = 16$ from \eqref{Ch2:Eq:H2_qexpansion_explicit} and $c_{H_2} = c_{H_3} = 1$ from \Cref{Ch2:Def:Theta_H}. Now, denote by $N_I$, $N_S$ and $N_T$ the values of $n_0$ for the numerators (cf. \Cref{Ch4:Prop:psi_as_div_disc}) of $\psi_I$, $\psi_S$ and $\psi_T$ respectively.
+    For the purposes of this proof, we will consider the $\psi$-functions to be expressed as in \Cref{Ch4:Prop:psi_as_div_disc}. We have seen in \Cref{Ch2:Subsec:ThetaFunctions} that the Fourier coefficients of the $H$-functions have polynomial growth. From \Cref{Ch4:Prop:PolyGrowth_of_mul} and the ensuing discussion, we can see that the numerators of the $\psi$-functions all admit Fourier expansions with polynomially growing coefficients. All that remains is to explicitly compute the value of $n_0$ for the numerators.
+    
+    Denote by $N_I$, $N_S$ and $N_T$ the values of $n_0$ for the numerators of $\psi_I$, $\psi_S$ and $\psi_T$ respectively. From \eqref{Ch2:Eq:H2_qexpansion_explicit}, we can see that $n_0\of{H_2} = 1$. Furthermore, from \Cref{Ch2:Def:Theta_H}, we can see that $n_0\of{\Theta_3} = n_0\of{\Theta_4} = 0$, from which we can conclude that $n_0\of{H_3} = n_0\of{H_4} = 0$. Finally, $c_{H_2}\of{1} = 16$ from \eqref{Ch2:Eq:H2_qexpansion_explicit} and $c_{H_2} = c_{H_3} = 1$ from \Cref{Ch2:Def:Theta_H}. We are now ready to compute $N_S$ and $N_I$.
     \begin{itemize}
         \item \underline{$N_S = 3$.} Note that $n_0\of{H_2^3} = 3$ and the smallest $n_0$ in the numerator of $\psi_S$ is $0$, with none of the $n_0$th coefficients cancelling. Hence, $N_S = n_0\of{H_2^3} = 3$. %. Since $n_0\of{H_4} = n_0\of{H_4^2} = 0$ but $n_0\of{H_2^2} = n_0\of{H_2 H_4} = 0$, we can conclude that $N_S = 3 + 0 = 3$.
 
         \item \underline{$N_I = 0$.} Note that $n_0\of{H_4^3} = 0$ and the smallest $n_0$ in the numerator of $\psi_I$ is $0$, with none of the $n_0$th coefficients cancelling. Hence, $N_I = n_0\of{H_r^3} = 0$.
     \end{itemize}
+    Substituting these into \Cref{SP:PolyFourierCoeffBound} then yields the desired result.
 \end{proof}
+
+We are now ready to compute bounds on the $J_j$. Note that the 
