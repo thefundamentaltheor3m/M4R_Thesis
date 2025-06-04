@@ -79,7 +79,7 @@ it is enough to show that sums and products of functions exhibiting this propert
         \qquad \qquad
         D' := \sum_{m=n_2}^{M} \abs{c_2(m)}
     \end{align*}
-    we can bound $\abs{c(\ell)}$ above by a sum of finitely many terms of the form $C' \abs{c_2(m)}$, $D' \abs{c_1(n)}$, and $\abs{c_1(n)} \cdot \abs{c_2(m)}$, with $n \geq N$ and $m \geq M$. Take $k = k_1 + k_2$. Then, $\abs{c_1(n)} \leq C n^{k_1} \leq C \parenth{m+n}^{k_1}$ and $\abs{c_2(n)} \leq D m^{k_1} \leq D \parenth{m+n}^{k_2}$, so $c(\ell) = \BigO{\parenth{m+n}^{k_1 + k_2}} = \BigO{\ell^k}$.
+    we can bound $\abs{c(\ell)}$ above by a sum of finitely many terms of the form $C' \abs{c_2(m)}$, $D' \abs{c_1(n)}$, and $\abs{c_1(n)} \cdot \abs{c_2(m)}$, with $n \geq N$ and $m \geq M$. Take $k = k_1 + k_2$. Then, $\abs{c_1(n)} \leq C n^{k_1} \leq C \parenth{m+n}^{k_1}$ and $\abs{c_2(n)} \leq D m^{k_2} \leq D \parenth{m+n}^{k_2}$, so $c(\ell) = \BigO{\parenth{m+n}^{k_1 + k_2}} = \BigO{\ell^k}$. % As Jaimin pointed out, max(k_1, k_2) should also be ok.
 \end{proof}
 
 The analogous result for sums is clear, with $n_0 \geq \min\of{n_1, n_2}$ and $k = \max\of{k_1, k_2}$. Note that for sums, $n_0$ may not be exactly $\min\of{n_1, n_2}$ because the Fourier coefficients of smallest index may cancel each other out. For the remainder of this thesis, we use the following notation.

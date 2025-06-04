@@ -11,9 +11,9 @@ In the previous section, we did not work with $a$ and $b$ directly as it was suf
     \begin{align*}
         F(x) = e^{-b \norm{x}^2}
     \end{align*}
-    then the Fourier transform of $F$ is given by
+    then for all $\xi \in \R^n$, the Fourier transform of $F$ is given by
     \begin{align*}
-        \hat{F}\of{\omega} = \parenth{\frac{\pi}{b}}^{{n} / {2}} e^{{- \pi^2 \norm{\omega}^2} / {b}}
+        \hat{F}\of{\xi} = \parenth{\frac{\pi}{b}}^{{n} / {2}} e^{{- \pi^2 \norm{\xi}^2} / {b}}
     \end{align*}
 \end{boxtheorem}
 A \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/SpecialFunctions/Gaussian/FourierTransform.lean#L360-L363}{formal proof} exists in \mathlib.
@@ -146,7 +146,91 @@ Note that the above proposition is stronger than showing merely that the $I_j\of
     maps $I_1\of{\norm{x}^2} + I_2\of{\norm{x}^2}$ to $I_3\of{\norm{x}^2} + I_4\of{\norm{x}^2}$.
 \end{boxlemma}
 \begin{proof}
-    Since $\F$ is linear, we treat $I_1$ and $I_2$ separately. Observe that 
+    Since $\F$ acts linearly, we can treat $I_1$ and $I_2$ separately. For the purpose of this proof, denote the Fourier transforms of $I_1\of{\norm{x}^2}$ and $I_2\of{\norm{x}^2}$ by $F_1$ and $F_2$ respectively. Fix $\xi \in \R^8$. The integrability condition in \Cref{Ch4:Prop:FourierIntegralConvergence_Ij} allows us to change the order of integration below:
+    \begin{align*}
+        F_1\of{\xi} &= \int_{\R^8} \parenth {\int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z + 1}^2 \, e^{\pi i \norm{x}^2 z} \, \diff{z}} e^{-2\pi i \cycl{x, \xi}} \, \diff{x} \\
+        &= \int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z + 1}^2 \parenth{\int_{\R^8} e^{\pi i \norm{x}^2 z} e^{-2\pi i \cycl{x, \xi} \diff{x}}} \, \diff{z}
+    \end{align*}
+    We can express $F_2$ in an analogous fashion. In both cases, the inner integral is exactly the Fourier integral of a Gaussian: in the notation of \Cref{Ch4:Thm:GaussianFourier}, $b = \pi i z$, and since $\Im(z) = \Re\of{i z} > 0$, we may apply the theorem to conclude that the inner integral is just
+    \begin{align*}
+        \frac{1}{z^4} \, e^{-\pi i \norm{\xi}^2 / z}
+    \end{align*}
+    We may therefore write
+    \begin{align*}
+        F_1\of{\xi} &= \int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z + 1}^2z^{-4} \, e^{\pi i \norm{x}^2 \parenth{\frac{-1}{z}}} \, \diff{z} \\
+        F_2\of{\xi} &= \int_{-1 + i}^{i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z + 1}^2z^{-4} \, e^{\pi i \norm{x}^2 \parenth{\frac{-1}{z}}} \, \diff{z}
+    \end{align*}
+    We make a change of variables $w = \frac{-1}{z}$ in the above integrals. This Möbius transformation turns the vertical and horizontal contours in $F_1$ and $F_2$ into quarter-circular contours that we denote $\gamma_1$ and $\gamma_2$ respectively. See \Cref{Ch4:Fig:Eigenfunction_Mobius_Contours}.
+
+    \begin{figure}[htb]
+        \centering
+        \begin{subfigure}{0.4\linewidth}
+            \centering
+            \begin{tikzpicture}[scale=1.9]
+                % Axes
+                \draw[->] (-1.4,0) -- (1.4,0) node[right] {$\Re$};
+                \draw[->] (0,-0.2) -- (0,1.4) node[above] {$\Im$};
+    
+                % F_1
+                \draw[thick, ->] (-1,0) -- (-1,0.5);
+                \draw[thick, -] (-1,0.5) -- (-1,1);
+
+                % F_2
+                \draw[thick, ->] (-1,1) -- (-0.5,1);
+                \draw[thick, -] (-0.5,1) -- (0,1);
+    
+                % Points of interest
+                % \labelledpoint{0}{0}{0.3}{-0.8}{$0$}
+                \labelledpoint{-1}{0}{0}{-0.8}{$-1$}
+                \labelledpoint{-1}{1}{-0.3}{-0.2}{$-1 + i$}
+                \labelledpoint{0}{1}{0.3}{-0.4}{$i$}
+            \end{tikzpicture}
+            \caption{Before the transformation}
+        \end{subfigure}
+        \begin{subfigure}{0.1\linewidth}
+            \vfill
+            \[ \leadsto \]
+            \vspace{5em}
+        \end{subfigure}
+        \begin{subfigure}{0.4\linewidth}
+            \centering
+            \begin{tikzpicture}[scale=1.9]
+                % Axes
+                \draw[->] (-1.4,0) -- (1.4,0) node[right] {$\Re$};
+                \draw[->] (0,-0.2) -- (0,1.4) node[above] {$\Im$};
+            
+                % \gamma_1
+                \draw[thick, domain=0:45, ->] plot ({0.5 + 0.5 * cos(\x)}, {0.5 * sin(\x)}) node[below left] {$\gamma_1$};
+                \draw[thick, domain=45:90, -] plot ({0.5 + 0.5 * cos(\x)}, {0.5 * sin(\x)});
+
+                % \gamma_2
+                \draw[thick, domain=0:45, ->] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)}) node[below left] {$\gamma_2$};
+                \draw[thick, domain=45:90, -] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)});
+    
+                % Points of interest
+                % \labelledpoint{0}{0}{0.3}{-0.8}{$w$}
+                \labelledpoint{1}{0}{0}{-0.8}{$1$}
+                \labelledpoint{0.5}{0.5}{0.6}{-0.2}{$\frac{1}{2} + i\frac{1}{2}$}
+                \labelledpoint{0}{1}{-0.3}{-0.4}{$i$}
+            \end{tikzpicture}
+            \caption{After the transformation}
+        \end{subfigure}
+        \caption{The effect of the Möbius transformation $z \mapsto -1/z$ on the contours of $F_1$ and $F_2$}
+        \label{Ch4:Fig:Eigenfunction_Mobius_Contours}
+    \end{figure}
+    Denoting
+    \begin{align*}
+        f(w) := \phi_0\of{-1 - \frac{1}{w - 1}} \, \parenth{\frac{-1}{w} + 1}^2 w^2 \, e^{\pi i \norm{x}^2 w}
+    \end{align*}
+    \Cref{Ch4:Thm:CGTRectCircle} tells us the following.
+    \begin{align*}
+        F_1\of{\xi}
+        &= \int_{\gamma_1} f(w) \, \diff{w}
+        = \int_{1}^{1 + i\frac{1}{2}} f(w) \, \diff{w}
+        + \int_{1 + i\frac{i}{2}}^{\frac{1}{2} + i\frac{1}{2}} f(w) \, \diff{w} \\
+        F_2\of{\xi}
+        &= \int_{\gamma_2} f(w) \, \diff{w}
+    \end{align*}
 \end{proof}
 
 \subsection{The $-1$-Eigenfunction}
