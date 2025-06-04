@@ -108,13 +108,45 @@ The strategy to show that $\F\of{a} = a$ will be to show that $\F$ acts on the $
 \end{align}
 Since, in addition to being Schwartz, all the $I_j\of{\norm{x}^2}$ (and their sums) are radial, \Cref{Ch3:Prop:RadialSchwartzFourier} tells us that \eqref{Ch4:Eq:a_is_eig_perm_34_12} and \eqref{Ch4:Eq:a_is_eig_perm_6_5} follow from \eqref{Ch4:Eq:a_is_eig_perm_12_34} and \eqref{Ch4:Eq:a_is_eig_perm_5_6} respectively. We now prove \eqref{Ch4:Eq:a_is_eig_perm_12_34} and \eqref{Ch4:Eq:a_is_eig_perm_5_6}.
 
+As a preliminary step, though, we need to show integrability.
+
+\begin{boxproposition}\label{Ch4:Prop:FourierIntegralConvergence_Ij}
+    Fix $1 \leq j \leq 6$, and write $I_j(r) = \int_{X_j} f(r, z) \, \diff{z}$. Then, the Fourier Integral
+    \begin{align*}
+        \F\of{I_j\of{\norm{x}^2}}\of{\xi} = \int_{\R^8} \int_{X_j} \abs{f\of{\norm{x}^2, z} \, e^{-2 \pi i \cycl{x, \xi}}} \, \diff{z} \, \diff{x}
+    \end{align*}
+    converges for all $\xi \in \R^8$.
+\end{boxproposition}
+\begin{proof}
+    Fix $\xi \in \R^8$. Note that we can disregard the $e^{-2 \pi i \cycl{x, \xi}}$ factor since it has absolute value $1$: the only reason we mention it is to emphasise that we are proving that the Fourier integral converges absolutely. Effectively, we need to show that the function
+    \begin{align*}
+        (x, z) \mapsto f\of{\norm{x}^2, z}
+    \end{align*}
+    admits an absolutely convergent integral over $\R^8 \times X_j$ with respect to the product measure.
+    
+    It has been formally verified that \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/MeasureTheory/Integral/Prod.lean#L222-L238}{proving this is equivalent to proving the following two facts}.
+
+    \begin{enumerate}
+        \item \textbf{The integral over $X_j$ of the function $z \mapsto f\of{\norm{x}^2, z}$ is absolutely convergent for almost every $x \in \R^8$.}
+        
+        This is actually true for all $x$, and follows from the arguments in \Cref{Ch4:Subec:Schwartzness_a}.
+        
+        \item \textbf{The integral over $\R^8$ of the function $x 
+        \mapsto \int_{X_j} \abs{f\of{\norm{x^2}, z}} \diff{z}$ is absolutely convergent.}
+        
+        By inspection, the arguments in \Cref{Ch4:Subec:Schwartzness_a} bound the function $r \mapsto \int_{X_j} \abs{f\of{r, z}} \diff{z}$ by a Schwartz function. Composing with the norm squared preserves Schwartzness by \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}, so we can bound the function $x \mapsto \int_{X_j} \abs{f\of{\norm{x}^2, z}} \diff{z}$ by a Schwartz function. It has been formally verified that \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/Distribution/SchwartzSpace.lean#L1095-L1097}{Schwartz functions are integrable}, so the integral over $\R^8$ of the function $x \mapsto \int_{X_j} \abs{f\of{\norm{x}^2, z}} \diff{z}$ must be absolutely convergent.
+    \end{enumerate}
+We can therefore conclude that the Fourier integral converges absolutely.
+\end{proof}
+
+Note that the above proposition is stronger than showing merely that the $I_j\of{\norm{x}^2}$ are integrable, as that does not imply that the integrands of the $I_j\of{\norm{x}^2}$ are integrable with respect to the product measure on $\R^8 \times X_j$. \Cref{Ch4:Prop:FourierIntegralConvergence_Ij}, however, does imply this, and we will need this to swap integrals using Fubini's theorem to prove the eigenfunction property.
+
 \begin{boxlemma}
     The Fourier transform % $\F : \Sch\of{\R^8, \C} \to \Sch{\R^8, \C}$
     maps $I_1\of{\norm{x}^2} + I_2\of{\norm{x}^2}$ to $I_3\of{\norm{x}^2} + I_4\of{\norm{x}^2}$.
 \end{boxlemma}
 \begin{proof}
-    It has been formally verified that \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/Fourier/FourierTransform.lean#L360-L362}{the Fourier integral of a function converges absolutely iff the function is integrable} and that \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/Distribution/SchwartzSpace.lean#L1095-L1097}{Schwartz functions are integrable}. Hence, \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/Distribution/FourierSchwartz.lean#L36}{the Fourier integral of a Schwartz function converges absolutely}. Since 
-    % The problem I have is that what's in mathlib tells me that Fourier integral of I_1 converges absolutely, but not that the integral with respect to the product measure on R^8 and [0,1] of the integrand of I_1 converges absolutely.
+    Since $\F$ is linear, we treat $I_1$ and $I_2$ separately. Observe that 
 \end{proof}
 
 \subsection{The $-1$-Eigenfunction}
