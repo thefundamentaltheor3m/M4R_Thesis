@@ -157,8 +157,8 @@ Note that the above proposition is stronger than showing merely that the $I_j\of
     \end{align*}
     We may therefore write
     \begin{align*}
-        F_1\of{\xi} &= \int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z + 1}^2z^{-4} \, e^{\pi i \norm{x}^2 \parenth{\frac{-1}{z}}} \, \diff{z} \\
-        F_2\of{\xi} &= \int_{-1 + i}^{i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z + 1}^2z^{-4} \, e^{\pi i \norm{x}^2 \parenth{\frac{-1}{z}}} \, \diff{z}
+        F_1\of{\xi} &= \int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z + 1}^2z^{-4} \, e^{\pi i \norm{\xi}^2 \parenth{\frac{-1}{z}}} \, \diff{z} \\
+        F_2\of{\xi} &= \int_{-1 + i}^{i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z + 1}^2z^{-4} \, e^{\pi i \norm{\xi}^2 \parenth{\frac{-1}{z}}} \, \diff{z}
     \end{align*}
     We make a change of variables $w = \frac{-1}{z}$ in the above integrals. This Möbius transformation turns the vertical and horizontal contours in $F_1$ and $F_2$ into quarter-circular contours that we denote $\gamma_1$ and $\gamma_2$ respectively. See \Cref{Ch4:Fig:Eigenfunction_Mobius_Contours}.
 
@@ -210,7 +210,7 @@ Note that the above proposition is stronger than showing merely that the $I_j\of
                 % Points of interest
                 % \labelledpoint{0}{0}{0.3}{-0.8}{$w$}
                 \labelledpoint{1}{0}{0}{-0.8}{$1$}
-                \labelledpoint{0.5}{0.5}{0.6}{-0.2}{$\frac{1}{2} + i\frac{1}{2}$}
+                \labelledpoint{0.5}{0.5}{0.6}{-0.2}{$\frac{1}{2} + \frac{1}{2}i$}
                 \labelledpoint{0}{1}{-0.3}{-0.4}{$i$}
             \end{tikzpicture}
             \caption{After the transformation}
@@ -218,19 +218,110 @@ Note that the above proposition is stronger than showing merely that the $I_j\of
         \caption{The effect of the Möbius transformation $z \mapsto -1/z$ on the contours of $F_1$ and $F_2$}
         \label{Ch4:Fig:Eigenfunction_Mobius_Contours}
     \end{figure}
-    Denoting
+    Treating $\xi$ as a constant and denoting
     \begin{align*}
-        f(w) := \phi_0\of{-1 - \frac{1}{w - 1}} \, \parenth{\frac{-1}{w} + 1}^2 w^2 \, e^{\pi i \norm{x}^2 w}
+        f(w) := \phi_0\of{-1 - \frac{1}{w - 1}} \, \parenth{\frac{-1}{w} + 1}^2 w^2 \, e^{\pi i \norm{\xi}^2 w}
     \end{align*}
-    \Cref{Ch4:Thm:CGTRectCircle} tells us the following.
+    we note that $f$ is holomorphic (in $w$) on the upper half-plane. \Cref{Ch4:Thm:CGTRectCircle} then tells us the following.
     \begin{align*}
         F_1\of{\xi}
         &= \int_{\gamma_1} f(w) \, \diff{w}
-        = \int_{1}^{1 + i\frac{1}{2}} f(w) \, \diff{w}
-        + \int_{1 + i\frac{i}{2}}^{\frac{1}{2} + i\frac{1}{2}} f(w) \, \diff{w} \\
+        = \int_{1}^{1 + \frac{1}{2}i} f(w) \, \diff{w}
+        + \int_{1 + \frac{i}{2}i}^{\frac{1}{2} + \frac{1}{2}i} f(w) \, \diff{w} \\
         F_2\of{\xi}
         &= \int_{\gamma_2} f(w) \, \diff{w}
+        = \int_{\frac{1}{2} + \frac{1}{2}i}^{\frac{1}{2} + i} f(w) \, \diff{w}
+        + \int_{\frac{1}{2} + i}^{i} f(w) \, \diff{w}
     \end{align*}
+    The \CGT\ for rectangles, which has been \href{https://github.com/leanprover-community/mathlib4/blob/88928cefd7edb1ba61623bffd4e86389dfe1f648/Mathlib/Analysis/Complex/CauchyIntegral.lean#L245}{formally verified}, tells us that
+    \begin{align*}
+        \int_{1 + \frac{i}{2}i}^{\frac{1}{2} + \frac{1}{2}i} f(w) \, \diff{w}
+        + \int_{\frac{1}{2} + \frac{1}{2}i}^{\frac{1}{2} + i} f(w) \, \diff{w}
+        = \int_{1 + \frac{1}{2}i}^{1+i} f(w) \, \diff{w}
+        + \int_{1+i}^{\frac{1}{2} + i} f(w) \, \diff{w}
+    \end{align*}
+    Therefore, we can express $F_1 + F_2$ in the following manner:
+    \begin{align*}
+        F_1\of{\xi} + F_2\of{\xi}
+        &= \int_{1}^{1 + \frac{1}{2}i} f(w) \, \diff{w}
+        + \parenth{\int_{1 + \frac{i}{2}i}^{\frac{1}{2} + \frac{1}{2}i} f(w) \, \diff{w}
+        + \int_{\frac{1}{2} + \frac{1}{2}i}^{\frac{1}{2} + i} f(w) \, \diff{w}}
+        + \int_{\frac{1}{2} + i}^{i} f(w) \, \diff{w} \\
+        &= \parenth{\int_{1}^{1 + \frac{1}{2}i} f(w) \, \diff{w}
+        + \int_{1 + \frac{1}{2}i}^{1+i} f(w) \, \diff{w}}
+        + \parenth{\int_{1+i}^{\frac{1}{2} + i} f(w) \, \diff{w}
+        + \int_{\frac{1}{2} + i}^{i} f(w) \, \diff{w}} \\
+        &= I_3\of{\norm{\xi}^2} + I_4\of{\norm{\xi}^2}
+    \end{align*}
+    as required.
+    \begin{figure}[hbt]
+        \centering
+        \begin{subfigure}{0.4\linewidth}
+            \centering
+            \begin{tikzpicture}[scale=1.9]
+                % Axes
+                \draw[->] (-1.4,0) -- (1.4,0) node[right] {$\Re$};
+                \draw[->] (0,-0.2) -- (0,1.4) node[above] {$\Im$};
+            
+                % \gamma_1
+                \draw[thick, domain=0:45, ->, red] plot ({0.5 + 0.5 * cos(\x)}, {0.5 * sin(\x)}) node[below left] {$\gamma_1$};
+                \draw[thick, domain=45:90, -, red] plot ({0.5 + 0.5 * cos(\x)}, {0.5 * sin(\x)});
+
+                % \gamma_2
+                \draw[thick, domain=0:45, ->] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)}) node[below left] {$\gamma_2$};
+                \draw[thick, domain=45:90, -] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)});
+
+                % Rectangle 1
+                \draw[thick, ->] (1, 0) -- (1, 0.25);
+                \draw[thick, -] (1, 0.25) -- (1, 0.5);
+                \draw[thick, ->] (1, 0.5) -- (0.75, 0.5);
+                \draw[thick, -] (0.75, 0.5) -- (0.5, 0.5);
+
+                % Rectangle 2
+                \draw[thick, ->] (0.5, 0.5) -- (0.5, 0.75);
+                \draw[thick, -] (0.5, 0.75) -- (0.5, 1);
+                \draw[thick, ->] (0.5, 1) -- (0.25, 1);
+                \draw[thick, -] (0.25, 1) -- (0, 1);
+    
+                % Points of interest
+                % \labelledpoint{0}{0}{0.3}{-0.8}{$w$}
+                \labelledpoint{1}{0}{0}{-0.8}{$1$}
+                % \labelledpoint{0.5}{0.5}{0.6}{-0.2}{$\frac{1}{2} + \frac{1}{2}i$}
+                \labelledpoint{0}{1}{-0.3}{-0.4}{$i$}
+            \end{tikzpicture}
+            \caption{Before the transformation}
+        \end{subfigure}
+        \begin{subfigure}{0.1\linewidth}
+            \vfill
+            \[ \leadsto \]
+            \vspace{5em}
+        \end{subfigure}
+        \begin{subfigure}{0.4\linewidth}
+            \centering
+            \begin{tikzpicture}[scale=1.9]
+                % Axes
+                \draw[->] (-1.4,0) -- (1.4,0) node[right] {$\Re$};
+                \draw[->] (0,-0.2) -- (0,1.4) node[above] {$\Im$};
+            
+                % \gamma_1
+                \draw[thick, domain=0:45, ->] plot ({0.5 + 0.5 * cos(\x)}, {0.5 * sin(\x)}) node[below left] {$\gamma_1$};
+                \draw[thick, domain=45:90, -] plot ({0.5 + 0.5 * cos(\x)}, {0.5 * sin(\x)});
+
+                % \gamma_2
+                \draw[thick, domain=0:45, ->] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)}) node[below left] {$\gamma_2$};
+                \draw[thick, domain=45:90, -] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)});
+    
+                % Points of interest
+                % \labelledpoint{0}{0}{0.3}{-0.8}{$w$}
+                \labelledpoint{1}{0}{0}{-0.8}{$1$}
+                \labelledpoint{0.5}{0.5}{0.6}{-0.2}{$\frac{1}{2} + \frac{1}{2}i$}
+                \labelledpoint{0}{1}{-0.3}{-0.4}{$i$}
+            \end{tikzpicture}
+            \caption{After the transformation}
+        \end{subfigure}
+        \caption{The effect of the Möbius transformation $z \mapsto -1/z$ on the contours of $F_1$ and $F_2$}
+        \label{Ch4:Fig:Eigenfunction_CauchyGoursat_a}
+    \end{figure}
 \end{proof}
 
 \subsection{The $-1$-Eigenfunction}
