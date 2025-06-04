@@ -324,10 +324,11 @@ Unfortunately, due to the fractional term in the exponents of the summands in th
 \begin{align}
     H_2 = \Theta_2^4
     &= \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n + \frac{1}{2}}^2 z}}^4
-    = \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n + \frac{1}{4}} z}}^4 \nonumber \\
-    &= \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n} z} \, e^{\frac{\pi i z}{4}}}^4
-    = \parenth{e^{\frac{\pi i z}{4}}}^4  \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n} z}}^4
-    = e^{\pi i z} \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n} z}}^4 \label{Ch2:Eq:H2_qexpansion_explicit}
+    = \parenth{2\sum_{n =0}^{\infty} e^{\pi i \parenth{n + \frac{1}{2}}^2 z}}^4
+    = \parenth{2\sum_{n =0}^{\infty} e^{\pi i \parenth{n^2 + n + \frac{1}{4}} z}}^4 \nonumber \\
+    &= \parenth{2\sum_{n =0}^{\infty} e^{\pi i \parenth{n^2 + n} z} \, e^{\frac{\pi i z}{4}}}^4
+    = \parenth{2e^{\frac{\pi i z}{4}}}^4  \parenth{\sum_{n =0}^{\infty} e^{\pi i \parenth{n^2 + n} z}}^4
+    = 16 e^{\pi i z} \parenth{\sum_{n =0}^{\infty} e^{\pi i \parenth{n^2 + n} z}}^4 \label{Ch2:Eq:H2_qexpansion_explicit}
 \end{align}
 This can be explicitly computed as an iterated sum with coefficients that grow polynomially.
 

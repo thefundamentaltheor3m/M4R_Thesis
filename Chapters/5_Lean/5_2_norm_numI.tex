@@ -276,11 +276,12 @@ Clearly, despite being mathematically valid, the result of parsing can be long a
 Note that \lstinline|norm_numI| is currently implemented as a \lstinline|conv| tactic rather than a full tactic, meaning that it is only capable of modifying expressions (and providing a proof that the modification is valid). It is not currently capable of proving goals, which are necessarily logical statements, such as equalities. This means that it needs to be used as follows.
 
 % Why is there an error in the following listing?
-\begin{lstlisting}[caption={Using \lstinline|norm_numI| as a \lstinline|conv| tactic}, label=Ch5:Listing:norm_numI_as_conv]
-example : (1 + I) * (1 + I * I * I) = 2 := by
-  conv_lhs => norm_numI
-  conv_rhs => norm_numI
-\end{lstlisting}
+% Uncomment before submitting. Keep commented till then so easier to keep track of errors.
+% \begin{lstlisting}[caption={Using \lstinline|norm_numI| as a \lstinline|conv| tactic}, label=Ch5:Listing:norm_numI_as_conv]
+% example : (1 + I) * (1 + I * I * I) = 2 := by
+%   conv_lhs => norm_numI
+%   conv_rhs => norm_numI
+% \end{lstlisting}
 
 Unpacking the code,
 \begin{itemize}
