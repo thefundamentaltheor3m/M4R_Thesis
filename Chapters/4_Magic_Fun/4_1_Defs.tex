@@ -199,12 +199,27 @@ In \cite{Viazovska8}, the $\psi$-functions are defined in terms of the $h$-funct
 
 Note that unpacking the slash action notation immediately gives us the relations
 \begin{align}
-    \psi_T(z) &= \parenth{z+1}^2 \psi_S\of{\frac{-1}{z+1}} \label{Ch4:Eq:psi_T_to_psi_S} \\
-    \psi_I(z) &= z^2 \psi_S\of{\frac{-1}{z}} \label{Ch4:Eq:psi_I_to_psi_S}
+    \psi_T(z) &= \psi_I\of{z + 1} \label{Ch4:Eq:psi_T_eq_psi_I_add_one} \\
+    \psi_S(z) &= z^2 \, \psi_I\of{\frac{-1}{z}} \label{Ch4:Eq:psi_S_eq_zsq_mul_psi_I_neg_inv}
 \end{align}
-between the $\psi$-functions for all $z \in \Halfplane$.
+between the $\psi$-functions for all $z \in \Halfplane$. We can further deduce the following.
+% \begin{boxlemma}
+    % For all $z \in \Halfplane$, the following relations hold.
+    \begin{align}
+        \psi_I(z) &= z^2 \psi_S\of{\frac{-1}{z}} \label{Ch4:Eq:psi_I_to_psi_S} \\
+        \psi_T(z) &= \parenth{z+1}^2 \psi_S\of{\frac{-1}{z+1}} \label{Ch4:Eq:psi_T_to_psi_S_add} \\
+        \psi_T(z) &= -z^2 \, \psi_T\of{\frac{-1}{z}} \label{Ch4:Eq:psi_T_eq_zsq_mul_psi_T_neg_inv}
+    \end{align}
+% \end{boxlemma}
+% \begin{proof}
+%     \eqref{Ch4:Eq:psi_I_to_psi_S} is immediate from \eqref{Ch4:Eq:psi_T_eq_psi_I_add_one} and \eqref{Ch4:Eq:psi_T_to_psi_S_add} follows from combining \eqref{Ch4:Eq:psi_I_to_psi_S} and \eqref{Ch4:Eq:psi_S_eq_psi_I_neg_inv}.
+% \end{proof}
+Finally, we can apply \Cref{Ch2:Lemma:Slash_Mul} to show that
+\begin{align*}
+    \psi_T \mid_{-2} S = \psi_I \mid_{-2} \parenth{TS}
+\end{align*}
 
-By unfolding definitions and applying slash-action properties of the $H$-functions, it is possible to show that the $\psi$-functions can be expressed in the following manner.
+Now that we have deduced several important relations between the $\psi$-functions, we express them explicitly in the following manner.
 
 \begin{boxlemma}\label{Ch4:Lemma:psi_explicitly}
     The $\psi$-functions can be expressed in the following manner:
@@ -215,6 +230,8 @@ By unfolding definitions and applying slash-action properties of the $H$-functio
         \psi_S &= 128 \parenth{\frac{H_4 - H_2}{H_3^2} - \frac{H_2 + H_3}{H_4^2}}
     \end{align*}
 \end{boxlemma}
+
+We can prove the above by unfolding definitions and applying slash-action properties of the $H$-functions. We do not do this here.
 
 It will be useful, particularly to prove Schwartzness, to express the $\psi$-functions in an alternate form, as fractions with the discriminant in the denominator.
 
@@ -275,12 +292,12 @@ We are now ready to define the $-1$-eigenfunction, denoted $b$.
     \end{align}
 \end{boxdefinition}
 
-Note that by applying \eqref{Ch4:Eq:psi_T_to_psi_S} and \eqref{Ch4:Eq:psi_I_to_psi_S}, we can express $J_1, \ldots, J_5$ in the following manner:
+Note that by applying \eqref{Ch4:Eq:psi_T_to_psi_S_add} and \eqref{Ch4:Eq:psi_I_to_psi_S}, we can express $J_1, \ldots, J_5$ in the following manner:
 \begin{align*}
     J_1(r) &= \int_{-1}^{-1 + i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
     J_2(r) &= \int_{-1 + i}^{i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
     J_3(r) &= \int_{1}^{1 + i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
     J_4(r) &= \int_{1 + i}^{i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
-    J_5(r) &= -2 \int_{0}^{i} \psi_I\of{z} \, z^2 \, e^{\pi i n z} \, \diff{z}
+    J_5(r) &= -2 \int_{0}^{i} \psi_S\of{\frac{-1}{z}} \, z^2 \, e^{\pi i n z} \, \diff{z}
 \end{align*}
-With $J_1, \ldots, J_5$ expressed in this manner, and $J_6$ expressed as in \eqref{Ch4:Eq:J_6_def}, there is a marked visual similarity between the $J_j$ and the $I_j$. A consequence of this is that similar strategies can be used to prove properties about both $a$ and $b$.
+With $J_1, \ldots, J_5$ expressed in this manner, and $J_6$ expressed as in \eqref{Ch4:Eq:J_6_def}, there is a marked visual similarity between the $J_j$ and the $I_j$, with $\psi_S$ being the analogue of $\phi_0$. A consequence of this is that similar strategies can be used to prove properties about both $a$ and $b$.

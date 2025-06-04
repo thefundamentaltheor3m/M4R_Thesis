@@ -343,3 +343,28 @@ It is worth noting that the Möbius transformation $z \mapsto \frac{-1}{z}$ in t
 We now use similar techniques to show that $b$ is a Fourier eigenfunction with eigenvalue $-1$. % Just as we did with the proof of Schwartzness, we omit repetitive arguments and focus on the key distinctions between the two cases.
 
 \subsection{The $-1$-Eigenfunction}
+
+Just as with the integrals of $a$, the $8$-dimensional Fourier transform permutes the integrals that make up $b$. The difference, however, is that it reverses signs in the process. Specifically,
+\begin{align}
+    \F\of{J_1\of{\norm{x}^2} + J_2\of{\norm{x}^2}} &= -J_3\of{\norm{x}^2} - J_4\of{\norm{x}^2} \label{Ch4:Eq:b_is_eig_perm_12_34} \\
+    \F\of{I_5\of{\norm{x}^2}} &= I_6\of{\norm{x}^2} \label{Ch4:Eq:a_is_eig_perm_5_6}
+\end{align}
+
+First, we note that in the integrability proof of the $I_j$ (\Cref{Ch4:Prop:FourierIntegralConvergence_Ij}), we did not use any properties of the $I_j$ that do not hold for the $J_j$: the same integrability conditions hold for $J_j$ because they were bounded in \Cref{Ch4:Subec:Schwartzness_b} in an analogous manner to the $I_j$ in \Cref{Ch4:Subec:Schwartzness_a}.
+
+We are now ready to prove an analogue of \Cref{Ch4:Lemma:Fourier_I_1_add_I_2_eq_I_3_add_I_4}.
+
+\begin{boxlemma}\label{Ch4:Lemma:Fourier_J_1_add_J_2_eq_neg_J_3_sub_J_4}
+    The Fourier transform maps $J_1\of{\norm{x}^2} + J_2\of{\norm{x}^2}$ to $-J_3\of{\norm{x}^2} - J_4\of{\norm{x}^2}$.
+\end{boxlemma}
+\begin{proof}
+    Again, since $\F$ acts linearly, we can treat $J_1$ and $J_2$ separately. For the purpose of this proof, denote the Fourier transforms of $J_1\of{\norm{x}^2}$ and $J_2\of{\norm{x}^2}$ by $F_1$ and $F_2$ respectively. As before, we may exchange the order of the integrals in the Fourier integral and write, for all $\xi \in \R^8$,
+    \begin{align*}
+        F_1 &= \int_{-1}^{-1 + i} \psi_T(z) \, z^{-4} \, e^{\pi i \norm{\xi}^2 \parenth{\frac{-1}{z}}} \, \diff{z} \\
+        F_2 &= \int_{-1 + i}^{i} \psi_T(z) \, z^{-4} \, e^{\pi i \norm{\xi}^2 \parenth{\frac{-1}{z}}} \, \diff{z}
+    \end{align*}
+    Again, we change variables via the Möbius transformation $w = \frac{-1}{z}$. Denoting by $f$ the integrand (with respect to $w$) of $F_1$ and $F_2$, we have
+    \begin{align*}
+        f(w) = \psi_T\of{\frac{-1}{w}} \, w^2 \, e^{\pi i \norm{\xi}}
+    \end{align*}
+\end{proof}

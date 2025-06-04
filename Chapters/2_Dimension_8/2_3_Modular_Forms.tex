@@ -49,9 +49,18 @@ To give a complete definition of the weight of a modular form, we need to define
     The action of $\gamma$ mapping $f$ to $\fm_k \gamma$ via the weight $k$ slash operator is sometimes referred to as a \textbf{slash action}.
 \end{boxdefinition}
 
-It is clear, from the above definition, that $\fm_0 \gamma = f \circ \gamma$ for al $\gamma \in \SL{2, \Z}$. That is, if $f = \fm_0 \gamma$, then $f = f \circ \gamma$, that is, $f$ is invariant under composition with (the action of) $\gamma$. If $f = \fm_k \gamma$ for some $k \in \Z$ and $\gamma \in \SL{2, \Z}$, we can view the weight $k$ as indicating the `extent of invariance' of $f$ under composition with $\gamma$.
+It is clear, from the above definition, that $\fm_0 \gamma = f \circ \gamma$ for al $\gamma \in \SL{2, \Z}$. That is, if $f = \fm_0 \gamma$, then $f = f \circ \gamma$, that is, $f$ is invariant under composition with (the action of) $\gamma$. If $f = \fm_k \gamma$ for some $k \in \Z$ and $\gamma \in \SL{2, \Z}$, we can view the weight $k$ as indicating the `extent of invariance' of $f$ under composition with $\gamma$. Note that slash actions can be composed.
 
-To give a complete definition of the congruence subgroup/level of a modular form, we need to define congruence subgroups. The idea is to express the scope of the slash-invariance exhibited by a modular form with respect to the action of $\SL{2, \Z}$---that is, the set of elements of $\SL{2, \Z}$ under which we have slash-invariance---in the language of modular arithmetic.
+\begin{boxlemma}\label{Ch2:Lemma:Slash_Mul}
+    For all $k \in \Z$, $f : \Halfplane \to \C$ and $\gamma_1, \gamma_2 \in \SL{2, \Z}$,
+    \begin{align*}
+        \parenth{f \mid_k \gamma_1} \mid_k \gamma_2 = f \mid_k \parenth{\gamma_1 \gamma_2}
+    \end{align*}
+    where $\gamma_1 \gamma_2$ is the product of $\gamma_1$ and $\gamma_2$ as matrices.
+\end{boxlemma}
+A slightly more general version of this has been \href{https://github.com/leanprover-community/mathlib4/blob/a0370507e2922f0a329a2d8cc17e9f9148cd168d/Mathlib/NumberTheory/ModularForms/SlashActions.lean#L77}{formalised} in \mathlib.
+
+We are now ready to define congruence subgroups, which will tell us under precisely which elements of $\SL{2, \Z}$ a modular form is slash-invariant. We express this notion in the language of modular arithmetic.
 
 \begin{boxdefinition}[Congruence Subgroup]\label{Ch2:Def:Cong_Subgroup}
     Fix $N \in \N$. The \textbf{level $N$ principal congruence subgroup} of $\SL{2, \Z}$, denoted $\Gamma(N)$, is defined to be the kernel of the surjective group homomorphism from $\SL{2, \Z}$ to $\SL{2, \Zmod{N}}$ that comes from reducing modulo $N$. That is,
@@ -338,7 +347,7 @@ Finally, we mention some important relations that we will take advantage of when
     Denote
     \begin{align*}
         S = \begin{bmatrix}
-            0 & 1 \\ -1 & 0
+            0 & -1 \\ 1 & 0
         \end{bmatrix}
         \qquad \qquad
         T = \begin{bmatrix}
