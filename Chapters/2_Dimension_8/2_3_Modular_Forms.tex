@@ -321,14 +321,14 @@ it is clear that $\abs{c_3(m)}, \abs{c_4(m)} \leq 1$ for all $m \in \Z$. The Fou
 The fact that the Fourier coefficients of $H_3$ and $H_4$ also grow polynomially can then be deduced by expressing $\Theta_3^4$ and $\Theta_4^4$ as iterated sums. This is tedious, and we do not do it here.
 
 Unfortunately, due to the fractional term in the exponents of the summands in the definition of $\Theta_2$, it is not possible to use the same technique to show that its Fourier coefficients grow polynomially. Fortunately, we can still prove the result for $H_2$, because raising $\Theta_2$ to the fourth power gets rid of the fractional exponent. That is,
-\begin{align*}
+\begin{align}
     H_2 = \Theta_2^4
     &= \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n + \frac{1}{2}}^2 z}}^4
-    = \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n + \frac{1}{4}} z}}^4 \\
+    = \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n + \frac{1}{4}} z}}^4 \nonumber \\
     &= \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n} z} \, e^{\frac{\pi i z}{4}}}^4
     = \parenth{e^{\frac{\pi i z}{4}}}^4  \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n} z}}^4
-    = e^{\pi i z} \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n} z}}^4
-\end{align*}
+    = e^{\pi i z} \parenth{\sum_{n \in \Z} e^{\pi i \parenth{n^2 + n} z}}^4 \label{Ch2:Eq:H2_qexpansion_explicit}
+\end{align}
 This can be explicitly computed as an iterated sum with coefficients that grow polynomially.
 
 Finally, we mention some important relations that we will take advantage of when proving properties about the magic function. Some are given as slash actions of elements of $\SL{2, \Z}$, so we define some notation first.

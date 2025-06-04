@@ -100,7 +100,7 @@ In the following subsections, we apply the above results and show that $a\rad$ a
 
 We begin by proving that $I_1, \ldots, I_6$ are smooth. The key to proving this is the Leibniz Integral Rule\footnote{Also known as Leibniz's technique for `differentiating under the integral sign'}, which states that under mild conditions, the derivative with respect to one variable of the integral with respect to the other variable of a function of two variables is given by the integral of the corresponding partial derivative, which implies the analogous differentiability criterion.
 
-\begin{boxlemma}
+\begin{boxlemma}\label{Ch4:Lemma:Ij_Smooth}
     For all $1 \leq j \leq 6$ and $k \in \N$, $I_j(r)$ is $k$ times differentiable.
 \end{boxlemma}
 \begin{proof}
@@ -335,10 +335,19 @@ We now show that similar results hold for the $-1$-eigenfunction.
 
 \subsection{The $-1$-Eigenfunction}
 
-At the end of \Cref{Ch4:Subsec:b_def}, we observed striking similarities between the $J_j$ and the $I_j$. As a result, much of the proof of Schwartzness is quite similar. We emphasise the aspects that differ but do not discuss the aspects that do not in too much detail.
+At the end of \Cref{Ch4:Subsec:b_def}, we observed striking similarities between the $J_j$ and the $I_j$. As a result, much of the proof of Schwartzness is quite similar. Our main strategy is the same: we show that $J_1, \ldots, J_6$ are Schwartz and conclude that $b\rad$ (and hence $b$) must be Schwartz as well. We emphasise the aspects that differ but do not discuss the aspects that do not in too much detail.
 
-We begin by proving an analogue of \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_a}.
+We begin with a discussion on why the $J_j$ are smooth. As with the proof of \Cref{Ch4:Lemma:Ij_Smooth}, we can use the Leibniz Integral Rule to reduce the problem to that of showing that the integrands of the $J_j$ are smooth. But as discussed after \Cref{Ch4:Prop:psi_as_div_disc}, the $\psi$-functions are smooth. The result is therefore immediate.
+
+A more nontrivial step involves proving an analogue of \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_a} for the $\psi$-functions.
 
 \begin{boxlemma}\label{Ch4:Lemma:PolyFourierCoeffBound_Apply_b}
-    
+    There exist real numbers $C_S, C_I, C_T > 0$ such that
+    \begin{align*}
+        \abs{\psi_S\of{z}} &\leq C_S \, e^{- \pi \Im(z)}
+            \label{Ch4:Eq:PolyFourierCoeffBound_psi_S}
+    \end{align*}
 \end{boxlemma}
+\begin{proof}
+    We begin by computing $n_0\of{H_2}$, $n_0\of{H_3}$ and $n_0\of{H_4}$. From \eqref{Ch2:Eq:H2_qexpansion_explicit}, we can see that $n_0\of{H_2} = 1$. Furthermore, from \Cref{Ch2:Def:Theta_H}, we can see that $n_0\of{\theta_3} = n_0\of{\theta_4} = 0$, from which we cn conclude that $n_0\of{H_3} = n_0\of{H_4} = 0$.
+\end{proof}
