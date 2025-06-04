@@ -141,7 +141,7 @@ We can therefore conclude that the Fourier integral converges absolutely.
 
 Note that the above proposition is stronger than showing merely that the $I_j\of{\norm{x}^2}$ are integrable, as that does not imply that the integrands of the $I_j\of{\norm{x}^2}$ are integrable with respect to the product measure on $\R^8 \times X_j$. \Cref{Ch4:Prop:FourierIntegralConvergence_Ij}, however, does imply this, and we will need this to swap integrals using Fubini's theorem to prove the eigenfunction property.
 
-\begin{boxlemma}
+\begin{boxlemma}\label{Ch4:Lemma:Fourier_I_1_add_I_2_eq_I_3_add_I_4}
     The Fourier transform % $\F : \Sch\of{\R^8, \C} \to \Sch{\R^8, \C}$
     maps $I_1\of{\norm{x}^2} + I_2\of{\norm{x}^2}$ to $I_3\of{\norm{x}^2} + I_4\of{\norm{x}^2}$.
 \end{boxlemma}
@@ -222,6 +222,10 @@ Note that the above proposition is stronger than showing merely that the $I_j\of
     \begin{align*}
         f(w) := \phi_0\of{-1 - \frac{1}{w - 1}} \, \parenth{\frac{-1}{w} + 1}^2 w^2 \, e^{\pi i \norm{\xi}^2 w}
     \end{align*}
+    we can distribute the $w^2$ term and use the fact that $\phi_0$ is $1$-periodic (cf. \eqref{Ch4:Eq:phi_0_add_one}) to write
+    \begin{align*}
+        f(w) = \phi_0\of{\frac{-1}{w - 1}} \, \parenth{w - 1}^2 \, e^{\pi i \norm{\xi}^2 w}
+    \end{align*}
     we note that $f$ is holomorphic (in $w$) on the upper half-plane. \Cref{Ch4:Thm:CGTRectCircle} then tells us the following.
     \begin{align*}
         F_1\of{\xi}
@@ -253,7 +257,7 @@ Note that the above proposition is stronger than showing merely that the $I_j\of
         + \int_{\frac{1}{2} + i}^{i} f(w) \, \diff{w}} \\
         &= I_3\of{\norm{\xi}^2} + I_4\of{\norm{\xi}^2}
     \end{align*}
-    as required.
+    as required. \Cref{Ch4:Fig:Eigenfunction_CauchyGoursat_a} shows how contours were modified over the course of this argument.
     \begin{figure}[hbt]
         \centering
         \begin{subfigure}{0.4\linewidth}
@@ -268,34 +272,30 @@ Note that the above proposition is stronger than showing merely that the $I_j\of
                 \draw[thick, domain=45:90, -, red] plot ({0.5 + 0.5 * cos(\x)}, {0.5 * sin(\x)});
 
                 % \gamma_2
-                \draw[thick, domain=0:45, ->] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)}) node[below left] {$\gamma_2$};
-                \draw[thick, domain=45:90, -] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)});
+                \draw[thick, domain=0:45, ->, red] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)}) node[below left] {$\gamma_2$};
+                \draw[thick, domain=45:90, -, red] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)});
 
                 % Rectangle 1
-                \draw[thick, ->] (1, 0) -- (1, 0.25);
-                \draw[thick, -] (1, 0.25) -- (1, 0.5);
-                \draw[thick, ->] (1, 0.5) -- (0.75, 0.5);
-                \draw[thick, -] (0.75, 0.5) -- (0.5, 0.5);
+                \draw[thick, ->, darkgreen] (1, 0) -- (1, 0.25);
+                \draw[thick, -, darkgreen] (1, 0.25) -- (1, 0.5);
+                \draw[thick, ->, darkgreen] (1, 0.5) -- (0.75, 0.5);
+                \draw[thick, -, darkgreen] (0.75, 0.5) -- (0.5, 0.5);
 
                 % Rectangle 2
-                \draw[thick, ->] (0.5, 0.5) -- (0.5, 0.75);
-                \draw[thick, -] (0.5, 0.75) -- (0.5, 1);
-                \draw[thick, ->] (0.5, 1) -- (0.25, 1);
-                \draw[thick, -] (0.25, 1) -- (0, 1);
+                \draw[thick, ->, darkgreen] (0.5, 0.5) -- (0.5, 0.75);
+                \draw[thick, -, darkgreen] (0.5, 0.75) -- (0.5, 1);
+                \draw[thick, ->, darkgreen] (0.5, 1) -- (0.25, 1);
+                \draw[thick, -, darkgreen] (0.25, 1) -- (0, 1);
     
                 % Points of interest
                 % \labelledpoint{0}{0}{0.3}{-0.8}{$w$}
                 \labelledpoint{1}{0}{0}{-0.8}{$1$}
-                % \labelledpoint{0.5}{0.5}{0.6}{-0.2}{$\frac{1}{2} + \frac{1}{2}i$}
+                \labelledpoint{0.5}{0.5}{0.6}{-0.2}{}
                 \labelledpoint{0}{1}{-0.3}{-0.4}{$i$}
             \end{tikzpicture}
-            \caption{Before the transformation}
+            \caption{Changing contours from circles to rectangles}
         \end{subfigure}
-        \begin{subfigure}{0.1\linewidth}
-            \vfill
-            \[ \leadsto \]
-            \vspace{5em}
-        \end{subfigure}
+        \hfill
         \begin{subfigure}{0.4\linewidth}
             \centering
             \begin{tikzpicture}[scale=1.9]
@@ -303,25 +303,43 @@ Note that the above proposition is stronger than showing merely that the $I_j\of
                 \draw[->] (-1.4,0) -- (1.4,0) node[right] {$\Re$};
                 \draw[->] (0,-0.2) -- (0,1.4) node[above] {$\Im$};
             
-                % \gamma_1
-                \draw[thick, domain=0:45, ->] plot ({0.5 + 0.5 * cos(\x)}, {0.5 * sin(\x)}) node[below left] {$\gamma_1$};
-                \draw[thick, domain=45:90, -] plot ({0.5 + 0.5 * cos(\x)}, {0.5 * sin(\x)});
+                % Rectangle 1
+                \draw[thick, ->] (1, 0) -- (1, 0.25);
+                \draw[thick, -] (1, 0.25) -- (1, 0.5);
+                \draw[thick, ->, red] (1, 0.5) -- (0.75, 0.5);
+                \draw[thick, -, red] (0.75, 0.5) -- (0.5, 0.5);
 
-                % \gamma_2
-                \draw[thick, domain=0:45, ->] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)}) node[below left] {$\gamma_2$};
-                \draw[thick, domain=45:90, -] plot ({0.5 * cos(\x)}, {0.5 + 0.5 * sin(\x)});
+                % Rectangle 2
+                \draw[thick, ->, red] (0.5, 0.5) -- (0.5, 0.75);
+                \draw[thick, -, red] (0.5, 0.75) -- (0.5, 1);
+                \draw[thick, ->] (0.5, 1) -- (0.25, 1);
+                \draw[thick, -] (0.25, 1) -- (0, 1);
+
+                % Rectangle Cauchy-Goursat
+                \draw[thick, ->, darkgreen] (1, 0.5) -- (1, 0.75);
+                \draw[thick, -, darkgreen] (1, 0.5) -- (1, 1);
+                \draw[thick, ->, darkgreen] (1, 1) -- (0.75, 1);
+                \draw[thick, -, darkgreen] (0.75, 1) -- (0.5, 1);
     
                 % Points of interest
                 % \labelledpoint{0}{0}{0.3}{-0.8}{$w$}
                 \labelledpoint{1}{0}{0}{-0.8}{$1$}
-                \labelledpoint{0.5}{0.5}{0.6}{-0.2}{$\frac{1}{2} + \frac{1}{2}i$}
+                \labelledpoint{0.5}{0.5}{0.6}{-0.2}{}
                 \labelledpoint{0}{1}{-0.3}{-0.4}{$i$}
             \end{tikzpicture}
-            \caption{After the transformation}
+            \caption{Changing rectangular contours to get $I_3$ and $I_4$}
         \end{subfigure}
-        \caption{The effect of the Möbius transformation $z \mapsto -1/z$ on the contours of $F_1$ and $F_2$}
+        \caption{Applying the two versions of the \CGT\ to prove the result. In the proof, contours were changed from red to green.}
         \label{Ch4:Fig:Eigenfunction_CauchyGoursat_a}
     \end{figure}
 \end{proof}
+
+The proof that the Fourier transform maps $I_5$ to $I_6$ is nearly identical in structure but significantly simpler, because the Möbius transformation $z \mapsto \frac{-1}{z}$ simply maps the contour in $I_5$ to that in $I_6$ (and vice-versa). We omit the proof.
+
+In summary, we have shown that the Fourier transform permutes the integrals that make up $a$, thereby not changing $a$. $a$ is thus an eigenfunction of $\F$ with eigenvalue $1$.
+
+It is worth noting that the Möbius transformation $z \mapsto \frac{-1}{z}$ in the proof of \Cref{Ch4:Lemma:Fourier_I_1_add_I_2_eq_I_3_add_I_4} has derivative $\frac{1}{z^2}$, which reduces the $z^4$ term in the integrand to $z^2$, which matches the pattern in $I_3$ and $I_4$. However, the reason the $z^4$ term arises is that we take the $8$-dimensional Fourier transform of an $8$-dimensional Gaussian. This illustrates why it was necessary to treat $a$ as an $\R^8 \to \C$ function to show the eigenfunction property. More generally, despite Fourier transforms being linear isomorphisms of Schwartz spaces, the fact remains that in different Schwartz spaces, the Fourier transform operators may be fundamentally different, and linear maps between Schwartz spaces are not guaranteed to preserve the Fourier transform operator.
+
+We now use similar techniques to show that $b$ is a Fourier eigenfunction with eigenvalue $-1$. % Just as we did with the proof of Schwartzness, we omit repetitive arguments and focus on the key distinctions between the two cases.
 
 \subsection{The $-1$-Eigenfunction}
