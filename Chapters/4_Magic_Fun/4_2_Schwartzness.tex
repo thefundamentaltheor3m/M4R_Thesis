@@ -287,7 +287,7 @@ The formal proofs of the bounds in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Boun
 
 We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to the case we saw in \Cref{Ch4:Lemma:Bound_I1_I3_I5}.
 
-\begin{boxlemma}
+\begin{boxlemma}\label{Ch4:Lemma:Reducing_higher_deriv_Schwartzness_I_1}
     For all $k \in \N$, there exists a positive real number $C_0^{(k)}$ such that for all $r \in \R$,
     \begin{align*}
         \abs{I_1^{(k)}\of{r}} \leq \int_{1}^{\infty} C_0^{(k)} \, e^{-2\pi s} \, e^{- \pi r / s} \, \diff{s}
@@ -329,7 +329,7 @@ Analogous results can be proved for the other $I_j$, with any arising constants 
 
 It is clear that the estimates for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$ have at least exponential decay, making them more rapidly decaying than any inverse power of $r$. This is less clear $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$. In these cases, the result is actually a consequence of a deeper result involving the Gamma function that has been formalised in \mathlib. We give a proof below.
 
-\begin{boxlemma}
+\begin{boxlemma}\label{Ch4:Lemma:Bessel_Bound}
     For all $n \in \N$, there exists a constant $C'$ such that for all $r \in \R$,
     \begin{align*}
         \abs{r}^n \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s} \leq C'
@@ -353,7 +353,8 @@ It is clear that the estimates for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$ have
     for all $x > 0$. Hence, writing $u = 2\pi s$ and \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/SpecialFunctions/Gamma/Basic.lean#L430}{relating $\Gamma$ with the factorial}, we get
     \begin{align*}
         C \int_{1}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
-        = C \int_{1}^{\infty} \frac{1}{\parenth{2\pi}^{n+1}} e^{-u} \, u^n \, \diff{u}
+        \leq C \int_{0}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
+        = C \int_{0}^{\infty} \frac{1}{\parenth{2\pi}^{n+1}} e^{-u} \, u^n \, \diff{u}
         = \frac{C}{\parenth{2\pi}^n} \Gamma\of{n + 1}
         = \frac{C \cdot n!}{\parenth{2\pi}^n}
     \end{align*}
@@ -400,4 +401,14 @@ A more nontrivial step involves proving an analogue of \Cref{Ch4:Lemma:PolyFouri
     Substituting these into \Cref{SP:PolyFourierCoeffBound} then yields the desired result.
 \end{proof}
 
-We are now ready to compute bounds on the $J_j$. Note that the 
+We are now ready to compute bounds on the $J_j$. Observe that the bounding arguments in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} do not use any property of $\phi_0$ apart from the bound given in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}. By inspection, it is possible to replicate those arguments almost verbatim to show that there exist constants $C_S, C_S', C_S'' > 0$ such that
+\begin{align}
+    \abs{J_1(r)}, \abs{J_5(r)} &\leq \int_{1}^{\infty} C_S \, e^{-\pi s} \, e^{- \pi r/s} \, \diff{s} \label{Ch4:Eq:Bound_J1_J5} \\
+    \abs{J_2(r)} &\leq C_S' \, e^{-\pi r} \label{Ch4:Eq:Bound_J_2} \\
+    \abs{J_6(r)} &\leq C_S'' \, \frac{e^{-\pi\parenth{r + 1}}}{\pi\parenth{r + 1}} \label{Ch4:Eq:Bound_J_6}
+\end{align}
+The integrals for which this is not true purely by inspection are $J_2$ and $J_4$, because the integrands take a slightly different form. We can bound them nonetheless.
+
+% Fill in
+
+Finally, we note that the process of reducing the higher-derivative case to the zeroth-derivative case is, once again, analogous to \Cref{Ch4:Lemma:Reducing_higher_deriv_Schwartzness_I_1}: the key idea of the proof is to express the $k$th derivative as a constant (to the $k$th power) times the $0$th derivative, and this does not depend on whether the integrand contains $\phi_0$ or $\psi_S$. We end by noting that the functions bounding $\abs{J_2}$, $\abs{J_4}$ and $\abs{J_6}$ are obviously Schwartz, and those bounding $\abs{J_1}$, $\abs{J_3}$ and $\abs{J_5}$ are Schwartz by an argument almost verbatim to \Cref{Ch4:Lemma:Bessel_Bound}.
