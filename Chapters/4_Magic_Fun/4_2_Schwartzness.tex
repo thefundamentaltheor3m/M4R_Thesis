@@ -325,13 +325,46 @@ We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to t
 
 Analogous results can be proved for the other $I_j$, with any arising constants subsumed into the constants defined in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6}. Therefore, if we can show that the functions (without the constants) on the right-hand sides of \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} decay faster than any inverse power of $r$, we will have the result.
 
-% I HAD WRITTEN AN EXPLICIT PROOF OF THIS... WHERE DID IT GO???????? WHERE ON EARTH DID IT GO????????????????!!!!!!!!!!
+%%%%%%%% THE FOLLOWING WAS ACCIDENTALLY DELETED DURING AN UNSAFE GITHUB MERGE. BE CAREFUL WHEN SWITCHING FROM OVERLEAF TO LOCAL AND BACK!
 
-% This fact is obvious for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$, but less so for $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$. In these cases, the result is actually a consequence of a deeper result involving modified Bessel functions of the second kind.
+It is clear that the estimates for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$ have at least exponential decay, making them more rapidly decaying than any inverse power of $r$. This is less clear $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$. In these cases, the result is actually a consequence of a deeper result involving the Gamma function that has been formalised in \mathlib. We give a proof below.
 
-% Existing proof is wrong... find workaround (or a good reference).
+\begin{boxlemma}
+    For all $n \in \N$, there exists a constant $C'$ such that for all $r \in \R$,
+    \begin{align*}
+        \abs{r}^n \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s} \leq C'
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    Fix $n \in \N$. Observe that the map $x \mapsto e^{-\pi x}$ is Schwartz, meaning that there exists a constant $C$ such that for all $x \in \R$, $\abs{x}^n \cdot \abs{e^{-\pi x}} \leq C$. In particular, for all $r \in \R$ and $s \geq 1$,
+    \begin{align*}
+        \abs{r}^n \cdot e^{-\pi r/s} \leq C s^n
+    \end{align*}
+    Hence, for all $r \in \R$, we can write
+    \begin{align*}
+        \abs{r}^n \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s}
+        = \int_{1}^{\infty} e^{-2\pi s} \, \parenth{\abs{r}^n \cdot e^{-\pi r /s}} \, \diff{s}
+        \leq C \int_{1}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
+    \end{align*}
+    It is \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/SpecialFunctions/Gamma/Basic.lean#L403}{known in \mathlib} that the $\Gamma$ function is given by
+    \begin{align*}
+        \Gamma(x) = \int_{0}^{\infty} e^{-u} \, u^{x-1} \, \diff{u}
+    \end{align*}
+    for all $x > 0$. Hence, writing $u = 2\pi s$ and \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/SpecialFunctions/Gamma/Basic.lean#L430}{relating $\Gamma$ with the factorial}, we get
+    \begin{align*}
+        C \int_{1}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
+        = C \int_{1}^{\infty} \frac{1}{\parenth{2\pi}^{n+1}} e^{-u} \, u^n \, \diff{u}
+        = \frac{C}{\parenth{2\pi}^n} \Gamma\of{n + 1}
+        = \frac{C \cdot n!}{\parenth{2\pi}^n}
+    \end{align*}
+    Defining $C' := \frac{C \cdot n!}{\parenth{2\pi}^n}$ finishes the proof.
+\end{proof}
 
-An important comment we make here is that the fact that the functions that (up to constants) bound the $I_j$ and their derivatives decay rapidly also establishes that the integrals $I_j$ converge absolutely. In particular, their integrands are integrable, which will be a stepping stone to applying results like Fubini's Theorem later on.
+An important comment we make here is that the fact that the functions that the bounding functions decay also shows that the integrals $I_j$ converge absolutely. In particular, their integrands are integrable.
+
+In summary, we have shown that the $\R \to \C$ function $a\rad = I_1 + \cdots + I_6$ is a Schwartz function by showing that $I_1, \ldots, I_6 : \R \to \C$ are Schwartz functions. As mentioned in \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}, this allows us to conclude that $a : \R^8 \to \C$, defined as in \eqref{Ch4:Eq:a_def}, lies in the Schwartz space $\Sch\of{\R^8, \C}$.
+
+%%%%%%%% END OF RESTORED TEXT
 
 We now show that similar results hold for the $-1$-eigenfunction.
 
