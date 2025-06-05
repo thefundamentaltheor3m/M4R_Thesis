@@ -360,22 +360,22 @@ Finally, we mention some important relations that we will take advantage of when
     \end{align*}
 \end{boxnotation}
 
-We now state important properties of the $H$-functions. These have been taken from \cite[\S 6]{blueprint}. The first version of of this section which was written by Viazovska herself, but it has subsequently been modified by Birkbeck and Lee, with contributions from Ma, to reflect the current state of the formalisation of the theory of modular forms, in \mathlib\ as well as the project repository and Birkbeck's own code.
+We now state important properties of the $H$-functions. These have been taken from \cite[(13)-(19)]{Viazovska8} and \cite[\S 6]{blueprint}, though the notation used in \cite{Viazovska8} is slightly different ($\Theta_2$, $\Theta_3$ and $\Theta_4$ are denoted $\theta_{10}$, $\theta_{00}$ and $\theta_{01}$ respectively).\todo{Make sure we got these the right way round}
 
 \begin{boxproposition}\label{Ch2:Prop:H_Rels}
     The following slash action relations hold.
     \begin{align*}
-        H_2 \mid_0 S &= -H_4
+        H_2 \mid_2 S &= -H_4
         &
-        H_3 \mid_0 S &= -H_3
+        H_3 \mid_2 S &= -H_3
         &
-        H_4 \mid_0 S &= -H_2
+        H_4 \mid_2 S &= -H_2
         \\
-        H_2 \mid_0 T &= -H_2
+        H_2 \mid_2 T &= -H_2
         &
-        H_3 \mid_0 T &= H_4
+        H_3 \mid_2 T &= H_4
         &
-        H_4 \mid_0 T &= H_3
+        H_4 \mid_2 T &= H_3
     \end{align*}
     Furthermore, the $H$-functions are invariant under the weight $0$ slash action of $\Gamma(2)$. Finally, the $H$-functions are related to each other, $E_4$, $E_6$ and $\Delta$ in the following manner.
     \begin{align}
@@ -387,4 +387,4 @@ We now state important properties of the $H$-functions. These have been taken fr
     Further relations can be obtained by writing $H_3 = H_2 + H_4$ in \eqref{Ch2:Eq:E4_H} and \eqref{Ch2:Eq:E6_H}.
 \end{boxproposition}
 
-The proofs of these identities are significantly beyond the scope of this thesis.
+The proofs of these identities are significantly beyond the scope of this thesis. Variants of some of these have been formalised by Loeffler.\todo{Add link to mathlib}
