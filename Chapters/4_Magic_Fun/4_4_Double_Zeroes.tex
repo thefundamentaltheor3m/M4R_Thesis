@@ -214,7 +214,7 @@ It is clear that we can parametrise the integral in $d$ by $z = it$ for $t \in \
 We now show that this integral converges for $r > 2$. We do this by estimating the integrand.
 
 \begin{boxlemma}
-    $\exists C_S > 0$ such that for $t \in \parenth{0, 2}$, $\abs{\psi_I\of{it}} \leq C_0 \, t^2 \, e^{\pi / t}$.
+    $\exists C_S > 0$ such that for $t \in \parenth{0, 2}$, $\abs{\psi_I\of{it}} \leq C_S \, t^2 \, e^{\pi / t}$.
 \end{boxlemma}
 \begin{proof}
     From \eqref{Ch4:Eq:psi_I_to_psi_S}, we know that for all $t \in \parenth{0, 2}$,
@@ -274,5 +274,19 @@ We end our discussion on the integrand by remarking that it is holomorphic, as w
         &+ \int_{1 + i}^{i} \psi_I\of{z - 1} e^{i\pi r z} \, \diff{z} \\
         &+ \int_{i}^{i\infty}\psi_I\of{z - 1} e^{i\pi r z} \, \diff{z}
     \end{align*}
-    \sorry % Is psi_I(z - 1) really psi_T(z)?
+    Applying \eqref{Ch4:Eq:psi_T_eq_psi_I_add_one} and \eqref{Ch4:Eq:psi_I_eq_psi_T_add_one} and splitting the integral from $0$ to $i\infty$ into two,
+    \begin{align*}
+        \int_{-1}^{-1 + i\infty} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z}
+        &= J_1(r) + J_2(r) + \int_{i}^{i\infty} \psi_T\of{z} e^{i\pi r z} \, \diff{z} \\
+        \int_{1}^{1 + i\infty} \psi_I\of{z - 1} e^{i\pi r z} \, \diff{z}
+        &= J_3(r) + J_4(r) + \int_{i}^{i\infty} \psi_T\of{z} e^{i\pi r z} \, \diff{z} \\
+        -2\int_{0}^{i\infty} \psi_I(z) e^{i \pi r z} &= J_5(r) - 2\int_{i}^{i\infty} \psi_I(z) e^{i \pi r z}
+    \end{align*}
+    \eqref{Ch4:Eq:psi_T_eq_psi_I_sub_psi_S} tells us that $\psi_S = \psi_T - \psi_I$. Hence,
+    \begin{align*}
+        c(r) = J_1(r) + J_2(r) + J_3(r) + J_4(r) + J_5(r) + J_6(r) = b\rad(r)
+    \end{align*}
+    for $r > 2$, as required.
 \end{proof}
+
+We can therefore conclude that $b$ has double zeroes at all points on $\Lambda_8$ with norm $> \sqrt{2}$.
