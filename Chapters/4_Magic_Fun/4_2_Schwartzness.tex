@@ -402,13 +402,15 @@ A more nontrivial step involves proving an analogue of \Cref{Ch4:Lemma:PolyFouri
     Substituting these into \Cref{SP:PolyFourierCoeffBound} then yields the desired result.
 \end{proof}
 
-We are now ready to compute bounds on the $J_j$. Observe that the bounding arguments in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} do not use any property of $\phi_0$ apart from the bound given in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}. By inspection (cf. \eqref{Ch4:Eq:J1_like_I1}, \eqref{Ch4:Eq:J2_like_I2}, \eqref{Ch4:Eq:J5_like_I5}, \eqref{Ch4:Eq:J_6_def}), it is possible to replicate those arguments almost verbatim to show that there exist constants $C_S, C_S', C_S'' > 0$ such that
+We are now ready to compute bounds on the $J_j$. Observe that the bounding arguments in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} do not use any property of $\phi_0$ apart from the bound given in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}. By inspection (cf. \eqref{Ch4:Eq:J1_like_I1}-\eqref{Ch4:Eq:J5_like_I5} and \eqref{Ch4:Eq:J_6_def}), it is possible to replicate those arguments almost verbatim to show that there exist constants $C_S, C_S', C_S'' > 0$ such that
 \begin{align}
-    \abs{J_1(r)}, \abs{J_5(r)} &\leq \int_{1}^{\infty} C_S \, e^{-\pi s} \, e^{- \pi r/s} \, \diff{s} \label{Ch4:Eq:Bound_J1_J5} \\
-    \abs{J_2(r)} &\leq C_S' \, e^{-\pi r} \label{Ch4:Eq:Bound_J_2} \\
+    \abs{J_1(r)}, \abs{J_3(r)}, \abs{J_5(r)} &\leq \int_{1}^{\infty} C_S \, e^{-\pi s} \, e^{- \pi r/s} \, \diff{s} \label{Ch4:Eq:Bound_J1_J5} \\
+    \abs{J_2(r)}, \abs{J_4(r)} &\leq C_S' \, e^{-\pi r} \label{Ch4:Eq:Bound_J_2} \\
     \abs{J_6(r)} &\leq C_S'' \, \frac{e^{-\pi\parenth{r + 1}}}{\pi\parenth{r + 1}} \label{Ch4:Eq:Bound_J_6}
 \end{align}
+We note that some occurrences of $2\pi$ in the arguments in \Cref{Ch4:Subec:Schwartzness_a} must be replaced with occurrences of $\pi$ because of the differences in the $n_0$ values of the numerators of $\phi_0$ and $\psi_S$, which means the exponents in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0} and \eqref{Ch4:Eq:PolyFourierCoeffBound_psi_S} are different. However, since they are still negative, this does not affect the argument.
 
+\begin{comment} % This is unnecessary because we have the psi_T |-2 TSTS relation
 The integrals for which this is not true purely by inspection are $J_2$ and $J_4$, because the integrands take a slightly different form. However, the difference is only inside $\psi_S$, and we can show that this does not affect the imaginary part of the input particularly profoundly.
 
 \begin{boxlemma}\label{Ch4:Lemma:Bound_J3}
@@ -449,6 +451,7 @@ In similar fashion, we can bound $J_4$ by an exponentially decaying function.
     \end{align*}
     Clearly, for $t \in \parenth{0, 1}$, the imaginary part of the above is greater than $\frac{1}{2}$. So, we can bound the $\psi_S$ factor using \eqref{Ch4:Eq:PolyFourierCoeffBound_psi_S}, and the rest of the proof is analogous to that of \Cref{Ch4:Lemma:Bound_I2_I4}.
 \end{proof}
+\end{comment}
 
 Finally, we note that the process of reducing the higher-derivative case to the zeroth-derivative case is, once again, analogous to \Cref{Ch4:Lemma:Reducing_higher_deriv_Schwartzness_I_1}: the key idea of the proof is to express the $k$th derivative as a constant (to the $k$th power) times the $0$th derivative, and this does not depend on whether the integrand contains $\phi_0$ or $\psi_S$. We end by noting that the functions bounding $\abs{J_2}$, $\abs{J_4}$ and $\abs{J_6}$ are obviously Schwartz, and those bounding $\abs{J_1}$, $\abs{J_3}$ and $\abs{J_5}$ are Schwartz by an argument almost verbatim to \Cref{Ch4:Lemma:Bessel_Bound}.
 
