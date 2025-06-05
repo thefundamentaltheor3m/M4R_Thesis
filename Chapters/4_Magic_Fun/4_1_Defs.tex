@@ -207,17 +207,26 @@ between the $\psi$-functions for all $z \in \Halfplane$. We can further deduce t
     % For all $z \in \Halfplane$, the following relations hold.
     \begin{align}
         \psi_I(z) &= z^2 \psi_S\of{\frac{-1}{z}} \label{Ch4:Eq:psi_I_to_psi_S} \\
-        \psi_T(z) &= \parenth{z+1}^2 \psi_S\of{\frac{-1}{z+1}} \label{Ch4:Eq:psi_T_to_psi_S_add} \\
-        \psi_T(z) &= -z^2 \, \psi_T\of{\frac{-1}{z}} \label{Ch4:Eq:psi_T_eq_zsq_mul_psi_T_neg_inv}
+        \psi_T(z) &= \parenth{z+1}^2 \psi_S\of{\frac{-1}{z+1}} \label{Ch4:Eq:psi_T_to_psi_S_add}
     \end{align}
 % \end{boxlemma}
 % \begin{proof}
 %     \eqref{Ch4:Eq:psi_I_to_psi_S} is immediate from \eqref{Ch4:Eq:psi_T_eq_psi_I_add_one} and \eqref{Ch4:Eq:psi_T_to_psi_S_add} follows from combining \eqref{Ch4:Eq:psi_I_to_psi_S} and \eqref{Ch4:Eq:psi_S_eq_psi_I_neg_inv}.
 % \end{proof}
-Finally, we can apply \Cref{Ch2:Lemma:Slash_Mul} to show that
-\begin{align*}
-    \psi_T \mid_{-2} S = \psi_I \mid_{-2} \parenth{TS}
-\end{align*}
+% HOW DO WE SHOW THE FOLLOWING????
+Finally, we can show \cite[p.1006]{Viazovska8} that $\psi_T \mid_{-2} S = -\psi_T$, ie,
+\begin{align}
+    \psi_T(z) &= -z^2 \, \psi_T\of{\frac{-1}{z}} \label{Ch4:Eq:psi_T_eq_zsq_mul_psi_T_neg_inv}
+\end{align}
+Rewriting $\psi_T$ using its definition and applying \Cref{Ch2:Lemma:Slash_Mul} and \eqref{Ch4:Eq:psi_I_to_psi_S},
+\begin{align}
+    -\psi_T(z)
+    = \parenth{\psi_T \mid_{-2} S}\of{z}
+    = \parenth{\psi_I \mid_{-2} TS}\of{z}
+    = z^2 \, \psi_I\of{\frac{z - 1}{z}}
+    = \parenth{z-1}^2 \psi_S\of{\frac{-z}{z - 1}}
+    \label{Ch4:Eq:psi_T_to_psi_S_sub}
+\end{align}
 
 Now that we have deduced several important relations between the $\psi$-functions, we express them explicitly in the following manner.
 
@@ -292,12 +301,12 @@ We are now ready to define the $-1$-eigenfunction, denoted $b$.
     \end{align}
 \end{boxdefinition}
 
-Note that by applying \eqref{Ch4:Eq:psi_T_to_psi_S_add} and \eqref{Ch4:Eq:psi_I_to_psi_S}, we can express $J_1, \ldots, J_5$ in the following manner:
-\begin{align*}
-    J_1(r) &= \int_{-1}^{-1 + i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
-    J_2(r) &= \int_{-1 + i}^{i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
-    J_3(r) &= \int_{1}^{1 + i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
-    J_4(r) &= \int_{1 + i}^{i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \\
-    J_5(r) &= -2 \int_{0}^{i} \psi_S\of{\frac{-1}{z}} \, z^2 \, e^{\pi i n z} \, \diff{z}
-\end{align*}
-With $J_1, \ldots, J_5$ expressed in this manner, and $J_6$ expressed as in \eqref{Ch4:Eq:J_6_def}, there is a marked visual similarity between the $J_j$ and the $I_j$, with $\psi_S$ being the analogue of $\phi_0$. A consequence of this is that similar strategies can be used to prove properties about both $a$ and $b$.
+Note that by applying \eqref{Ch4:Eq:psi_T_to_psi_S_add}, \eqref{Ch4:Eq:psi_T_to_psi_S_sub} and \eqref{Ch4:Eq:psi_I_to_psi_S}, we can express $J_1, \ldots, J_5$ in the following manner:
+\begin{align}
+    J_1(r) &= \int_{-1}^{-1 + i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \label{Ch4:Eq:J1_like_I1} \\
+    J_2(r) &= \int_{-1 + i}^{i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i n z} \, \diff{z} \label{Ch4:Eq:J2_like_I2} \\
+    J_3(r) &= -\int_{1}^{1 + i} \psi_S\of{\frac{-z}{z - 1}} \, \parenth{z - 1}^2 \, e^{\pi i n z} \, \diff{z} \label{Ch4:Eq:J3_like_I3} \\
+    J_4(r) &= -\int_{1 + i}^{i} \psi_S\of{\frac{-z}{z - 1}} \, \parenth{z - 1}^2 \, e^{\pi i n z} \, \diff{z} \label{Ch4:Eq:J4_like_I4} \\
+    J_5(r) &= -2 \int_{0}^{i} \psi_S\of{\frac{-1}{z}} \, z^2 \, e^{\pi i n z} \, \diff{z} \label{Ch4:Eq:J5_like_I5}
+\end{align}
+With $J_1, \ldots, J_5$ expressed in this manner, and $J_6$ expressed as in \eqref{Ch4:Eq:J_6_def}, there are visual similarities between the $J_j$ and the $I_j$, with $\psi_S$ being the analogue of $\phi_0$. A consequence of this is that similar strategies can be used to prove properties about both $a$ and $b$.

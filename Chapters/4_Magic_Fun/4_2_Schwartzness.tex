@@ -179,7 +179,7 @@ We can now bound $I_1$, $I_3$ and $I_5$.
             \phi_0\of{\frac{-1}{it}} \,
             t^2 \,
             e^{-\pi i r} \,
-            e^{\pi r t}\,
+            e^{-\pi r t}\,
             \diff{t}
     \end{align*}
     Writing $s = \frac{1}{t}$ and simplifying, we get that
@@ -402,14 +402,54 @@ A more nontrivial step involves proving an analogue of \Cref{Ch4:Lemma:PolyFouri
     Substituting these into \Cref{SP:PolyFourierCoeffBound} then yields the desired result.
 \end{proof}
 
-We are now ready to compute bounds on the $J_j$. Observe that the bounding arguments in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} do not use any property of $\phi_0$ apart from the bound given in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}. By inspection, it is possible to replicate those arguments almost verbatim to show that there exist constants $C_S, C_S', C_S'' > 0$ such that
+We are now ready to compute bounds on the $J_j$. Observe that the bounding arguments in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} do not use any property of $\phi_0$ apart from the bound given in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}. By inspection (cf. \eqref{Ch4:Eq:J1_like_I1}, \eqref{Ch4:Eq:J2_like_I2}, \eqref{Ch4:Eq:J5_like_I5}, \eqref{Ch4:Eq:J_6_def}), it is possible to replicate those arguments almost verbatim to show that there exist constants $C_S, C_S', C_S'' > 0$ such that
 \begin{align}
     \abs{J_1(r)}, \abs{J_5(r)} &\leq \int_{1}^{\infty} C_S \, e^{-\pi s} \, e^{- \pi r/s} \, \diff{s} \label{Ch4:Eq:Bound_J1_J5} \\
     \abs{J_2(r)} &\leq C_S' \, e^{-\pi r} \label{Ch4:Eq:Bound_J_2} \\
     \abs{J_6(r)} &\leq C_S'' \, \frac{e^{-\pi\parenth{r + 1}}}{\pi\parenth{r + 1}} \label{Ch4:Eq:Bound_J_6}
 \end{align}
-The integrals for which this is not true purely by inspection are $J_2$ and $J_4$, because the integrands take a slightly different form. We can bound them nonetheless.
 
-% Fill in
+The integrals for which this is not true purely by inspection are $J_2$ and $J_4$, because the integrands take a slightly different form. However, the difference is only inside $\psi_S$, and we can show that this does not affect the imaginary part of the input particularly profoundly.
+
+\begin{boxlemma}\label{Ch4:Lemma:Bound_J3}
+    There exists a positive real number $C_S$ such that for all $r \in \R$,
+    \begin{align*}
+        \abs{J_3(r)} &\leq \int_{1}^{\infty} C_T \, e^{-\pi s} \, e^{-\pi r/s} \, \diff{s}
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    Parametrise $z = 1 + it$ in \eqref{Ch4:Eq:J3_like_I3}. Then, for all $r \in \R$, we can write
+    \begin{align*}
+        J_3(r) &= i \int_{0}^{1} \psi_S\of{\frac{-1 -it}{it}} \, t^2 \, e^{\pi i r} \, e^{-\pi r t} \, \diff{z}
+    \end{align*}
+    Writing $s = \frac{1}{t}$ and simplifying, we get that
+    \begin{align*}
+        J_3(r) &= i \int_{1}^{\infty} \psi_S\of{si - 1} \, s^{-4} \, e^{\pi i r} \, e^{-\pi r / s} \, \diff{z}
+    \end{align*}
+    Observe that $\Im\of{si - 1} = s > \frac{1}{2}$ inside the integral. We can therefore bound $\abs{\psi_S\of{si - 1}}$ using \eqref{Ch4:Eq:PolyFourierCoeffBound_psi_S} and bound $\abs{J_3}$ analogously to how we bounded $\abs{I_1}$ in \Cref{Ch4:Lemma:Bound_I1_I3_I5}.
+\end{proof}
+
+In similar fashion, we can bound $J_4$ by an exponentially decaying function.
+
+\begin{boxlemma}\label{Ch4:Lemma:Bound_J4}
+    There exists a positive real number $C_S'$ such that for all $r \in \R$,
+    \begin{align*}
+        \abs{J_2(r)} \leq C_S' \, e^{-\pi r}
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    Parametrise $z = 1 + i - t$ in \eqref{Ch4:Eq:J4_like_I4}. Then, for all $r \in \R$, we can write
+    \begin{align*}
+        J_4(r) &= -\int_{0}^{1} \psi_S\of{\frac{1 + i - t}{t - i}} \, \parenth{i-t}^2 \, e^{i \pi r} \, e^{-\pi r} \, e^{-i \pi r t} \, \diff{t}
+    \end{align*}
+    It is enough to show that we can use \eqref{Ch4:Eq:PolyFourierCoeffBound_psi_S}. To that end, consider the expression inside $\psi_S$:
+    \begin{align*}
+        \frac{1 + i - t}{t - i}
+        = \frac{-t^2 + t + 1}{t^2 + 1} + \frac{1}{t^2 + 1}i
+    \end{align*}
+    Clearly, for $t \in \parenth{0, 1}$, the imaginary part of the above is greater than $\frac{1}{2}$. So, we can bound the $\psi_S$ factor using \eqref{Ch4:Eq:PolyFourierCoeffBound_psi_S}, and the rest of the proof is analogous to that of \Cref{Ch4:Lemma:Bound_I2_I4}.
+\end{proof}
 
 Finally, we note that the process of reducing the higher-derivative case to the zeroth-derivative case is, once again, analogous to \Cref{Ch4:Lemma:Reducing_higher_deriv_Schwartzness_I_1}: the key idea of the proof is to express the $k$th derivative as a constant (to the $k$th power) times the $0$th derivative, and this does not depend on whether the integrand contains $\phi_0$ or $\psi_S$. We end by noting that the functions bounding $\abs{J_2}$, $\abs{J_4}$ and $\abs{J_6}$ are obviously Schwartz, and those bounding $\abs{J_1}$, $\abs{J_3}$ and $\abs{J_5}$ are Schwartz by an argument almost verbatim to \Cref{Ch4:Lemma:Bessel_Bound}.
+
+We can therefore conclude that $b\rad$---and hence, $b$---is a Schwartz function.
