@@ -130,12 +130,13 @@ We are now ready for the main result of this subsection.
 \end{boxproposition}
 \begin{proof}
     Fix $r > 2$. We begin by performing the following manipulation:
-    \begin{align*}
+    \begin{align}
         -4 \sinsq{\frac{\pi r}{2}}
         = -4 \parenth{\frac{e^{i \pi r / 2} - e^{-i \pi r / 2}}{2i}}^2
         = \parenth{e^{i \pi r / 2} - e^{- i \pi r / 2}}^2
         = e^{i \pi r} - 2 + e^{-i \pi r}
-    \end{align*}
+        \label{Ch4:Eq:sinsq_trick_for_double_zeroes}
+    \end{align}
     Therefore, for all $r > 2$,
     \begin{align*}
         d(r)
@@ -248,4 +249,30 @@ where, as with $d$ in the previous subsection, we require $r > 2$ for the expone
     \end{align*}
 \end{boxlemma}
 
-We are now ready for the main result of this subsection.
+We end our discussion on the integrand by remarking that it is holomorphic, as was discussed immediately after \Cref{Ch4:Prop:psi_as_div_disc}. We are now ready for the main result of this subsection.
+
+\begin{boxproposition}
+    For all $r > 2$, $c(r) = b\rad(r)$.
+\end{boxproposition}
+\begin{proof}
+    Fix $r > 2$. By \eqref{Ch4:Eq:sinsq_trick_for_double_zeroes}, we can write
+    \begin{align*}
+        c(r)
+        = \int_{-1}^{-1 + i\infty} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z}
+        - 2 \int_{0}^{i\infty} \psi_I\of{z} e^{i\pi r z} \, \diff{z}
+        % - 2 \int_{i}^{i\infty} \psi_I\of{z} e^{i\pi r z} \, \diff{z}
+        + \int_{1}^{1 + i\infty} \psi_I\of{z - 1} e^{i\pi r z} \, \diff{z}
+    \end{align*}
+    We may now apply \Cref{Ch4:Thm:CauchyGoursat_Unbounded} and write
+    \begin{align*}
+        \int_{-1}^{-1 + i\infty} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z}
+        =& \int_{-1}^{-1 + i} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z} \\
+        &+ \int_{-1 + i}^{i} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z} \\
+        &+ \int_{i}^{i\infty} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z} \\
+        \int_{1}^{1 + i\infty} \psi_I\of{z - 1} e^{i\pi r z} \, \diff{z}
+        =& \int_{1}^{1 + i}\psi_I\of{z - 1} e^{i\pi r z} \, \diff{z} \\
+        &+ \int_{1 + i}^{i} \psi_I\of{z - 1} e^{i\pi r z} \, \diff{z} \\
+        &+ \int_{i}^{i\infty}\psi_I\of{z - 1} e^{i\pi r z} \, \diff{z}
+    \end{align*}
+    \sorry % Is psi_I(z - 1) really psi_T(z)?
+\end{proof}
