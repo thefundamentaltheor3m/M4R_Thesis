@@ -52,7 +52,7 @@ For both $a\rad$ and $b\rad$, we begin by their alternate expressions for them. 
 
 We begin by defining the integral by which we represent $a\rad$.
 
-\begin{boxdefinition}[Alternate Representation of $a$]
+\begin{boxdefinition}[Alternate Representation of $a\rad$]
     Define $d : \parenth{2, \infty} \to \C$ by
     \begin{align*}
         d\of{r} = -4 \sinsq{\frac{\pi r}{2}} \int_{0}^{i\infty} \phi_0\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z} \, \diff{z}
@@ -66,13 +66,13 @@ It is clear that we can parametrise the integral in $d$ by $z = it$ for $t \in \
     \label{Ch4:Eq:d_parametrised}
 \end{align}
 
-We begin by showing that this integral converges for $r > 2$. We do this by estimating the integrand.
+We now show that this integral converges for $r > 2$. We do this by estimating the integrand.
 
 \begin{boxlemma}
     $\exists C_0 > 0$ such that for $t \in \parenth{0, 2}$, $\abs{\phi_0\of{\frac{i}{t}}} \leq C_0 \, e^{-2\pi/t}$.
 \end{boxlemma}
 \begin{proof}
-    The result then follows immediately from \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}, with $z = i/t$.
+    This follows immediately from \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}, with $z = i/t$.
 \end{proof}
 
 We can hence conclude that for $t \in \parenth{0, 2}$, the integrand in \eqref{Ch4:Eq:d_parametrised} is bounded:
@@ -111,7 +111,7 @@ We can hence conclude that for $t \geq 2$, the integrand in \eqref{Ch4:Eq:d_para
 Here, we require $r > 2$ so that the exponent is negative. Since $d$ was defined precisely on such $r$, we can conclude that the integral in the definition of $d$ converges absolutely.
 
 Arguing as above yields another important result.
-\begin{boxlemma}
+\begin{boxlemma}\label{Ch4:Lemma:d_integrand_vanish_tendsto_ImInfty}
     For all $r > 2$ and $z \in \Halfplane$, as $\Im(z) \to \infty$,
     \begin{align*}
         \phi_{0}\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z} \to 0
@@ -123,7 +123,7 @@ Arguing as above yields another important result.
 
 The function $z \mapsto \phi_{0}\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z}$ is also holomorphic on $\Halfplane$, a fact that is again seen by applying \eqref{Ch4:Eq:phi_0_neg_inv} and the fact that the numerators of the $\phi$-function are holomorphic and the denominators are non-vanishing on $\Halfplane$.
 
-We are now ready to show the following.
+We are now ready for the main result of this subsection.
 
 \begin{boxproposition}
     For all $r > 2$, $d(r) = a\rad(r)$.
@@ -193,3 +193,59 @@ We are now ready to show the following.
 The factor of $-4\sinsq{\pi r / 2}$ in the definition of $d$ then ensures that $a\rad$ has double zeroes at all even integers except possibly $0$ and $\pm 2$, which allows us to conclude that $a$ has double zeroes at all points in $\R^8$---particularly those lying on $\Lambda_8$---with norm of the form $\sqrt{2n}$ for $n \in \N \setminus \set{0, 1}$.
 
 \subsection{The $-1$-Eigenfunction}
+
+We begin by defining the integral by which we represent $b\rad$.
+
+\begin{boxdefinition}[Alternate Representation of $b\rad$]
+    Define $c : \parenth{2, \infty} \to \C$ by
+    \begin{align*}
+        c\of{r} = -4 \sinsq{\frac{\pi r}{2}} \int_{0}^{i\infty} \psi_I\of{z} \, e^{\pi i r z} \, \diff{z}
+    \end{align*}
+    for all $r \in \parenth{2, \infty}$.
+\end{boxdefinition}
+
+It is clear that we can parametrise the integral in $d$ by $z = it$ for $t \in \parenth{0, \infty}$, and write
+\begin{align}
+    d(r) = 4i \sinsq{\frac{\pi r}{2}} \int_{0}^{\infty} \psi_T\of{it} \, e^{-\pi r t} \, \diff{t}
+    \label{Ch4:Eq:c_parametrised}
+\end{align}
+
+We now show that this integral converges for $r > 2$. We do this by estimating the integrand.
+
+\begin{boxlemma}
+    $\exists C_S > 0$ such that for $t \in \parenth{0, 2}$, $\abs{\psi_I\of{it}} \leq C_0 \, t^2 \, e^{\pi / t}$.
+\end{boxlemma}
+\begin{proof}
+    From \eqref{Ch4:Eq:psi_I_to_psi_S}, we know that for all $t \in \parenth{0, 2}$,
+    \begin{align*}
+        \abs{\psi_I\of{it}}
+        = \abs{\parenth{it}^2 \, \psi_S\of{\frac{-1}{it}}}
+        = t^2 \abs{\psi_S\of{\frac{i}{t}}}
+    \end{align*}
+    Since $t < 2$, $\frac{1}{t} > \frac{1}{2}$. Hence, \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_b} is applicable and yields exactly the desired result.
+\end{proof}
+
+Since $\parenth{0, 2}$ is clearly bounded, we can conclude that the integrand in \eqref{Ch4:Eq:c_parametrised} is bounded for $t \in \parenth{0, 2}$.
+
+In similar fashion, we can estimate the integrand for $t \geq 2$.
+
+\begin{boxlemma}
+    $\exists C > 0$ such that for all $t \geq 2$, $\abs{\psi_I\of{it}} \leq C e^{2 \pi t}$.
+\end{boxlemma}
+\begin{proof}
+    This follows immediately from \eqref{Ch4:Eq:PolyFourierCoeffBound_psi_I}, with $z = it$.
+\end{proof}
+
+We can hence conclude that for $t \geq 2$, the integrand in \eqref{Ch4:Eq:c_parametrised} is bounded by an integrable function:
+\begin{align*}
+    \abs{\psi_I\of{it} \, e^{- \pi r t}} \leq C \, e^{\pi t \parenth{2 - r}}
+\end{align*}
+where, as with $d$ in the previous subsection, we require $r > 2$ for the exponent $2 - r$ to be negative. We can hence conclude that $c$ converges absolutely. This gives us the integrability condition that is necessary to apply \Cref{Ch4:Thm:CauchyGoursat_Unbounded}. Indeed, this bound also tells us, as it did in \Cref{Ch4:Lemma:d_integrand_vanish_tendsto_ImInfty}, that
+\begin{boxlemma}
+    For all $r > 2$ and $z \in \Halfplane$, as $\Im(z) \to \infty$,
+    \begin{align*}
+        \psi_I\of{z} \, e^{\pi i r z} \to 0
+    \end{align*}
+\end{boxlemma}
+
+We are now ready for the main result of this subsection.
