@@ -52,7 +52,7 @@ The author was able to apply this fact to \href{https://github.com/thefundamenta
 \begin{align*}
     \text{ - } \circ g : \Sch\of{\R, \C} \to \Sch\of{\R^8, \C}
 \end{align*}
-a continuous linear map. This was stated informally in \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}. Importantly, taking $g$ to just be the norm function doesn't work, because the norm function is not smooth, and hence, cannot have temperate growth. Hence, in the formal code and informal exposition, we defined $a\rad$ and $b\rad$ using $r$ rather than $r^2$.
+a continuous linear map. This was stated informally in \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}. Importantly, taking $g$ to just be the norm function doesn't work, because the norm function is not smooth, and hence, cannot have temperate growth. Hence, in the formal code and informal exposition, we defined $a\rad$ and $b\rad$ using $r$ rather than $r^2$, varying slightly from the original paper.
 
 This example illustrates the importance of building general API when embarking on a large-scale formalisation project. The bridge, when used to construct Schwartz functions, is accompanied by \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/254a53fa70714a2b9199985616f7a4ba48457519/SpherePacking/MagicFunction/a/Schwartz.lean#L170}{fortification lemmas} that make it easier to navigate. This is often done when the same informal construction takes different forms formally. Importantly, this is a distinction between the science of proof and the science of definition. Given the novelty of this formalisation, the latter is just as important, if not more, than the former.
 
