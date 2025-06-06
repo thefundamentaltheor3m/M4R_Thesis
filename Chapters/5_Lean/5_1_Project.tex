@@ -48,10 +48,12 @@ Fortunately, a \href{https://github.com/leanprover-community/mathlib4/blob/dd260
     \item $g$ has \href{https://github.com/leanprover-community/mathlib4/blob/dd2606726d6b0601d394911f9e7a6fa0f01367a3/Mathlib/Analysis/Distribution/SchwartzSpace.lean#L518-L521}{temperate growth}, that is, $g$ is smooth and $\forall n \in \N$, $\exists k \in \N, C \in \R$ such that $\forall x$, $\norm{g^{(n)}\of{x}} \leq C \parenth{1 + \norm{x}}^k$
     \item $\exists k \in \N, C \in \R$ such that $\forall x$, $\norm{x} \leq C\parenth{1 + \norm{g(x)}}^k$
 \end{enumerate}
-The author was then able to build a bridge between $\Sch\of{\R, \C}$ and $\Sch\of{\R^8, \C}$ by showing formally that the norm squared function $g : \R^8 \to \R : x \mapsto \norm{x}^2$ satisfies the above properties, making
+The author was able to apply this fact to \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/35ef2eb4ff481eff6656e7e70ea5fa274117f7c6/SpherePacking/ForMathlib/RadialSchwartz.lean#L38}{formally build a bridge} between $\Sch\of{\R, \C}$ and $\Sch\of{\R^8, \C}$ by showing $g : \R^8 \to \R : x \mapsto \norm{x}^2$ satisfies the above properties, making
 \begin{align*}
     \text{ - } \circ g : \Sch\of{\R, \C} \to \Sch\of{\R^8, \C}
 \end{align*}
-a continuous linear map, as stated concisely in \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}. Importantly, taking $g$ to just be the norm function doesn't work, because the norm function is not smooth, and hence, cannot have temperate growth. Hence, in the formal code and informal exposition, we defined $a\rad$ and $b\rad$ using $r$ rather than $r^2$.
+a continuous linear map. This was stated informally in \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}. Importantly, taking $g$ to just be the norm function doesn't work, because the norm function is not smooth, and hence, cannot have temperate growth. Hence, in the formal code and informal exposition, we defined $a\rad$ and $b\rad$ using $r$ rather than $r^2$.
+
+This example illustrates the importance of building general API when embarking on a large-scale formalisation project. The bridge, when used to construct Schwartz functions, is accompanied by \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/254a53fa70714a2b9199985616f7a4ba48457519/SpherePacking/MagicFunction/a/Schwartz.lean#L170}{fortification lemmas} that make it easier to navigate. This is often done when the same informal construction takes different forms formally. Importantly, this is a distinction between the science of proof and the science of definition. Given the novelty of this formalisation, the latter is just as important, if not more, than the former.
 
 Having discussed these general contributions, we discuss two very specific and profound contributions made by the author to the formalisation effort. We begin by discussing the development of a Lean tactic by Macbeth, Xie and the author.
