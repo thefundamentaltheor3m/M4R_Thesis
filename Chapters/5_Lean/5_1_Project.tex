@@ -1,4 +1,4 @@
-\section{The Formalisation Effort}
+\section{The Formalisation Effort: A Broad Overview}
 \label{Ch5:Sec:Gen_Overview_of_Formalisation}
 
 As was mentioned in \Cref{Ch1:Chapter}, the formalisation of Viazovska's proof was initiated by Viazovska and Hariharan in March 2024. A public announcement was made in June 2024, following which Birkbeck, Lee, and Ma joined the collaboration. Macbeth and Mehta too have made significant contributions since October 2024.
@@ -9,7 +9,7 @@ The most significant difference between the author's exposition and Viazovska's 
 
 Viazovska's proof is heavy on computation. At the beginning of this M4R, the author was unaccustomed to proving computationally intensive results in Lean. While early attempts involved writing lengthy calculation lemmas, the author soon discovered that breaking computations into several lemmas corresponding to individual steps improved not only readability but also compilation time. The author's formal proof of \Cref{SP:PolyFourierCoeffBound}, for example, consists of thirteen auxiliary lemmas corresponding to individual steps, and the author's formal proofs of the bounds on each of the $I_1, \ldots, I_6$ are spread across two files: one with alternate expressions for all the $I_j$s and one with bounds on the $I_j$ in question. A further advantage of this approach is its isolation of dependencies that are difficult to formalise, such as convergence results for sums, products and integrals that arise in either the statement or proof of a result. In some cases, one finds workarounds: for instance, when bounding the $I_j$, the author realised that the proof that the $I_j$ converge absolutely is not necessary because of the way integrals are defined in \mathlib. The necessity of such excruciating detail in formal proofs was the author's key motivator to provide detailed arguments in \Cref{Ch4:Chapter}: the author's intent is for the proofs in this thesis to be a bridge between the informal and the formal, building on Viazovska's arguments in \cite[\S 7]{blueprint}.
 
-For the remainder of this section, we briefly discuss two important general contributions the author made to the formalisation. We then move onto two dedicated sections that respectively describe the metaprogramming approach implemented by Macbeth, Xie and the author and the challenges associated with the \CGT\ and how some, though not all, of them have been overcome.
+For the remainder of this section, we briefly discuss two contributions the author made to the formalisation that account for differences, however minor, between Viazovska's original proof and the author's exposition. We then move onto two dedicated sections that respectively describe the metaprogramming approach implemented by Macbeth, Xie and the author and the challenges associated with the \CGT\ and how some, though not all, of them have been overcome.
 
 \subsection{A Systematic Approach to Bounding Integrals}
 
@@ -22,7 +22,7 @@ The integrals are defined using parametrisations involving a real variable, so t
 
     Aside from enhancing readability and underscoring the resemblance of the formal integrals to the informal integrals, parametrisations are a way to control the variable of integration. However, they come with a layer of syntax that is unhelpful for bounding. Hence, we define lemmas ending in \lstinline|_eq| and \lstinline|_eq'| to overcome them.
     
-    \lstinline|_eq| lemmas expand the parametrisations and perform basic simplifications, such as separating a term of the form $e^{\pi i r\parenth{1 + it}}$ into $e^{\pi i r} \cdot e^{-\pi r t}$. \lstinline|_eq'| lemmas take any scalars arising from this process (such as a factor of $i$ from a parametrisation $z = 1 + it$) outside of the integral, which makes them easier to deal with when bounding the integral. These lemmas are proved in \lstinline|MagicFunction.a.Basic| for all , whereas the remaining steps
+    \lstinline|_eq| lemmas expand the parametrisations and perform basic simplifications, such as separating a term of the form $e^{\pi i r\parenth{1 + it}}$ into $e^{\pi i r} \cdot e^{-\pi r t}$. \lstinline|_eq'| lemmas take any scalars arising from this process (such as a factor of $i$ from a parametrisation $z = 1 + it$) outside of the integral, which makes them easier to deal with when bounding the integral. These lemmas are proved in \lstinline|MagicFunction.a.Basic| for all $I_j$, whereas the remaining steps are proved in individual files in \lstinline|MagicFunction.a.IntegralEstimates|.
 
     \item \underline{Changing variables (first, third and fifth integrals only).}
 
@@ -30,7 +30,28 @@ The integrals are defined using parametrisations involving a real variable, so t
 
     \item \underline{Bounding the integrand.}
 
-    By inspection, one sees that in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6}, the bounds on the integrals actually come from bounds on the integrands. This is done formally using two lemmas, the first performing elementary bounds and the second applying \Cref{SP:PolyFourierCoeffBound}. 
+    By inspection, one sees that in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6}, the bounds on the integrals actually come from bounds on the integrands. This is done formally using two lemmas, the first performing elementary bounds and the second applying \Cref{SP:PolyFourierCoeffBound}. The application of \Cref{SP:PolyFourierCoeffBound} is less straightforward for $I_2$ and $I_4$ because the condition $\Im(z) > \frac{1}{2}$ is more difficult to show (as seen in the informal proof of \Cref{Ch4:Lemma:Bound_I2_I4} as well), so there are added helper lemmas for this.
+
+    \item \underline{Bounding the integral.}
+
+    This involves applying the \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L927}{triangle inequality} and \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/MeasureTheory/Integral/Bochner/Set.lean#L645}{monotonicity of the integral}, which were formalised in \mathlib\ well before this project. Applying the former is straightforward, but applying the latter is not, because it requires integrability assumptions on the functions in question. The reason for this is that if $f \leq g$ and $f$ is integrable but $g$ is not, then the integral of $g$, as defined in Lean, is $0$. Fortunately, for nonnegative $f$ and $g$ (such as the absolute values of our integrands and the functions that bound them), only needs $g$ to be integrable. Integrability proofs for some bounding functions are currently \sorry s, but it is clear informally that they are not only integrable but integrate to rapidly decaying functions.
 \end{enumerate}
 
+This approach was consciously designed for reusability.\todo{Try b asw}
+
 \subsection{A Schwartzness Bridge Across Dimensions}
+
+In \cite{Viazovska8}, it is used implicitly that $a$ and $b$ can be considered as $\R \to \C$ functions despite being defined to be $\R^8 \to \C$ functions. While this might not appear problematic, because $a$ and $b$ are radial, it is nontrivial to show formally that this preserves Schwartzness---specifically, proving that bounding higher derivatives taken with respect to $r$ gives a bound on $8$-dimensional Jacobians.
+
+Fortunately, a \href{https://github.com/leanprover-community/mathlib4/blob/dd2606726d6b0601d394911f9e7a6fa0f01367a3/Mathlib/Analysis/Distribution/SchwartzSpace.lean#L855-L916}{previously formalised result in \mathlib} showed that composing a Schwartz function $f$ with a function $g$ on the right yields another Schwartz function, provided $g$ satisfies the following conditions:
+\begin{enumerate}
+    \item $g$ has \href{https://github.com/leanprover-community/mathlib4/blob/dd2606726d6b0601d394911f9e7a6fa0f01367a3/Mathlib/Analysis/Distribution/SchwartzSpace.lean#L518-L521}{temperate growth}, that is, $g$ is smooth and $\forall n \in \N$, $\exists k \in \N, C \in \R$ such that $\forall x$, $\norm{g^{(n)}\of{x}} \leq C \parenth{1 + \norm{x}}^k$
+    \item $\exists k \in \N, C \in \R$ such that $\forall x$, $\norm{x} \leq C\parenth{1 + \norm{g(x)}}^k$
+\end{enumerate}
+The author was then able to build a bridge between $\Sch\of{\R, \C}$ and $\Sch\of{\R^8, \C}$ by showing formally that the norm squared function $g : \R^8 \to \R : x \mapsto \norm{x}^2$ satisfies the above properties, making
+\begin{align*}
+    \text{ - } \circ g : \Sch\of{\R, \C} \to \Sch\of{\R^8, \C}
+\end{align*}
+a continuous linear map, as stated concisely in \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}. Importantly, taking $g$ to just be the norm function doesn't work, because the norm function is not smooth, and hence, cannot have temperate growth. Hence, in the formal code and informal exposition, we defined $a\rad$ and $b\rad$ using $r$ rather than $r^2$.
+
+Having discussed these general contributions, we discuss two very specific and profound contributions made by the author to the formalisation effort. We begin by discussing the development of a Lean tactic by Macbeth, Xie and the author.

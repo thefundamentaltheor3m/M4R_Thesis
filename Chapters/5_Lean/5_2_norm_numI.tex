@@ -8,7 +8,9 @@ Begin by saying a few words about what metaprogramming is. Then go into subsecti
 3. Say something about what Heather's latest modifications look like. Maybe also talk about how the approach can be generalised to quaternion algebras or splitting fields (what's similar and what's different between norm_numI and these things), but don't talk about the maths of either of these. Stress that this is still under development, and that this opens the door to a world of metaprogramming possibilities.
 \end{comment}
 
-In this section, we discuss an unexpected biproduct of this project: the development of a normalisation-simplification automation for performing computations in the complex numbers.
+The formalisation of the solution to the sphere packing problem brought to light a longstanding difficulty faced by the Lean community: a lack of automation for performing computations in $\C$. After a discussion with Heather Macbeth, who is experienced in creating automation for Lean, the author, with Macbeth's guidance and Xie's assistance, embarked on the development of a normalisation-simplification automation procedure for performing computations in the complex numbers.
+
+% I will condense the stuff below in the shorter (for-submission) version of this thesis. I'll leave it as is over here though... maybe this will come in handy someday...
 
 Lean, like other interactive theorem provers, primarily interacts with its users through \textbf{tactics}. Fundamentally, the proof of a theorem in Lean is given by a \textbf{proof term}, which can be thought of as a concise expression that captures the information of how the hypotheses or inputs of the theorem are transformed into its conclusion by giving exactly the conclusion into which these inputs are transformed. A tactic is a command that, when invoked by a Lean user, performs a step in the construction of the proof term for a theorem.
 
@@ -103,11 +105,11 @@ In the forthcoming subsections, we explore the motivation and technique used to 
 Computations in general are quite challenging to perform in interactive theorem provers. This is because such languages are designed for \textit{proof} rather than \textit{computation}. Indeed, tactics that simplify goals do not do so merely by simplifying expressions: they construct proofs that the simplified expression is, indeed, equal to the original expression. Existing tactics like \lstinline|norm_num|, \lstinline|simp| and \lstinline|field_simp| do not always do this successfully when the expressions in question are in $\C$. \lstinline|simp| and \lstinline|field_simp| are very general tactics that work in a wide variety of settings. They both work by constructing a special set of equality or biconditional lemmas by sifting through the library and performing repeated rewrite operations to transform the goal into a simpler form. \lstinline|field_simp| is specifically designed to simplify expressions in fields, and can handle operations like clearing denominators. However, it does not have access to the particularities of the field in question (such as the fact that $i^2 = -1$ in $\C$). The tactic that we will be most interested in, specifically because it is designed to handle simplifications of \textit{numerals} in \textit{specific} settings, is \lstinline|norm_num|.
 
 \lstinline|norm_num| is a tactic that handles expressions involving numerals. It works best in $\N$, $\Z$ and $\Q$. For example, it handles the following.
-\begin{lstlisting}[caption={\lstinline|norm_num| simplifying expressions in $\N$, $\Z$ and $\Q$}]
-example : (1 : ℕ) + 2 + 3 + 4 = 10 := by norm_num
-example : (-2 : ℚ) * (3 + 8/9) = -70/9 := by norm_num
-example : (-9 : ℤ) + 5 * (6 - 20) = -79 := by norm_num
-\end{lstlisting}
+% \begin{lstlisting}[caption={\lstinline|norm_num| simplifying expressions in $\N$, $\Z$ and $\Q$}]
+% example : (1 : ℕ) + 2 + 3 + 4 = 10 := by norm_num
+% example : (-2 : ℚ) * (3 + 8/9) = -70/9 := by norm_num
+% example : (-9 : ℤ) + 5 * (6 - 20) = -79 := by norm_num
+% \end{lstlisting}
 It is worth mentioning, however, that \lstinline|norm_num| often has difficulties in $\R$. This is due to the immense technical detail baked into the very definition of $\R$ in Lean, which allows for the existence of transcendental numbers. In the following example, none of \lstinline|norm_num|, \lstinline|field_simp|, \lstinline|ring| and \lstinline|simp| can prove the result in one line, because they are unable to treat $\pi$ as more than a symbol. Indeed, the entire proof rests on a \mathlib\ result, \lstinline|Real.pi_gt_three|.
 
 \begin{lstlisting}[caption=An expression in $\R$ not handled immediately by simplification tactics, label=Ch5:Listing:pi_sub_one_norm_num_fail]
