@@ -98,25 +98,7 @@ In the following subsections, we apply the above results and show that $a\rad$ a
 \subsection{The $+1$-Eigenfunction}
 \label{Ch4:Subec:Schwartzness_a}
 
-We begin by proving that $I_1, \ldots, I_6$ are smooth. The key to proving this is the Leibniz Integral Rule\footnote{Also known as Leibniz's technique for `differentiating under the integral sign'}, which states that under mild conditions, the derivative with respect to one variable of the integral with respect to the other variable of a function of two variables is given by the integral of the corresponding partial derivative, which implies the analogous differentiability criterion.
-
-\begin{boxlemma}\label{Ch4:Lemma:Ij_Smooth}
-    For all $1 \leq j \leq 6$ and $k \in \N$, $I_j(r)$ is $k$ times differentiable.
-\end{boxlemma}
-\begin{proof}
-    Fix $1 \leq j \leq 6$. We know, from \Cref{Ch4:Def:a}, that
-    \begin{align*}
-        I_j(r) = \int_{X_j} g_j\of{z} \, e^{\pi i r z} \, \diff{z}
-    \end{align*}
-    for intervals $X_j$ and holomorphic functions $g_j : \Halfplane \to \C$. The Leibniz Integral Rule then tells us that for all $k \in \N$, the $k$th derivative of $I_j$ at some $r \in \R$ is given by
-    \begin{align}
-        \int_{X_j} g_j\of{z} \, \parenth{\pi i z}^{k} \, e^{\pi i r z} \, \diff{z}
-        \label{Ch4:Eq:Ij_deriv}
-    \end{align}
-    In particular, $I_j$ is smooth (in $r$) for all $j$.
-\end{proof}
-
-We are now ready to prove that $I_1, \ldots, I_6$ and their derivatives satisfy the decaying property. As a first step, we show that we can apply \Cref{SP:PolyFourierCoeffBound}.
+We begin by proving that $I_1, \ldots, I_6$ decay rapidly. As a first step, we show that we can apply \Cref{SP:PolyFourierCoeffBound}.
 
 \begin{boxlemma}\label{Ch4:Lemma:PolyFourierCoeffBound_Apply_a}
     There exist real numbers $C_0, C_{-2}, C_{-4} > 0$ such that
@@ -285,6 +267,64 @@ Finally, we bound the integral with the unbounded vertical contour.
 
 The formal proofs of the bounds in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} are complete up to proofs that they are bounded by integrable functions, which is necessary to apply monotonicity of the integral due to the definition of the integral in \mathlib. The evaluation of the final integral in \Cref{Ch4:Lemma:Bound_I6} is also currently a \sorry.\todo{Update}
 
+It is clear that the estimates for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$ have at least exponential decay, making them more rapidly decaying than any inverse power of $r$. For $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$, the result is actually a consequence of deeper results involving the Gamma function.
+
+\begin{boxlemma}\label{Ch4:Lemma:Bessel_Bound}
+    For all $n \in \N$, there exists a constant $C'$ such that for all $r \in \R$,
+    \begin{align*}
+        \abs{r}^n \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s} \leq C'
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    Fix $n \in \N$. Observe that the map $x \mapsto e^{-\pi x}$ is Schwartz, meaning that there exists a constant $C$ such that for all $x \in \R$, $\abs{x}^n \cdot \abs{e^{-\pi x}} \leq C$. In particular, for all $r \in \R$ and $s \geq 1$,
+    \begin{align*}
+        \abs{r}^n \cdot e^{-\pi r/s} \leq C s^n
+    \end{align*}
+    Hence, for all $r \in \R$, we can write
+    \begin{align*}
+        \abs{r}^n \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s}
+        = \int_{1}^{\infty} e^{-2\pi s} \, \parenth{\abs{r}^n \cdot e^{-\pi r /s}} \, \diff{s}
+        \leq C \int_{1}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
+    \end{align*}
+    It was \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/SpecialFunctions/Gamma/Basic.lean#L403}{previously known in \mathlib} that the $\Gamma$ function is given by
+    \begin{align*}
+        \Gamma(x) = \int_{0}^{\infty} e^{-u} \, u^{x-1} \, \diff{u}
+    \end{align*}
+    for all $x > 0$. Hence, writing $u = 2\pi s$ and relating $\Gamma$ with the factorial, which was also \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/SpecialFunctions/Gamma/Basic.lean#L430}{previously formalised} we get
+    \begin{align*}
+        C \int_{1}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
+        \leq C \int_{0}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
+        = C \int_{0}^{\infty} \frac{1}{\parenth{2\pi}^{n+1}} e^{-u} \, u^n \, \diff{u}
+        = \frac{C}{\parenth{2\pi}^n} \Gamma\of{n + 1}
+        = \frac{C \cdot n!}{\parenth{2\pi}^n}
+    \end{align*}
+    Defining $C' := \frac{C \cdot n!}{\parenth{2\pi}^n}$ finishes the proof.
+\end{proof}
+
+An important comment we make here is that the fact that the functions that the bounding functions decay also shows that the integrals $I_j$ converge absolutely.
+
+Next, we show that the $I_j$ are smooth and that their derivatives satisfy similar bounds to the ones computed above. The key to proving this is the Leibniz Integral Rule, which was also \href{https://github.com/leanprover-community/mathlib4/blob/dd2606726d6b0601d394911f9e7a6fa0f01367a3/Mathlib/Analysis/Calculus/ParametricIntegral.lean#L281-L303}{formalised previously}.
+
+\begin{boxtheorem}
+    
+\end{boxtheorem}
+
+\begin{boxlemma}\label{Ch4:Lemma:Ij_Smooth}
+    For all $1 \leq j \leq 6$ and $k \in \N$, $I_j(r)$ is $k$ times differentiable.
+\end{boxlemma}
+\begin{proof}
+    Fix $1 \leq j \leq 6$. We know, from \Cref{Ch4:Def:a}, that
+    \begin{align*}
+        I_j(r) = \int_{X_j} g_j\of{z} \, e^{\pi i r z} \, \diff{z}
+    \end{align*}
+    for intervals $X_j$ and holomorphic functions $g_j : \Halfplane \to \C$. The Leibniz Integral Rule then tells us that for all $k \in \N$, the $k$th derivative of $I_j$ at some $r \in \R$ is given by
+    \begin{align}
+        \int_{X_j} g_j\of{z} \, \parenth{\pi i z}^{k} \, e^{\pi i r z} \, \diff{z}
+        \label{Ch4:Eq:Ij_deriv}
+    \end{align}
+    In particular, $I_j$ is smooth (in $r$) for all $j$.
+\end{proof}
+
 We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to the case we saw in \Cref{Ch4:Lemma:Bound_I1_I3_I5}.
 
 \begin{boxlemma}\label{Ch4:Lemma:Reducing_higher_deriv_Schwartzness_I_1}
@@ -326,42 +366,6 @@ We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to t
 Analogous results can be proved for the other $I_j$, with any arising constants subsumed into the constants defined in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6}. Therefore, if we can show that the functions (without the constants) on the right-hand sides of \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} decay faster than any inverse power of $r$, we will have the result.
 
 %%%%%%%% THE FOLLOWING WAS ACCIDENTALLY DELETED DURING AN UNSAFE GITHUB MERGE. BE CAREFUL WHEN SWITCHING FROM OVERLEAF TO LOCAL AND BACK!
-
-It is clear that the estimates for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$ have at least exponential decay, making them more rapidly decaying than any inverse power of $r$. This is less clear $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$. In these cases, the result is actually a consequence of a deeper result involving the Gamma function that has been formalised in \mathlib. We give a proof below.
-
-\begin{boxlemma}\label{Ch4:Lemma:Bessel_Bound}
-    For all $n \in \N$, there exists a constant $C'$ such that for all $r \in \R$,
-    \begin{align*}
-        \abs{r}^n \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s} \leq C'
-    \end{align*}
-\end{boxlemma}
-\begin{proof}
-    Fix $n \in \N$. Observe that the map $x \mapsto e^{-\pi x}$ is Schwartz, meaning that there exists a constant $C$ such that for all $x \in \R$, $\abs{x}^n \cdot \abs{e^{-\pi x}} \leq C$. In particular, for all $r \in \R$ and $s \geq 1$,
-    \begin{align*}
-        \abs{r}^n \cdot e^{-\pi r/s} \leq C s^n
-    \end{align*}
-    Hence, for all $r \in \R$, we can write
-    \begin{align*}
-        \abs{r}^n \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s}
-        = \int_{1}^{\infty} e^{-2\pi s} \, \parenth{\abs{r}^n \cdot e^{-\pi r /s}} \, \diff{s}
-        \leq C \int_{1}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
-    \end{align*}
-    It is \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/SpecialFunctions/Gamma/Basic.lean#L403}{known in \mathlib} that the $\Gamma$ function is given by
-    \begin{align*}
-        \Gamma(x) = \int_{0}^{\infty} e^{-u} \, u^{x-1} \, \diff{u}
-    \end{align*}
-    for all $x > 0$. Hence, writing $u = 2\pi s$ and \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/SpecialFunctions/Gamma/Basic.lean#L430}{relating $\Gamma$ with the factorial}, we get
-    \begin{align*}
-        C \int_{1}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
-        \leq C \int_{0}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
-        = C \int_{0}^{\infty} \frac{1}{\parenth{2\pi}^{n+1}} e^{-u} \, u^n \, \diff{u}
-        = \frac{C}{\parenth{2\pi}^n} \Gamma\of{n + 1}
-        = \frac{C \cdot n!}{\parenth{2\pi}^n}
-    \end{align*}
-    Defining $C' := \frac{C \cdot n!}{\parenth{2\pi}^n}$ finishes the proof.
-\end{proof}
-
-An important comment we make here is that the fact that the functions that the bounding functions decay also shows that the integrals $I_j$ converge absolutely. In particular, their integrands are integrable.
 
 In summary, we have shown that the $\R \to \C$ function $a\rad = I_1 + \cdots + I_6$ is a Schwartz function by showing that $I_1, \ldots, I_6 : \R \to \C$ are Schwartz functions. As mentioned in \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}, this allows us to conclude that $a : \R^8 \to \C$, defined as in \eqref{Ch4:Eq:a_def}, lies in the Schwartz space $\Sch\of{\R^8, \C}$.
 

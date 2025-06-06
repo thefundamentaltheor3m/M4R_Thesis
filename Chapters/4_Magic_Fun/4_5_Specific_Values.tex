@@ -1,18 +1,26 @@
 \section{Another Representation of the Eigenfunctions}
 \label{Ch4:Sec:Analytic_Cont}
 
-We have already established numerous properties of $a$ and $b$: we have shown they are Schwartz, that they are indeed $\pm1$-eigenfunctions of the Fourier transform, and that they have double zeroes at all points of $\Lambda_8$ that have norm $> \sqrt{2}$. However, given that our objective is to find a linear combination of $a$ and $b$ satisfying \ref{CE1}-\ref{CE3}, we need information about the behaviour of $a\rad$ and $b\rad$ on specific points in $\Ico{0, \infty}$.
-
-Proving \ref{CE1} is not difficult. Proving \ref{CE2} is quite non-trivial, but the key ingredient is the representation of $a\rad$ as $d$ and $b\rad$ as $c$ for $r > 2$. Since $a$ and $b$ are $\pm 1$-Fourier eigenfunctions, we only need to prove that the linear combination with one sign flipped satisfies \ref{CE3}. This, however, requires insight about the behaviour of $a\rad$ and $b\rad$ on all of $\Ioc{0, \infty}$. Since the defining integrals $I_j$ and $J_j$ are difficult to evaluate directly, Viazovska's approach was to analytically continue $d$ and $c$.
+We have already established numerous properties of $a$ and $b$: we have shown they are Schwartz, that they are indeed $\pm1$-eigenfunctions of the Fourier transform, and that they have double zeroes at all points of $\Lambda_8$ that have norm $> \sqrt{2}$. However, given that our objective is to find a linear combination of $a$ and $b$ satisfying \ref{CE1}-\ref{CE3}, we need information about the behaviour of $a\rad$ and $b\rad$ on specific points in $\Ico{0, \infty}$. We will show that \ref{CE2} is a consequence of the alternate representation constructed in \Cref{Ch4:Sec:Double_Zeroes}. However, $d$ and $c$ are only defined on $\parenth{2, \infty}$, so they do not provide us with information on what happens closer to $0$, which we need for \ref{CE3}, This will also help us prove \ref{CE1} by showing us that $a(0) \neq 0$, and help us show that the Cohn-Elkies bound we get in the end does indeed give us the density of the $\Lambda_8$.
 
 \subsection{The $+1$-Eigenfunction}
 
 We begin by defining the following integral.
 
 \begin{boxdefinition}
-    Define $\tilde{d} : \Ioc{0, \infty} \to \R$ by
+    Define $\tilde{d} : \Ico{0, \infty} \to \R$ by
     \begin{align*}
-        \tilde{d}(r) := \int_{0}^{\infty} \parenth{t^2 \phi_0\of{\frac{i}{t}} - \frac{36}{\pi^2}e^{2\pi t} + \frac{8640}{\pi} - 18144} e^{-\pi r t} \, \diff{t}
+        \tilde{d}(r) := \int_{0}^{\infty} \parenth{t^2 \phi_0\of{\frac{i}{t}} - \frac{36}{\pi^2}e^{2\pi t} + \frac{8640}{\pi} - \frac{18144}{\pi^2}} e^{-\pi r t} \, \diff{t}
     \end{align*}
 \end{boxdefinition}
 
+Observe that for $r > 2$
+\begin{align*}
+    \int_{0}^{\infty} \parenth{\frac{36}{\pi^2}e^{2\pi t} - \frac{8640}{\pi} + \frac{18144}{\pi^2}} e^{-\pi r t} \, \diff{t}
+    = \frac{36}{\pi^3\parenth{r - 2}} - \frac{8640}{\pi^3 r^2} + \frac{18144}{\pi^3 r}
+\end{align*}
+In particular, the integral in $\tilde{d}$ converges. Furthermore, we have
+\begin{align*}
+    \tilde{d}(r) = d(r) + \frac{36}{\pi^3\parenth{r - 2}} - \frac{8640}{\pi^3 r^2} + \frac{18144}{\pi^3 r}
+\end{align*}
+for all $r > 2$. So $\tilde{d}$ is a continuation of $d$. However, it is not immediately clear that $\tilde{d}$ is analytic.
