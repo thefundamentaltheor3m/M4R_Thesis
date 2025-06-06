@@ -1,4 +1,5 @@
 \section{A Metaprogramming Approach}
+\label{Ch5:Sec:Meta}
 
 \begin{comment}
 Begin by saying a few words about what metaprogramming is. Then go into subsections. Idea:
@@ -12,22 +13,23 @@ In this section, we discuss an unexpected biproduct of this project: the develop
 Lean, like other interactive theorem provers, primarily interacts with its users through \textbf{tactics}. Fundamentally, the proof of a theorem in Lean is given by a \textbf{proof term}, which can be thought of as a concise expression that captures the information of how the hypotheses or inputs of the theorem are transformed into its conclusion by giving exactly the conclusion into which these inputs are transformed. A tactic is a command that, when invoked by a Lean user, performs a step in the construction of the proof term for a theorem.
 
 The most basic tactics can be thought of as being `syntax sugar' rather than invocations of computation or reasoning algorithms. Consider the following code.
-\begin{lstlisting}[caption=A tactic-mode proof of the associativity of $\land$, label=Ch5:Listing:And_assoc_tactic]
-example (P Q R : Prop) : P ∧ (Q ∧ R) ↔ (P ∧ Q) ∧ R := by
-  constructor
-  · intro h
-    constructor
-    · constructor
-      · exact h.1
-      · exact h.2.1
-    · exact h.2.2
-  · intro h
-    constructor
-    · exact h.1.1
-    · constructor
-      · exact h.1.2
-      · exact h.2
-\end{lstlisting}
+% MORE LATEX ERRORS! GAHHHHHHHH
+% \begin{lstlisting}[caption=A tactic-mode proof of the associativity of $\land$, label=Ch5:Listing:And_assoc_tactic]
+% example (P Q R : Prop) : P ∧ (Q ∧ R) ↔ (P ∧ Q) ∧ R := by
+%   constructor
+%   · intro h
+%     constructor
+%     · constructor
+%       · exact h.1
+%       · exact h.2.1
+%     · exact h.2.2
+%   · intro h
+%     constructor
+%     · exact h.1.1
+%     · constructor
+%       · exact h.1.2
+%       · exact h.2
+% \end{lstlisting}
 
 This proof demonstrates how the \lstinline|constructor|, \lstinline|intro| and \lstinline|exact| tactics work. These tactics give the Lean compiler the following instructions:
 \begin{itemize}
@@ -63,24 +65,25 @@ In particular, the proof in \Cref{Ch5:Listing:And_assoc_term} consists solely of
 
 It turns out that \Cref{Ch5:Listing:And_assoc_term} still contains some syntax sugar. It is possible to use helper lemmas like \verb|Iff.intro| and \verb|And.intro| to avoid using the anonymous constructors, but a proof term completely devoid of the constructor syntax would look like the following.
 
-\begin{lstlisting}[caption=A proof term for the associativity of $\land$, label=Ch5:Listing:And_assoc_proof_term, escapeinside=``]
-example (P Q R : Prop) : P ∧ (Q ∧ R) ↔ (P ∧ Q) ∧ R := {
-  mp := fun a ↦ {
-    left := {
-      left := And.casesOn a fun left right ↦ And.casesOn right fun _ _ ↦ left
-      right := And.casesOn a fun _ right ↦ And.casesOn right fun left _ ↦ left
-    }
-    right := And.casesOn a fun _ right ↦ And.casesOn right fun _ right ↦ right
-  }
-  mpr := fun a ↦ {
-    left := And.casesOn a fun left _right ↦ And.casesOn left fun left _ ↦ left `\newpage`
-    right := {
-      left := And.casesOn a fun left _ ↦ And.casesOn left fun _ right ↦ right
-      right := And.casesOn a fun left right ↦ And.casesOn left fun _ _ ↦ right
-    }
-  }
-}
-\end{lstlisting}
+% Why am I getting LaTeX errors here????????
+% \begin{lstlisting}[caption=A proof term for the associativity of $\land$, label=Ch5:Listing:And_assoc_proof_term, escapeinside=``]
+% example (P Q R : Prop) : P ∧ (Q ∧ R) ↔ (P ∧ Q) ∧ R := {
+%   mp := fun a ↦ {
+%     left := {
+%       left := And.casesOn a fun left right ↦ And.casesOn right fun _ _ ↦ left
+%       right := And.casesOn a fun _ right ↦ And.casesOn right fun left _ ↦ left
+%     }
+%     right := And.casesOn a fun _ right ↦ And.casesOn right fun _ right ↦ right
+%   }
+%   mpr := fun a ↦ {
+%     left := And.casesOn a fun left _right ↦ And.casesOn left fun left _ ↦ left `\newpage`
+%     right := {
+%       left := And.casesOn a fun left _ ↦ And.casesOn left fun _ right ↦ right
+%       right := And.casesOn a fun left right ↦ And.casesOn left fun _ _ ↦ right
+%     }
+%   }
+% }
+% \end{lstlisting}
 
 Proof terms, as we can see from \Cref{Ch5:Listing:And_assoc_proof_term}, are often long and do not clearly communicate the mathematical ideas they represent. Tactics overcome this by constructing proof terms without revealing them to the user. Indeed, there are tactics that serve as more than just syntax sugar: for example, results in intuitionistic propositional logic (such as the associativity of $\land$) can be proved by the tactic \lstinline|itauto|. That is, the following code compiles.
 
