@@ -3,7 +3,7 @@
 
 % At some point earlier on, maybe in Chapter 3, we need to stress that double zeroes means double zeroes in the radial sense, except double zeroes after composition with just the norm and not the norm squared. (We are using norm squared so that we can prove Schwartzness. Just the norm isn't enough because the norm isn't smooth.)
 
-The way we prove that $a$ and $b$ have double zeroes at $E_8$ lattice points with norm $> \sqrt{2}$ (or at normalised $E_8$ lattice points with norm $> 1$) is by showing that $a\rad$ and $b\rad$ agree, for $r > 2$, with functions that have double zeroes at \textit{all} even integers. It will then follow that $a$ and $b$ have double zeroes at all points on the $E_8$ lattice with norm $> \sqrt{2}$, since all elements of $\Lambda_8$ have norm of the form $\sqrt{2n}$ for some $n \in \N$ (cf. \sorry).\todo{ADD RESULT TO E8 SECTION}
+The way we prove that $a$ and $b$ have double zeroes at $E_8$ lattice points with norm $> \sqrt{2}$ (or at normalised $E_8$ lattice points with norm $> 1$) is by showing that $a\rad$ and $b\rad$ agree, for $r > 2$, with functions that have double zeroes at \textit{all} even integers. It will then follow that $a$ and $b$ have double zeroes at all points on the $E_8$ lattice with norm $> \sqrt{2}$, since all elements of $\Lambda_8$ have norm of the form $\sqrt{2n}$ for some $n \in \N$ (cf. \Cref{Ch2:Thm:E8_Properties}).
 
 The strategy to prove these two equalities will be to perform a change of contours using a version of the Cauchy-Goursat Theorem and use the relations and transformation rules between the $\phi$- and $\psi$-functions to combine integrals so that the result is exactly $a\rad$ or $b\rad$.
 
@@ -118,9 +118,9 @@ Arguing as above yields another important result.
         \phi_{0}\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z} \to 0
     \end{align*}
 \end{boxlemma}
-\begin{proof}[Proof sketch]
-    We do not offer more than a sketch here because the proof is almost identical to that of \Cref{Ch4:Lemma:d_integral_estimate_above}. The idea is to apply \eqref{Ch4:Eq:phi_0_neg_inv}, multiply through, apply \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_a} to bound the expression in absolute value, and use the fact that $r > 2$ to conclude that the bound decays exponentially as $\Im(z) \to \infty$.
-\end{proof}
+% \begin{proof}[Proof sketch]
+%     We do not offer more than a sketch here because the proof is almost identical to that of \Cref{Ch4:Lemma:d_integral_estimate_above}. The idea is to apply \eqref{Ch4:Eq:phi_0_neg_inv}, multiply through, apply \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_a} to bound the expression in absolute value, and use the fact that $r > 2$ to conclude that the bound decays exponentially as $\Im(z) \to \infty$.
+% \end{proof}
 
 The function $z \mapsto \phi_{0}\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z}$ is also holomorphic on $\Halfplane$, a fact that is again seen by applying \eqref{Ch4:Eq:phi_0_neg_inv} and the fact that the numerators of the $\phi$-function are holomorphic and the denominators are non-vanishing on $\Halfplane$.
 
@@ -130,24 +130,18 @@ We are now ready for the main result of this subsection.
     For all $r > 2$, $d(r) = a\rad(r)$.
 \end{boxproposition}
 \begin{proof}
-    Fix $r > 2$. We begin by performing the following manipulation:
-    \begin{align}
-        -4 \sinsq{\frac{\pi r}{2}}
-        = -4 \parenth{\frac{e^{i \pi r / 2} - e^{-i \pi r / 2}}{2i}}^2
-        = \parenth{e^{i \pi r / 2} - e^{- i \pi r / 2}}^2
-        = e^{i \pi r} - 2 + e^{-i \pi r}
-        \label{Ch4:Eq:sinsq_trick_for_double_zeroes}
+    Fix $r > 2$. Write $-4 \sinsq{\frac{\pi r}{2}} = e^{i \pi r} - 2 + e^{-i \pi r}$. Then, for all $r > 2$, we can write
+    \begin{align} \small
+         d(r)
+         =
+         \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 e^{\pi i r \parenth{z - 1}} \diff{z}
+         +
+         \int_{1}^{1 + i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 e^{\pi i r z} \diff{z}
+         +
+         \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 e^{\pi i r \parenth{z + 1}} \diff{z}
+         \label{Ch4:Eq:d_after_sinsq_trick}
     \end{align}
-    Therefore, for all $r > 2$,
-    \begin{align*}
-        d(r)
-        &= -4 \sinsq{\frac{\pi r}{2}} \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z} \, \diff{z}
-        = \parenth{e^{i \pi r} - 2 + e^{-i \pi r}} \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z} \, \diff{z} \\
-        &= \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r \parenth{z + 1}} \, \diff{z}
-        -2 \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
-        + \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r \parenth{z - 1}} \, \diff{z}
-    \end{align*}
-    By a simple change of variables, we can rewrite the first and third integrals as follows. We can also split the second integral into two parts as shown below.
+    Changing variables, we can express the integrals as follows.
     \begin{align*}
         \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r \parenth{z - 1}} \, \diff{z}
         &=
@@ -157,22 +151,22 @@ We are now ready for the main result of this subsection.
         \int_{1}^{1 + i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} \\
         -2 \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
         &=
-        -2 \int_{0}^{i} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
-        -2 \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z} \\
-        &= I_5(r) - 2\int_{i}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
+        \underbrace{-2 \int_{0}^{i} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}}_{I_5}
+        -2 \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z} % \\
+        % &= I_5(r) - 2\int_{i}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
     \end{align*}
     We can now apply \Cref{Ch4:Thm:CauchyGoursat_Unbounded} to the first and third integrals, noting that the required integrability conditions do hold because the integrals making up $d$ and $a\rad$ converge absolutely.
     \begin{align*}
         \int_{-1}^{-1 + i \infty} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z}
-        =& \int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
-        &+ \int_{-1 + i}^{i} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        =& \underbrace{\int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z}}_{I_1} \\
+        &+ \underbrace{\int_{-1 + i}^{i} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z}}_{I_2} \\
         &+ \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
-        =& I_1(r) + I_2(r) + \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        % =& I_1(r) + I_2(r) + \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
         \int_{1}^{1 + i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z}
-        =& \int_{1}^{1 + i} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} \\
-        &+ \int_{1 + i}^{i} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} \\
-        &+ \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} \\
-        =& I_3(r) + I_4(r) + \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z}
+        =& \underbrace{\int_{1}^{1 + i} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z}}_{I_3} \\
+        &+ \underbrace{\int_{1 + i}^{i} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z}}_{I_4} \\
+        &+ \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} % \\
+        % =& I_3(r) + I_4(r) + \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z}
     \end{align*}
     Hence, we can express $d(r)$ as the sum of the following six integrals:
     \begin{align*}
@@ -256,7 +250,7 @@ We end our discussion on the integrand by remarking that it is holomorphic, as w
     For all $r > 2$, $c(r) = b\rad(r)$.
 \end{boxproposition}
 \begin{proof}
-    Fix $r > 2$. By \eqref{Ch4:Eq:sinsq_trick_for_double_zeroes}, we can write
+    Fix $r > 2$. As in \eqref{Ch4:Eq:d_after_sinsq_trick}, we can write
     \begin{align*}
         c(r)
         = \int_{-1}^{-1 + i\infty} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z}
