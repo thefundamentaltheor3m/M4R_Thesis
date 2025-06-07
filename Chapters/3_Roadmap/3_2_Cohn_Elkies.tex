@@ -27,4 +27,16 @@ It turns out that examining \ref{CE2} gives us an \textit{even stronger} conditi
 \end{align*}
 is greater than or equal to a non-negative constant, and both $\Volof{B_d\of{0, \frac{1}{2}}}$ (as a volume) and $\hat{f}(0)$ (by \ref{CE3}) are non-negative, meaning $f(0)$ cannot possibly be negative. Indeed, this is true regardless of whether $f$ is optimal. Since \ref{CE2} tells us that $f$ is non-positive at points with norm at least $1$, we can conclude that $f$ not only has zeroes but \textbf{double zeroes} at all lattice points with norm at least $1$: the behaviour of $f$, viewed as an $\R \to \R$ function of the norm $r$ of a point on $\R^d$, is such that sign-changes, if any, from non-negative to non-positive cannot occur at zeroes $\geq 1$, and thereafter, there are no more sign changes.
 
-Putting these conclusions about single and double zeroes together with our observation about splitting radial Schwartz functions into their constituent $\pm 1$-Fourier eigenfunctions, we can conclude that we need to find \textbf{Fourier eigenfunctions with double zeroes at lattice points}. It is no accident that this is precisely the title of \cite[\S 4]{Viazovska8}.
+There is one final condition we can glean from the statement of the theorem that specifically applies to the eight-dimensional case. Recall that for all $k \in \N$,
+\begin{align*}
+    \Volof{B_{2k}\of{0, r}} = r^{2k} \cdot \frac{\pi^k}{k!}
+\end{align*}
+This fact has \href{https://github.com/leanprover-community/mathlib4/blob/6c6e0180f0d3dc9f47f85532f48d268d8656789a/Mathlib/MeasureTheory/Measure/Lebesgue/VolumeOfBalls.lean#L375-L379}{previously been formalised}. When $k = 4$ and $r = \frac{1}{2}$, we get
+\begin{align*}
+    \Volof{B_{8}\of{0, \frac{1}{2}}} = \frac{1}{256} \cdot \frac{\pi^4}{24!} = \frac{1}{16} \cdot \frac{\pi^4}{384}
+\end{align*}
+which is a factor of $\frac{1}{16}$ away from the density of $\Lambda_8$. We thus conclude that the function we seek must satisfy $\hat{f}\of{0} = 16 \, f(0)$.
+
+We end by saying a few words about scaling. In the proof of \Cref{SP:Thm:CohnElkies}, and by extension, in our discussion above, we assumed that the least distance between points on $\Lambda$ is $1$. This is not true of $\Lambda_8$, but we can rescale sphere packings freely without affecting their density. It will be more convenient to rescale the magic function at the very end than to rescale $\Lambda_8$ by a factor of $\sqrt{2}$ right away, as Viazovska does in \cite{Viazovska8}. In fact, this gives us an even nicer condition: if we have a function $g$ that satisfies the conditions we would have if we replaced $\Lambda$ by $\Lambda_8$ in the above discussion, then the function $f(x) = g\of{\sqrt{2} \, x}$ satisfies the properties discussed so far on the normalised $E_8$ lattice, which has separation one. Moreover, $\hat{f}(0) = 16 \, f(0)$ tells us that we require $g(0) = \hat{g}(0)$. This further makes \ref{CE1} redundant, as we cannot have $g(0) = \hat{g}(0) = 0$.
+
+Putting these conclusions about single and double zeroes together with our observation about splitting radial Schwartz functions into their constituent $\pm 1$-Fourier eigenfunctions, we can conclude that we need to find \textbf{Fourier eigenfunctions with double zeroes at $\Lambda_8$ lattice points}. It is no accident that this is precisely the title of \cite[\S 4]{Viazovska8}.

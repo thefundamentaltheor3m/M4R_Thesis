@@ -1,9 +1,9 @@
 \section{Another Representation of the Eigenfunctions}
 \label{Ch4:Sec:Analytic_Cont}
 
-At this stage, it is worth consolidating the results proven thus far. In \Cref{Ch3:Sec:Properties}, we mentioned numerous \textit{necessary} conditions for eigenfunctions to satisfy. The fact that it is immensely difficult to find functions satisfying such conditions, juxtaposed with the fact that we have done precisely that, is an indication that we are on the right track. However, it is still not clear how to compute $g$ as a linear combination of $a$ and $b$ and show it satisfies \ref{CE1}-\ref{CE3}, we need information about the behaviour of $a\rad$ and $b\rad$ on specific points in $\Ico{0, \infty}$.
+At this stage, it is worth consolidating the results proven thus far. In \Cref{Ch3:Sec:Properties}, we mentioned numerous \textit{necessary} conditions for eigenfunctions to satisfy. The fact that it is immensely difficult to find functions satisfying such conditions, juxtaposed with the fact that we have done precisely that, is an indication that we are on the right track. However, it is still not clear how to compute $g$ as a linear combination of $a$ and $b$ and show it satisfies the Cohn-Elkies conditions. We need information about the behaviour of $a\rad$ and $b\rad$ on specific points in $\Ico{0, \infty}$.
 
-It will turn out that \ref{CE2} is a consequence of the alternate representations of $a$ and $b$ constructed in \Cref{Ch4:Sec:Double_Zeroes}. $d$ and $c$, however, are only defined on $\parenth{2, \infty}$, so they do not provide us with information on what happens closer to $0$, which we need for \ref{CE3}. Viazovska's solution was to analytically continue $d$ and $c$ to all of $\Ico{0, \infty}$. This will help us prove not only \ref{CE3} but also \ref{CE1}. Moreover, it will help us show that the Cohn-Elkies bound we get in the end does indeed give us the density of the $\Lambda_8$.
+It will turn out that \ref{CE2} is a consequence of the alternate representations of $a$ and $b$ constructed in \Cref{Ch4:Sec:Double_Zeroes}. $d$ and $c$, however, are only defined on $\parenth{2, \infty}$, so they do not provide us with information on what happens closer to $0$, which we need for \ref{CE3}. Viazovska's solution was to analytically continue $d$ and $c$ to all of $\Ico{0, \infty}$. This will help us prove not only \ref{CE3} but also that $g(0) = \hat{g}(0)$, which, as discussed in \Cref{Ch3:Sec:Properties}, will show us that the bound obtained by applying \Cref{SP:Thm:CohnElkies} will be the right one.
 
 \subsection{The $+1$-Eigenfunction}
 
@@ -19,7 +19,7 @@ We begin by defining the following integral.
     \end{align*}
 \end{boxdefinition}
 
-Observe that for $r > 2$
+We note that $\tilde{d}$ is indeed well-defined at $0$ and freely consider it as a $\Ico{0, \infty} \to \R$ function. Observe that for $r > 2$
 \begin{align*}
     \int_{0}^{\infty} \parenth{\frac{36}{\pi^2}e^{2\pi t} - \frac{8640}{\pi} + \frac{18144}{\pi^2}} e^{-\pi r t} \, \diff{t}
     = \frac{36}{\pi^3\parenth{r - 2}} - \frac{8640}{\pi^3 r^2} + \frac{18144}{\pi^3 r}
@@ -37,6 +37,7 @@ Finally, we note that
 \begin{align*}
     a\of{0} = a\rad\of{0} = \tilde{d}\of{0} = \frac{-i 8640}{\pi}
 \end{align*}
+which can be seen by computing the limits as $r \to 0$ in the expression for $\tilde{d}$.
 
 \subsection{The $-1$-Eigenfunction}
 
@@ -62,7 +63,11 @@ Thus, for all $r > 2$, $\tilde{c} = c$. So, $\tilde{c}$ is clearly a continuatio
 Again, Viazovska proceeds by computing the Fourier expansion of $\psi_I\of{it}$ and showing that
 \begin{align*}
     \phi_I\of{it} =
-    144 + e^{2\pit} + \BigO{e^{- \pi t}}
+    144 + e^{2\pi t} + \BigO{e^{- \pi t}}
 \end{align*}
 as $t \to \infty$ \cite[(39)]{Viazovska8}. One can then conclude that the integral in $\tilde{c}$ converges absolutely for all $r \geq 0$. It is then clear that $\tilde{c}$ is analytic on $\Ico{0, \infty}$. We conclude just as we did for $a$.
 
+Finally, we note that
+\begin{align*}
+    b\of{0} = b\rad\of{0} = \tilde{c}\of{0} = 0
+\end{align*}

@@ -99,7 +99,7 @@ We now state the most important intermediate result in the proof of the optimali
     \begin{align*}
         \Delta_d^{\periodic} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
     \end{align*}
-    Fix a sphere packing $\Pa$ that is periodic with respect to some lattice $\Lambda$. We need to show that $\Delta_{\Pa} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}$/ By \Cref{Ch2:Prop:Scaling_Sphere_Packings}, we can assume that the separation radius of $\Pa$ is $1$: if it is not, we can scale it appropriately, and this will not affect its density. Denote the set of centres of $\Pa$ by $X$. By \Cref{Ch2:Prop:Periodic_Density}, we need to show that
+    Fix a sphere packing $\Pa$ that is periodic with respect to some lattice $\Lambda$. We need to show that $\Delta_{\Pa} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}$. By \Cref{Ch2:Prop:Scaling_Sphere_Packings}, we can assume that the separation radius of $\Pa$ is $1$: if it is not, we can scale it appropriately, and this will not affect its density. Denote the set of centres of $\Pa$ by $X$. By \Cref{Ch2:Prop:Periodic_Density}, we need to show that
     \begin{align}
         \frac{\abs{\quotient{X}{\Lambda}}}{\Volof{\quotient{\R^d}{\Lambda}}} \cdot \Volof{B_d\of{0, \frac{1}{2}}} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
         \label{Ch2:Eq:CohnElkies_Ineq_1}
@@ -131,14 +131,5 @@ We now state the most important intermediate result in the proof of the optimali
 \end{proof}
 
 We have a proof of this result in our repository, but some of the lemmas on which it depends do not have complete (ie, ``\sorry-free'') proofs. The details we have skipped are not relevant to the scope of this thesis, but the details we have included will give us an important condition that the magic function should obey. Therefore, not only the statement but also the proof of \Cref{SP:Thm:CohnElkies} will be important to understand the construction of the magic function.
-
-Apart from the hypotheses of \Cref{SP:Thm:CohnElkies}, there is another condition we can glean from the statement of the theorem that specifically applies to the problem at hand. Recall that for all $k \in \N$,
-\begin{align*}
-    \Volof{B_{2k}\of{0, r}} = r^{2k} \cdot \frac{\pi^k}{k!}
-\end{align*}
-When $k = 4$ and $r = \frac{1}{2}$, we get
-\begin{align*}
-    \Volof{B_{8}\of{0, \frac{1}{2}}} = r^{8} \cdot \frac{\pi^k}{k!}
-\end{align*}
 
 We are now ready to discuss a key ingredient in the construction of the magic function: the theory of modular forms. We will not explore this in too much detail, as it does not fall within the scope of this thesis. We will not venture too far beyond the fundamentals.
