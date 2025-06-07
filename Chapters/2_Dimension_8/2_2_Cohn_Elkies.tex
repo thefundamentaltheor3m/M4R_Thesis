@@ -132,4 +132,13 @@ We now state the most important intermediate result in the proof of the optimali
 
 We have a proof of this result in our repository, but some of the lemmas on which it depends do not have complete (ie, ``\sorry-free'') proofs. The details we have skipped are not relevant to the scope of this thesis, but the details we have included will give us an important condition that the magic function should obey. Therefore, not only the statement but also the proof of \Cref{SP:Thm:CohnElkies} will be important to understand the construction of the magic function.
 
+Apart from the hypotheses of \Cref{SP:Thm:CohnElkies}, there is another condition we can glean from the statement of the theorem that specifically applies to the problem at hand. Recall that for all $k \in \N$,
+\begin{align*}
+    \Volof{B_{2k}\of{0, r}} = r^{2k} \cdot \frac{\pi^k}{k!}
+\end{align*}
+When $k = 4$ and $r = \frac{1}{2}$, we get
+\begin{align*}
+    \Volof{B_{8}\of{0, \frac{1}{2}}} = r^{8} \cdot \frac{\pi^k}{k!}
+\end{align*}
+
 We are now ready to discuss a key ingredient in the construction of the magic function: the theory of modular forms. We will not explore this in too much detail, as it does not fall within the scope of this thesis. We will not venture too far beyond the fundamentals.

@@ -1,7 +1,9 @@
 \section{Another Representation of the Eigenfunctions}
 \label{Ch4:Sec:Analytic_Cont}
 
-We have already established numerous properties of $a$ and $b$: we have shown they are Schwartz, that they are indeed $\pm1$-eigenfunctions of the Fourier transform, and that they have double zeroes at all points of $\Lambda_8$ that have norm $> \sqrt{2}$. However, given that our objective is to find a linear combination of $a$ and $b$ satisfying \ref{CE1}-\ref{CE3}, we need information about the behaviour of $a\rad$ and $b\rad$ on specific points in $\Ico{0, \infty}$. We will show that \ref{CE2} is a consequence of the alternate representation constructed in \Cref{Ch4:Sec:Double_Zeroes}. However, $d$ and $c$ are only defined on $\parenth{2, \infty}$, so they do not provide us with information on what happens closer to $0$, which we need for \ref{CE3}, This will also help us prove \ref{CE1} by showing us that $a(0) \neq 0$, and help us show that the Cohn-Elkies bound we get in the end does indeed give us the density of the $\Lambda_8$.
+At this stage, it is worth consolidating the results proven thus far. In \Cref{Ch3:Sec:Properties}, we mentioned numerous \textit{necessary} conditions for eigenfunctions to satisfy. The fact that it is immensely difficult to find functions satisfying such conditions, juxtaposed with the fact that we have done precisely that, is an indication that we are on the right track. However, it is still not clear how to compute $g$ as a linear combination of $a$ and $b$ and show it satisfies \ref{CE1}-\ref{CE3}, we need information about the behaviour of $a\rad$ and $b\rad$ on specific points in $\Ico{0, \infty}$.
+
+It will turn out that \ref{CE2} is a consequence of the alternate representations of $a$ and $b$ constructed in \Cref{Ch4:Sec:Double_Zeroes}. $d$ and $c$, however, are only defined on $\parenth{2, \infty}$, so they do not provide us with information on what happens closer to $0$, which we need for \ref{CE3}. Viazovska's solution was to analytically continue $d$ and $c$ to all of $\Ico{0, \infty}$. This will help us prove not only \ref{CE3} but also \ref{CE1}. Moreover, it will help us show that the Cohn-Elkies bound we get in the end does indeed give us the density of the $\Lambda_8$.
 
 \subsection{The $+1$-Eigenfunction}
 
@@ -10,7 +12,10 @@ We begin by defining the following integral.
 \begin{boxdefinition}
     Define $\tilde{d} : \Ico{0, \infty} \to \R$ by
     \begin{align*}
-        \tilde{d}(r) := \int_{0}^{\infty} \parenth{t^2 \phi_0\of{\frac{i}{t}} - \frac{36}{\pi^2}e^{2\pi t} + \frac{8640}{\pi} - \frac{18144}{\pi^2}} e^{-\pi r t} \, \diff{t}
+        \tilde{d}(r) :=&
+        4i \sinsq{\frac{\pi r}{2}} \Bigg(
+        -\frac{36}{\pi^3\parenth{r - 2}} + \frac{8640}{\pi^3 r^2} - \frac{18144}{\pi^3 r} \\
+        &+\int_{0}^{\infty} \parenth{t^2 \phi_0\of{\frac{i}{t}} - \frac{36}{\pi^2}e^{2\pi t} + \frac{8640}{\pi} - \frac{18144}{\pi^2}} e^{-\pi r t} \, \diff{t}\Bigg)
     \end{align*}
 \end{boxdefinition}
 
@@ -19,8 +24,45 @@ Observe that for $r > 2$
     \int_{0}^{\infty} \parenth{\frac{36}{\pi^2}e^{2\pi t} - \frac{8640}{\pi} + \frac{18144}{\pi^2}} e^{-\pi r t} \, \diff{t}
     = \frac{36}{\pi^3\parenth{r - 2}} - \frac{8640}{\pi^3 r^2} + \frac{18144}{\pi^3 r}
 \end{align*}
-In particular, the integral in $\tilde{d}$ converges. Furthermore, we have
+Thus, for all $r > 2$, $\tilde{d} = d$. So, $\tilde{d}$ is a continuation of $d$  from $\parenth{2, \infty}$ to $\Ico{0, \infty}$. However, it is not immediately clear that $\tilde{d}$ is analytic.
+
+Viazovska proceeds by computing the Fourier expansion of $\phi_0\of{i/t}$ and showing that
 \begin{align*}
-    \tilde{d}(r) = d(r) + \frac{36}{\pi^3\parenth{r - 2}} - \frac{8640}{\pi^3 r^2} + \frac{18144}{\pi^3 r}
+    t^2 \, \phi_0\of{\frac{i}{t}} =
+    \frac{36}{\pi^2}e^{2\pi t} - \frac{8640}{\pi} + \frac{18144}{\pi^2} + \BigO{t^2 \, e^{-2 \pi t}}
 \end{align*}
-for all $r > 2$. So $\tilde{d}$ is a continuation of $d$. However, it is not immediately clear that $\tilde{d}$ is analytic.
+as $t \to \infty$ \cite[(39)]{Viazovska8}. One can then conclude that the integral in $\tilde{d}$ converges absolutely for all $r \geq 0$. It is then clear that $\tilde{d}$ is analytic on $\Ico{0, \infty}$. Since $a\rad$ is smooth, hence analytic,\todo{state this in Lean} on $\Ico{0, \infty}$ as well, by the identity principle for analytic functions, which has \href{https://github.com/leanprover-community/mathlib4/blob/6c6e0180f0d3dc9f47f85532f48d268d8656789a/Mathlib/Analysis/Analytic/Uniqueness.lean#L217-L226}{previously been formalised}, we can conclude that $a\rad = \tilde{d}$ on $\Ico{0, \infty}$.
+
+Finally, we note that
+\begin{align*}
+    a\of{0} = a\rad\of{0} = \tilde{d}\of{0} = \frac{-i 8640}{\pi}
+\end{align*}
+
+\subsection{The $-1$-Eigenfunction}
+
+We proceed analogously.
+
+\begin{boxdefinition}
+    Define $\tilde{c} : \Ico{0, \infty} \to \R$ by
+    \begin{align*}
+        \tilde{d}(r) :=&
+        4i \sinsq{\frac{\pi r}{2}} \Bigg(
+        \frac{144}{\pi r} + \frac{1}{\pi\parenth{r - 2}} + \\
+        &+\int_{0}^{\infty} \parenth{\psi_I\of{it} - 144 - e^{2 \pi t}} e^{-\pi r t} \, \diff{t}\Bigg)
+    \end{align*}
+\end{boxdefinition}
+
+Observe that for $r > 2$
+\begin{align*}
+    \int_{0}^{\infty} \parenth{144 + e^{2 \pi t}} e^{-\pi r t} \, \diff{t}
+    = \frac{144}{\pi r} + \frac{1}{\pi\parenth{r - 2}}
+\end{align*}
+Thus, for all $r > 2$, $\tilde{c} = c$. So, $\tilde{c}$ is clearly a continuation of $c$ from $\parenth{2, \infty}$ to $\Ico{0, \infty}$. However, it is not immediately clear that $\tilde{c}$ is analytic.
+
+Again, Viazovska proceeds by computing the Fourier expansion of $\psi_I\of{it}$ and showing that
+\begin{align*}
+    \phi_I\of{it} =
+    144 + e^{2\pit} + \BigO{e^{- \pi t}}
+\end{align*}
+as $t \to \infty$ \cite[(39)]{Viazovska8}. One can then conclude that the integral in $\tilde{c}$ converges absolutely for all $r \geq 0$. It is then clear that $\tilde{c}$ is analytic on $\Ico{0, \infty}$. We conclude just as we did for $a$.
+
