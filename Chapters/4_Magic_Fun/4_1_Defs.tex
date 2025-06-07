@@ -1,9 +1,7 @@
 \section{Defining Viazovska's Fourier Eigenfunctions}
 \label{Ch4:Sec:Defs}
 
-The $\pm$-eigenfunctions of $g$---and, by extension, $g$ itself---are defined in terms of modular and quasimodular forms (recall the definitions of these terms from \Cref{Ch2:Sec:ModForms}). Specifically, the $+1$-eigenfunction $a$ is defined in terms of the so-called $\phi$- and $\psi$-functions, which are in turn defined in terms of the Eisenstein series (cf. \sorry) and the discriminant form (cf. \sorry), while the $-1$-eigenfunction $b$ is defined in terms of the Jacobi Theta functions (cf. \sorry)\todo{Define in Chapter 2 and cross-ref here}.
-
-We begin by defining the $+1$-eigenfunction $a$.
+As we noted in \Cref{Ch3:Sec:Properties}, we construct our Fourier eigenfunctions as sums of integrals whose integrands obey several transformation properties. These transformation properties will be the result of well-known facts about modular forms, which we discussed in \Cref{Ch2:Sec:ModForms}. For each eigenfunction, we begin by defining families of functions---the $\phi$- and $\psi$-functions respectively---in terms of modular forms and associated functions. We then list their transformation rules, which we will apply throughout this chapter. We will end each subsection by defining their namesake eigenfunction.
 
 \subsection{The $+1$-Eigenfunction}
 
@@ -21,7 +19,7 @@ We begin by defining the $\phi$-functions.
     \end{align}
 \end{boxdefinition}
 
-These functions admit important transformation properties that are necessary to prove that the $+1$-eigenfunction is made up of integrals of holomorphic functions. This fact will in turn allow us to apply the Cauchy-Goursat Theorem (and variants thereof) that will allow us to shift contours of integration.
+Note first that these functions are holomorphic: their numerators are clearly holomorphic, as one can see from \Cref{Ch2:Sec:ModForms}, and we know that $\Delta$ does not vanish on the upper half-plane. We now give important transformation properties exhibited by these functions that will later allow us to change variables inside the integrands making up $a$.
 
 \begin{boxlemma}\label{Ch4:Lemma:phi_transformations}
     For all $z \in \Halfplane$,
@@ -37,9 +35,7 @@ These functions admit important transformation properties that are necessary to 
     \end{align}
 \end{boxlemma}
 
-We do not prove these here, but mention that they both follow from the weight $k$ slash action formulae on $E_k$ for $k \in \set{2, 4, 6}$. When $k = 4$ and $k = 6$, we have weight $k$ invariance, because $E_4$ and $E_6$ are modular forms, but when $k = 2$, we need to use \Cref{Ch2:Lemma:E2_slash_action}. A detailed proof of these transformations can be found in \cite{blueprint}.
-
-We now define the $+1$-eigenfunction $a$.
+We do not prove these here, but mention that they both follow from the weight $k$ slash action formulae on $E_k$ for $k \in \set{2, 4, 6}$. When $k = 4$ and $k = 6$, we have weight $k$ invariance, because $E_4$ and $E_6$ are modular forms, but when $k = 2$, we need to use \Cref{Ch2:Lemma:E2_slash_action}. A detailed proof of these transformations can be found in \cite{blueprint}. We now define the $+1$-eigenfunction $a$.
 
 \begin{boxdefinition}[Viazovska's $+1$-Fourier Eigenfunction]\label{Ch4:Def:a}
     Define $a\rad : \R \to \C$ by
@@ -163,11 +159,9 @@ with the contours not specified. The most `classical' choice would be quarter-ci
     \label{Ch4:fig:a_contours}
 \end{figure}
 
-The reason the choice of contours does not matter is that in the integrands of $I_1, \ldots, I_5$, we multiply terms of the form $\phi_0\of{\frac{-1}{z}}$ by $z^2$. If we apply \eqref{Ch4:Eq:phi_0_neg_inv} and multiply through, it is clear that we are removing any singularities introduced by $\frac{1}{z^2}$ and $\frac{1}{z}$ factors. We can then use the fact that $\Delta\of{z} \neq 0$ for all $z \in \Halfplane$ to conclude that the integrands are holomorphic up to these removable singularities.
+The reason the choice of contours does not matter is that the integrands of $I_1, \ldots, I_6$ are holomorphic on the upper half-plane. This is clear for $I_6$, and for the others, if we multiply terms of the form $\phi_0\of{\frac{-1}{z}}$ by $z^2$, apply \eqref{Ch4:Eq:phi_0_neg_inv} and multiply through, we end up with a holomorphic function.
 
-The choice of rectangular contours (as in \Cref{Ch4:subfig:a_rect_contour}) as opposed to quarter-circles or straight lines for $I_1 + I_2$ and $I_3 + I_4$ is motivated by the versions of the Cauchy-Goursat Theorem that have been formalised in Lean. See \Cref{Ch5:Sec:Cauchy-Goursat} for more.
-
-% Insert a visual here for I_1, and say I_2 is analogous
+The choice of rectangular contours (as in \Cref{Ch4:subfig:a_rect_contour}) as opposed to quarter-circles or straight lines for $I_1 + I_2$ and $I_3 + I_4$ is motivated by the versions of the Cauchy-Goursat Theorem that have been formalised in Lean. We discuss this further in \Cref{Ch5:Sec:Cauchy-Goursat}.
 
 We are now ready to define the $-1$-eigenfunction $b$.
 
@@ -222,7 +216,7 @@ It is possible to use the weight-$2$ slash action relations seen in \Cref{Ch2:Pr
     with the second equality following from \Cref{Ch2:Lemma:Slash_Mul}. Subtracting $h \mid_{-2} ST$ from $h$ then gives the desired result. The explicit expressions for $\psi_T$ and $\psi_S$ can be obtained by performing similar computations on $\psi_I$.
 \end{proof}
 
-The proof of \Cref{Ch4:Lemma:psi_explicitly} shows us that weight $-2$ slash operations on the $\psi$-functions can be computed by exploiting the analogous weight $2$ slash operations on the $H$-functions, which we can manipulate using \Cref{Ch2:Prop:H_Rels} and \Cref{Ch2:Lemma:Slash_Mul}. We then have the following relations between the $\psi$-functions, expressed in slash notation and explicitly for any $z \in \Halfplane$. We also unpack the slash action notation from \Cref{Ch4:Def:phis}.
+The proof of \Cref{Ch4:Lemma:psi_explicitly} shows us that weight $-2$ slash actions on the $\psi$-functions come directly from the analogous weight $2$ slash operations on the $H$-functions. We have seen several of these in \Cref{Ch2:Prop:H_Rels} and can combine them with \Cref{Ch2:Lemma:Slash_Mul} to generate the following relations between the $\psi$-functions.
 \begin{align}
     \psi_T &= \psi_I \mid_{-2} T &
     \psi_T(z) &= \psi_I\of{z + 1}
