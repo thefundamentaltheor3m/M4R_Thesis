@@ -21,7 +21,7 @@ A \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e
 We will also need the following version of the \CGT, which allows us to deform contours of integration in the complex plane.
 
 \begin{boxtheorem}[Cauchy-Goursat: Squares and Circles]\label{Ch4:Thm:CGTRectCircle}
-    Fix $w \in \C$ and $r > 0$. Let $\gamma$ be the quarter-circle parametrised by $\gamma(t) = w + r\pcos{t} + \abs{r} i \psin{t}$ for $0 \leq t \leq \pi/2$. For any $f : \C \to \C$ that is holomorphic in the region enclosed by $\gamma$ and the line segments from $w + r$ to $w + r + ir$ and $w + r + ir$ to $w + ir$, we have
+    Fix $w \in \C$ and $r > 0$. Let $\gamma$ be the quarter-circle parametrised by $\gamma(t) = w + r\pcos{t} + \abs{r} i \psin{t}$ for $0 \leq t \leq \pi/2$. For any $f : \C \to \C$ that is holomorphic in the open region enclosed by $\gamma$ and the line segments from $w + r$ to $w + r + ir$ and $w + r + ir$ to $w + ir$ and continuous on the corresponding closed region, we have
     \begin{align*}
         \int_{\gamma} f(z) \, \diff{z}
         = \int_{w + r}^{w + r + ir} f(z) \, \diff{z} + \int_{w + r + ir}^{w + ir} f(z) \, \diff{z}
@@ -219,7 +219,7 @@ As a preliminary step, though, we need to show integrability. % We only sketch t
     %     \fof{w, \xi}
         = \phi_0\of{\frac{-1}{w - 1}} \, \parenth{w - 1}^2 \, e^{\pi i \norm{\xi}^2 w}
     \end{align*}
-    by \eqref{Ch4:Eq:phi_0_add_one}. Note that $f$ is holomorphic (in $w$) on $\Halfplane$. Applying \Cref{Ch4:Thm:CGTRectCircle}, followed by an analogous, previously \href{https://github.com/leanprover-community/mathlib4/blob/88928cefd7edb1ba61623bffd4e86389dfe1f648/Mathlib/Analysis/Complex/CauchyIntegral.lean#L245}{formalised} result, we can show that changing contours as we do in \Cref{Ch4:Fig:Eigenfunction_CauchyGoursat_a} then tells us that
+    by \eqref{Ch4:Eq:phi_0_add_one}. One can show $f$ to be holomorphic (in $w$) on $\Halfplane$ and continuous on the closed regions in question because of \eqref{Ch4:Eq:phi_0_neg_inv}. Applying \Cref{Ch4:Thm:CGTRectCircle}, followed by an analogous, \href{https://github.com/leanprover-community/mathlib4/blob/88928cefd7edb1ba61623bffd4e86389dfe1f648/Mathlib/Analysis/Complex/CauchyIntegral.lean#L245}{previously formalised} result, we can show that changing contours as we do in \Cref{Ch4:Fig:Eigenfunction_CauchyGoursat_a} then tells us that
     % \begin{align*}
     %     F_1\of{\xi}
     %     &= \int_{\gamma_1} \fof{w, \xi} \, \diff{w}
