@@ -19,7 +19,7 @@ We begin by defining the $\phi$-functions.
     \end{align}
 \end{boxdefinition}
 
-Note first that these functions are holomorphic: their numerators are clearly holomorphic, as one can see from \Cref{Ch2:Sec:ModForms}, and we know that $\Delta$ does not vanish on the upper half-plane. We now give important transformation properties exhibited by these functions that will later allow us to change variables inside the integrands making up $a$.
+Note first that these functions are holomorphic: their numerators are clearly holomorphic, as one can see from \Cref{Ch2:Sec:ModForms}, and we know that $\Delta$ does not vanish on the upper half-plane. We now give important transformation properties exhibited by these functions that will later allow us to change variables inside the integrands making up $a$. We only sketch the proof.
 
 \begin{boxlemma}\label{Ch4:Lemma:phi_transformations}
     For all $z \in \Halfplane$,
@@ -34,6 +34,9 @@ Note first that these functions are holomorphic: their numerators are clearly ho
         \label{Ch4:Eq:phi_0_neg_inv}
     \end{align}
 \end{boxlemma}
+\begin{proof}[Proof sketch]
+    \eqref{Ch4:Eq:phi_0_add_one} is immediate because all of the functions in the definition of $\phi_0$ are $1$-periodic---even $E_2$, despite not being a modular form, because of \Cref{Ch2:Lemma:E2_slash_action}. To prove \eqref{Ch4:Eq:phi_0_neg_inv}, since $E_4$, $E_6$ and $\Delta$ are level $1$ modular forms of weights $4$, $6$ and $12$ respectively, we know $E_4\of{\frac{-1}{z}} = z^4 E_4\of{z}$, $E_6\of{\frac{-1}{z}} = z^6 E_6\of{z}$ and $\Delta\of{\frac{-1}{z}} = z^{12} \Delta\of{z}$. We can also get an explicit formula for $E_2\of{\frac{-1}{z}}$ from \Cref{Ch2:Lemma:E2_slash_action}. Putting these together gives the desired result.
+\end{proof}
 
 We do not prove these here, but mention that they both follow from the weight $k$ slash action formulae on $E_k$ for $k \in \set{2, 4, 6}$. When $k = 4$ and $k = 6$, we have weight $k$ invariance, because $E_4$ and $E_6$ are modular forms, but when $k = 2$, we need to use \Cref{Ch2:Lemma:E2_slash_action}. A detailed proof of these transformations can be found in \cite{blueprint}. We now define the $+1$-eigenfunction $a$.
 
