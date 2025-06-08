@@ -82,11 +82,12 @@ The author was able to adapt this to the following unbounded version.
         \draw[thin, ->, blue] (1.7, 0.5) node[right] {$m$} -- (1.7, 2.4) node[right] {$\infty$};
     \end{tikzpicture}
     \caption{The contours in \Cref{Ch5:Thm:CauchyGoursat_Unbounded_on_off_Countable}.}
+    \label{Ch5:Fig:Unbounded_Contour}
 \end{wrapfigure}
 
 It is immediate that this implies \Cref{Ch4:Thm:CauchyGoursat_Unbounded}.
 
-We briefly sketch a proof of \Cref{Ch5:Thm:CauchyGoursat_Unbounded_on_off_Countable}. Writing the integrals along both vertical contours as limits as $m \to \infty$ of the integrals from $y$ to $m$, we can apply \Cref{Ch5:Thm:CauchyGoursat_Bounded_on_off_Countable} to each rectangle with vertices $x_1 + yi$, $x_2 + yi$, $x_1 + mi$ and $x_2 + mi$ gives us two different expressions for the integral along $x_1$, one of which agrees with the integral along $x_2$ as $m \to \infty$ because the integrals along the blue contours can be shown to vanish using the property that $f(z) \to 0$ as $\Im(z) \to \infty$.
+We briefly sketch a proof of \Cref{Ch5:Thm:CauchyGoursat_Unbounded_on_off_Countable}. Writing the integrals along both vertical contours as limits as $m \to \infty$ of the integrals from $y$ to $m$, we can apply \Cref{Ch5:Thm:CauchyGoursat_Bounded_on_off_Countable} to each rectangle with vertices $x_1 + yi$, $x_2 + yi$, $x_1 + mi$ and $x_2 + mi$ gives us two different expressions for the integral along $x_1$, one of which agrees with the integral along $x_2$ as $m \to \infty$ because the integrals along the blue contours in \Cref{Ch5:Fig:Unbounded_Contour} can be shown to vanish using the property that $f(z) \to 0$ as $\Im(z) \to \infty$.
 
 The author has \sorry-free versions of this in the repository as well as one version with a \sorry. This is because the author is trying to minimise the number of assumptions required for \Cref{Ch5:Thm:CauchyGoursat_Unbounded_on_off_Countable}. For instance, integrability is stronger than the existence of the integrals, because integrability (in Lean) is a combination of absolute convergence and measurability. In the repository, these contours are currently referred to as open, not in a topological sense but in the sense that they do not consist of closed curves. Perhaps unbounded is a better term.
 
@@ -94,7 +95,57 @@ It was the fact that such a simple and elegant solution existed for deforming un
 
 We end this discussion by noting that the rectangles in \Cref{Ch5:Thm:CauchyGoursat_Bounded_on_off_Countable,Ch5:Thm:CauchyGoursat_Unbounded_on_off_Countable} have a particular orientation that makes it easier to define their interior. For rectangles oriented differently, it is conceivable that a proof involving variable changes can be formalised when an orientation is specified, but it will require effort.
 
-\subsection{Circles and Rectangles}
+\subsection{Squares and Circles}
 
+To prove \Cref{Ch4:Sec:Eig}, we effectively need the following.
 
+\begin{boxtheorem}[Cauchy-Goursat: Squares and Circles]\label{Ch5:Thm:CauchyGoursat_Circle_Rectangle}
+    Fix $w \in \C$ and $r > 0$. Let $\gamma$ be the quarter-circle parametrised by $\gamma(t) = w + r\pcos{t} + r i \psin{t}$ for $0 \leq t \leq \pi/2$. Let
+    \begin{align*}
+        S = \setst{x + yi \in \C}{\parenth{x^2 + y^2 > r^2} \land \parenth{0 < x < r} \land \parenth{0 < y < r}}
+    \end{align*}
+    For any $f : \C \to \C$ that is holomorphic on all but countably many points in $S$ and continuous on the closure $\bar{S}$ of $S$,
+    \begin{align*}
+        \int_{\gamma} f(z) \, \diff{z}
+        = \int_{w + r}^{w + r + ir} f(z) \, \diff{z} + \int_{w + r + ir}^{w + ir} f(z) \, \diff{z}
+    \end{align*}
+\end{boxtheorem}
 
+\begin{wrapfigure}{r}{0.4\linewidth}
+    \vspace{-0.7em}
+    \centering
+    \begin{tikzpicture}[scale=1.9]
+        % Axes
+        \draw[->] (-0.2,0) -- (1.4,0) node[right] {$\Re$};
+        \draw[->] (0,-0.2) -- (0,1.4) node[above] {$\Im$};
+    
+        % Quarter-circle contour
+        \draw[thick, domain=0:45, ->] plot ({cos(\x)}, {sin(\x)});
+        \draw[thick, domain=45:90, -] plot ({cos(\x)}, {sin(\x)});
+
+        % Rectangular contour
+        \draw[thick, ->] (1,0) -- (1,0.5);
+        \draw[thick, -] (1,0.5) -- (1,1);
+        \draw[thick, ->] (1,1) -- (0.5,1);
+        \draw[thick, -] (0.5,1) -- (0,1);
+
+        % % Dyadic style approximation
+        % \foreach \n in {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10} { % Depth
+        %     \foreach \l in {1, ..., \n} { % Lines
+                
+        %     }
+        % }
+
+        % Points of interest
+        \labelledpoint{0}{0}{-0.3}{-0.8}{$w$}
+        \labelledpoint{1}{0}{0}{-0.8}{$w + r$}
+        \labelledpoint{1}{1}{0.3}{-0.2}{$w + r + ri$}
+        \labelledpoint{0}{1}{-0.7}{-0.5}{$w + ri$}
+    \end{tikzpicture}
+    \caption{The contours in \Cref{Ch5:Thm:CauchyGoursat_Circle_Rectangle}.}
+    \label{Ch5:Fig:Square_Circle_Contour}
+\end{wrapfigure}
+
+Again, we are saved from the difficulties of applying the \JCT\ because we are working in a very specific situation where we can explicitly describe $S$. However, proving this result, formally and informally, is significantly more complicated than proving \Cref{Ch4:Thm:CauchyGoursat_Unbounded}. One proof would be to arbitrarily approximate $\gamma$ by squares of exponentially decaying side lengths. For any contour defined in this way, we can show, by inductively applying \Cref{Ch5:Thm:CauchyGoursat_Bounded_on_off_Countable}, that the integral along it equals the integral along the rectangular contour in \Cref{Ch5:Fig:Square_Circle_Contour}. Since these contours converge to $\gamma$ pointwise, it should be possible to show, by \href{https://github.com/leanprover-community/mathlib4/blob/c38c7fde32656c7fa1b2471ed1ae0d50a600f089/Mathlib/MeasureTheory/Integral/DominatedConvergence.lean#L49-L63}{dominated convergence}, that the (constant) sequence of integrals along the square contours converges to the integrals along $\gamma$.
+
+Unfortunately, these ideas are incredibly difficult to formalise, not least because it is difficult to define such a sequence of parametrisations in Lean. Other possible approaches include formalising a version for triangles and subsequently approximating the circle using triangles. Regardless of the approach, formalising \Cref{Ch5:Thm:CauchyGoursat_Circle_Rectangle} will be a challenge. If done successfully, however, it will be a significant achievement in itself as well as a valuable contribution to this project.

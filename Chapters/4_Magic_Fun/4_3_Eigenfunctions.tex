@@ -21,7 +21,7 @@ A \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e
 We will also need the following version of the \CGT, which allows us to deform contours of integration in the complex plane.
 
 \begin{boxtheorem}[Cauchy-Goursat: Squares and Circles]\label{Ch4:Thm:CGTRectCircle}
-    Fix $w \in \C$ and $r > 0$. Let $\gamma$ be the quarter-circle parametrised by $\gamma(t) = w + r\pcos{t} + \abs{r} i \psin{t}$ for $0 \leq t \leq \pi/2$. For any $f : \C \to \C$ that is holomorphic in the open region enclosed by $\gamma$ and the line segments from $w + r$ to $w + r + ir$ and $w + r + ir$ to $w + ir$ and continuous on the corresponding closed region, we have
+    Fix $w \in \C$ and $r > 0$. Let $\gamma$ be the quarter-circle parametrised by $\gamma(t) = w + r\pcos{t} + r i \psin{t}$ for $0 \leq t \leq \pi/2$. For any $f : \C \to \C$ holomorphic in the open region enclosed by $\gamma$ and the line segments from $w + r$ to $w + r + ir$ and $w + r + ir$ to $w + ir$ and continuous on the corresponding closed region,
     \begin{align*}
         \int_{\gamma} f(z) \, \diff{z}
         = \int_{w + r}^{w + r + ir} f(z) \, \diff{z} + \int_{w + r + ir}^{w + ir} f(z) \, \diff{z}
@@ -51,8 +51,8 @@ While this is an immediate consequence of the more general (and well-known) \CGT
 
             % Points of interest
             \labelledpoint{0}{0}{-0.3}{-0.8}{$w$}
-            \labelledpoint{1}{0}{0}{-0.8}{$w - r$}
-            \labelledpoint{1}{1}{0.3}{-0.2}{$w - r + ri$}
+            \labelledpoint{1}{0}{0}{-0.8}{$w + r$}
+            \labelledpoint{1}{1}{0.3}{-0.2}{$w + r + ri$}
             \labelledpoint{0}{1}{-0.7}{-0.5}{$w + ri$}
         \end{tikzpicture}
         \caption{Contours for which \Cref{Ch4:Thm:CGTRectCircle} holds.}
@@ -77,8 +77,8 @@ While this is an immediate consequence of the more general (and well-known) \CGT
 
             % Points of interest
             \labelledpoint{0}{0}{0.3}{-0.8}{$w$}
-            \labelledpoint{-1}{0}{0}{-0.8}{$w + r$}
-            \labelledpoint{-1}{1}{-0.3}{-0.2}{$w + r + ri$}
+            \labelledpoint{-1}{0}{0}{-0.8}{$w - r$}
+            \labelledpoint{-1}{1}{-0.3}{-0.2}{$w - r + ri$}
             \labelledpoint{0}{1}{0.7}{-0.5}{$w + ri$}
         \end{tikzpicture}
         \caption{Contours for which an analogous result holds.}
@@ -100,26 +100,14 @@ The Fourier transform acts very interestingly on $a$. Recall from \Cref{Ch3:Thm:
     = \sum_{j=1}^{6} \F\of{I_j\of{\norm{x}^2}}
 \end{align*}
 
-The strategy to show that $\F\of{a} = a$ will be to show that $\F$ acts on the $I_j\of{\norm{x}^2}$ in the following manner:\footnote{Note that we are abusing notation by denoting the function $x \mapsto I_j\of{\norm{x}^2} \in \Sch\of{\R^8, \C}$ by $I_j\of{\norm{x}^2}$.}
+We will show that $\F$ acts on the $I_j\of{\norm{x}^2}$ in the following manner:\footnote{Note that we are abusing notation by denoting the function $x \mapsto I_j\of{\norm{x}^2} \in \Sch\of{\R^8, \C}$ by $I_j\of{\norm{x}^2}$.}
 \begin{align}
     \F\of{I_1\of{\norm{x}^2} + I_2\of{\norm{x}^2}} &= I_3\of{\norm{x}^2} + I_4\of{\norm{x}^2} \label{Ch4:Eq:a_is_eig_perm_12_34} \\
     \F\of{I_3\of{\norm{x}^2} + I_4\of{\norm{x}^2}} &= I_1\of{\norm{x}^2} + I_2\of{\norm{x}^2} \label{Ch4:Eq:a_is_eig_perm_34_12} \\
     \F\of{I_5\of{\norm{x}^2}} &= I_6\of{\norm{x}^2} \label{Ch4:Eq:a_is_eig_perm_5_6} \\
     \F\of{I_6\of{\norm{x}^2}} &= I_5\of{\norm{x}^2} \label{Ch4:Eq:a_is_eig_perm_6_5}
 \end{align}
-Since, in addition to being Schwartz, all the $I_j\of{\norm{x}^2}$ (and their sums) are radial, \Cref{Ch3:Prop:RadialSchwartzFourier} tells us that \eqref{Ch4:Eq:a_is_eig_perm_34_12} and \eqref{Ch4:Eq:a_is_eig_perm_6_5} follow from \eqref{Ch4:Eq:a_is_eig_perm_12_34} and \eqref{Ch4:Eq:a_is_eig_perm_5_6} respectively. We now prove \eqref{Ch4:Eq:a_is_eig_perm_12_34} and \eqref{Ch4:Eq:a_is_eig_perm_5_6}.
-
-
-% \begin{boxproposition}\label{Ch4:Prop:FourierIntegralConvergence_Ij}
-%     Fix $1 \leq j \leq 6$, and write $I_j(r) = \int_{X_j} f(r, z) \, \diff{z}$. Then, the Fourier Integral
-%     \begin{align*}
-%         \F\of{I_j\of{\norm{x}^2}}\of{\xi} = \int_{\R^8} \int_{X_j} \abs{f\of{\norm{x}^2, z} \, e^{-2 \pi i \cycl{x, \xi}}} \, \diff{z} \, \diff{x}
-%     \end{align*}
-%     converges for all $\xi \in \R^8$.
-% \end{boxproposition}
-% \begin{proof}[Proof sketch]
-As a preliminary step, though, we need to show integrability. % We only sketch the proof.
-    Effectively, we need to show that % the function
+Since, in addition to being Schwartz, all the $I_j\of{\norm{x}^2}$ (and their sums) are radial, \Cref{Ch3:Prop:RadialSchwartzFourier} tells us that \eqref{Ch4:Eq:a_is_eig_perm_34_12} and \eqref{Ch4:Eq:a_is_eig_perm_6_5} follow from \eqref{Ch4:Eq:a_is_eig_perm_12_34} and \eqref{Ch4:Eq:a_is_eig_perm_5_6} respectively. As a preliminary step, though, we need to show that
     \begin{align*}
         (x, z) \mapsto f\of{\norm{x}^2, z}
     \end{align*}
@@ -130,14 +118,14 @@ As a preliminary step, though, we need to show integrability. % We only sketch t
         \item The integral over $\R^8$ of the function $x 
         \mapsto \int_{X_j} \abs{f\of{\norm{x^2}, z}} \diff{z}$ is absolutely convergent.
     \end{enumerate}
-    These easily follow from the arguments in \Cref{Ch4:Subec:Schwartzness_a}, and we can therefore freely swap integrals using Fubini's theorem to prove the eigenfunction property.
+    These easily follow from the arguments in \Cref{Ch4:Subec:Schwartzness_a}. Since the function is also clearly measurable, we can swap integrals freely using Fubini's theorem to prove the eigenfunction property. This has \href{https://github.com/leanprover-community/mathlib4/blob/c38c7fde32656c7fa1b2471ed1ae0d50a600f089/Mathlib/MeasureTheory/Integral/Prod.lean#L486-L489}{previously been formalised}.
 
 \begin{boxlemma}\label{Ch4:Lemma:Fourier_I_1_add_I_2_eq_I_3_add_I_4}
     The Fourier transform % $\F : \Sch\of{\R^8, \C} \to \Sch{\R^8, \C}$
     maps $I_1\of{\norm{x}^2} + I_2\of{\norm{x}^2}$ to $I_3\of{\norm{x}^2} + I_4\of{\norm{x}^2}$.
 \end{boxlemma}
 \begin{proof}
-    Since $\F$ acts linearly, we can treat $I_1$ and $I_2$ separately. For the purpose of this proof, denote the Fourier transforms of $I_1\of{\norm{x}^2}$ and $I_2\of{\norm{x}^2}$ by $F_1$ and $F_2$ respectively. Fix $\xi \in \R^8$. \Cref{Ch4:Prop:FourierIntegralConvergence_Ij} allows us to write
+    Since $\F$ acts linearly, we can treat $I_1$ and $I_2$ separately. For the purpose of this proof, denote the Fourier transforms of $I_1\of{\norm{x}^2}$ and $I_2\of{\norm{x}^2}$ by $F_1$ and $F_2$ respectively. Fix $\xi \in \R^8$. Integrability allows us to write
     \begin{align*}
         F_1\of{\xi}
         % &= \int_{\R^8} \parenth {\int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z + 1}^2 \, e^{\pi i \norm{x}^2 z} \, \diff{z}} e^{-2\pi i \cycl{x, \xi}} \, \diff{x} \\

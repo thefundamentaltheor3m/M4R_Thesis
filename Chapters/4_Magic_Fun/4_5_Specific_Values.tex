@@ -31,7 +31,7 @@ Viazovska proceeds by computing the Fourier expansion of $\phi_0\of{i/t}$ and sh
     t^2 \, \phi_0\of{\frac{i}{t}} =
     \frac{36}{\pi^2}e^{2\pi t} - \frac{8640}{\pi} + \frac{18144}{\pi^2} + \BigO{t^2 \, e^{-2 \pi t}}
 \end{align*}
-as $t \to \infty$ \cite[(39)]{Viazovska8}. One can then conclude that the integral in $\tilde{d}$ converges absolutely for all $r \geq 0$. It is then clear that $\tilde{d}$ is analytic on $\Ico{0, \infty}$. Since $a\rad$ is smooth, hence analytic,\todo{state this in Lean} on $\Ico{0, \infty}$ as well, by the identity principle for analytic functions, which has \href{https://github.com/leanprover-community/mathlib4/blob/6c6e0180f0d3dc9f47f85532f48d268d8656789a/Mathlib/Analysis/Analytic/Uniqueness.lean#L217-L226}{previously been formalised}, we can conclude that $a\rad = \tilde{d}$ on $\Ico{0, \infty}$.
+as $t \to \infty$ \cite[(39)]{Viazovska8}. One can then conclude that the integral in $\tilde{d}$ converges absolutely for all $r \geq 0$. It is then clear that $\tilde{d}$ is analytic on $\Ico{0, \infty}$. Since $a\rad$ is smooth, hence analytic, on $\Ico{0, \infty}$ as well, by the identity principle for analytic functions, which has \href{https://github.com/leanprover-community/mathlib4/blob/6c6e0180f0d3dc9f47f85532f48d268d8656789a/Mathlib/Analysis/Analytic/Uniqueness.lean#L217-L226}{previously been formalised}, we can conclude that $a\rad = \tilde{d}$ on $\Ico{0, \infty}$.
 
 Finally, we note that
 \begin{align*}
