@@ -5,7 +5,7 @@ The magic function is a linear combination of $a$ and $b$, which are each define
 
 To show that $a\rad$ and $b\rad$ are Schwartz-like, we show that their constituent integrals $I_1, \ldots, I_6$ and $J_1, \ldots, J_6$ are Schwartz-like, as rapid decay and smoothness on $\Ico{0, \infty}$ are both compatible with addition. We do this by first bounding the $I_j$ and the $J_j$ and concluding their integrands are integrable, bounded by rapidly decaying functions. This will immediately give us rapid decay. Smoothness will follow from applying the Leibniz Integral Rule to differentiate with respect to $r$ under the integral sign.
 
-It turns out that we can establish a an upper-bound for all functions of the form $\frac{f}{\Delta}$, where $\Delta$ is the discriminant form and $f$ admits a Fourier expansion whose coefficients grow polynomially.
+It turns out that we can establish a an upper-bound for all functions of the form $\frac{f}{\Delta}$, where $\Delta$ is the discriminant form and $f$ admits a Fourier expansion whose coefficients grow polynomially. The statement, and a significant portion of the proof, have been \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/704c085b1251cc0c208cc373f4e6105af359edd4/SpherePacking/MagicFunction/PolyFourierCoeffBound.lean#L355}{formalised} by the author as part of this project.
 
 \begin{boxtheorem}[{\cite[Lemma 7.4]{blueprint}}]\label{SP:PolyFourierCoeffBound}
     Let $f : \C \to \C$ be holomorphic. Denote by $c_f(n)$ its $n$th Fourier coefficient, with $c_f\of{n_0} \neq 0$, so that
