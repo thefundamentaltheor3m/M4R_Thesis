@@ -45,19 +45,8 @@ The systematic nature of this approach makes it easy to reuse: the only differen
 
 % THIS IS ACTUAL NONSENSE. NEED TO FIX THE LEAN BRIDGE BECAUSE WHILE IT IS TRUE IT IS COMPLETELY UNHELPFUL FOR THIS SITUATION.
 
-% In \cite{Viazovska8}, it is used implicitly that $a$ and $b$ can be considered as $\R \to \C$ functions despite being defined to be $\R^8 \to \C$ functions. While this might not appear problematic, because $a$ and $b$ are radial, it is nontrivial to show formally that this preserves Schwartzness---specifically, proving that bounding higher derivatives taken with respect to $r$ gives a bound on $8$-dimensional Jacobians.
+In \cite{Viazovska8}, the proof that $a$ and $b$ are Schwartz functions involves showing that they were radially Schwartz. That is, Viazovska shows that $a(r)$ and $b(r)$ are Schwartz in $r$, these functions translating to $a\rad\of{r^2}$ and $b\rad\of{r^2}$ in our notation. There is a highly nontrivial step missing: a bridge between one-dimensional smooth, decaying functions and $8$ (and higher)-dimensional Schwartz functions. In this project, such a bridge was built formally so as to allow free translation between the radial and $\R^8$ settings.
 
-% Fortunately, a \href{https://github.com/leanprover-community/mathlib4/blob/dd2606726d6b0601d394911f9e7a6fa0f01367a3/Mathlib/Analysis/Distribution/SchwartzSpace.lean#L855-L916}{previously formalised result in \mathlib} showed that composing a Schwartz function $f$ with a function $g$ on the right yields another Schwartz function, provided $g$ satisfies the following conditions:
-% \begin{enumerate}
-%     \item $g$ has \href{https://github.com/leanprover-community/mathlib4/blob/dd2606726d6b0601d394911f9e7a6fa0f01367a3/Mathlib/Analysis/Distribution/SchwartzSpace.lean#L518-L521}{temperate growth}, that is, $g$ is smooth and $\forall n \in \N$, $\exists k \in \N, C \in \R$ such that $\forall x$, $\norm{g^{(n)}\of{x}} \leq C \parenth{1 + \norm{x}}^k$
-%     \item $\exists k \in \N, C \in \R$ such that $\forall x$, $\norm{x} \leq C\parenth{1 + \norm{g(x)}}^k$
-% \end{enumerate}
-% The author was able to apply this fact to \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/35ef2eb4ff481eff6656e7e70ea5fa274117f7c6/SpherePacking/ForMathlib/RadialSchwartz.lean#L38}{formally build a bridge} between $\Sch\of{\R, \C}$ and $\Sch\of{\R^8, \C}$ by showing $g : \R^8 \to \R : x \mapsto \norm{x}^2$ satisfies the above properties, making
-% \begin{align*}
-%     \text{ - } \circ g : \Sch\of{\R, \C} \to \Sch\of{\R^8, \C}
-% \end{align*}
-% a continuous linear map. This was stated informally in \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}. Importantly, taking $g$ to just be the norm function doesn't work, because the norm function is not smooth, and hence, cannot have temperate growth. Hence, in the formal code and informal exposition, we defined $a\rad$ and $b\rad$ using $r$ rather than $r^2$, varying slightly from the original paper.
-
-% This example illustrates the importance of building general API when embarking on a large-scale formalisation project. The bridge, when used to construct Schwartz functions, is accompanied by \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/254a53fa70714a2b9199985616f7a4ba48457519/SpherePacking/MagicFunction/a/Schwartz.lean#L170}{fortification lemmas} that make it easier to navigate. This is often done when the same informal construction takes different forms formally. Importantly, this is a distinction between the science of proof and the science of definition. Given the novelty of this formalisation, the latter is just as important, if not more, than the former.
+First, we note that it is quite simple to formally build a bridge between one- and higher-dimensional Schwartz functions due to an \href{https://github.com/leanprover-community/mathlib4/blame/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/Distribution/SchwartzSpace.lean#L857}{intermediate result of immense import} formalised originally in Lean 3 by Moritz Doll and subsequently ported to \mathlib4.
 
 Having discussed these general contributions, we discuss two very specific and profound contributions made by the author to the formalisation effort. We begin by discussing the development of a Lean tactic by Macbeth, Xie and the author.
