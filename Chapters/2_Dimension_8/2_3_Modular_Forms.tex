@@ -10,7 +10,7 @@ Things to discuss:
 We can reference things like the q-expansions of the Eisenstein series, the transformation rules for the Jacobi theta functions, and the product formula for the discriminant form.
 \end{comment}
 
-The theory of modular forms is a rich subject lying at the intersection of complex analysis, algebra and number theory. Among other things, it describes symmetries and relations between an important and well-behaved class of functions and gives us algebraic ways of manipulating and composing these relations. In \Cref{Ch3:Sec:Properties}, we discuss why this is useful for Viazovska's argument. The primary reference for the contents of this material is \cite[Chapter 1]{DiamondShurman}.
+The theory of modular forms is a rich subject lying at the intersection of complex analysis, algebra and number theory. Among other things, it describes symmetries and relations between an important and well-behaved class of functions and gives us algebraic ways of manipulating and composing these relations. In \Cref{Ch3:Sec:Properties}, we discuss why this is useful for Viazovska's argument. The primary reference for the contents of this section is \cite[Chapter 1]{DiamondShurman}.
 
 Several results in the theory of modular forms have been formalised by Birkbeck, Loeffler and others, and a significant portion of their work has been merged into \mathlib. Definitions and results from this section that pertain to Viazovska's solution to the sphere packing problem in $\R^8$ that do not feature in \mathlib\ are being actively formalised by Birkbeck and Lee. We freely reference previously formalised code and provide links.
 
@@ -123,7 +123,7 @@ There is an immensely rich theory of modular forms, and for the purposes of prac
 
 The Eisenstein Series are an important family of slash-invariant forms that will prove essential to the construction of the magic function. The Eisenstein Series whose \textit{weight} is an even integer that is at least $4$ are modular forms, though we will also need to work with the Eisenstein Series of weight $2$, which, despite not being a modular form, is sufficiently well-behaved for our purposes. We will define it separately from those Eisenstein Series that are modular forms.
 
-Let $k \geq 4$ be an even integer. We denote by $E_k$ the weight $k$ Eisenstein Series. There is more than one way to define $E_k$. In this report, we give the definition that was formalised by Birkbeck for this project. Birkbeck's definition in the project repository is a particular case of the \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ModularForms/EisensteinSeries/Basic.lean#L28-L35}{\mathlib\ definition}. %, which defines it as a \texttt{ModularForm} structure combining the function \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ModularForms/EisensteinSeries/Defs.lean#L107}{\texttt{eisensteinSeries}} with the proofs of the properties that make it a modular form. The \mathlib\ definition is more general than the one we study here, and involves imposing congruence conditions on the subsets of the lattice $\Z^2$ over which the Eisenstein Series are summed. It is not necessary for this project.
+Let $k \geq 4$ be an even integer. We denote by $E_k$ the weight $k$ Eisenstein Series. There is more than one way to define $E_k$. We give below the definitions \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/704c085b1251cc0c208cc373f4e6105af359edd4/SpherePacking/ModularForms/Eisenstein.lean#L28}{formalised by Birkbeck for this project}, which are particular cases of the \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ModularForms/EisensteinSeries/Basic.lean#L28-L35}{\mathlib\ definition}. %, which defines it as a \texttt{ModularForm} structure combining the function \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ModularForms/EisensteinSeries/Defs.lean#L107}{\texttt{eisensteinSeries}} with the proofs of the properties that make it a modular form. The \mathlib\ definition is more general than the one we study here, and involves imposing congruence conditions on the subsets of the lattice $\Z^2$ over which the Eisenstein Series are summed. It is not necessary for this project.
 
 \begin{boxdefinition}[The Eisenstein Series of Even Weight $\geq 4$]\label{Ch2:Def:EisensteinSeries_geq_4}
     For $k \geq 4$ even, define the \textbf{weight $k$ Eisenstein Series} to be the function $E_k : \Halfplane \to \C$ given by
@@ -139,7 +139,7 @@ Note that the Eisenstein Series can also be defined as
     E_k(z) = \frac{1}{2\zeta(k)} \sum_{\parenth{m, n} \in \Z^2 \setminus \set{0}} \frac{1}{\parenth{mz + n}^k}
     \label{Ch2:Eq:Eisenstein_def_with_zeta_normalisation}
 \end{align}
-with $\zeta$ here denoting the Riemann zeta function. It is shown in \cite[Equation (4.1), pp. 109-110]{DiamondShurman} that this definition matches the definition formalised by Birkbeck in the project repository and stated informally in \Cref{Ch2:Def:EisensteinSeries_geq_4}.\todo{Blueprint gives zeta def whereas repo gives coprime def. WHOOPSIE!}
+with $\zeta$ here denoting the Riemann zeta function. It is shown in \cite[Equation (4.1), pp. 109-110]{DiamondShurman} that this definition matches the definition formalised by Birkbeck in the project repository and stated informally in \Cref{Ch2:Def:EisensteinSeries_geq_4}.
 
 It is shown in \cite[pp. 4-5]{DiamondShurman} that $E_k$ is a weight $k$, level $1$ modular form for even integers $k \geq 4$. That is, $E_k$ is invariant under the weight $k$ slash-action of every element of $\SL{2, \Z}$. As important special cases of this, $E_k$ satisfies two important functional equations.
 
@@ -368,5 +368,7 @@ We now state important properties of the $H$-functions. These have been taken fr
     \end{align}
     Further relations can be obtained by writing $H_3 = H_2 + H_4$ in \eqref{Ch2:Eq:E4_H} and \eqref{Ch2:Eq:E6_H}.
 \end{boxproposition}
+
+Combining the relations listed above with \Cref{Ch2:Lemma:Slash_Mul} allows us to show that several more relations hold. In \Cref{Ch4:Subsec:b_def}, we will use this technique to provide a comprehensive list of transformations that will be essential to Viazovska's construction.
 
 % The proofs of these identities are significantly beyond the scope of this thesis. Variants of some of these have been formalised by Loeffler.\todo{Add link to mathlib}

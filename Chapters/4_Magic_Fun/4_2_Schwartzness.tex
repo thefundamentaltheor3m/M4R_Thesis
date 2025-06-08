@@ -286,11 +286,7 @@ It is clear that the estimates for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$ have
     \end{align*}
 \end{boxlemma}
 \begin{proof}
-    Fix $n \in \N$. We know there exists a constant $C$ such that for all $x \geq 0$, $\abs{x}^n \cdot \abs{e^{-\pi x}} \leq C$. In particular, for all $r \geq 0$ and $s \geq 1$,
-    \begin{align*}
-        r^n \cdot e^{-\pi r/s} \leq C s^n
-    \end{align*}
-    Hence, for all $r \in \R$, we can write
+    Fix $n \in \N$. We know there exists a constant $C$ such that for all $x \geq 0$, $\abs{x}^n \cdot \abs{e^{-\pi x}} \leq C$. In particular, for all $r \geq 0$ and $s \geq 1$, $r^n \cdot e^{-\pi r/s} \leq C s^n$. Hence, for all $r \in \R$, we can write
     \begin{align*}
         r \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s}
         = \int_{1}^{\infty} e^{-2\pi s} \, \parenth{\abs{r}^n \cdot e^{-\pi r /s}} \, \diff{s}
@@ -330,49 +326,45 @@ Next, we show that the $I_j$ are smooth and that their derivatives satisfy simil
 %     \end{align}
 %     In particular, $I_j$ is smooth (in $r$) for all $j$.
 % \end{proof}
-The key to proving this is the Leibniz Integral Rule, which has been \href{https://github.com/leanprover-community/mathlib4/blob/dd2606726d6b0601d394911f9e7a6fa0f01367a3/Mathlib/Analysis/Calculus/ParametricIntegral.lean#L281-L303}{formalised previously}. It is not difficult to prove informally that the $I_j$ satisfy the conditions laid out in the formal statement of the theorem, though there may be some difficulties when arguing formally. We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to the case we saw in \Cref{Ch4:Eq:Bound_I1_I3_I5}.
+The key to proving this is the Leibniz Integral Rule, which has been \href{https://github.com/leanprover-community/mathlib4/blob/dd2606726d6b0601d394911f9e7a6fa0f01367a3/Mathlib/Analysis/Calculus/ParametricIntegral.lean#L281-L303}{formalised previously}. It is not difficult to prove informally that the $I_j$ satisfy the conditions laid out in the formal statement of the theorem, though there may be some difficulties when arguing formally. We can use this to show that the derivatives of each $I_j$ can be bounded in the same manner as $I_j$.
 
-\begin{boxlemma}\label{Ch4:Lemma:Reducing_higher_deriv_Schwartzness_I_1}
-    For all $k \in \N$, there exists a positive real number $C_0^{(k)}$ such that for all $r \in \R$,
-    \begin{align*}
-        \abs{I_1^{(k)}\of{r}} \leq \int_{1}^{\infty} C_0^{(k)} \, e^{-2\pi s} \, e^{- \pi r / s} \, \diff{s}
-    \end{align*}
-\end{boxlemma}
-\begin{proof}
-    Fix $k \in \N$ and $r \in \R$. Parametrise $z = -1 + it$. Then, the $k$th derivative of $I_1$ at $r$ is
-    \begin{align*}
-        I_1^{(k)}\of{r} = -i \int_{0}^{1} \phi_0\of{\frac{-1}{it}} \, t^2 \, \parenth{-\pi i - \pi t}^k \, e^{-\pi i r} \, e^{\pi r t} \, \diff{z}
-    \end{align*}
-    Writing $s = \frac{1}{t}$ and simplifying, we get that
-    \begin{align*}
-        I_1^{(k)}\of{r} &= -i \int_{1}^{\infty}
-            \phi_0\of{is} \,
-            s^{-4} \,
-            \parenth{-\pi i - \frac{\pi}{s}}^k \,
-            e^{-\pi i r} \,
-            e^{-\pi r / s}\,
-            \diff{t}
-    \end{align*}
-    Observe that for all $s \in \Ico{1, \infty}$,
-    \begin{align*}
-        \abs{-\pi i - \frac{\pi}{s}} = \pi \abs{i + \frac{1}{s}} \leq \pi \sqrt{2}
-    \end{align*}
-    Combining this with the bound in the proof of \Cref{Ch4:Eq:Bound_I1_I3_I5}, $\exists C_0 > 0$ such that
-    \begin{align*}
-        \abs{I_1^{(k)}\of{r}} \leq \int_{1}^{\infty} C_0 \parenth{\pi \sqrt{2}}^{k} \, e^{-2\pi s} \, e^{- \pi r / s} \, \diff{s}
-    \end{align*}
-    Defining $C_0^{(k)} := C_0 \parenth{\pi \sqrt{2}}^{k}$ then gives the desired result.
-\end{proof}
+% We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to \eqref{Ch4:Eq:Bound_I1_I3_I5}.
 
-Analogous results can be proved for the other $I_j$, with any arising constants subsumed into the constants defined in \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6}. Therefore, if we can show that the functions (without the constants) on the right-hand sides of \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6} decay faster than any inverse power of $r$, we will have the result.
+% \begin{boxlemma}\label{Ch4:Lemma:Reducing_higher_deriv_Schwartzness_I_1}
+%     For all $k \in \N$, there exists a positive real number $C_0^{(k)}$ such that for all $r \in \R$,
+%     \begin{align*}
+%         \abs{I_1^{(k)}\of{r}} \leq \int_{1}^{\infty} C_0^{(k)} \, e^{-2\pi s} \, e^{- \pi r / s} \, \diff{s}
+%     \end{align*}
+% \end{boxlemma}
+% \begin{proof}
+%     Fix $k \in \N$ and $r \in \R$. Parametrise $z = -1 + it$. Then, the $k$th derivative of $I_1$ at $r$ is
+%     \begin{align*}
+%         I_1^{(k)}\of{r} = -i \int_{0}^{1} \phi_0\of{\frac{-1}{it}} \, t^2 \, \parenth{-\pi i - \pi t}^k \, e^{-\pi i r} \, e^{\pi r t} \, \diff{z}
+%     \end{align*}
+%     Writing $s = \frac{1}{t}$ and simplifying, we get that
+%     \begin{align*}
+%         I_1^{(k)}\of{r} &= -i \int_{1}^{\infty}
+%             \phi_0\of{is} \,
+%             s^{-4} \,
+%             \parenth{-\pi i - \frac{\pi}{s}}^k \,
+%             e^{-\pi i r} \,
+%             e^{-\pi r / s}\,
+%             \diff{t}
+%     \end{align*}
+%     Observe that for all $s \in \Ico{1, \infty}$,
+%     \begin{align*}
+%         \abs{-\pi i - \frac{\pi}{s}} = \pi \abs{i + \frac{1}{s}} \leq \pi \sqrt{2}
+%     \end{align*}
+%     Combining this with the bound in the proof of \Cref{Ch4:Eq:Bound_I1_I3_I5}, $\exists C_0 > 0$ such that
+%     \begin{align*}
+%         \abs{I_1^{(k)}\of{r}} \leq \int_{1}^{\infty} C_0 \parenth{\pi \sqrt{2}}^{k} \, e^{-2\pi s} \, e^{- \pi r / s} \, \diff{s}
+%     \end{align*}
+%     Defining $C_0^{(k)} := C_0 \parenth{\pi \sqrt{2}}^{k}$ then gives the desired result.
+% \end{proof}
 
-%%%%%%%% THE FOLLOWING WAS ACCIDENTALLY DELETED DURING AN UNSAFE GITHUB MERGE. BE CAREFUL WHEN SWITCHING FROM OVERLEAF TO LOCAL AND BACK!
+% Analogous results can be proved for the other $I_j$, with any arising constants subsumed into the constants defined in \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6}. Therefore, if we can show that the functions (without the constants) on the right-hand sides of \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6} decay faster than any inverse power of $r$, we will have the result.
 
-Finally, we note that the $\R \to \C$ function $a\rad = I_1 + \cdots + I_6$ satisfies the Schwartz-like properties outlined in \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz} because $I_1, \ldots, I_6$ satisfy them: smoothness is immediate, and we can bound $a\rad$ using the triangle inequality. Hence, the $+1$-eigenfunction $a : \R^8 \to \C$, defined as in \eqref{Ch4:Eq:a_def}, lies in the Schwartz space $\Sch\of{\R^8, \C}$.
-
-%%%%%%%% END OF RESTORED TEXT
-
-% We now show that similar results hold for the $-1$-eigenfunction.
+Finally, we note that the $\R \to \C$ function $a\rad = I_1 + \cdots + I_6$ satisfies the Schwartz-like properties outlined in \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz} because $I_1, \ldots, I_6$ satisfy them. Hence, the $+1$-eigenfunction $a : \R^8 \to \C$, defined as in \eqref{Ch4:Eq:a_def}, lies in the Schwartz space $\Sch\of{\R^8, \C}$.
 
 \subsection{The $-1$-Eigenfunction}
 \label{Ch4:Subec:Schwartzness_b}
