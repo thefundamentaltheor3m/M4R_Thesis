@@ -90,6 +90,7 @@ While this is an immediate consequence of the more general (and well-known) \CGT
 We now prove that $a$ is indeed a $+1$-eigenfunction of the Fourier transform.
 
 \subsection{The $+1$-Eigenfunction}
+\label{Ch4:Subsec:Eigenfun_a}
 
 The Fourier transform acts very interestingly on $a$. Recall from \Cref{Ch3:Thm:FourierSchwartz_CLE} that the Fourier transform is a linear isomorphism of Schwartz spaces. Since $I_1, \ldots, I_6$ are Schwartz, so are their compositions with the norm-squared function. Hence, for all $x \in \R^8$,
 \begin{align*}
@@ -108,17 +109,17 @@ The strategy to show that $\F\of{a} = a$ will be to show that $\F$ acts on the $
 \end{align}
 Since, in addition to being Schwartz, all the $I_j\of{\norm{x}^2}$ (and their sums) are radial, \Cref{Ch3:Prop:RadialSchwartzFourier} tells us that \eqref{Ch4:Eq:a_is_eig_perm_34_12} and \eqref{Ch4:Eq:a_is_eig_perm_6_5} follow from \eqref{Ch4:Eq:a_is_eig_perm_12_34} and \eqref{Ch4:Eq:a_is_eig_perm_5_6} respectively. We now prove \eqref{Ch4:Eq:a_is_eig_perm_12_34} and \eqref{Ch4:Eq:a_is_eig_perm_5_6}.
 
-As a preliminary step, though, we need to show integrability. We only sketch the proof.
 
-\begin{boxproposition}\label{Ch4:Prop:FourierIntegralConvergence_Ij}
-    Fix $1 \leq j \leq 6$, and write $I_j(r) = \int_{X_j} f(r, z) \, \diff{z}$. Then, the Fourier Integral
-    \begin{align*}
-        \F\of{I_j\of{\norm{x}^2}}\of{\xi} = \int_{\R^8} \int_{X_j} \abs{f\of{\norm{x}^2, z} \, e^{-2 \pi i \cycl{x, \xi}}} \, \diff{z} \, \diff{x}
-    \end{align*}
-    converges for all $\xi \in \R^8$.
-\end{boxproposition}
-\begin{proof}[Proof sketch]
-    Effectively, we need to show that the function
+% \begin{boxproposition}\label{Ch4:Prop:FourierIntegralConvergence_Ij}
+%     Fix $1 \leq j \leq 6$, and write $I_j(r) = \int_{X_j} f(r, z) \, \diff{z}$. Then, the Fourier Integral
+%     \begin{align*}
+%         \F\of{I_j\of{\norm{x}^2}}\of{\xi} = \int_{\R^8} \int_{X_j} \abs{f\of{\norm{x}^2, z} \, e^{-2 \pi i \cycl{x, \xi}}} \, \diff{z} \, \diff{x}
+%     \end{align*}
+%     converges for all $\xi \in \R^8$.
+% \end{boxproposition}
+% \begin{proof}[Proof sketch]
+As a preliminary step, though, we need to show integrability. % We only sketch the proof.
+    Effectively, we need to show that % the function
     \begin{align*}
         (x, z) \mapsto f\of{\norm{x}^2, z}
     \end{align*}
@@ -129,10 +130,7 @@ As a preliminary step, though, we need to show integrability. We only sketch the
         \item The integral over $\R^8$ of the function $x 
         \mapsto \int_{X_j} \abs{f\of{\norm{x^2}, z}} \diff{z}$ is absolutely convergent.
     \end{enumerate}
-    These easily follow from the arguments in \Cref{Ch4:Subec:Schwartzness_a}.
-\end{proof}
-
-\Cref{Ch4:Prop:FourierIntegralConvergence_Ij} allows us to swap integrals using Fubini's theorem to prove the eigenfunction property.
+    These easily follow from the arguments in \Cref{Ch4:Subec:Schwartzness_a}, and we can therefore freely swap integrals using Fubini's theorem to prove the eigenfunction property.
 
 \begin{boxlemma}\label{Ch4:Lemma:Fourier_I_1_add_I_2_eq_I_3_add_I_4}
     The Fourier transform % $\F : \Sch\of{\R^8, \C} \to \Sch{\R^8, \C}$
@@ -221,25 +219,25 @@ As a preliminary step, though, we need to show integrability. We only sketch the
     %     \fof{w, \xi}
         = \phi_0\of{\frac{-1}{w - 1}} \, \parenth{w - 1}^2 \, e^{\pi i \norm{\xi}^2 w}
     \end{align*}
-    by \eqref{Ch4:Eq:phi_0_add_one}. Note that $f$ is holomorphic (in $w$) on $\Halfplane$. \Cref{Ch4:Thm:CGTRectCircle} then tells us that
-    \begin{align*}
-        F_1\of{\xi}
-        &= \int_{\gamma_1} \fof{w, \xi} \, \diff{w}
-        = \int_{1}^{1 + \frac{1}{2}i} \fof{w, \xi} \, \diff{w}
-        + \int_{1 + \frac{i}{2}i}^{\frac{1}{2} + \frac{1}{2}i} \fof{w, \xi} \, \diff{w} \\
-        F_2\of{\xi}
-        &= \int_{\gamma_2} \fof{w, \xi} \, \diff{w}
-        = \int_{\frac{1}{2} + \frac{1}{2}i}^{\frac{1}{2} + i} \fof{w, \xi} \, \diff{w}
-        + \int_{\frac{1}{2} + i}^{i} \fof{w, \xi} \, \diff{w}
-    \end{align*}
-    The \CGT\ for rectangles, which has been \href{https://github.com/leanprover-community/mathlib4/blob/88928cefd7edb1ba61623bffd4e86389dfe1f648/Mathlib/Analysis/Complex/CauchyIntegral.lean#L245}{formally verified}, tells us that
-    \begin{align*}
-        \int_{1 + \frac{i}{2}i}^{\frac{1}{2} + \frac{1}{2}i} \fof{w, \xi} \, \diff{w}
-        + \int_{\frac{1}{2} + \frac{1}{2}i}^{\frac{1}{2} + i} \fof{w, \xi} \, \diff{w}
-        = \int_{1 + \frac{1}{2}i}^{1+i} \fof{w, \xi} \, \diff{w}
-        + \int_{1+i}^{\frac{1}{2} + i} \fof{w, \xi} \, \diff{w}
-    \end{align*}
-    Therefore,
+    by \eqref{Ch4:Eq:phi_0_add_one}. Note that $f$ is holomorphic (in $w$) on $\Halfplane$. Applying \Cref{Ch4:Thm:CGTRectCircle}, followed by an analogous, previously \href{https://github.com/leanprover-community/mathlib4/blob/88928cefd7edb1ba61623bffd4e86389dfe1f648/Mathlib/Analysis/Complex/CauchyIntegral.lean#L245}{formalised} result, we can show that changing contours as we do in \Cref{Ch4:Fig:Eigenfunction_CauchyGoursat_a} then tells us that
+    % \begin{align*}
+    %     F_1\of{\xi}
+    %     &= \int_{\gamma_1} \fof{w, \xi} \, \diff{w}
+    %     = \int_{1}^{1 + \frac{1}{2}i} \fof{w, \xi} \, \diff{w}
+    %     + \int_{1 + \frac{i}{2}i}^{\frac{1}{2} + \frac{1}{2}i} \fof{w, \xi} \, \diff{w} \\
+    %     F_2\of{\xi}
+    %     &= \int_{\gamma_2} \fof{w, \xi} \, \diff{w}
+    %     = \int_{\frac{1}{2} + \frac{1}{2}i}^{\frac{1}{2} + i} \fof{w, \xi} \, \diff{w}
+    %     + \int_{\frac{1}{2} + i}^{i} \fof{w, \xi} \, \diff{w}
+    % \end{align*}
+    % The \CGT\ for rectangles, which has been , tells us that
+    % \begin{align*}
+    %     \int_{1 + \frac{i}{2}i}^{\frac{1}{2} + \frac{1}{2}i} \fof{w, \xi} \, \diff{w}
+    %     + \int_{\frac{1}{2} + \frac{1}{2}i}^{\frac{1}{2} + i} \fof{w, \xi} \, \diff{w}
+    %     = \int_{1 + \frac{1}{2}i}^{1+i} \fof{w, \xi} \, \diff{w}
+    %     + \int_{1+i}^{\frac{1}{2} + i} \fof{w, \xi} \, \diff{w}
+    % \end{align*}
+    % Therefore,
     \begin{align*}
         F_1\of{\xi} + F_2\of{\xi}
         % &= \int_{1}^{1 + \frac{1}{2}i} \fof{w, \xi} \, \diff{w}
@@ -252,7 +250,7 @@ As a preliminary step, though, we need to show integrability. We only sketch the
         % + \int_{\frac{1}{2} + i}^{i} \fof{w, \xi} \, \diff{w}} \\
         &= I_3\of{\norm{\xi}^2} + I_4\of{\norm{\xi}^2}
     \end{align*}
-    as required. \Cref{Ch4:Fig:Eigenfunction_CauchyGoursat_a} shows how contours were modified over the course of this argument.
+    as required. % \Cref{Ch4:Fig:Eigenfunction_CauchyGoursat_a} shows how contours were modified over the course of this argument.
     \begin{figure}[hbt]
         \centering
         \begin{subfigure}{0.4\linewidth}
@@ -349,9 +347,7 @@ Just as with the integrals of $a$, the $8$-dimensional Fourier transform permute
 \end{align}
 with the inverse results following from linearity and \Cref{Ch3:Prop:RadialSchwartzFourier}.
 
-First, we note that in the integrability proof of the $I_j$ (\Cref{Ch4:Prop:FourierIntegralConvergence_Ij}), we did not use any properties of the $I_j$ that do not hold for the $J_j$: the same integrability conditions hold for $J_j$ because they were bounded in \Cref{Ch4:Subec:Schwartzness_b} in an analogous manner to the $I_j$ in \Cref{Ch4:Subec:Schwartzness_a}.
-
-We are now ready to prove an analogue of \Cref{Ch4:Lemma:Fourier_I_1_add_I_2_eq_I_3_add_I_4}.
+First, we note that we have integrability for the same reason we did in \Cref{Ch4:Subsec:Eigenfun_a}. We thus prove an analogue of \Cref{Ch4:Lemma:Fourier_I_1_add_I_2_eq_I_3_add_I_4}.
 
 \begin{boxlemma}\label{Ch4:Lemma:Fourier_J_1_add_J_2_eq_neg_J_3_sub_J_4}
     The Fourier transform maps $J_1\of{\norm{x}^2} + J_2\of{\norm{x}^2}$ to $-J_3\of{\norm{x}^2} - J_4\of{\norm{x}^2}$.

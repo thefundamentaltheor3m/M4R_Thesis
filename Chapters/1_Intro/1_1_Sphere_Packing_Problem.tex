@@ -77,7 +77,7 @@ It is well-known that the honeycomb packing is optimal in $\R^2$. The original p
 
 In dimension $3$, too, it is tempting to replicate this strategy: we can stack the $A_2$ packing on top of itself, in layers instead of rows, attempting to maximise the number of neighbours of a sphere. From trial and error, we see that a sphere cannot be in contact with more than three neighbours from the layer below. This suggests that the optimal sphere packing in dimension $3$ is given by stacking honeycomb arrangements on top of each other with spheres in each layer being nestled in the gaps between three spheres in the layer below.
 
-\begin{wrapfigure}[31]{r}{0.27\linewidth}
+\begin{wrapfigure}[28]{r}{0.27\linewidth}
     \centering
     \begin{subfigure}{\linewidth}
         \centering
@@ -112,6 +112,11 @@ As it turns out, unlike dimension $2$, this characterisation not describe a uniq
                     \latticecirclegrey{\x - \y * 0.5}{\y * 0.8660254038 + 0.5773502692}
                 }
             }
+            \foreach \x in {-2, -1, 0, 1} {
+                \foreach \y in {-2, -1, 0, 1} {
+                    \latticecirclebrown{\x - \y * 0.5}{\y * 0.8660254038}
+                }
+            }
         \end{tikzpicture}
         \subcaption{}
         \label{Ch1:Subfig:3D_Triangular_Stacking}
@@ -128,6 +133,11 @@ As it turns out, unlike dimension $2$, this characterisation not describe a uniq
             \foreach \x in {-2, -1, 0, 1, 2, 3} {
                 \foreach \y in {-2, -1, 0, 1, 2, 3} {
                     \latticecirclegrey{\x - \y * 0.5}{\y * 0.8660254038 - 0.5773502692}
+                }
+            }
+            \foreach \x in {-2, -1, 0, 1} {
+                \foreach \y in {-2, -1, 0, 1} {
+                    \latticecirclebrown{\x - \y * 0.5}{\y * 0.8660254038 + 0.5773502692}
                 }
             }
         \end{tikzpicture}

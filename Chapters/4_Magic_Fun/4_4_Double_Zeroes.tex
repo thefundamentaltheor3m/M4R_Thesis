@@ -3,7 +3,7 @@
 
 % At some point earlier on, maybe in Chapter 3, we need to stress that double zeroes means double zeroes in the radial sense, except double zeroes after composition with just the norm and not the norm squared. (We are using norm squared so that we can prove Schwartzness. Just the norm isn't enough because the norm isn't smooth.)
 
-The way we prove that $a$ and $b$ have double zeroes at $E_8$ lattice points with norm $> \sqrt{2}$ (or at normalised $E_8$ lattice points with norm $> 1$) is by showing that $a\rad$ and $b\rad$ agree, for $r > 2$, with functions that have double zeroes at \textit{all} even integers. It will then follow that $a$ and $b$ have double zeroes at all points on the $E_8$ lattice with norm $> \sqrt{2}$, since all elements of $\Lambda_8$ have norm of the form $\sqrt{2n}$ for some $n \in \N$ (cf. \Cref{Ch2:Thm:E8_Properties}).
+The way we prove that $a$ and $b$ have double zeroes at $E_8$ lattice points with norm $> \sqrt{2}$ is by showing that $a\rad$ and $b\rad$ agree, for $r > 2$, with functions that have double zeroes at \textit{all} even integers. It will then follow that $a$ and $b$ have double zeroes at all points on the $E_8$ lattice with norm $> \sqrt{2}$, since all elements of $\Lambda_8$ have norm of the form $\sqrt{2n}$ for some $n \in \N$ (cf. \Cref{Ch2:Prop:E8_Properties}).
 
 The strategy to prove these two equalities will be to perform a change of contours using a version of the Cauchy-Goursat Theorem and use the relations and transformation rules between the $\phi$- and $\psi$-functions to combine integrals so that the result is exactly $a\rad$ or $b\rad$.
 
@@ -261,23 +261,25 @@ We end our discussion on the integrand by remarking that it is holomorphic, as w
     We may now apply \Cref{Ch4:Thm:CauchyGoursat_Unbounded} and write
     \begin{align*}
         \int_{-1}^{-1 + i\infty} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z}
-        =& \int_{-1}^{-1 + i} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z} \\
-        &+ \int_{-1 + i}^{i} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z} \\
+        =& \underbrace{\int_{-1}^{-1 + i} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z}}_{J_1} \\
+        &+ \underbrace{\int_{-1 + i}^{i} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z}}_{J_2} \\
         &+ \int_{i}^{i\infty} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z} \\
         \int_{1}^{1 + i\infty} \psi_I\of{z - 1} e^{i\pi r z} \, \diff{z}
-        =& \int_{1}^{1 + i}\psi_I\of{z - 1} e^{i\pi r z} \, \diff{z} \\
-        &+ \int_{1 + i}^{i} \psi_I\of{z - 1} e^{i\pi r z} \, \diff{z} \\
+        =& \underbrace{\int_{1}^{1 + i}\psi_I\of{z - 1} e^{i\pi r z} \, \diff{z}}_{J_3} \\
+        &+ \underbrace{\int_{1 + i}^{i} \psi_I\of{z - 1} e^{i\pi r z} \, \diff{z}}_{J_4} \\
         &+ \int_{i}^{i\infty}\psi_I\of{z - 1} e^{i\pi r z} \, \diff{z}
     \end{align*}
-    Applying \eqref{Ch4:Eq:psi_T_eq_psi_I_add_one} and \eqref{Ch4:Eq:psi_I_eq_psi_T_add_one} and splitting the integral from $0$ to $i\infty$ into two,
-    \begin{align*}
-        \int_{-1}^{-1 + i\infty} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z}
-        &= J_1(r) + J_2(r) + \int_{i}^{i\infty} \psi_T\of{z} e^{i\pi r z} \, \diff{z} \\
-        \int_{1}^{1 + i\infty} \psi_I\of{z - 1} e^{i\pi r z} \, \diff{z}
-        &= J_3(r) + J_4(r) + \int_{i}^{i\infty} \psi_T\of{z} e^{i\pi r z} \, \diff{z} \\
-        -2\int_{0}^{i\infty} \psi_I(z) e^{i \pi r z} &= J_5(r) - 2\int_{i}^{i\infty} \psi_I(z) e^{i \pi r z}
-    \end{align*}
-    \eqref{Ch4:Eq:psi_T_eq_psi_I_sub_psi_S} tells us that $\psi_S = \psi_T - \psi_I$. Hence,
+    Applying \eqref{Ch4:Eq:psi_T_eq_psi_I_add_one}, \eqref{Ch4:Eq:psi_I_eq_psi_T_add_one} and \eqref{Ch4:Eq:psi_T_eq_psi_I_sub_psi_S}
+    % splitting the integral from $0$ to $i\infty$ into two,
+    % \begin{align*}
+    %     \int_{-1}^{-1 + i\infty} \psi_I\of{z + 1} e^{i\pi r z} \, \diff{z}
+    %     &= J_1(r) + J_2(r) + \int_{i}^{i\infty} \psi_T\of{z} e^{i\pi r z} \, \diff{z} \\
+    %     \int_{1}^{1 + i\infty} \psi_I\of{z - 1} e^{i\pi r z} \, \diff{z}
+    %     &= J_3(r) + J_4(r) + \int_{i}^{i\infty} \psi_T\of{z} e^{i\pi r z} \, \diff{z} \\
+    %     -2\int_{0}^{i\infty} \psi_I(z) e^{i \pi r z} &= J_5(r) - 2\int_{i}^{i\infty} \psi_I(z) e^{i \pi r z}
+    % \end{align*}
+    % \eqref{Ch4:Eq:psi_T_eq_psi_I_sub_psi_S}
+    tells us that $\psi_S = \psi_T - \psi_I$. Hence,
     \begin{align*}
         c(r) = J_1(r) + J_2(r) + J_3(r) + J_4(r) + J_5(r) + J_6(r) = b\rad(r)
     \end{align*}

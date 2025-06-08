@@ -1,45 +1,27 @@
 \section{The Cohn-Elkies Linear Programming Bounds}\label{Ch2:Sec:CohnElkies}
 
-Arguably, the result that most radically changed the sphere packing game was the linear programming bound constructed by Henry Cohn and Noam Elkies~\cite[Theorem 3.1]{CohnElkies}. The bound transforms the sphere packing problem from a geometric one to an analytic one. For all $d \in \N$, it posits the existence of a family of upper-bounds on the sphere packing constant $\Delta_d$, indexed by functions $f : \R^d \to \R$ that satisfy certain conditions.
+The linear programming bounds constructed by Henry Cohn and Noam Elkies was a profound and powerful discovery that transformed the inherently geometric sphere packing problem into an analytic one. For all $d \in \N$, it posits the existence of a family of upper-bounds on the sphere packing constant $\Delta_d$, indexed by functions $f : \R^d \to \R$ that satisfy certain conditions. Solving the sphere packing problem then amounts to finding a function such that the corresponding upper-bound on sphere packing densities is exactly the density of a known sphere packing.
 
-The power of this result is that it offers a systematic approach to prove that a certain sphere packing $\Pa$ is optimal in $\R^d$. The optimality condition means that the density of $\Pa$ is equal to the sphere packing constant $\Delta_d$, which is equivalent to requiring that the density of $\Pa$ be greater than or equal to the density of any other packing in $\R^d$. The theorem proved by Cohn and Elkies tells us we can accomplish this by
-\begin{enumerate}
-    \item identifying a function $f : \R^d \to \R$ that satisfies the conditions of the theorem, giving an upper-bound for $\Delta_d$, and
-    \item showing that the upper-bound indexed by $f$ is equal to the density of the packing $\Pa$.
-\end{enumerate}
-As simple as this sounds, it took close to fourteen years from the publication of Cohn and Elkies's paper for it to be used to concretely construct an optimal sphere packing. The real trick is to construct the right function $f$ to use in the process outlined above. We shall soon see the non-triviality of this task first-hand.
+Cohn and Elkies's result depends directly on the \textbf{Poisson Summation Formula over Lattices}. The formula, and hence, Cohn and Elkies's linear programming bound, deals with a special class of functions, a subset of which will be of interest to us. This subset consists of smooth, rapidly decaying functions first described by Laurent Schwartz in his book \textit{Théorie des Distributions} \cite[Ch VII, \S 3]{SchwartzDistrib} and since named after him. Such functions are particularly well-behaved under the Fourier transform. We say a few words about Fourier transforms before discussing the Poisson Summation Formula and the \CELP\ in detail.
 
-The original result~\cite[Theorem 3.1]{CohnElkies} is a bit different from the version that was chosen to be formalised. Firstly, the original result was stated for a very general class of functions known as \textit{admissible functions}. For our purposes, however, it suffices to look at Schwartz functions, which are not only admissible but also have useful properties that we will exploit later. We will remark, however, that at the time when Cohn and Elkies proposed their bound, it was not known that the solution to the sphere packing problem in dimensions $8$ and $24$ would only involve Schwartz functions. Furthermore, it might be possible that solutions in other dimensions would require the full generality of Cohn and Elkies's original result. Nevertheless, we will restrict our attention to Schwartz functions for the time being, not only because it is sufficient for our purposes but also because the theory of Schwartz functions has been developed quite substantially in \mathlib.
+\subsection{Fourier Transforms and the Poisson Summation Formula}
 
-Another minor difference between the original result and the version we work with is that the original result was stated as an upper-bound on all \textit{centre densities} of sphere packings. The centre density of a sphere packing is merely a rescaling of its density by a factor of $\Volof{B_d\of{0, 1}}\inv$. Instead of encoding the information of the amount of sphere packing volume per unit volume of the ambient space, the centre density encodes the information of the number of centres of the sphere packing per unit volume of the ambient space. We sidestep these nuances by stating the result in terms of quantities we have defined.
-
-Before we prove the result, we need to state an important dependency: the \textbf{Poisson Summation Formula over Lattices}. Again, we only state it for Schwartz functions, but it applies in greater generality. The Formula does not exist in \mathlib, and there is some debate as to the generality in which it must be stated in the library. It has been stated as part of the sphere packing formalisation effort, but has not been proven.\todo{include code reference}
-
-The Poisson Summation Formula essentially relates a sum of a Schwartz function over a lattuce to a sum of its Fourier transform over another lattice. Therefore, before we state the Poisson Summation Formula, we say a few words about Fourier transforms, Fourier inversion, and the formalisation of these definitions in Lean.
-
-\subsection{Fourier Analysis and the Poisson Summation Formula}
-
-The subject of Fourier analysis is deep, and has applications to a number of areas in pure and applied mathematics. There are deeper undertones to the role of the Fourier transform in Viazovska's proof of the optimality of the $E_8$ lattice packing in $\R^8$: much of the underlying motivation comes from broader Fourier interpolation results that are beyond the scope of this thesis and this formalisation project. In this subsection, we do not do more than define the Fourier transform and its inverse. We will also very briefly discuss the formalisation of these definitions in Lean.
+The subject of Fourier analysis is deep, and has applications to a number of areas in pure and applied mathematics. There are deeper undertones to the role of the Fourier transform in Viazovska's proof of the optimality of the $E_8$ lattice packing in $\R^8$: much of the underlying motivation comes from broader Fourier interpolation results that are beyond the scope of this thesis and this formalisation project. In this subsection, we merely define the Fourier transform and its inverse. We will also very briefly discuss the formalisation of these definitions in Lean.
 
 We begin by defining the Fourier transform of a function.
 
 \begin{boxdefinition}[Fourier Transform]\label{Ch2:Def:Fourier_Transform}
-    Fix $m, n \in \N$ and let $f : \R^m \to \C^n$ be an $L^1$ function. We define the \textbf{Fourier transform} of $f$ to be the function
+    Fix $m, n \in \N$ and let $f : \R^m \to \C^n$. We define the \textbf{Fourier transform} of $f$ to be the function
     \begin{align*}
         \F(f) : \R^m \to \C^n : \xi \mapsto \int_{\R^d} \fx e^{-2 \pi i \cycl{x, \xi}} \dx
     \end{align*}
 \end{boxdefinition}
 
-In the \mathlib\ definition of the Fourier transform \todo{cite}, we have no assumptions on $f$. This is because the integral of a function that is not integrable is defined to be zero.
-% https://github.com/leanprover-community/mathlib4/blob/72bf52f21e463ed123c31426cecc3ba6a5878092/Mathlib/Analysis/Fourier/FourierTransform.lean#L376
-
-As is often done in the literature, we adopt the following alternative notation for the Fourier transform.
+We adopt the following alternative notation for the Fourier transform, in line with general literature as well as Viazovska's original paper. We will use both notations interchangeably.
 
 \begin{boxnotation}
-    Given an $L^1$ function $f : \R^m \to \C^n$, we denote its Fourier transform by $\hat{f}$.
+    We denote the Fourier transform $\F(f)$ of a function $f$ by $\hat{f}$.
 \end{boxnotation}
-
-We use the $\hat{}$ and $\F$ notations interchangeably.
 
 We can also define the inverse Fourier transform.
 
@@ -50,11 +32,7 @@ We can also define the inverse Fourier transform.
     \end{align*}
 \end{boxdefinition}
 
-Again, in the \mathlib\ definition, we have no assumptions on $f$.
-
-Confusingly, the inverse Fourier transform is not always the inverse of the Fourier transform---at least, not as per the \mathlib\ definition, because we do not assume integrability. Proving ``Fourier inversion'' formally---that is, that $\F\of{\F\of{f}} = f$ for some function $f$---is therefore highly nontrivial, and requires assumptions on $f$. We will see that this is true for an important class of functions called Schwartz functions.
-
-That being said, it turns out the following result is true for \textit{all} functions $f$, if we define the Fourier and inverse Fourier transforms the way they are defined in \mathlib.
+Confusingly, the inverse Fourier transform is not always the inverse of the Fourier transform. For instance, the Fourier integral may not converge. For integrable functions with integrable Fourier transforms, though, the inverse Fourier transform does invert the Fourier transform. Regardless, we have the following result, which has been \href{https://github.com/leanprover-community/mathlib4/blob/6c6e0180f0d3dc9f47f85532f48d268d8656789a/Mathlib/Analysis/Fourier/FourierTransform.lean#L405-L410}{previously formalised in \mathlib}.
 
 \begin{boxlemma}\label{Ch2:Lemma:Fourier_Inverse_Fourier_Neg}
     Let $m, n \in \N$ and let $f : \R^m \to \C^n$ be $L^1$. For all $x \in \R^m$, we have that
@@ -62,8 +40,6 @@ That being said, it turns out the following result is true for \textit{all} func
         \F\inv\of{f}\of{x} = \F\of{f}\of{-x}
     \end{align*}
 \end{boxlemma}
-
-The proof is straightforward, and has been formalised in \mathlib.
 
 We now recall the definition of the dual of a lattice (\Cref{Ch2:Def:Dual_Lattice}). The reason why the concept of a dual lattice is relevant is that it allows us to state the \textbf{Poisson Summation Formula}, which relates the sum of a function over a lattice to the sum of its Fourier transform over the dual lattice.
 
@@ -80,7 +56,7 @@ Armed with this important result, we are ready to state and prove the Cohn-Elkie
 
 \subsection{The \CELP}
 
-We now state the most important intermediate result in the proof of the optimality of the $E_8$ lattice packing in $\R^8$.\todo{Restate this result for arbitrary separation and just say in the proof that we can rescale. In concise version, remove lemmas about scaling sphere packings, as this is not relevant to the M4R (even if it is important for the blueprint).}
+We now state the most important intermediate result in the proof of the optimality of the $E_8$ lattice packing in $\R^8$.%\todo{Restate this result for arbitrary separation and just say in the proof that we can rescale. In concise version, remove lemmas about scaling sphere packings, as this is not relevant to the M4R (even if it is important for the blueprint).}
 
 \begin{boxtheorem}[Cohn and Elkies, 2003~{\cite[Theorem 3.1]{CohnElkies}}]\label{SP:Thm:CohnElkies} % Make sure to include the original version before this and then this adaptation
     If $f : \R^d \to \R$ is a Schwartz function satisfying the conditions
@@ -95,11 +71,7 @@ We now state the most important intermediate result in the proof of the optimali
     \end{align*}
 \end{boxtheorem}
 \begin{proof}
-    Let $f : \R^d \to \R$ be a Schwartz function satisfying the conditions~\ref{CE1}-\ref{CE3}. By \Cref{Ch2:Prop:Periodic_Const_eq_Const}, it suffices to prove that
-    \begin{align*}
-        \Delta_d^{\periodic} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
-    \end{align*}
-    Fix a sphere packing $\Pa$ that is periodic with respect to some lattice $\Lambda$. We need to show that $\Delta_{\Pa} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}$. By \Cref{Ch2:Prop:Scaling_Sphere_Packings}, we can assume that the separation radius of $\Pa$ is $1$: if it is not, we can scale it appropriately, and this will not affect its density. Denote the set of centres of $\Pa$ by $X$. By \Cref{Ch2:Prop:Periodic_Density}, we need to show that
+    Let $f : \R^d \to \R$ be a Schwartz function satisfying the conditions~\ref{CE1}-\ref{CE3}. Fix a sphere packing $\Pa$. Without loss of generality, we may assume that $\Pa$ is periodic with respect to some lattice $\Lambda$ and has separation radius $1$. Denote the set of centres of $\Pa$ by $X$. By \Cref{Ch2:Prop:Periodic_Density}, we need to show that
     \begin{align}
         \frac{\abs{\quotient{X}{\Lambda}}}{\Volof{\quotient{\R^d}{\Lambda}}} \cdot \Volof{B_d\of{0, \frac{1}{2}}} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
         \label{Ch2:Eq:CohnElkies_Ineq_1}
@@ -114,7 +86,7 @@ We now state the most important intermediate result in the proof of the optimali
         \abs{\quotient{X}{\Lambda}} \cdot f(0) \geq \sum_{x \in X} \sum_{y \in {\tiny \quotient{X}{\Lambda}}} \fof{x - y}
         \label{Ch2:Eq:CohnElkies_Ineq_3}
     \end{align}
-    One can then apply the Poisson Summation Formula (cf. \Cref{Ch2:Thm:Poisson_Summation}) and perform some computations to show that
+    Applying \Cref{Ch2:Thm:Poisson_Summation}, we can show that
     \begin{align*}
         \sum_{x \in X} \sum_{y \in {\tiny \quotient{X}{\Lambda}}} \fof{x - y}
         =
@@ -130,6 +102,6 @@ We now state the most important intermediate result in the proof of the optimali
     Putting these computations together gives us the desired result.
 \end{proof}
 
-We have a proof of this result in our repository, but some of the lemmas on which it depends do not have complete (ie, ``\sorry-free'') proofs. The details we have skipped are not relevant to the scope of this thesis, but the details we have included will give us an important condition that the magic function should obey. Therefore, not only the statement but also the proof of \Cref{SP:Thm:CohnElkies} will be important to understand the construction of the magic function.
+While the formalisation of \Cref{SP:Thm:CohnElkies} is beyond the scope of this thesis, the details we have included will give us important conditions that the magic function should obey. We will revisit this argument in \Cref{Ch3:Sec:Cohn_Elkies_Revisited}.
 
-We are now ready to discuss a key ingredient in the construction of the magic function: the theory of modular forms. We will not explore this in too much detail, as it does not fall within the scope of this thesis. We will not venture too far beyond the fundamentals.
+We are now ready to discuss a key ingredient in the construction of the magic function: the theory of modular forms. Since much of the theory is beyond the scope of this thesis, we will not venture too far beyond the fundamentals.

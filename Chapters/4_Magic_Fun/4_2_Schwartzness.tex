@@ -54,8 +54,8 @@ it is enough to show that sums and products of functions exhibiting this propert
 \begin{boxproposition}\label{Ch4:Prop:PolyGrowth_of_mul}
     Let $f_1, f_2 : \Halfplane \to \C$ be have (absolutely convergent) Fourier expansions
     \begin{align*}
-        f_1(z) &= \sum_{n=n_1}^{\infty} c_1(n) \, e^{\pi i n z} \\
-        f_2(z) &= \sum_{n=n_2}^{\infty} c_2(n) \, e^{\pi i n z}
+        f_1(z) = \sum_{n=n_1}^{\infty} c_1(n) \, e^{\pi i n z} \qquad \qquad
+        f_2(z) = \sum_{n=n_2}^{\infty} c_2(n) \, e^{\pi i n z}
     \end{align*}
     such that for $i \in \set{1, 2}$, $c_i(n_i) \neq 0$ and $\exists k_i \in \N$ such that $c_i(n) = \BigO{n^{k_i}}$ as $n \to \infty$. Then, their product $f_1 f_2$ is expressible as an absolutely convergent Fourier series
     \begin{align*}
@@ -63,25 +63,26 @@ it is enough to show that sums and products of functions exhibiting this propert
     \end{align*}
     such that $c(n_1 + n_2) \neq 0$ and $\exists k \in \N$ such that $c(n) = \BigO{n^k}$ as $n \to \infty$.
 \end{boxproposition}
-\begin{proof}
-    Fix $z \in \Halfplane$. Then, due to absolute convergence, we can write
-    \begin{align*}
-        f_1(z) f_2(z)
-        % &= \parenth{\sum_{n=n_1}^{\infty} c_1(n) \, e^{\pi i n z}} \parenth{\sum_{m=n_2}^{\infty} c_2(m) \, e^{\pi i m z}} \\
-        &= \sum_{n = n_1}^{\infty} \sum_{m = n_2}^{\infty} c_1(n) c_2(m) \, e^{\pi i \parenth{n + m} z}
-    \end{align*}
-    The smallest value of $m + n$ is clearly $n_1 + n_2$. Denoting this by $n_0$, we can write
-    \begin{align*}
-        f_1(z) f_2(z) &= \sum_{\ell = n_0}^{\infty} c(n) \, e^{\pi i \ell z}
-    \end{align*}
-    where for each $\ell \geq n_0$, $c(\ell)$ is a sum of finitely many terms of the form $c_1(n) c_2(m)$, with $n + m = \ell$. Now, we know there exist positive numbers $C, D \in \R$ and $N, M \in \N$ such that for all $n \geq N$ and $m \geq M$, $\abs{c_1(n)} \leq C \abs{n^{k_1}} = C n^{k_1}$ and $\abs{c_2(m)} \leq D \abs{m^{k_2}} = D m^{k_2}$. Defining
-    \begin{align*}
-        C' := \sum_{n=n_1}^{N} \abs{c_1(n)}
-        \qquad \qquad
-        D' := \sum_{m=n_2}^{M} \abs{c_2(m)}
-    \end{align*}
-    we can bound $\abs{c(\ell)}$ above by a sum of finitely many terms of the form $C' \abs{c_2(m)}$, $D' \abs{c_1(n)}$, and $\abs{c_1(n)} \cdot \abs{c_2(m)}$, with $n \geq N$ and $m \geq M$. Take $k = k_1 + k_2$. Then, $\abs{c_1(n)} \leq C n^{k_1} \leq C \parenth{m+n}^{k_1}$ and $\abs{c_2(n)} \leq D m^{k_2} \leq D \parenth{m+n}^{k_2}$, so $c(\ell) = \BigO{\parenth{m+n}^{k_1 + k_2}} = \BigO{\ell^k}$. % As Jaimin pointed out, max(k_1, k_2) should also be ok.
-\end{proof}
+% \begin{proof}[Proof sketch]
+%     Fix $z \in \Halfplane$. Then, due to absolute convergence, we can write
+%     \begin{align*}
+%         f_1(z) f_2(z)
+%         % &= \parenth{\sum_{n=n_1}^{\infty} c_1(n) \, e^{\pi i n z}} \parenth{\sum_{m=n_2}^{\infty} c_2(m) \, e^{\pi i m z}} \\
+%         &= \sum_{n = n_1}^{\infty} \sum_{m = n_2}^{\infty} c_1(n) c_2(m) \, e^{\pi i \parenth{n + m} z}
+%     \end{align*}
+%     The smallest value of $m + n$ is clearly $n_1 + n_2$. Denoting this by $n_0$, we can write
+%     \begin{align*}
+%         f_1(z) f_2(z) &= \sum_{\ell = n_0}^{\infty} c(\ell) \, e^{\pi i \ell z}
+%     \end{align*}
+%     For each $\ell \geq n_0$, $c(\ell)$ is a sum of finitely many terms of the form $c_1(n) c_2(m)$, with $n + m = \ell$. Since these grow polynomially in $n$ and $m$ respectively, so does $c$ in $\ell$.
+%     % Now, we know there exist positive numbers $C, D \in \R$ and $N, M \in \N$ such that for all $n \geq N$ and $m \geq M$, $\abs{c_1(n)} \leq C \abs{n^{k_1}} = C n^{k_1}$ and $\abs{c_2(m)} \leq D \abs{m^{k_2}} = D m^{k_2}$. Defining
+%     % \begin{align*}
+%     %     C' := \sum_{n=n_1}^{N} \abs{c_1(n)}
+%     %     \qquad \qquad
+%     %     D' := \sum_{m=n_2}^{M} \abs{c_2(m)}
+%     % \end{align*}
+%     % we can bound $\abs{c(\ell)}$ above by a sum of finitely many terms of the form $C' \abs{c_2(m)}$, $D' \abs{c_1(n)}$, and $\abs{c_1(n)} \cdot \abs{c_2(m)}$, with $n \geq N$ and $m \geq M$. Take $k = k_1 + k_2$. Then, $\abs{c_1(n)} \leq C n^{k_1} \leq C \parenth{m+n}^{k_1}$ and $\abs{c_2(n)} \leq D m^{k_2} \leq D \parenth{m+n}^{k_2}$, so $c(\ell) = \BigO{\parenth{m+n}^{k_1 + k_2}} = \BigO{\ell^k}$. % As Jaimin pointed out, max(k_1, k_2) should also be ok.
+% \end{proof}
 
 The analogous result for sums is clear, with $n_0 \geq \min\of{n_1, n_2}$ and $k = \max\of{k_1, k_2}$. Note that for sums, $n_0$ may not be exactly $\min\of{n_1, n_2}$ because the Fourier coefficients of smallest index may cancel each other out. For the remainder of this thesis, we use the following notation.
 
@@ -151,9 +152,10 @@ We can now bound $I_1$, $I_3$ and $I_5$.
 
 \begin{boxlemma}\label{Ch4:Lemma:Bound_I1_I3_I5}
     There exists a positive real number $C_0$ such that for all $r \in \R$,
-    \begin{align*}
+    \begin{align}
         \abs{I_1(r)}, \abs{I_3(r)}, \abs{I_5(r)} &\leq \int_{1}^{\infty} C_0 \, e^{-2\pi s} \, e^{-\pi r/s} \, \diff{s}
-    \end{align*}
+        \label{Ch4:Eq:Bound_I1_I3_I5}
+    \end{align}
 \end{boxlemma}
 \begin{proof}
     For conciseness, we only bound $\abs{I_1}$ explicitly. Parametrise $z = -1 + it$ in \eqref{Ch4:Eq:I_1_def}. Then, for all $r \in \R$, we can write
@@ -193,87 +195,94 @@ We can now bound $I_1$, $I_3$ and $I_5$.
     as required. The bounds on $\abs{I_3}$ and $\abs{I_5}$ are computed similarly.
 \end{proof}
 
-Now that we have bounds on the integrals with bounded vertical contours, we compute bounds on the integrals with bounded horizontal contours.
+In similar fashion, arguing by parametrising and applying \Cref{SP:PolyFourierCoeffBound}, we can show that there exist $C_1, C_2 > 0$ such that
+\begin{align}
+    \abs{I_2(r)}, \abs{I_4(r)} &\leq C_1 \, e^{-\pi r} \label{Ch4:Eq:Bound_I2_I4} \\
+    \abs{I_6(r)} &\leq C_2 \, \frac{e^{-\pi \parenth{r + 2}}}{r + 2}
+\end{align}
+We omit the informal proofs, but note that we have formal proofs in the repository. We discuss this in greater detail in \Cref{Ch5:Subsec:Bounding_Integrals}.
 
-\begin{boxlemma}\label{Ch4:Lemma:Bound_I2_I4}
-    There exists a positive real number $C_1$ such that for all $r \in \R$,
-    \begin{align*}
-        \abs{I_2(r)}, \abs{I_4(r)} &\leq C_1 \, e^{-\pi r}
-    \end{align*}
-\end{boxlemma}
-\begin{proof}
-    For conciseness, we only bound $\abs{I_2}$ explicitly. Parametrise $z = -1 + t + i$ in \eqref{Ch4:Eq:I_2_def}. Then, for all $r \in \R$, we can write
-    \begin{align*}
-        I_2(r) = \int_{0}^{1}
-            \phi_0\of{\frac{-1}{t + i}} \,
-            \parenth{t + i}^2 \,
-            e^{-\pi i r} \,
-            e^{\pi i r t} \,
-            e^{-\pi r} \,
-            \diff{t}
-    \end{align*}
-    Applying the triangle inequality, multiplicativity and monotonicity, we get
-    \begin{align*}
-        \abs{I_2(r)} &\leq \int_{0}^{1} \abs{\phi_0\of{\frac{-1}{t + i}}} \cdot 2e^{-\pi r} \, dt
-    \end{align*}
-    One can show that for all $t \in \parenth{0, 1}$,
-    \begin{align*}
-        \Im\of{ \frac{-1}{t + i} } \geq \frac{1}{2}
-    \end{align*}
-    Then, \Cref{SP:PolyFourierCoeffBound} tells us that $\exists C_0 > 0$ such that
-    \begin{align*}
-        \abs{\phi_0\of{\frac{-1}{t + i}}}
-        \leq C_0 \, e^{-2 \pi \cdot \frac{1}{t^2 + 1}}
-        \leq C_0 \, e^{-2\pi \cdot \frac{1}{2}} = C_0 \, e^{-\pi}
-    \end{align*}
-    Then, taking $C_1 := 2 \, C_0 \, e^{-\pi}$ and applying monotonicity,
-    \begin{align*}
-        \abs{I_2(r)} \leq \int_{0}^{1} C_1 \, e^{-\pi r} \, \diff{t} = C_1 \, e^{-\pi r}
-    \end{align*}
-    as required. The bound on $\abs{I_4}$ is computed similarly.
-\end{proof}
+% Now that we have bounds on the integrals with bounded vertical contours, we compute bounds on the integrals with bounded horizontal contours.
 
-Finally, we bound the integral with the unbounded vertical contour.
+% \begin{boxlemma}\label{Ch4:Lemma:Bound_I2_I4}
+%     There exists a positive real number $C_1$ such that for all $r \in \R$,
+%     \begin{align*}
+%         \abs{I_2(r)}, \abs{I_4(r)} &\leq C_1 \, e^{-\pi r}
+%     \end{align*}
+% \end{boxlemma}
+% \begin{proof}
+%     For conciseness, we only bound $\abs{I_2}$ explicitly. Parametrise $z = -1 + t + i$ in \eqref{Ch4:Eq:I_2_def}. Then, for all $r \in \R$, we can write
+%     \begin{align*}
+%         I_2(r) = \int_{0}^{1}
+%             \phi_0\of{\frac{-1}{t + i}} \,
+%             \parenth{t + i}^2 \,
+%             e^{-\pi i r} \,
+%             e^{\pi i r t} \,
+%             e^{-\pi r} \,
+%             \diff{t}
+%     \end{align*}
+%     Applying the triangle inequality, multiplicativity and monotonicity, we get
+%     \begin{align*}
+%         \abs{I_2(r)} &\leq \int_{0}^{1} \abs{\phi_0\of{\frac{-1}{t + i}}} \cdot 2e^{-\pi r} \, dt
+%     \end{align*}
+%     One can show that for all $t \in \parenth{0, 1}$,
+%     \begin{align*}
+%         \Im\of{ \frac{-1}{t + i} } \geq \frac{1}{2}
+%     \end{align*}
+%     Then, \Cref{SP:PolyFourierCoeffBound} tells us that $\exists C_0 > 0$ such that
+%     \begin{align*}
+%         \abs{\phi_0\of{\frac{-1}{t + i}}}
+%         \leq C_0 \, e^{-2 \pi \cdot \frac{1}{t^2 + 1}}
+%         \leq C_0 \, e^{-2\pi \cdot \frac{1}{2}} = C_0 \, e^{-\pi}
+%     \end{align*}
+%     Then, taking $C_1 := 2 \, C_0 \, e^{-\pi}$ and applying monotonicity,
+%     \begin{align*}
+%         \abs{I_2(r)} \leq \int_{0}^{1} C_1 \, e^{-\pi r} \, \diff{t} = C_1 \, e^{-\pi r}
+%     \end{align*}
+%     as required. The bound on $\abs{I_4}$ is computed similarly.
+% \end{proof}
 
-\begin{boxlemma}\label{Ch4:Lemma:Bound_I6}
-    There exists a positive real number $C_2$ such that for all $r \in \R$,
-    \begin{align*}
-        \abs{I_6(r)} &\leq C_2 \, \frac{e^{-\pi \parenth{r + 2}}}{r + 2}
-    \end{align*}
-\end{boxlemma}
-\begin{proof}
-    Parametrise $z = it$ in \eqref{Ch4:Eq:I_6_def}. Then, for all $r \in \R$, we can write
-    \begin{align*}
-        I_6(r) &= -2i \int_{1}^{\infty} \phi_0\of{it} \, e^{- \pi r t} \, \diff{t}
-    \end{align*}
-    Applying the triangle inequality, multiplicativity and monotonicity, we get
-    \begin{align*}
-        \abs{I_6(r)} \leq 2\int_{1}^{\infty}
-            \abs{\phi_0\of{it}} \,
-            e^{-\pi r t} \,
-            \diff{t}
-    \end{align*}
-    Let $C_0$ be as in \Cref{SP:PolyFourierCoeffBound} and define $C_1 := 2 C_0$. Then,
-    \begin{align*}
-        \abs{I_6(r)} \leq 2\int_{1}^{\infty}
-            C_0 \,
-            e^{-2 \pi t} \,
-            e^{-\pi r t} \,
-            \diff{t}
-        = C_1 \int_{1}^{\infty} e^{-\parenth{2\pi + \pi r}t} \, \diff{t}
-        = C_1 \frac{e^{-\pi\parenth{r + 2}}}{\pi\parenth{r + 2}}
-    \end{align*}
-    Defining $C_2 := \frac{C_1}{\pi}$ then yields the desired result.
-\end{proof}
+% Finally, we bound the integral with the unbounded vertical contour.
 
-The formal proofs of the bounds in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} are complete up to proofs that they are bounded by integrable functions, which is necessary to apply monotonicity of the integral due to the definition of the integral in \mathlib. The evaluation of the final integral in \Cref{Ch4:Lemma:Bound_I6} is also currently a \sorry.\todo{Update}
+% \begin{boxlemma}\label{Ch4:Lemma:Bound_I6}
+%     There exists a positive real number $C_2$ such that for all $r \in \R$,
+%     \begin{align*}
+%         \abs{I_6(r)} &\leq C_2 \, \frac{e^{-\pi \parenth{r + 2}}}{r + 2}
+%     \end{align*}
+% \end{boxlemma}
+% \begin{proof}
+%     Parametrise $z = it$ in \eqref{Ch4:Eq:I_6_def}. Then, for all $r \in \R$, we can write
+%     \begin{align*}
+%         I_6(r) &= -2i \int_{1}^{\infty} \phi_0\of{it} \, e^{- \pi r t} \, \diff{t}
+%     \end{align*}
+%     Applying the triangle inequality, multiplicativity and monotonicity, we get
+%     \begin{align*}
+%         \abs{I_6(r)} \leq 2\int_{1}^{\infty}
+%             \abs{\phi_0\of{it}} \,
+%             e^{-\pi r t} \,
+%             \diff{t}
+%     \end{align*}
+%     Let $C_0$ be as in \Cref{SP:PolyFourierCoeffBound} and define $C_1 := 2 C_0$. Then,
+%     \begin{align*}
+%         \abs{I_6(r)} \leq 2\int_{1}^{\infty}
+%             C_0 \,
+%             e^{-2 \pi t} \,
+%             e^{-\pi r t} \,
+%             \diff{t}
+%         = C_1 \int_{1}^{\infty} e^{-\parenth{2\pi + \pi r}t} \, \diff{t}
+%         = C_1 \frac{e^{-\pi\parenth{r + 2}}}{\pi\parenth{r + 2}}
+%     \end{align*}
+%     Defining $C_2 := \frac{C_1}{\pi}$ then yields the desired result.
+% \end{proof}
+
+% The formal proofs of the bounds in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} are complete up to proofs that they are bounded by integrable functions, which is necessary to apply monotonicity of the integral due to the definition of the integral in \mathlib. The evaluation of the final integral in 
 
 It is clear that the estimates for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$ have at least exponential decay, making them more rapidly decaying than any inverse power of $r$ for $r \in \Ico{0, \infty}$. For $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$, the result is actually a consequence of deeper results involving the Gamma function.
 
 \begin{boxlemma}\label{Ch4:Lemma:Bessel_Bound}
-    For all $n \in \N$, there exists a constant $C'$ such that for all $r \in \R$,
+    For all $n \in \N$, there exists a constant $C'$ such that for all $r \geq 0$,
     \begin{align*}
-        \abs{r}^n \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s} \leq C'
+        r^n \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s} \leq C'
     \end{align*}
 \end{boxlemma}
 \begin{proof}
@@ -330,7 +339,7 @@ The key to proving this is the Leibniz Integral Rule, which has been \href{https
     \end{align*}
 \end{boxlemma}
 \begin{proof}
-    Fix $k \in \N$ and $r \in \R$. Parametrise $z = -1 + it$. Then, the $k$th derivative of $I_1$ at $r$ can be expressed as
+    Fix $k \in \N$ and $r \in \R$. Parametrise $z = -1 + it$. Then, the $k$th derivative of $I_1$ at $r$ is
     \begin{align*}
         I_1^{(k)}\of{r} = -i \int_{0}^{1} \phi_0\of{\frac{-1}{it}} \, t^2 \, \parenth{-\pi i - \pi t}^k \, e^{-\pi i r} \, e^{\pi r t} \, \diff{z}
     \end{align*}

@@ -1,19 +1,10 @@
-\section{Preliminaries}
+\section{Sphere Packing Fundamentals}
 
-Before we begin defining things formally, we must include a small disclaimer about the terminology we have been using---and will continue to use---in this project. While \Cref{Ch1:Prob:SpherePacking_n} is usually referred to as the \textit{sphere} packing problem, a sphere is not usually thought to have an interior. Typically, in any metric space $X$ with metric $d$, the \textit{sphere} of radius $r \geq 0$ centred at $x \in X$ is defined to be $\setst{y \in X}{d(x, y) = r}$. In other words, the sphere consists only of a surface. In contrast, the sphere packing problem involves packing \textit{solid balls}. One can see why, in \cite{CannonHoney}, Hales opines that a more proper term for the problem would be the \textit{ball packing problem}. Nevertheless, in this project, we will continue to use the standard terminology, but we include this disclaimer so the reader bears in mind two things: first, that we will often mean `ball' when we use the word `sphere', and second, that we work with balls instead of spheres in Lean. We will also mention that it is convenient to require that the balls in question be open, so that the condition that spheres cannot overlap but merely touch tangentially can be shortened to that of disjointedness. We introduce notation.
+This section is divided into two subsections. The first defines fundamental notions about general sphere packings, lattice packings and periodic packings. The third subsection studies the sphere packing of our interest: the $E_8$ lattice packing.
 
-\begin{boxnotation}
-    For some $d \in \N$, $x \in \R^d$ and $r > 0$, we denote
-    \begin{align*}
-        B_d(x, r) := \setst{y \in \R^d}{\norm{x - y} < r}
-    \end{align*}
-\end{boxnotation}
+\subsection{The General Theory of Sphere Packings}
 
-We organise this section into three subsections. The first defines fundamental notions about sphere packings. The second introduces the properties of two important, and closely related, classes of sphere packings, namely, lattice packings and periodic packings. The third subsection studies the most important sphere packing for our project: the $E_8$ lattice packing.
-
-\subsection{Sphere Packing Fundamentals}
-
-We begin by defining a sphere packing. As we have stated, we want sphere packings to consist of disjoint spheres of the same radius. Given that lying on the interior of a certain sphere corresponds to being within some distance from its centre, we can capture this notion of disjointedness by imposing a separation condition on the set of centres of the sphere packing.
+We begin by defining a sphere packing.
 
 \begin{boxdefinition}[Sphere Packing]
     Fix $d \in \N$ and $X \subset \R^d$. Assume that there exists a real number $r > 0$, known as the \textbf{separation radius}, such that
@@ -26,139 +17,24 @@ We begin by defining a sphere packing. As we have stated, we want sphere packing
     \end{align*}
 \end{boxdefinition}
 
-Note that the assumption that a separation radius exists is very important.
-
-\begin{boxnexample}
-    Let $d = 1$ and $X = \R$. Consider the set
-    \begin{align*}
-        \bigcup_{x \in \R} B_1(x, r) = \bigcup_{x \in \R} \parenth{x-r, x+r}
-    \end{align*}
-    For any $r > 0$, the above union is all of $\R$. However, it does not make sense to construct a sphere packing whose set of centres is the entirety of $\R$, as this would involve spheres overlapping. It is precisely to avoid such constructions that we impose the condition that $r$ be a separation radius on the set of centres.
-\end{boxnexample}
-
-Since all the information about a sphere packing is encoded in its set of centres and the corresponding separation radius (which must exist in order for the set of centres to be a valid set of centres for a sphere packing), we decided that a sphere packing would be formalised purely as a set of centres with a valid separation, and that a separate definition would be made to obtain the open balls that constitute the packing. We packaged the data of
-\begin{itemize}
-    \item the set of centres
-    \item the separation radius
-    \item the (automatically checked) condition that the separation radius is positive
-    \item the condition that the set of centres is, indeed, separated by this radius
-\end{itemize}
-into a \verb|structure| called \verb|SpherePacking|: see \cite[\texttt{SpherePacking.Basic.SpherePacking}]{documentation}.\todo{Is this an acceptable way of citing the documentation? Should the repo be made public?}
-
-We now define finite density, an indicator of how much of a bounded region of space a sphere packing covers.
-
-\begin{boxdefinition}[Finite Density]\label{Ch2:Def:FiniteDensity}
-    Let $\Pa$ be a sphere packing. For all $R > 0$, define the \textbf{finite density} to be
-    \begin{align*}
-        \Delta_\Pa(R) := \frac{\Volof{\Pa \cap B_d(0, R)}}{\Volof{B_d(0, R)}}
-    \end{align*}
-    where $\Vol$ is the Lebesgue measure on $\R^d$.
-\end{boxdefinition}
-
-Finite density is a somewhat local notion, in that it expresses sphere how closely packed spheres are in a bounded region. The sphere packing problem, on the other hand, examines the notion of closeness on a more global level. While taking the limit of finite densities as the radius of the bounding region approaches infinity might seem like a natural way to define density, it is not obvious that this limit always exists. Therefore, we define density to be the limit superior instead.
+The density of a sphere packing is the limit superior of an indicator of how much of a bounded region of space a sphere packing covers.
 
 \begin{boxdefinition}[Density]\label{Ch2:Def:Density}
     Let $\Pa$ be a sphere packing. Define the \textbf{density} of $\Pa$ to be
     \begin{align*}
-        \Delta(\Pa) := \limsup_{R \to \infty} \Delta_\Pa(R)
-    \end{align*}
-    where $\Delta_\Pa(R)$ is the finite density of $\Pa$, as defined in \Cref{Ch2:Def:FiniteDensity}.
-\end{boxdefinition}
-
-As one might expect, finite density and density are invariant under scaling.
-
-\begin{boxproposition}\label{Ch2:Prop:Scaling_Sphere_Packings}
-    Let $\Pa$ be a sphere packing. Fix $\lambda > 0$. Denoting by $\lambda \Pa$ the sphere packing obtained by scaling the spheres and the set of centres in $\Pa$ by a factor of $\lambda$, we have
-    \begin{align*}
-        \Delta_{\Pa}\of{R} = \Delta_{\lambda \Pa}\of{\lambda R}
-    \end{align*}
-    for all $R > 0$. Similarly, we have
-    \begin{align*}
-        \Delta\of{\Pa} = \Delta\of{\lambda \Pa}
-    \end{align*}
-\end{boxproposition}
-
-The sphere packing problem asks for the sphere packing that achieves the highest possible density. We can be formal about the notion of the highest possible density.
-
-\begin{boxdefinition}[Sphere Packing Constant]
-    The \textbf{sphere packing constant} in $\R^d$, for any $d > 0$, is defined to be
-    \begin{align*}
-        \Delta_d := \sup\!\parenth{{\setst{\Delta_{\Pa}}{\Pa \text{ is a sphere packing in } \R^d}}}
+        \Delta(\Pa) := \limsup_{R \to \infty}\frac{\Volof{\Pa \cap B_d(0, R)}}{\Volof{B_d(0, R)}}
     \end{align*}
 \end{boxdefinition}
 
-\Cref{Ch2:Prop:Scaling_Sphere_Packings} tells us that it suffices to take the supremum over sphere packings of separation $1$, because a sphere packing $\Pa$ can be scaled down by its separation radius to obtain a sphere packing of separation $1$.
+As one might expect, finite density and density are invariant under scaling. We now define lattice and periodic packings.
 
-\begin{boxproposition}\label{Ch2:Prop:Scaling_Sphere_Packing_Constant}
-    For all $d$, we have
-    \begin{align*}
-        \Delta_d = \sup\!\parenth{{\setst{\Delta_{\Pa}}{\Pa \text{ is a sphere packing in } \R^d \text{ with separation } 1}}}
-    \end{align*}
-\end{boxproposition}
-
-As intuitive as this result might seem, we do mention it here because it is something we have to deal with explicitly when formalising the theory of sphere packings in Lean. The first instance when we really see it in action is the proof of \Cref{SP:Thm:CohnElkies}.
-
-The objective of the sphere packing problem in any dimension $d$ is to optimise the sphere packing constant $\Delta_d$. As we have seen, this is a highly non-trivial thing to do. We can, however, offer a trivial upper-bound on sphere packing density.
-
-\begin{boxlemma}
-    For any sphere packing $\Pa$ and $R > 0$, we have that $\Delta_{\Pa}(R) \leq 1$.
-\end{boxlemma}
-\begin{proof}
-    This is an immediate consequence of the fact that $\Pa \cap B_d(0, R) \subseteq B_d(0, R)$.
-\end{proof}
-This immediately gives us the following basic facts.
-\begin{boxcorollary}
-    For any sphere packing $\Pa$, we have that $\Delta_{\Pa} \leq 1$.
-\end{boxcorollary}
-\begin{boxcorollary}
-    For any $d \in \N$, $\Delta_d \leq 1$.
-\end{boxcorollary}
-
-This is not a very good upper-bound. However, it tells us that the sphere packing constant in any number of dimensions is a finite real number in the interval $(0, 1]$. There is still some work to be done before we can give better bounds on the sphere packing constant. Furthermore, it is unclear whether the sphere packing constant actually is, for a general $d$, the density of a sphere packing in $\R^d$. Nevertheless, this is a good starting point.
-
-A great deal of basic sphere packing API in Lean was developed in July 2024 for the project to formalise Viazovska's solution in dimension $8$. The majority of the code was written by Gareth Ma, who also made significant improvements to the design choices I had made when setting up the project. The definitions and results in this section have all been formalised, and information about the code that has been written can be found in the project documentation \cite[\texttt{SpherePacking.Basic.SpherePacking}]{documentation}.
-
-In the next subsection, we discuss a special class of sphere packings that have periodicity properties with respect to lattices.
-
-\subsection{Lattice and Periodic Sphere Packings}
-
-We begin by defining lattices and briefly commenting on existing \verb|Mathlib| API on lattices. There are primarily two ways in which lattices are defined in mathematical literature. A lattice in some Euclidean space $\R^n$ is either described as the $\Z$-span of some $\R$-basis of $\R^n$ or as a discrete, co-compact subgroup. One can borrow characteristics from both definitions to construct other equivalent definitions.
-
-The characteristics described in both definitions do exist \verb|Mathlib|. However, given that one of the objectives of creating a unified mathematics library is centralisation, a combination of these definitions is used as the \textit{definition} of a \verb|class| that we call \verb|IsZLattice| and information about its many properties, as well as the $\Z$-span construction, are encoded in theorems. In particular, we have a theorem that tell us that every lattice is a free $\Z$-submodule, meaning it has a $\Z$-basis, and that this $\Z$-basis is actually an $\R$-basis of the ambient space. Furthermore, we have a result that every object constructed in that manner is a lattice. Results about types bearing the \verb|IsZLattice| instance (ie, lattices as they are defined in \verb|Mathlib|) live in the \verb|ZLattice| namespace, whereas results about $\Z$-spans of $\R$-bases live in the \verb|ZSpan| namespace. \todo{Create citation for Mathlib.}
-
-We begin by stating the \verb|Mathlib| definition of a lattice.
-
-\begin{boxdefinition}[Lattice]
-    A \textbf{lattice} in a Euclidean space $\R^n$ is a discrete $\Z$-submodule of $\R^n$ such that its $\R$-span contains every element in $\R^n$.
+\begin{boxdefinition}[Lattice and Periodic Sphere Packings]
+    A \textbf{lattice} in a Euclidean space $\R^n$ is a discrete $\Z$-submodule of $\R^n$ such that its $\R$-span contains every element in $\R^n$. We say a sphere packing $\Pa(X)$ is
+    \begin{enumerate}
+        \item a lattice packing if $X$ is a lattice.
+        \item $\Lambda$-periodic if for all $\lambda \in \Lambda$ and $x \in X$, we have that $\lambda + x \in X$, where $\Lambda$ is a lattice.
+    \end{enumerate}
 \end{boxdefinition}
-
-The \verb|Mathlib| definition is more general, and works for any normed vector space over a normed field. Here, the word `discrete' means that the lattice is discrete in a topological sense, meaning that the subspace topology on the lattice is precisely the discrete topology.
-
-\begin{boxdefinition}[Periodic Sphere Packing]
-    Let $\Lambda \subset \R^d$ be a lattice. We say a sphere packing $\Pa(X)$ with spheres centred at points in $X \subset \R^d$ is \textbf{periodic with respect to $\Lambda$}, or \textbf{$\Lambda$-periodic},
-    \begin{align*}
-        \lambda + X = X
-    \end{align*}
-    ie, for all $\lambda \in \Lambda$ and $x \in X$, we have that $\lambda + x \in X$.
-\end{boxdefinition}
-
-We define Periodic Sphere Packings in Lean as extending the definition of Sphere Packings by creating a \verb|structure| called \verb|PeriodicSpherePacking| that packages the additional data of
-\begin{itemize}
-    \item the lattice, viewed as a $\Z$-submodule of the ambient space $\R^d$
-    \item the condition that the set of centres is periodic with respect to this $\Z$-submodule
-    \item the (automatically checked) condition\footnotemark{} that the $\Z$-submodule is discrete
-    \item the (automatically checked) condition\footnotemark[\value{footnote}] that the discrete $\Z$-submodule is a lattice
-\end{itemize}
-\footnotetext{more precisely, the automatically inferred instance}
-The definition is in \cite[\texttt{SpherePacking.Basic.SpherePacking}]{documentation}.
-
-Lattice packings are a special class of periodic packings.
-
-\begin{boxdefinition}[Lattice Packing]
-    Let $\Lambda \subset \R^d$ be a lattice. The \textbf{$\Lambda$ lattice packing} is the sphere packing with centres at points in $\Lambda$. Such a sphere packing admits a separation radius because $\Lambda$ is discrete and is $\Lambda$-periodic because $\Lambda$ is closed under addition.
-\end{boxdefinition}
-
-In \Cref{Ch2:Subsec:E8}, we will briefly examine a specific lattice packing, the $E_8$ lattice packing.
 
 The periodicity property of a periodic sphere packing can be exploited to derive a more convenient formula for its density.
 
@@ -171,40 +47,9 @@ The periodicity property of a periodic sphere packing can be exploited to derive
     where $\abs{\quotient{X}{\Lambda}}$ is the number of orbits of the additive $\Lambda$-action on $X$ and $\Volof{\quotient{\R^d}{\Lambda}}$ is the volume of the fundamental domain of the $\Lambda$-action on $\R^d$.
 \end{boxproposition}
 
-The proof is beyond the scope of this M4R project, but was formalised in Summer 2024: see \verb|PeriodicSpherePacking.density_eq'| in \cite[\texttt{SpherePacking.Basic.PeriodicPacking}]{documentation}.
+Interestingly, one can show that the supremum of densities taken over all sphere packings in $\R^n$ is the same as the supremum taken over all periodic packings in $\R^n$. A proof can be found in \cite[Appendix A]{CohnElkies}. We denote this quantity by $\Delta_n$, $n$ being the dimension of the ambient space.
 
-Just as we defined the sphere packing constant for any dimension $d \in \N$, we can define a \textit{periodic} sphere packing constant in any dimension.
-
-\begin{boxdefinition}[Periodic Sphere Packing Constant]
-    For all $d \in \N$, define the \textbf{periodic sphere packing constant in dimension $d$} to be
-    \begin{align*}
-        \Delta_{d}^{\periodic} = \sup\of{{\setst{\Delta_{\Pa}}{\Pa \text{ is a periodic sphere packing in } \R^d}}}
-    \end{align*}
-\end{boxdefinition}
-
-The power of periodic sphere packings is illustrated by a rather surprising fact.
-
-\begin{boxproposition}\label{Ch2:Prop:Periodic_Const_eq_Const}
-    For all $d \in \N$,
-    \begin{align*}
-        \Delta_{d} = \Delta_{d}^{\periodic}
-    \end{align*}
-\end{boxproposition}
-
-We do not prove this result here, as it is beyond the scope of this M4R. A proof can be found in \cite[Appendix A]{CohnElkies}. We do, however, mention that \Cref{Ch2:Prop:Periodic_Const_eq_Const} can be combined with \Cref{Ch2:Prop:Scaling_Sphere_Packing_Constant} to give the following.
-
-\begin{boxproposition}\label{Ch2:Prop:Scaling_Periodic_Constant}
-    For all $d \in \N$,
-    \begin{align*}
-        \Delta_{d} = \sup\of{{\setst{\Delta_{\Pa}}{\Pa \text{ is a periodic sphere packing in } \R^d \text{ with separation } 1}}}
-    \end{align*}
-\end{boxproposition}
-
-\Cref{Ch2:Prop:Periodic_Const_eq_Const} tells us that finding a sphere packing that satisfies the \textit{periodic} sphere packing constant gives us the optimal sphere packing in dimension $d$. \Cref{Ch2:Prop:Scaling_Periodic_Constant} allows us to focus our search even more. We will exploit these two facts in \Cref{Ch2:Sec:CohnElkies}, where we will construct an upper bound for all sphere packing densities in dimension $d$ by constructing an upper-bound for the periodic sphere packing constant in dimension $d$. When constructing this upper-bound, we will exploit the fact that periodic sphere packings admit a `nice' density formula (cf. \Cref{Ch2:Prop:Periodic_Density}). The results we have seen about periodic sphere packings will thus greatly simplify our task of finding the optimal sphere packing in dimension $8$.
-
-We will end with a discussion on dual lattices, which will come up soon when we discuss the Poisson Summation Formula, an integral tool that not only proves the all-important \CELP\ but also narrows our search for the elusive magic function by pointing us towards Schwartz functions.
-
-The dual lattice of a lattice is essentially its dual space analogue. Viewing a lattice in $\R^d$ as a free $\Z$-submodule of $\R^d$, we can view its dual lattice as its dual $\Z$-submodule of the dual $\Z$-module $\parenth{\R^d}^*$. Indeed, this is how we use the dual lattice of a lattice in Lean. For our purposes, however, we offer a slightly more convenient definition.
+We will end by defining dual lattices. Viewing a lattice in $\R^d$ as a free $\Z$-submodule of $\R^d$, we can view its dual lattice as the corresponding submodule of $\parenth{\R^d}^*$. We offer a slightly more convenient definition.
 
 \begin{boxdefinition}[Dual Lattice]\label{Ch2:Def:Dual_Lattice}
     Fix $d > 0$ and let $\Lambda \subset \R^d$ be a lattice. We define the \textbf{dual lattice} of $\Lambda$ to be
@@ -213,25 +58,22 @@ The dual lattice of a lattice is essentially its dual space analogue. Viewing a 
     \end{align*}
 \end{boxdefinition}
 
-If we identify each $y \in \Lambda^*$ with the map $\cycl{\text{-}, y} \in \parenth{\R^d}^*$, then we can see that $\Lambda^*$ is indeed the dual $\Z$-submodule of $\Lambda \subset \R^d$ in the dual space $\parenth{\R^{d}}^*$. The primary convenience of our definition is that it views $\Lambda^*$ as a subset of $\R^d$. This will be useful.
-
 We are now ready to discuss a special sphere packing in $\R^8$: the $E_8$ sphere packing.
 
 \subsection{The $E_8$ Lattice Packing}\label{Ch2:Subsec:E8}
 
-\begin{wrapfigure}[18]{r}{0.5\linewidth}
-    \vspace{-3em}
+It is quite remarkable that $E_8$ should show up when discussing sphere packings. At its core, $E_8$ is an irreducible root system. It shows up in the classification of important classes of objects like irreducible Coxeter groups, crystallographic Coxeter groups, and semi-simple Lie algebras over $\C$. $E_8$ is not a classical root system but an \textit{exceptional} root system, meaning that the geometric properties of its roots cannot be found in irreducible root systems in all dimensions.
+
+\begin{wrapfigure}[19]{r}{0.5\linewidth}
     \centering
     \includegraphics[width=0.98\linewidth]{Chapters/2_Dimension_8/Images/Gorbe_E8.png}
     \caption{The Coxeter projection of the $E_8$ root system. \cite{Gorbe_E8}}
     \label{Ch2:Fig:Gorbe_E8}
 \end{wrapfigure}
 
-It is quite remarkable that $E_8$ should show up when discussing sphere packings. At its core, $E_8$ is an irreducible root system. It shows up in the classification of important classes of objects like irreducible Coxeter groups, crystallographic Coxeter groups, and semi-simple Lie algebras over $\C$. $E_8$ is not a classical root system but an \textit{exceptional} root system, meaning that the geometric properties of its roots cannot be found in irreducible root systems in all dimensions.
-
 The $E_8$ root system consists of $240$ vectors in $\R^8$ that are permuted by a certain finite subgroup of the $8$-dimensional orthogonal group. This group is sometimes referred to as the $E_8$ Coxeter group or as the Weyl group of the $E_8$ lattice. These roots can be divided into $8$ orbits, each of which corresponds to one of the `layers' of concentric circles in \Cref{Ch2:Fig:Gorbe_E8}. The dots in the figure correspond to projections of the roots onto a plane on which a specific type of element of the Coxeter group, known as a Coxeter element, acts as a rotation. This visualisation offers a convenient---and aesthetically pleasing---means of visualising this collection of $8$-dimensional vectors and appreciating some of its symmetry.
 
-There is more than one way of characterising the $E_8$ lattice, denoted $\Lambda_8$. The `\verb|ZSpan|' characterisation is that it is the $\Z$-span of the so-called \textit{simple roots} of the $E_8$ root system, the simple roots being a distinguished basis of $\R^8$ that is contained in the $E_8$ root system. Another characterisation that follows from a 1938 paper by Louis Mordell is that up to isomorphism, the $E_8$ lattice is the unique positive-definite, even, unimodular lattice in $\R^8$. We instead give the following explicit definition of the $E_8$ lattice, which we attempted to reconcile with the `\verb|Zspan|' characterisation in Lean.
+The $E_8$ lattice is characterised in many ways. One is as the $\Z$-span of the so-called \textit{simple roots} of the $E_8$ root system, the simple roots being a distinguished basis of $\R^8$ that is contained in the $E_8$ root system. Another is that up to isomorphism, the $E_8$ lattice is the unique positive-definite, even, unimodular lattice in $\R^8$. We instead give the following explicit definition of the $E_8$ lattice, which we attempted to reconcile with the `\verb|Zspan|' characterisation in Lean.
 
 \begin{boxdefinition}[The $E_8$ Lattice]\label{Ch2:Def:E8_Lattice}
     The $E_8$ lattice consists of all vectors in $\R^8$ such that either all coordinates are integers or all coordinates are half-integers and the sum of all coordinates is even. That is,
@@ -240,8 +82,8 @@ There is more than one way of characterising the $E_8$ lattice, denoted $\Lambda
     \end{align*}
 \end{boxdefinition}
 
-For the construction of the magic function, we will primarily rely on two facts.
-\begin{boxtheorem}[Properties of the $E_8$ Lattice]\label{Ch2:Thm:E8_Properties}
+For the construction of the magic function, we will primarily rely on the following facts.
+\begin{boxproposition}[Properties of the $E_8$ Lattice]\label{Ch2:Prop:E8_Properties}
     The following are true of the $E_8$ lattice.
     \begin{enumerate}
         \item For all $x, y \in \Lambda_8$, $\norm{x - y} \geq \sqrt{2}$.
@@ -250,25 +92,9 @@ For the construction of the magic function, we will primarily rely on two facts.
             \frac{\pi^4}{384} \approx 0.2536695
         \end{align*}
         \item The elements of $\Lambda_8$ all have norm $\sqrt{2n}$ for some $n \in \N$.
+        \item The dual lattice of $\Lambda_8$ is $\Lambda_8$.
+        \item The covolume of $\Lambda_8$ is $1$. Ie, $\Volof{\quotient{\R^8}{\Lambda_8}} = 1$.
     \end{enumerate}
-\end{boxtheorem}
+\end{boxproposition}
 
-The sphere packing to which we refer in the second point of the above theorem is precisely the $E_8$ sphere packing.
-
-% From a motivational standpoint, this is quite important. So mention facts like distances between lattice points and things like that. Important for construction of magic function.
-
-\begin{boxtheorem}\label{Ch2:Thm:E8_Self_Dual}
-    The dual lattice of the $E_8$ lattice is the $E_8$ lattice itself. That is, $\parenth{E_8}^* = E_8$ as free $\Z$-submodules of $\R^8$.
-\end{boxtheorem}
-
-This follows directly from the definitions of the dual lattice (\Cref{Ch2:Def:Dual_Lattice}) and the $E_8$ lattice (\Cref{Ch2:Def:E8_Lattice}), and we omit the proof. It will be useful later on, as it will give us an insight into the desired properties of the magic function.
-
-Finally, we mentiont that the covolume of the $E_8$ lattice is $1$.
-
-\begin{boxtheorem}\label{Ch2:Thm:E8_Covolume}
-    $\Volof{\quotient{\R^8}{\Lambda_8}} = 1$.
-\end{boxtheorem}
-
-The way this can be proven is by showing that the determinant of the matrix consisting of an explicit basis of simple roots of the $E_8$ root system has determinant $1$. We do not go into detail here.
-
-The reason we stated the above properties is because we can use them to simplify the computations in the Poisson Summation Formula over the $E_8$ lattice. We will discuss this formula in the next section, but we will not examine the specific case of the $E_8$ lattice till we get to \Cref{Ch3:Chapter}.
+The sphere packing to which we refer in the second point of the above theorem is precisely the $E_8$ sphere packing. We are now ready to examine Cohn and Elkies's groundbreaking intermediate result that Viazovska uses to construct her Magic Function.
