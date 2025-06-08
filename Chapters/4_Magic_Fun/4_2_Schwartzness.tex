@@ -275,7 +275,7 @@ We omit the informal proofs, but note that we have formal proofs in the reposito
 %     Defining $C_2 := \frac{C_1}{\pi}$ then yields the desired result.
 % \end{proof}
 
-% The formal proofs of the bounds in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} are complete up to proofs that they are bounded by integrable functions, which is necessary to apply monotonicity of the integral due to the definition of the integral in \mathlib. The evaluation of the final integral in 
+% The formal proofs of the bounds in \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6} are complete up to proofs that they are bounded by integrable functions, which is necessary to apply monotonicity of the integral due to the definition of the integral in \mathlib. The evaluation of the final integral in 
 
 It is clear that the estimates for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$ have at least exponential decay, making them more rapidly decaying than any inverse power of $r$ for $r \in \Ico{0, \infty}$. For $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$, the result is actually a consequence of deeper results involving the Gamma function.
 
@@ -330,7 +330,7 @@ Next, we show that the $I_j$ are smooth and that their derivatives satisfy simil
 %     \end{align}
 %     In particular, $I_j$ is smooth (in $r$) for all $j$.
 % \end{proof}
-The key to proving this is the Leibniz Integral Rule, which has been \href{https://github.com/leanprover-community/mathlib4/blob/dd2606726d6b0601d394911f9e7a6fa0f01367a3/Mathlib/Analysis/Calculus/ParametricIntegral.lean#L281-L303}{formalised previously}. It is not difficult to prove informally that the $I_j$ satisfy the conditions laid out in the formal statement of the theorem, though there may be some difficulties when arguing formally. We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to the case we saw in \Cref{Ch4:Lemma:Bound_I1_I3_I5}.
+The key to proving this is the Leibniz Integral Rule, which has been \href{https://github.com/leanprover-community/mathlib4/blob/dd2606726d6b0601d394911f9e7a6fa0f01367a3/Mathlib/Analysis/Calculus/ParametricIntegral.lean#L281-L303}{formalised previously}. It is not difficult to prove informally that the $I_j$ satisfy the conditions laid out in the formal statement of the theorem, though there may be some difficulties when arguing formally. We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to the case we saw in \Cref{Ch4:Eq:Bound_I1_I3_I5}.
 
 \begin{boxlemma}\label{Ch4:Lemma:Reducing_higher_deriv_Schwartzness_I_1}
     For all $k \in \N$, there exists a positive real number $C_0^{(k)}$ such that for all $r \in \R$,
@@ -357,14 +357,14 @@ The key to proving this is the Leibniz Integral Rule, which has been \href{https
     \begin{align*}
         \abs{-\pi i - \frac{\pi}{s}} = \pi \abs{i + \frac{1}{s}} \leq \pi \sqrt{2}
     \end{align*}
-    Combining this with the bound in the proof of \Cref{Ch4:Lemma:Bound_I1_I3_I5}, $\exists C_0 > 0$ such that
+    Combining this with the bound in the proof of \Cref{Ch4:Eq:Bound_I1_I3_I5}, $\exists C_0 > 0$ such that
     \begin{align*}
         \abs{I_1^{(k)}\of{r}} \leq \int_{1}^{\infty} C_0 \parenth{\pi \sqrt{2}}^{k} \, e^{-2\pi s} \, e^{- \pi r / s} \, \diff{s}
     \end{align*}
     Defining $C_0^{(k)} := C_0 \parenth{\pi \sqrt{2}}^{k}$ then gives the desired result.
 \end{proof}
 
-Analogous results can be proved for the other $I_j$, with any arising constants subsumed into the constants defined in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6}. Therefore, if we can show that the functions (without the constants) on the right-hand sides of \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} decay faster than any inverse power of $r$, we will have the result.
+Analogous results can be proved for the other $I_j$, with any arising constants subsumed into the constants defined in \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6}. Therefore, if we can show that the functions (without the constants) on the right-hand sides of \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6} decay faster than any inverse power of $r$, we will have the result.
 
 %%%%%%%% THE FOLLOWING WAS ACCIDENTALLY DELETED DURING AN UNSAFE GITHUB MERGE. BE CAREFUL WHEN SWITCHING FROM OVERLEAF TO LOCAL AND BACK!
 
@@ -405,7 +405,7 @@ We begin by proving an analogue of \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_a
     Substituting these into \Cref{SP:PolyFourierCoeffBound} then yields the desired result.
 \end{proof}
 
-We are now ready to compute bounds on the $J_j$. Observe that the bounding arguments in \Cref{Ch4:Lemma:Bound_I1_I3_I5,Ch4:Lemma:Bound_I2_I4,Ch4:Lemma:Bound_I6} do not use any property of $\phi_0$ apart from the bound given in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}. By inspection (cf. \eqref{Ch4:Eq:J1_like_I1}-\eqref{Ch4:Eq:J5_like_I5} and \eqref{Ch4:Eq:J_6_def}), it is possible to replicate those arguments almost verbatim to show that there exist constants $C_S, C_S', C_S'' > 0$ such that
+We are now ready to compute bounds on the $J_j$. Observe that the bounding arguments in \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6} do not use any property of $\phi_0$ apart from the bound given in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}. By inspection (cf. \eqref{Ch4:Eq:J1_like_I1}-\eqref{Ch4:Eq:J5_like_I5} and \eqref{Ch4:Eq:J_6_def}), it is possible to replicate those arguments almost verbatim to show that there exist constants $C_S, C_S', C_S'' > 0$ such that
 \begin{align}
     \abs{J_1(r)}, \abs{J_3(r)}, \abs{J_5(r)} &\leq \int_{1}^{\infty} C_S \, e^{-\pi s} \, e^{- \pi r/s} \, \diff{s} \label{Ch4:Eq:Bound_J1_J5} \\
     \abs{J_2(r)}, \abs{J_4(r)} &\leq C_S' \, e^{-\pi r} \label{Ch4:Eq:Bound_J_2} \\
