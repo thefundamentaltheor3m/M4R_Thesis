@@ -35,13 +35,13 @@ We can also define the inverse Fourier transform.
 Confusingly, the inverse Fourier transform is not always the inverse of the Fourier transform. For instance, the Fourier integral may not converge. For integrable functions with integrable Fourier transforms, though, the inverse Fourier transform does invert the Fourier transform. Regardless, we have the following result, which has been \href{https://github.com/leanprover-community/mathlib4/blob/6c6e0180f0d3dc9f47f85532f48d268d8656789a/Mathlib/Analysis/Fourier/FourierTransform.lean#L405-L410}{previously formalised in \mathlib}.
 
 \begin{boxlemma}\label{Ch2:Lemma:Fourier_Inverse_Fourier_Neg}
-    Let $m, n \in \N$ and let $f : \R^m \to \C^n$ be $L^1$. For all $x \in \R^m$, we have that
+    For all $m, n \in \N$ and $f : \R^m \to \C^n$,
     \begin{align*}
         \F\inv\of{f}\of{x} = \F\of{f}\of{-x}
     \end{align*}
 \end{boxlemma}
 
-We now recall the definition of the dual of a lattice (\Cref{Ch2:Def:Dual_Lattice}). The reason why the concept of a dual lattice is relevant is that it allows us to state the \textbf{Poisson Summation Formula}, which relates the sum of a function over a lattice to the sum of its Fourier transform over the dual lattice.
+We can now state the Poisson Summation Formula. Here, $\Lambda^*$ is as in \Cref{Ch2:Def:Dual_Lattice}.
 
 \begin{boxtheorem}[Poisson Summation Formula over Lattices]\label{Ch2:Thm:Poisson_Summation}
     Let $d > 0$ and let $\Lambda \subset \R^d$ be a lattice. Let $f : \R^d \to \R$ be a Schwartz function. For all vectors $v \in \R^d$, we have

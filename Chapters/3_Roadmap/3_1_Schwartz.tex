@@ -1,6 +1,6 @@
 \section{Radial Schwartz Functions}
 
-In the statement of~\Cref{SP:Thm:CohnElkies}, we require the function in terms of which we bound the sphere packing constant in dimension $d$ to be Schwartz. However, we have yet to formally define what this means. Intuitively, a Schwartz function is a smooth function whose every derivative decays faster than any inverse power of the norm. Below, we give a more formal definition that is adapted from the definition of the \verb|structure| \href{https://github.com/leanprover-community/mathlib4/blob/bb076f5f2d39b534b917755b0338314b6714304b/Mathlib/Analysis/Distribution/SchwartzSpace.lean#L74-L79}{\texttt{SchwartzMap}} in \mathlib.
+In the statement of~\Cref{SP:Thm:CohnElkies}, we require the function in terms of which we bound the sphere packing constant in dimension $d$ to be Schwartz. We have discussed Schwartz functions informally, but give a more formal definition below that is adapted from the \href{https://github.com/leanprover-community/mathlib4/blob/bb076f5f2d39b534b917755b0338314b6714304b/Mathlib/Analysis/Distribution/SchwartzSpace.lean#L74-L79}{\mathlib definition}.
 
 \begin{boxdefinition}[Schwartz Function]
     Let $E$ and $F$ be normed $\R$-vector spaces. We say that $f : E \to F$ is \textbf{Schwartz} if it is infinitely continuously differentiable and for all $n, k \in \N$, there exists some $C \in \R$ such that for all $x \in E$,
