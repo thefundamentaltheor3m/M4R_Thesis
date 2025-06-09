@@ -8,7 +8,7 @@ Begin by saying a few words about what metaprogramming is. Then go into subsecti
 3. Say something about what Heather's latest modifications look like. Maybe also talk about how the approach can be generalised to quaternion algebras or splitting fields (what's similar and what's different between norm_numI and these things), but don't talk about the maths of either of these. Stress that this is still under development, and that this opens the door to a world of metaprogramming possibilities.
 \end{comment}
 
-The formalisation of the solution to the sphere packing problem brought to light a longstanding difficulty faced by the Lean community: a lack of automation for performing computations in $\C$. After a discussion with Heather Macbeth, who is experienced in creating automation for Lean, the author, with Macbeth's guidance and Xie's assistance, embarked on the development of a normalisation-simplification automation procedure for performing computations in $\C$.
+The formalisation of the solution to the sphere packing problem brought to light a longstanding difficulty faced by the Lean community: a lack of automation for performing computations in $\C$. After a discussion with Heather Macbeth, who is experienced in creating automation for Lean, the author, with Macbeth's guidance and Xie's invaluable inputs, embarked on the development of a normalisation-simplification automation procedure for performing computations in $\C$.
 
 % I will condense the stuff below in the shorter (for-submission) version of this thesis. I'll leave it as is over here though... maybe this will come in handy someday...
 
@@ -34,7 +34,7 @@ There are more advanced tactics, however, that construct proof terms automatical
 example (P Q R : Prop) : P ∧ (Q ∧ R) ↔ (P ∧ Q) ∧ R := by itauto
 \end{lstlisting}
 
-Such tactics have immense utility, resulting in shorter, more readable proofs and a speedier, less vexatious interactive theorem proving experience. The science of writing such tactics is called \textbf{metaprogramming}. Given how computationally involved the construction of Viazovska's Magic Function is (as seen in \Cref{Ch4:Chapter}), the author, after a discussions with Macbeth, realised that the most efficient approach to formalising some of the computational aspects of Viazovska's argument was to write a tactic capable of handling them. The first version of this tactic, developed as a collaboration between Macbeth, Xie and the author, with inputs from Mehta, was called \lstinline|norm_numI|.
+Such tactics have immense utility, resulting in shorter, more readable proofs and a speedier, less vexatious interactive theorem proving experience. The science of writing such tactics is called \textbf{metaprogramming}. Given how computationally involved the construction of Viazovska's Magic Function is (as seen in \Cref{Ch4:Chapter}), the author, after a discussions with Macbeth, realised that the most efficient approach to formalising some of the computational aspects of Viazovska's argument was to write a tactic capable of handling them. The first version of this tactic, developed as a collaboration between Macbeth, Xie and the author, was called \lstinline|norm_numI|.
 
 In the forthcoming subsections, we explore the motivation and technique used to develop \lstinline|norm_numI|, and briefly discuss how the tactic maybe further developed and the scope of its applicability expanded.
 
