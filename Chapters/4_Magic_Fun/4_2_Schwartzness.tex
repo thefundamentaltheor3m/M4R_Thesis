@@ -115,7 +115,7 @@ We begin by proving that $I_1, \ldots, I_6$ decay rapidly. As a first step, we s
     for all $z \in \Halfplane$ with $\Im(z) > \frac{1}{2}$.
 \end{boxlemma}
 \begin{proof}
-    Fix $z \in \Halfplane$ and assume that $\Im(z) > 1/2$. Since the Fourier coefficients of $E_2$, $E_4$ and $E_6$ grow polynomially (see \Cref{Ch2:Thm:E2_qexpansion,Ch2:Thm:Ek_qexpansion}), by \Cref{Ch4:Prop:PolyGrowth_of_mul}, the Fourier coefficients of the numerators of $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$ grow polynomially as well. All that remains is to compute $n_0$ for the numerators of $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$. Denote these $N_0$, $N_{-2}$ and $N_{-4}$ respectively. Note that $n_0\of{E_2} = n_0\of{E_4} = n_0\of{E_6} = 0$, with $c_{E_2}\of{0} = c_{E_4}\of{0} = C_{E_6}\of{0} = 1$.
+    Fix $z \in \Halfplane$ and assume that $\Im(z) > 1/2$. Since the Fourier coefficients of $E_2$, $E_4$ and $E_6$ grow polynomially (see \Cref{Ch2:Def:E2_E3_E4}), by \Cref{Ch4:Prop:PolyGrowth_of_mul}, the Fourier coefficients of the numerators of $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$ grow polynomially as well. All that remains is to compute $n_0$ for the numerators of $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$. Denote these $N_0$, $N_{-2}$ and $N_{-4}$ respectively. Note that $n_0\of{E_2} = n_0\of{E_4} = n_0\of{E_6} = 0$, with $c_{E_2}\of{0} = c_{E_4}\of{0} = C_{E_6}\of{0} = 1$.
 
     \begin{itemize}
         \item \underline{$N_0 = 4$.} Recall that the numerator of $\phi_0$ is $\parenth{E_2 E_4 - E_6}^2$. \Cref{Ch4:Prop:PolyGrowth_of_mul} then tells us that $n_0\of{E_2 E_4} = 0$. So, $n_0\of{E_2 E_4 - E_6} \geq 0$. In fact, the $0$th coefficients of both $E_2 E_4$ and $E_6$ are $1$, so they cancel. Hence, $n_0\of{E_2 E_4 - E_6} = 2$. Hence, by $n_0\of{\parenth{E_2 E_4 - E_6}^2} = 4$.
@@ -198,7 +198,7 @@ We can now bound $I_1$, $I_3$ and $I_5$.
 In similar fashion, arguing by parametrising and applying \Cref{SP:PolyFourierCoeffBound}, we can show that there exist $C_1, C_2 > 0$ such that
 \begin{align}
     \abs{I_2(r)}, \abs{I_4(r)} &\leq C_1 \, e^{-\pi r} \label{Ch4:Eq:Bound_I2_I4} \\
-    \abs{I_6(r)} &\leq C_2 \, \frac{e^{-\pi \parenth{r + 2}}}{r + 2}
+    \abs{I_6(r)} &\leq C_2 \, \frac{e^{-\pi \parenth{r + 2}}}{r + 2} \label{Ch4:Eq:Bound_I6}
 \end{align}
 We omit the informal proofs, but note that we have formal proofs in the repository. We discuss this in greater detail in \Cref{Ch5:Subsec:Bounding_Integrals}.
 
@@ -397,7 +397,7 @@ We begin by proving an analogue of \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_a
     Substituting these into \Cref{SP:PolyFourierCoeffBound} then yields the desired result.
 \end{proof}
 
-We are now ready to compute bounds on the $J_j$. Observe that the bounding arguments in \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6} do not use any property of $\phi_0$ apart from the bound given in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}. By inspection (cf. \eqref{Ch4:Eq:J1_like_I1}-\eqref{Ch4:Eq:J5_like_I5} and \eqref{Ch4:Eq:J_6_def}), it is possible to replicate those arguments almost verbatim to show that there exist constants $C_S, C_S', C_S'' > 0$ such that
+We are now ready to compute bounds on the $J_j$. Observe that the bounding arguments in \eqref{Ch4:Eq:Bound_I1_I3_I5}, \eqref{Ch4:Eq:Bound_I2_I4}, \eqref{Ch4:Eq:Bound_I6} do not use any property of $\phi_0$ apart from the bound given in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}. By inspection (cf. \eqref{Ch4:Eq:J1_like_I1}-\eqref{Ch4:Eq:J5_like_I5} and \eqref{Ch4:Eq:J_6_def}), it is possible to replicate those arguments almost verbatim to show that there exist constants $C_S, C_S', C_S'' > 0$ such that
 \begin{align}
     \abs{J_1(r)}, \abs{J_3(r)}, \abs{J_5(r)} &\leq \int_{1}^{\infty} C_S \, e^{-\pi s} \, e^{- \pi r/s} \, \diff{s} \label{Ch4:Eq:Bound_J1_J5} \\
     \abs{J_2(r)}, \abs{J_4(r)} &\leq C_S' \, e^{-\pi r} \label{Ch4:Eq:Bound_J_2} \\
@@ -405,4 +405,4 @@ We are now ready to compute bounds on the $J_j$. Observe that the bounding argum
 \end{align}
 We note that some occurrences of $2\pi$ in the arguments in \Cref{Ch4:Subec:Schwartzness_a} must be replaced with occurrences of $\pi$ because of the differences in the $n_0$ values of the numerators of $\phi_0$ and $\psi_S$, which means the exponents in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0} and \eqref{Ch4:Eq:PolyFourierCoeffBound_psi_S} are different. However, since they are still negative, this does not affect the argument.
 
-Finally, we note that smoothness and boundedness are, once again, analogous to \Cref{Ch4:Lemma:Reducing_higher_deriv_Schwartzness_I_1}: the assumptions of the Leibniz Integral Rule are satisfied for the same reasons, and the process of reducing higher derivatives to lower derivatives is nearly identical. We can therefore conclude that $b$, like $a$, is a Schwartz function.
+Finally, we note that smoothness and boundedness of derivatives are, once again, analogous to the results from \Cref{Ch4:Subec:Schwartzness_a}: the assumptions of the Leibniz Integral Rule are satisfied for the same reasons, and the process of reducing higher derivatives to lower derivatives is nearly identical. We can therefore conclude that $b$, like $a$, is a Schwartz function.
