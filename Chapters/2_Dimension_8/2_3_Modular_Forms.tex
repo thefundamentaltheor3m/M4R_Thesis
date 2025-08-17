@@ -1,0 +1,373 @@
+\section{A Word on Modular Forms}
+\label{Ch2:Sec:ModForms}
+% SHOULD I MAYBE TURN THIS INTO AN APPENDIX? IT'S LOOKING PRETTY LONG...
+
+\begin{comment}
+Things to discuss:
+1. What is a modular form
+2. What is a quasimodular form
+3. Examples: Eisenstein Series, Jacobi Theta functions, Discriminant form
+We can reference things like the q-expansions of the Eisenstein series, the transformation rules for the Jacobi theta functions, and the product formula for the discriminant form.
+\end{comment}
+
+The theory of modular forms is a rich subject lying at the intersection of complex analysis, algebra and number theory. Among other things, it describes symmetries and relations between an important and well-behaved class of functions and gives us algebraic ways of manipulating and composing these relations. In \Cref{Ch3:Sec:Properties}, we discuss why this is useful for Viazovska's argument. The primary reference for the contents of this section is \cite[Chapter 1]{DiamondShurman}.
+
+Several results in the theory of modular forms have been formalised by Birkbeck, Loeffler and others, and a significant portion of their work has been merged into \mathlib. Definitions and results from this section that pertain to Viazovska's solution to the sphere packing problem in $\R^8$ that do not feature in \mathlib\ are being actively formalised by Birkbeck and Lee. We freely reference previously formalised code and provide links.
+
+First, we introduce the following useful notation, which corresponds to \mathlib\ notation.
+
+\begin{boxnotation}
+    For the remainder of this paper, denote the Complex upper half-plane by $\Halfplane$. That is, define $\Halfplane := \setst{z \in \C}{0 < \Im(z)}$.
+\end{boxnotation}
+
+A key motivating idea in the study of modular forms is the study of the action of $\SL{2, \Z}$ on $\Halfplane$ by Möbius transformations via
+\begin{align*}
+    \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}
+    \cdot z := \frac{az + b}{cz + d}
+\end{align*}
+That matrix multiplication corresponds to the composition of Möbius transformations is a well-known fact in Complex Analysis. One can hence show that the above is indeed a group action. In essence, a modular form is a holomorphic $\Halfplane \to \C$ function that exhibits some invariance under composition with this action.
+
+A modular form is usually described using a \textit{weight} and a \textit{level}. The \textit{weight} can be thought of as the \textit{extent} of its invariance, that is, the amount of correction needed after composition with the $\SL{2, \Z}$-action. The \textit{level} can be thought of as the \textit{scope} of its invariance, that is, it describes the elements of $\SL{2, \Z}$ under composition with which we have invariance. The composition itself is described using \textit{slash actions}, which are defined below.
+
+\begin{boxdefinition}[Automorphy Factors and Slash Actions]\label{Ch2:Def:Aut_Factor_Slash_Action}
+    Fix $k \in \Z$, $z \in \Halfplane$ and $\gamma = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \in \SL{2, \Z}$. Define the \textbf{automorphy factor of weight $k$} to be
+    \begin{align}
+        j_k\of{z, \gamma} &:= \parenth{cz + d}^{-k}
+        \label{Ch2:Eq:AutomorphyFactor_def}
+    \end{align}
+    For any function $f : \Halfplane \to \C$, with $k$ and $\gamma$ as above, the \textbf{slash operator} maps $f$ to a new function $f \mid_k \gamma : \Halfplane \to \C$ given by
+    \begin{align}
+        \fmof{k}{\gamma}{z} &:= j_k\of{z, \gamma} \fof{\gamma \cdot z} = \parenth{cz + d}^{-k} \fof{\frac{az + b}{cz + d}}
+        \label{Ch2:Eq:SlashAction_def}
+    \end{align}
+    The action of $\gamma$ mapping $f$ to $\fm_k \gamma$ via the weight $k$ slash operator is sometimes referred to as a \textbf{slash action}.
+\end{boxdefinition}
+
+It is clear, from the above definition, that $\fm_0 \gamma = f \circ \gamma$ for al $\gamma \in \SL{2, \Z}$. That is, if $f = \fm_0 \gamma$, then $f = f \circ \gamma$, that is, $f$ is invariant under composition with (the action of) $\gamma$. If $f = \fm_k \gamma$ for some $k \in \Z$ and $\gamma \in \SL{2, \Z}$, we can view the weight $k$ as indicating the `extent of invariance' of $f$ under composition with $\gamma$.
+
+Note that slash actions compose nicely, due to the nature of the Möbius action of $\SL{2, \Z}$ as well as the definition of the automorphy factor. A slightly more general version of this has been \href{https://github.com/leanprover-community/mathlib4/blob/a0370507e2922f0a329a2d8cc17e9f9148cd168d/Mathlib/NumberTheory/ModularForms/SlashActions.lean#L77}{previously formalised} in \mathlib.
+
+\begin{boxlemma}\label{Ch2:Lemma:Slash_Mul}
+    For all $k \in \Z$, $f : \Halfplane \to \C$ and $\gamma_1, \gamma_2 \in \SL{2, \Z}$,
+    \begin{align*}
+        \parenth{f \mid_k \gamma_1} \mid_k \gamma_2 = f \mid_k \parenth{\gamma_1 \gamma_2}
+    \end{align*}
+    where $\gamma_1 \gamma_2$ is the product of $\gamma_1$ and $\gamma_2$ as matrices.
+\end{boxlemma}
+
+We are now ready to define congruence subgroups, which will tell us under precisely which elements of $\SL{2, \Z}$ a modular form is slash-invariant. We express this notion in the language of modular arithmetic.
+
+\begin{boxdefinition}[Congruence Subgroup]\label{Ch2:Def:Cong_Subgroup}
+    Fix $N \in \N$. The \textbf{level $N$ principal congruence subgroup} of $\SL{2, \Z}$, denoted $\Gamma(N)$, is defined to be the kernel of the surjective group homomorphism from $\SL{2, \Z}$ to $\SL{2, \Zmod{N}}$ that comes from reducing modulo $N$. That is,
+    \begin{align}
+        \Gamma(N) &:= \setst{
+        \begin{bmatrix}
+            a & b \\ c & d
+        \end{bmatrix} \in \SL{2, \Z}}{
+        \begin{bmatrix}
+            a & b \\ c & d
+        \end{bmatrix}
+        \equiv
+        \begin{bmatrix}
+            1 & 0 \\ 0 & 1
+        \end{bmatrix}
+        \pmod{N}}
+        \label{Ch2:Eq:PrincipalCongruenceSubgroup_def}
+    \end{align}
+    More generally, a subgroup $\Gamma$ of $\SL{2, \Z}$ is called a \textbf{congruence subgroup} if $\Gamma(N) \subset \Gamma$ for some $N \in \N$.
+\end{boxdefinition}
+
+We now have enough to define what it means for a holomorphic function to be invariant under the slash action of a congruence subgroup. In the definition of modular forms, however, we include an additional condition that is often referred to as \textit{holomorphicity at $i\infty$}, the purpose of which is to ensure that spaces of modular forms, which turn out to admit $\C$-vector space structures, are, in fact, finite-dimensional \cite{KevinFamilies}.
+
+% The theory of modular forms is often thought to lie in the very rich intersection of algebra and analysis. Our definitions so far have been largely algebraic, but our next one is analytic. Consider the mapping $q : \Halfplane \to \C : z \mapsto e^{2\pi i z}$. This maps $\Halfplane$ to the punctured, open unit disc
+% \begin{align*}
+%     D := \setst{w \in \C}{0 < \abs{q} < 1}
+% \end{align*}
+% Indeed, for all $z \in \Halfplane$, writing $z = x + iy$ for $x, y \in \R$ with $y > 0$, we have
+% \begin{align*}
+%     \abs{q(z)} = \abs{e^{2 \pi i \parenth{x + iy}}} = \abs{e^{2\pi i x}} \cdot \abs{e^{-2\pi y}} < 1
+% \end{align*}
+% with $0 \notin q\of{\Halfplane}$ but $q(z) \to 0$ as $\Im(z) = y \to \infty$. Now, we know that the holomorphic functions from $D \to \C$ are precisely those that have Laurent expansions of the form
+% \begin{align*}
+%     \sum_{n=0}^{\infty} c_n w^n
+% \end{align*}
+% for all $w \in D$. If we write $w = q(z)$ for $z \in \Halfplane$, the above series turns out to be a \textit{Fourier expansion}. We can hence make the following definition for holomorphicity at $i\infty$.
+
+\begin{boxdefinition}[Holomorphicity at $i\infty$]\label{Ch2:Def:Holo_at_ImInfty}
+    We say a function $f : \Halfplane \to \C$ is \textbf{holomorphic at $i\infty$} if $f$ admits a Fourier expansion of the form
+    \begin{align*}
+        f(z) = \sum_{n=0}^{\infty} c_n e^{2\pi i nz}
+    \end{align*}
+    That is, $f$ admits a Fourier expansion with no negative powers of $e^{2\pi i z}$.
+\end{boxdefinition}
+
+The holomorphicity of $f$ at $i\infty$ essentially means that the Fourier expansion of $f$ is a holomorphic function in $e^{2 \pi i z}$ from the open, punctured unit disc, with the added constraint that $\abs{f(z)}$ remains bounded as $\Im(z) \to \infty$, that is, the corresponding $D \to \C$ function in $q(z)$ extends to a holomorphic function that is defined and bounded at $0$. There is a rich theory of functions where $c_0 = 0$, but we will not explore that theory here.\footnote{Modular forms with this property are known as \textbf{cusp forms}. One modular form we will need to construct the magic function is the discriminant form, which will turn out to be a cusp form.}
+
+We are now ready to define modular forms. Intuitively, a modular form is a function that satisfies the above definitions in a slash-invariant manner. More precisely, we have the following.
+
+\begin{boxdefinition}[Modular Form]
+    Fix $k \in \Z$ and let $\Gamma$ be a congruence subgroup of $\SL{2, \Z}$. We say a function $f : \Halfplane \to \C$ is a \textbf{modular form of weight $k$ with respect to $\Gamma$} if $f$ is \textbf{invariant} under the slash action of $\Gamma$ and \textbf{holomorphic at $i\infty$} under the slash action of $\SL{2, \Z}$. That is,
+    \begin{enumerate}
+        \item For all $\gamma \in \Gamma$, $\fm_k \gamma = f$ (cf. \Cref{Ch2:Def:Aut_Factor_Slash_Action}).
+        \item For all $\gamma \in \SL{2, \Z}$, $\fm_k \gamma$ is holomorphic at $i\infty$ (cf. \Cref{Ch2:Def:Holo_at_ImInfty}).
+    \end{enumerate}
+    We denote by $M_k(\Gamma)$ the space of modular forms of weight $k$ and congruence subgroup $\Gamma$. If $\Gamma = \Gamma(N)$ for some $N \in \N$, we say an element of $M_k(\Gamma)$ has \textbf{level $N$}.
+\end{boxdefinition}
+
+There is an immensely rich theory of modular forms, and for the purposes of practicality, it was decided not to explore this theory in great detail in this project, particularly because the formalisation of the aspects of Viazovska's proof that stem from this theory is being led by Birkbeck and Lee. We will instead use the remainder of this section to discuss three specific families of modular forms and those of their properties that Viazovska uses to construct her magic function.
+
+\subsection{The Eisenstein Series}
+\label{Ch2:Subsec:EisensteinSeries}
+
+The weight $k$ Eisenstein Series, denoted $E_k$, are an important family of slash-invariant forms. The specific functions $E_2$, $E_4$ and $E_6$ will feature directly in the construction of the magic function. For all even $k \geq 4$, $E_k$ is a weight $k$, level $1$ modular form \cite[pp. 4-5]{DiamondShurman}. In particular, $E_2$ is not a modular form, but is sufficiently well-behaved for our purposes.
+
+For the purpose of this report, we define the functions $E_2$, $E_4$ and $E_6$ in the following manner. We note that these definitions differ from those in the repository, and that we are choosing these definitions purely for expository convenience.\footnote{{Despite this going against the principle of standardising definitions, a core idea in formalisation, we do this in this report because the formalisation of the theory of modular forms is not within the scope of this M4R. We do, however, provide the curious reader with a link to the \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/704c085b1251cc0c208cc373f4e6105af359edd4/SpherePacking/ModularForms/Eisenstein.lean\#L28}{definitions in the repository}, which were formalised by Birkbeck for this project as particular cases of the \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ModularForms/EisensteinSeries/Basic.lean\#L28-L35}{\mathlib\ definition}.}}
+
+\begin{boxdefinition}[The Eisenstein Series of Even Weight $\geq 4$]\label{Ch2:Def:E2_E3_E4}
+    For all $z \in \Halfplane$, define
+    \begin{align}
+        E_2(z) &= 1 - 24 \sum_{n=1}^{\infty} \sigma_1(n) e^{2 \pi i n z} \label{Ch2:Eq:E2_qexpansion} \\
+        E_4(z) &= 1 + 240 \sum_{n=1}^{\infty} \sigma_3(n) e^{2 \pi i n z} \label{Ch2:Eq:E4_qexpansion} \\
+        E_6(z) &= 1 - 504 \sum_{n=1}^{\infty} \sigma_5(n) e^{2 \pi i n z} \label{Ch2:Eq:E6_qexpansion}
+    \end{align}
+    where the defining summation converges absolutely, and
+    \begin{align*}
+        \sigma_k\of{n} := \sum_{d \mid n} d^k
+    \end{align*}
+\end{boxdefinition}
+
+One of the most important properties of the Eisenstein Series---at least, for our purposes---is that their Fourier coefficients grow polynomially. This is immediate from the definitions above: $\sigma_k(n)$ is the sum of at least $n$ integers that are at least $n^k$, meaning $\sigma_k(n) = \BigO{n^{k}}$ for any $n, k \in \N$.
+
+Furthermore, as a consequence of modularity, $E_4$ and $E_6$ satisfy two important functional equations.
+
+\begin{boxproposition}\label{Ch2:Prop:Eisenstein_func_eq}
+    For $k \in \set{4, 6}$ and $z \in \Halfplane$, the following both hold:
+    \begin{align}
+        E_k\of{z + 1} &= E_k \label{Ch2:Eq:Ek_func_eq_one_add} \\
+        E_k\of{-\frac{1}{z}} &= z^k E_k(z) \label{Ch2:Eq:Ek_func_eq_neg_one_div}
+    \end{align}
+\end{boxproposition}
+% \begin{proof}
+%     Both of these are just slash-invariance properties in disguise. We have\todo{Fix slash formatting}
+%     \begin{align*}
+%         E_k(z + 1) = \parenth{E_k \; \middle\vert_k \; {\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}}}\of{z} = \parenth{0z + 1}^{k} E_k(z) = E_k(z)
+%     \end{align*}
+%     Similarly, we have
+%     \begin{align*}
+%         E_k\of{-\frac{1}{z}} = \parenth{E_k \; \middle\vert_k \; {\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}}}\of{z} = \parenth{1z + 0}^k E_k(z) = z^k E_k(z)
+%     \end{align*}
+%     as required.
+% \end{proof}
+
+The functional equations \eqref{Ch2:Eq:Ek_func_eq_one_add} and \eqref{Ch2:Eq:Ek_func_eq_neg_one_div} yield similar results for an important function that will be used in constructing the magic function. We will explore this idea in \Cref{Ch4:Chapter}.
+
+
+
+% % Our strategy to prove that the Fourier coefficients have polynomial growth will be to compute them explicitly. First, we need to define the arithmetic function $\sigma_k(n)$, which is defined in \mathlib\ as \href{https://github.com/leanprover-community/mathlib4/blob/70816aec3a0f7bb98ac42991652a66b6405e1a00/Mathlib/NumberTheory/ArithmeticFunction.lean#L797-L799}{\texttt{ArithmeticFunction.sigma}}.
+
+% % \begin{boxdefinition}[The $\sigma$-Function]
+% %     The \textbf{$\sigma$-function} $\sigma : \N \times \N \to \N$ is given by
+% %     \begin{align*}
+% %         \sigma_k\of{n} := \sum_{d \mid n} d^k
+% %     \end{align*}
+% % \end{boxdefinition}
+
+% % In \mathlib, for every natural number \texttt{k}, \texttt{ArithmeticFunction.sigma k} is defined as an \href{https://github.com/leanprover-community/mathlib4/blob/bc10be4a66942c0fc2547b54f7f8715df72ff28c/Mathlib/NumberTheory/ArithmeticFunction.lean#L76-L80}{\texttt{ArithmeticFunction $\N$}} structure, meaning it is an $\N \to \N$ map that maps $0$ to $0$.
+
+% % The reason we defined the $\sigma$-function is that the Fourier coefficients of the Eisenstein series are given in terms of $\sigma$.
+
+% \begin{boxtheorem}\label{Ch2:Thm:Ek_qexpansion}
+%     For all even $k \geq 4$ and $z \in \Halfplane$, $E_k(z)$ can be expressed as the Fourier series
+%     \begin{align}
+%         E_k(z) &= 1 + C_k \sum_{n=1}^{\infty} \sigma_{k-1}\of{n} e^{2\pi i n z}
+%         \label{Ch2:Eq:Ek_qexpansion}
+%     \end{align}
+%     where
+%     \begin{align}
+%         C_k = \frac{1}{\zeta(k)} \cdot \frac{\parenth{-2 \pi i}^k}{\parenth{k-1}!}
+%         \label{Ch2:Eq:Ck_Ek_qexpansion_const}
+%     \end{align}
+%     and
+%     \begin{align*}
+%         \sigma_k\of{n} := \sum_{d \mid n} d^k
+%     \end{align*}
+%     In particular, $C_4 = 240$ and $C_6 = -504$. That is, $E_4$ and $E_6$ have the following Fourier expansions:
+%     \begin{align}
+%         E_4(z) &= 1 + 240 \sum_{n=1}^{\infty} \sigma_3(n) e^{2 \pi i n z} \label{Ch2:Eq:E4_qexpansion} \\
+%         E_6(z) &= 1 - 504 \sum_{n=1}^{\infty} \sigma_5(n) e^{2 \pi i n z} \label{Ch2:Eq:E6_qexpansion}
+%     \end{align}
+% \end{boxtheorem}
+
+% The statement and proof of the general Fourier expansion of $E_k$ for even $k \geq 4$ have been \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/Eisensteinqexpansions.lean#L301}{formalised by Birkbeck} in the Sphere Packing repository. Substituting $k = 4$ and $k = 6$ in the expression for $C_k$ and evaluating it using software like Wolfram|Alpha gives the desired result. Now, it is immediate that the Fourier coefficients exhibit polynomial growth: for all $k, n \in \N$, $\sigma_k(n)$ is a sum of at most $n$ numbers that are each at most $n^k$, meaning $\sigma_k(n) \leq n^{k+1}$.
+
+% For the remainder of this subsection, we will focus on a cousin of the weight $\geq 4$ Eisenstein Series: the weight $2$ Eisenstein Series, denoted $E_2$. The reason why we treat $E_2$ separately is that it is not a modular form. Furthermore, it cannot be defined via the summation used in \Cref{Ch2:Eq:Eisenstein_def_Chris} or \Cref{Ch2:Eq:Eisenstein_def_with_zeta_normalisation}: unfortunately, when $k = 2$, these sums do not converge absolutely.
+% % That being said, Birkbeck has \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/summable_lems.lean#L1680}{shown formally} that for all $m \in \Z$, $z \in \Halfplane$, and $k \geq 2$, the summation
+% % \begin{align*}
+% %     \sum_{n \in \Z} \frac{1}{\parenth{mz + n}^k}
+% % \end{align*}
+% % converges absolutely. He then shows that
+% % \begin{align*}
+% %     \lim_{N \to \infty} \sum_{m = -N}^{N - 1} \sum_{n \in \Z} \frac{1}{\parenth{mz + n}^k}
+% % \end{align*}
+% % exists, allowing us to define $E_2$ in the following manner.
+
+% % \begin{boxdefinition}[$E_2$]\label{Ch2:Def:E2}
+% %     For all $z \in \Halfplane$, define
+% %     \begin{align*}
+% %         E_2(z) := \frac{1}{2\zeta(2)} \lim_{N \to \infty} \sum_{m = -N}^{N - 1} \sum_{n \in \Z} \frac{1}{\parenth{mz + n}^k}
+% %     \end{align*}
+% % \end{boxdefinition}
+
+% % The difference between this definition and \eqref{Ch2:Eq:Eisenstein_def_with_zeta_normalisation} with $k = 2$ is that here, we specify an order of summation for the outer sum, whereas for $k \geq 4$, in both \eqref{Ch2:Eq:Eisenstein_def_with_zeta_normalisation} and \eqref{Ch2:Eq:Eisenstein_def_Chris}, the order is immaterial due to absolute convergence. Interestingly, the Fourier expansion of $E_2$ agrees with \eqref{Ch2:Eq:Ek_qexpansion}.
+
+% For the purpose of this report, we define $E_2$ in the following manner. We note that this differs from the definition in the repository, and that we are choosing this definition for expository convenience.
+
+% \begin{boxdefinition}\label{Ch2:Thm:E2_qexpansion}
+%     For all $z \in \Halfplane$, define $E_2(z)$ as the Fourier series
+%     \begin{align}
+%         E_2(z) = 1 - 24 \sum_{n=1}^{\infty} \sigma_1(n) e^{2 \pi i n z}
+%         \label{Ch2:Eq:E2_qexpansion}
+%     \end{align}
+% \end{boxdefinition}
+
+% % Birkbeck gives a formal proof of this over the course of \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/076f4b8d6a37fa95de3bc4764a5d7f911fde91e0/SpherePacking/ModularForms/E2.lean#L736}{several \sorry-free lemmas}.
+% Interestingly, substituting $k = 2$ in \eqref{Ch2:Eq:Ck_Ek_qexpansion_const} yields precisely $-24$. Moreover, the same argument we used earlier demonstrates that the Fourier coefficients of $E_2$ also grow polynomially. We will mention this result again in \Cref{Ch4:Chapter}, where we will prove that the magic function is Schwartz.
+
+$E_2$ obeys a different functional equation, which we will indirectly use repeatedly in \Cref{Ch4:Chapter}.
+
+\begin{boxlemma}\label{Ch2:Lemma:E2_slash_action}
+    For all $\gamma = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \in \SL{2, \Z}$, we have
+    \begin{align*}
+        E_2 \mid_2 \gamma = \parenth{cz + d}^{-2} E_2\of{\frac{az + b}{cz + d}} = E_2(z) - \frac{6ic}{\pi\parenth{cz + d}}
+    \end{align*}
+\end{boxlemma}
+
+Note that in particular, this demonstrates that $E_2$ is not a weight $2$, level $1$ modular form.
+
+\subsection{The Discriminant Form}
+
+The discriminant form is a weight $12$, level $1$ modular form. As was briefly alluded to earlier, it is a cusp form. It is defined in terms of the Eisenstein series $E_4$ and $E_6$.
+
+\begin{boxdefinition}[The Discriminant Form]\label{Ch2:Def:DiscForm}
+    The \textbf{discriminant form} $\Delta$ is defined by
+    \begin{align}
+        \Delta := \frac{E_4^3 - E_6^2}{1728}
+        \label{Ch2:Eq:DiscForm_def}
+    \end{align}
+\end{boxdefinition}
+
+The discriminant form is expressible as the following infinite product.
+% has important positivity and non-vanishing properties that we will use repeatedly, either directly or indirectly, in the construction of the magic function. The discriminant form will often show up in denominators, making these properties essential to prove properties like holomorphicity. The key to these properties is the so-called product formula.
+
+\begin{boxtheorem}[Product Formula for $\Delta$]\label{Ch2:Thm:Delta_Product_Formula}
+    For all $z \in \Halfplane$, $\Delta(z)$ is expressible as the following infinite product:
+    \begin{align}
+        \Delta(z) = e^{2 \pi i z} \prod_{n=1}^{\infty} \parenth{1 - e^{2 \pi i n z}}^{24}
+    \end{align}
+\end{boxtheorem}
+
+% ASK CHRIS ABOUT LEAN PROOF OF PRODUCT FORMULA!
+
+A proof can be found in \cite[Chapter VII, §4, Theorem 6, p. 95]{SerreArith}. Birkbeck has \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/ba092be9cdebb1a9c170a22c234e71ca1842a173/SpherePacking/ModularForms/multipliable_lems.lean#L107}{shown formally} that the above product converges for all $z \in \Halfplane$.
+
+% As a remark, we mention that the theory of infinite products is not as well-developed in Lean as the theory of infinite sums. The definition of convergence of infinite products in \href{https://github.com/leanprover-community/mathlib4/blob/a98ecd2e7d46e2d29c4b572b1195c367b0106bf2/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L92}{\mathlib} is designed to yield a strong notion of convergence of infinite sums involving invariance under rearrangements, and is stronger than the notion of pointwise convergence. We do not discuss the details here, but note that the condition is sufficiently strong for our purposes.
+
+% Do we want to say anything at all about infinite products in Lean? I think it's a bad idea, because it's too much of a rabbit-hole (and will lead to too much overlap with formalising maths courseworks 1 and 2)
+
+We now state important positivity and nonvanishing properties of $\Delta$ that we will use when constructing the magic function.
+
+\begin{boxcorollary}
+    The discriminant form has the following important properties.
+    \begin{enumerate}
+        \item For all $t > 0$, we have $\Delta\of{it} > 0$. % That is, $\Delta$ is real and positive on the positive imaginary axis.
+        \item For all $z \in \Halfplane$, $\Delta\of{z} \neq 0$. % That is, $\Delta$ is nonvanishing on the upper half-plane.
+    \end{enumerate}
+\end{boxcorollary}
+
+We now discuss the last family of functions used in Viazovska's construction.
+
+\subsection{The Theta Functions}
+\label{Ch2:Subsec:ThetaFunctions}
+
+In this subsection, we define and state some basic properties of the Theta functions $\Theta_2$, $\Theta_3$ and $\Theta_4$, the fourth powers of which define the corresponding $H$-functions.
+
+\begin{boxdefinition}[The $\Theta$- and $H$-Functions]\label{Ch2:Def:Theta_H}
+    Define $\Theta_2, \Theta_3, \Theta_4 : \Halfplane \to \C$ by
+    \begin{align*}
+        \Theta_2(z) = \sum_{n \in \Z} e^{\pi i \parenth{n + \frac{1}{2}}^2 z}
+        \qquad\qquad
+        \Theta_3(z) = \sum_{n \in \Z} e^{\pi i n^2 z}
+        \qquad\qquad
+        \Theta_4(z) = \sum_{n \in \Z} \parenth{-1}^n e^{\pi i n^2 z}
+    \end{align*}
+    for all $z \in \Halfplane$. Define $H_2, H_3, H_4 : \Halfplane \to \C$ by
+    \begin{align*}
+        H_2 = \Theta_2^4 \qquad\qquad
+        H_3 = \Theta_3^4 \qquad\qquad
+        H_4 = \Theta_4^4
+    \end{align*}
+\end{boxdefinition}
+
+It can be shown that the $H$-functions are modular forms of weight $2$ and level $2$.
+
+Given the manner in which the $H$-functions are defined, it is tedious to compute their Fourier expansions explicitly. However, the purpose of computing the Fourier expansions of the Eisenstein Series was to determine that their Fourier coefficients grow polynomially. It turns out that in the case of the $H$-functions, we can do this without explicitly computing their Fourier series.
+
+The Fourier coefficients of $H_3$ and $H_4$ grow polynomially because those of $\Theta_3$ and $\Theta_4$ grow polynomially (see \Cref{Ch4:Prop:PolyGrowth_of_mul}). Unfortunately, due to the fractional term in the exponents of the summands in the definition of $\Theta_2$, it is not possible to use the same technique to show that its Fourier coefficients grow polynomially. Fortunately, we can still prove the result for $H_2$, because raising $\Theta_2$ to the fourth power gets rid of the fractional exponent. That is,
+\begin{align}
+    H_2 = \Theta_2^4
+    = \parenth{2\sum_{n =0}^{\infty} e^{\pi i \parenth{n + \frac{1}{2}}^2 z}}^4
+    = 16 e^{\pi i z} \parenth{\sum_{n =0}^{\infty} e^{\pi i \parenth{n^2 + n} z}}^4 \label{Ch2:Eq:H2_qexpansion_explicit}
+\end{align}
+This can be explicitly computed as an iterated sum with coefficients that grow polynomially.
+
+Finally, we mention some important slash action relations that we will take advantage of when proving properties about the magic function. We define some notation first.
+
+\begin{boxnotation}
+    Denote by $S, T, I$ the following elements of $\SL{2, \Z}$:
+    \begin{align*}
+        S = \begin{bmatrix}
+            0 & -1 \\ 1 & 0
+        \end{bmatrix}
+        \qquad \qquad
+        T = \begin{bmatrix}
+            1 & 1 \\ 0 & 1
+        \end{bmatrix}
+        \qquad \qquad
+        I = \begin{bmatrix}
+            1 & 0 \\ 0 & 1
+        \end{bmatrix}
+    \end{align*}
+\end{boxnotation}
+
+We now state important properties of the $H$-functions. These have been taken from \cite[(13)-(19)]{Viazovska8} and \cite[\S 6]{blueprint}, though the notation used in \cite{Viazovska8} is slightly different ($\Theta_2$, $\Theta_3$ and $\Theta_4$ are denoted $\theta_{10}$, $\theta_{00}$ and $\theta_{01}$ respectively).
+
+\begin{boxproposition}\label{Ch2:Prop:H_Rels}
+    The following slash action relations hold.
+    \begin{align*}
+        H_2 \mid_2 S &= -H_4
+        &
+        H_3 \mid_2 S &= -H_3
+        &
+        H_4 \mid_2 S &= -H_2
+        \\
+        H_2 \mid_2 T &= -H_2
+        &
+        H_3 \mid_2 T &= H_4
+        &
+        H_4 \mid_2 T &= H_3
+    \end{align*}
+    Furthermore, the $H$-functions are invariant under the weight $0$ slash action of $\Gamma(2)$. Finally, the $H$-functions are related to each other, $E_4$, $E_6$ and $\Delta$ in the following manner.
+    \begin{align}
+        0 &= H_2 - H_3 + H_4 \label{Ch2:Eq:H_Jacobi} \\
+        E_4 &= \frac{1}{2} \parenth{H_2^2 + H_3^2 + H_4^2} \label{Ch2:Eq:E4_H} \\
+        E_6 &= \frac{1}{2} \parenth{H_2 + H_3}\parenth{H_3 + H_4}\parenth{H_4 - H_2} \label{Ch2:Eq:E6_H} \\
+        \Delta &= \frac{1}{256} \parenth{H_2 \, H_3 \, H_4}^2 \label{Ch2:Eq:Disc_H}
+    \end{align}
+    Further relations can be obtained by writing $H_3 = H_2 + H_4$ in \eqref{Ch2:Eq:E4_H} and \eqref{Ch2:Eq:E6_H}.
+\end{boxproposition}
+
+Combining the relations listed above with \Cref{Ch2:Lemma:Slash_Mul} allows us to show that several more relations hold. In \Cref{Ch4:Subsec:b_def}, we will use this technique to provide a comprehensive list of transformations that will be essential to Viazovska's construction.
+
+% The proofs of these identities are significantly beyond the scope of this thesis. Variants of some of these have been formalised by Loeffler.\todo{Add link to mathlib}

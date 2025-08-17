@@ -1,0 +1,16 @@
+\chapter{Viazovska's Magic Function, Informally}
+\label{Ch4:Chapter}
+\thispagestyle{empty}
+
+In this chapter, we will construct the $+1$-eigenfunction $a$, the $-1$-eigenfunction $b$, and the magic function $g$. The theory developed in \Cref{Ch3:Chapter} tells us what properties we would like all three functions to satisfy, and in \Cref{Ch3:Sec:Properties}, we summarised those properties concisely. Over the course of this chapter, we prove that they do, indeed, satisfy them.
+
+The content is based heavily on Viazovska's original paper \cite[\S 4]{Viazovska8} and a more detailed version of her proof that she wrote originally for the project blueprint \cite[\S 7]{blueprint}. However, some details, including the very definitions of $a$ and $b$, differ slightly from the original paper. While these modifications add numerous computational inconveniences to the argument, they are necessary for the formalisation. The arguments given in this chapter are formulated to correspond either to formalised proofs or to the proof path the author has in mind for eventual formalisation, and every effort has been made to avoid assuming general results, however well-known, that have not previously been formalised. Previously formalised mathematics is assumed and applied freely, and links are provided where appropriate. The similarities and subtle differences between the approach in this report and Viazovska's original approach are discussed in greater detail in \Cref{Ch5:Sec:Gen_Overview_of_Formalisation}.
+
+We begin by defining the functions in question. In each subsequent section of this chapter, we will prove a certain property for each of the eigenfunctions. Finally, in \Cref{Ch4:Sec:g_Properties}, we will prove that $g$ does, indeed, satisfy the properties outlined in \Cref{Ch3:Chapter}.
+
+\input{Chapters/4_Magic_Fun/4_1_Defs.tex}
+\input{Chapters/4_Magic_Fun/4_2_Schwartzness.tex}
+\input{Chapters/4_Magic_Fun/4_3_Eigenfunctions.tex}
+\input{Chapters/4_Magic_Fun/4_4_Double_Zeroes.tex}
+\input{Chapters/4_Magic_Fun/4_5_Specific_Values.tex}
+\input{Chapters/4_Magic_Fun/4_6_g_Properties.tex}

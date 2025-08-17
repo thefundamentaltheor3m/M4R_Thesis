@@ -1,0 +1,82 @@
+\section{Radial Schwartz Functions}
+
+In the statement of~\Cref{SP:Thm:CohnElkies}, we require the function in terms of which we bound the sphere packing constant in dimension $d$ to be Schwartz. We have discussed Schwartz functions informally, but give a more formal definition below that is adapted from the \href{https://github.com/leanprover-community/mathlib4/blob/bb076f5f2d39b534b917755b0338314b6714304b/Mathlib/Analysis/Distribution/SchwartzSpace.lean#L74-L79}{\mathlib definition}.
+
+\begin{boxdefinition}[Schwartz Function]
+    Let $E$ and $F$ be normed $\R$-vector spaces. We say that $f : E \to F$ is \textbf{Schwartz} if it is infinitely continuously differentiable and for all $n, k \in \N$, there exists some $C \in \R$ such that for all $x \in E$,
+    \begin{align}
+        \norm{x}^k \cdot \norm{f^{(n)}(x)} \leq C
+        \label{Ch3:Eq:SchwartzDecayProperty}
+    \end{align}
+    We define the \textbf{Schwartz space} $\Sch(E, F)$ to be the set of all Schwartz functions from $E$ to $F$, which admits a vector space structure over $\R$.
+\end{boxdefinition}
+
+At the outset, it might appear that the reason we are interested in Schwartz functions is that this is a requirement of the Poisson Summation Formula (\Cref{Ch2:Thm:Poisson_Summation}), which is used in the proof of the \CELP\ (\Cref{SP:Thm:CohnElkies}). However, this turns out to be a sufficient condition for the Poisson Summation Formula to hold, not a necessary condition. There is a deeper reason why we are interested in Schwartz functions: the \CEC\ immediately show us that we should also consider the properties of the Fourier transform of the magic function, and Fourier transforms of Schwartz functions turn out to be Schwartz. In fact, we can say something stronger when we view the Fourier transform as an operator on the Schwartz space.
+
+\begin{boxtheorem}\label{Ch3:Thm:FourierSchwartz_CLE}
+    Let $V$ be a finite-dimensional inner-product space over $\R$ and let $E$ be a normed vector space over $\C$. The Fourier transform
+    \begin{align*}
+        \F : \Sch(V, E) \to \Sch(V, E) : f \mapsto \hat{f}
+    \end{align*}
+    is a linear isomorphism of $\Sch(V, E)$. % Leave out continuity because the discussion of the topology of the Schwartz space is not relevant.
+\end{boxtheorem}
+
+This is a well-known result that has \href{https://github.com/leanprover-community/mathlib4/blob/bb076f5f2d39b534b917755b0338314b6714304b/Mathlib/Analysis/Distribution/FourierSchwartz.lean#L83-L101}{previously been formalised} in \mathlib.
+
+It turns out that there is another condition we can impose to simplify our hunt for the magic function. The key idea is to find a function satisfying the conditions~\ref{CE1}-\ref{CE3}. Observe, for $x \in \R^d$, that \ref{CE1} does not depend on $x$, and \ref{CE2} and \ref{CE3} only depend on $\norm{x}$. This allows us to narrow our search to \textbf{radial functions}, which we define as follows.
+
+\begin{boxdefinition}[Radial Functions]
+    Let $E$ be a normed $\R$-vector space and $\alpha$ an arbitrary set. We say that $f : E \to \alpha$ is \textbf{radial} if for all $x, y \in E$, if $\norm{x} = \norm{y}$, then $f(x) = f(y)$.
+\end{boxdefinition}
+
+Radial Schwartz functions interact with the Fourier Transform in an even nicer way than ordinary Schwartz functions.
+
+\begin{boxproposition}\label{Ch3:Prop:RadialSchwartzFourier}
+    Let $f : \R^d \to \C$ be a radial Schwartz function. Then,
+    \begin{align*}
+        \F\of{\F\of{f}} = f
+    \end{align*}
+\end{boxproposition}
+% \begin{proof}
+%     Fix $x \in \R^d$. Applying \Cref{Ch2:Lemma:Fourier_Inverse_Fourier_Neg} to $\F\of{f}$ and $-x$, we have
+%     \begin{align*}
+%         \F\of{\F\of{f}}\of{x} = \F\inv\of{\F\of{f}}\of{-x} = f\of{-x} = f\of{x}
+%     \end{align*}
+%     where the fact that $\F\inv\of{\F\of{f}} = f$ follows from the fact that $f$ is Schwartz and the fact that $\fof{-x} = \fof{x}$ follows from the fact that $f$ is radial.
+% \end{proof}
+
+A key consequence of \Cref{Ch3:Prop:RadialSchwartzFourier} is the following mechanism for constructing radial Schwartz functions, and thereby, the magic function.
+
+\begin{boxtheorem}\label{Ch3:Thm:RadialSchwartz_eq_unique_sum_pm1_eigfun}
+    If $f$ is a radial Schwartz function, there exist unique functions $f_+$ and $f_-$ such that $f = f_+ + f_-$ and $\F\of{f_+} = f_+$ and $\F\of{f_-} = -f_-$.
+\end{boxtheorem}
+\begin{proof}
+    Observe that if $f$ is a radial Schwartz function, we can write
+    \begin{align*}
+        f = \underbrace{\frac{f - \hat{f}}{2}}_{=: f_{-}} + \underbrace{\frac{f + \hat{f}}{2}}_{=: f_{+}}
+    \end{align*}
+    The functions $f_{-}$ and $f_{+}$ have the properties that
+    \begin{align*}
+        \F\of{f_{-}} &= \frac{1}{2} \parenth{\F\of{f} - \F\of{\hat{f}}} = \frac{1}{2} \parenth{\hat{f} - f} = -f_{-} \\
+        \F\of{f_{+}} &= \frac{1}{2} \parenth{\F\of{f} + \F\of{\hat{f}}} = \frac{1}{2} \parenth{\hat{f} + f} = f_{+}
+    \end{align*}
+    where we use \Cref{Ch3:Prop:RadialSchwartzFourier} to show that $\hat{\hat{f}} = f$. In other words, $f_{-}$ and $f_{+}$ are \textbf{eigenfunctions of the Fourier transform} with eigenvalues $-1$ and $+1$ respectively. Furthermore, if $f = \lambda f_1 + \mu f_2$ for \textit{any} two functions $f_1$ and $f_2$ such that $\hat{f_1} = -f_1$ and $\hat{f_2} = f_2$, then one can show, by computing $f_{-}$ and $f_{+}$, that $\lambda f_1 = f_{-}$ and $\mu b = f_{+}$.
+\end{proof}
+
+By \Cref{Ch3:Thm:RadialSchwartz_eq_unique_sum_pm1_eigfun}, we can break down the problem of constructing the magic function into two smaller problems: constructing appropriate $\pm 1$-Fourier eigenfunctions. Before we discuss the properties we seek in our magic function---or its constituent Fourier eigenfunctions---we briefly mention one final ingredient of the utmost import about radial Schwartz functions that we will use repeatedly to simplify the argument.
+
+We usually treat radial functions as $\R \to \C$ functions, because all information about the input that is necessary to compute the corresponding output is captured by a (non-negative) real number: its norm. However, the decaying property \eqref{Ch3:Eq:SchwartzDecayProperty} of Schwartz functions is something that, at first glance, makes it a bit tricky to ignore the dimension of the domain when dealing with radial Schwartz functions, particularly because it is stated in terms of higher derivatives. Computing $n$-dimensional Jacobians is already tedious, and formally, it tends to be very challenging indeed. Fortunately, we have a workaround.
+
+\begin{boxproposition}\label{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}
+    Let $f : \R \to \C$ be a function that is smooth on $\Ico{0, \infty}$ and decays faster than any inverse integer or half-integer power of $x$. Then, for all $d \in \N$, the function
+    \begin{align*}
+        f_d : \R^d \to \C : x \mapsto \fof{\norm{x}^2}
+    \end{align*}
+    is Schwartz. In particular, if $f$ is Schwartz, $f_d$ is Schwartz.
+\end{boxproposition}
+
+This is an extremely important result, because it allows us to translate freely between functions with Schwartz-like properties with one- or multiple-dimensional inputs. It has been formalised by the author, and we discuss it further in \Cref{Ch5:Subsec:Schwartz_Bridge}.
+
+The point of \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz} is that it gives us a criterion to show that radial functions in higher dimensions that are functions not of the norm but of the norm \textit{squared} are Schwartz, purely by considering the corresponding function that takes in a one-dimensional input. This will be instrumental in our argument.
+
+With this, we end our discussion of radial Schwartz functions. The key takeaway is that while Schwartzness is a necessary condition for our magic function to satisfy, we can also impose the condition of radiality to simplify our construction. We will now take a closer look at Cohn and Elkies's groundbreaking result (\Cref{SP:Thm:CohnElkies}) to determine further properties for the magic function to satisfy.

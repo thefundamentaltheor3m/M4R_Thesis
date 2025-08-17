@@ -1,0 +1,107 @@
+\section{The Cohn-Elkies Linear Programming Bounds}\label{Ch2:Sec:CohnElkies}
+
+The linear programming bounds constructed by Henry Cohn and Noam Elkies was a profound and powerful discovery that transformed the inherently geometric sphere packing problem into an analytic one. For all $d \in \N$, it posits the existence of a family of upper-bounds on the sphere packing constant $\Delta_d$, indexed by functions $f : \R^d \to \R$ that satisfy certain conditions. Solving the sphere packing problem then amounts to finding a function such that the corresponding upper-bound on sphere packing densities is exactly the density of a known sphere packing.
+
+Cohn and Elkies's result depends directly on the \textbf{Poisson Summation Formula over Lattices}. The formula, and hence, Cohn and Elkies's linear programming bound, deals with a special class of functions, a subset of which will be of interest to us. This subset consists of smooth, rapidly decaying functions first described by Laurent Schwartz in his book \textit{Théorie des Distributions} \cite[Ch VII, \S 3]{SchwartzDistrib} and since named after him. Such functions are particularly well-behaved under the Fourier transform. We say a few words about Fourier transforms before discussing the Poisson Summation Formula and the \CELP\ in detail.
+
+\subsection{Fourier Transforms and the Poisson Summation Formula}
+
+The subject of Fourier analysis is deep, and has applications to a number of areas in pure and applied mathematics. There are deeper undertones to the role of the Fourier transform in Viazovska's proof of the optimality of the $E_8$ lattice packing in $\R^8$: much of the underlying motivation comes from broader Fourier interpolation results that are beyond the scope of this thesis and this formalisation project. In this subsection, we merely define the Fourier transform and its inverse. We will also very briefly discuss the formalisation of these definitions in Lean.
+
+We begin by defining the Fourier transform of a function.
+
+\begin{boxdefinition}[Fourier Transform]\label{Ch2:Def:Fourier_Transform}
+    Fix $m, n \in \N$ and let $f : \R^m \to \C^n$. We define the \textbf{Fourier transform} of $f$ to be the function
+    \begin{align*}
+        \F(f) : \R^m \to \C^n : \xi \mapsto \int_{\R^d} \fx e^{-2 \pi i \cycl{x, \xi}} \dx
+    \end{align*}
+\end{boxdefinition}
+
+We adopt the following alternative notation for the Fourier transform, in line with general literature as well as Viazovska's original paper. We will use both notations interchangeably.
+
+\begin{boxnotation}
+    We denote the Fourier transform $\F(f)$ of a function $f$ by $\hat{f}$.
+\end{boxnotation}
+
+We can also define the inverse Fourier transform.
+
+\begin{boxdefinition}[Inverse Fourier Transform]
+    Fix $m, n \in \N$ and let $f : \R^m \to \C^n$ be an $L^1$ function. We define the \textbf{inverse Fourier transform} of $f$ to be the function
+    \begin{align*}
+         \F\inv(f) : \R^m \to \C^n : x \mapsto \int_{\R^d} \fof{\xi} e^{2 \pi i \cycl{x, \xi}} \diff{\xi}
+    \end{align*}
+\end{boxdefinition}
+
+Confusingly, the inverse Fourier transform is not always the inverse of the Fourier transform. For instance, the Fourier integral may not converge. For integrable functions with integrable Fourier transforms, though, the inverse Fourier transform does invert the Fourier transform. Regardless, we have the following result, which has been \href{https://github.com/leanprover-community/mathlib4/blob/6c6e0180f0d3dc9f47f85532f48d268d8656789a/Mathlib/Analysis/Fourier/FourierTransform.lean#L405-L410}{previously formalised in \mathlib}.
+
+\begin{boxlemma}\label{Ch2:Lemma:Fourier_Inverse_Fourier_Neg}
+    For all $m, n \in \N$ and $f : \R^m \to \C^n$,
+    \begin{align*}
+        \F\inv\of{f}\of{x} = \F\of{f}\of{-x}
+    \end{align*}
+\end{boxlemma}
+
+We can now state the Poisson Summation Formula. Here, $\Lambda^*$ is as in \Cref{Ch2:Def:Dual_Lattice}.
+
+\begin{boxtheorem}[Poisson Summation Formula over Lattices]\label{Ch2:Thm:Poisson_Summation}
+    Let $d > 0$ and let $\Lambda \subset \R^d$ be a lattice. Let $f : \R^d \to \R$ be a Schwartz function. For all vectors $v \in \R^d$, we have
+    \begin{align*}
+        \sum_{\ell \in \Lambda} \fof{\ell + v} = \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}} \sum_{m \in \Lambda^*} \hat{f}(y) e^{-2\pi i \cycl{v, m}}
+    \end{align*}
+\end{boxtheorem}
+
+Variants of this classical result and its proof can be found in several sources, such as \cite[Chapter VII, \S6, Proposition 15]{SerreArith} and \cite[Chapter VII, \S7, Equation (VII, 7:5)]{SchwartzDistrib}. While it has been stated in Lean, it has not been proven yet for lattices other than $\Z \subset \R$ due to a multitude of challenges associated with generalising the argument to higher dimensions.
+
+Armed with this important result, we are ready to state and prove the Cohn-Elkies Linear Programming Bound for Schwartz functions.
+
+\subsection{The \CELP}
+
+We now state the most important intermediate result in the proof of the optimality of the $E_8$ lattice packing in $\R^8$.%\todo{Restate this result for arbitrary separation and just say in the proof that we can rescale. In concise version, remove lemmas about scaling sphere packings, as this is not relevant to the M4R (even if it is important for the blueprint).}
+
+\begin{boxtheorem}[Cohn and Elkies, 2003~{\cite[Theorem 3.1]{CohnElkies}}]\label{SP:Thm:CohnElkies} % Make sure to include the original version before this and then this adaptation
+    If $f : \R^d \to \R$ is a Schwartz function satisfying the conditions
+    \begin{enumerate}[label = \normalfont(CE\arabic*)]
+        \item\label{CE1} $f$ is not identically zero.
+        \item\label{CE2} For all $x \in \R^d$, if $\norm{x} \geq 1$ then $f(x) \leq 0$.
+        \item\label{CE3} For all $x \in \R^d$, $\hat{f}(x) \geq 0$.
+    \end{enumerate}
+    then we have the following bound on the sphere packing constant $\Delta_d$:
+    \begin{align*}
+        \Delta_d \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    Let $f : \R^d \to \R$ be a Schwartz function satisfying the conditions~\ref{CE1}-\ref{CE3}. Fix a sphere packing $\Pa$. Without loss of generality, we may assume that $\Pa$ is periodic with respect to some lattice $\Lambda$ and has separation radius $1$. Denote the set of centres of $\Pa$ by $X$. By \Cref{Ch2:Prop:Periodic_Density}, we need to show that
+    \begin{align}
+        \frac{\abs{\quotient{X}{\Lambda}}}{\Volof{\quotient{\R^d}{\Lambda}}} \cdot \Volof{B_d\of{0, \frac{1}{2}}} \leq \frac{f(0)}{\hat{f}(0)} \cdot \Volof{B_d\of{0, \frac{1}{2}}}
+        \label{Ch2:Eq:CohnElkies_Ineq_1}
+    \end{align}
+    It turns out to be easier to show the equivalent inequality
+    \begin{align}
+        \frac{\abs{\quotient{X}{\Lambda}}^2}{\Volof{\quotient{\R^d}{\Lambda}}} \cdot \hat{f}(0) \leq \abs{\quotient{X}{\Lambda}} \cdot f(0)
+        \label{Ch2:Eq:CohnElkies_Ineq_2}
+    \end{align}
+    Applying \ref{CE2} to our assumption that $\norm{x - y} \geq 1$ for all distinct $x, y \in X$, one can show that
+    \begin{align}
+        \abs{\quotient{X}{\Lambda}} \cdot f(0) \geq \sum_{x \in X} \sum_{y \in {\tiny \quotient{X}{\Lambda}}} \fof{x - y}
+        \label{Ch2:Eq:CohnElkies_Ineq_3}
+    \end{align}
+    Applying \Cref{Ch2:Thm:Poisson_Summation}, we can show that
+    \begin{align*}
+        \sum_{x \in X} \sum_{y \in {\tiny \quotient{X}{\Lambda}}} \fof{x - y}
+        =
+        \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}}\sum_{m \in \Lambda^*} \hat{f}(m) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i \cycl{x, m}}}^2
+    \end{align*}
+    \ref{CE3} tells us this is a sum of non-negative real numbers. We can therefore bound this sum below by the term corresponding to $m = 0$. Therefore,
+    \begin{align}
+        \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}}\sum_{m \in \Lambda^*} \hat{f}(m) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i \cycl{x, m}}}^2
+        &\geq
+        \frac{1}{\Volof{\quotient{\R^d}{\Lambda}}} \hat{f}(0) \cdot \abs{\sum_{x \in {\tiny \quotient{X}{\Lambda}}} e^{2 \pi i \cycl{x, 0}}}^2 \label{Ch2:Eq:CohnElkies_Ineq_4} \\
+        &= \frac{\abs{\quotient{X}{\Lambda}}^2}{\Volof{\quotient{\R^d}{\Lambda}}} \cdot \hat{f}(0) \nonumber
+    \end{align}
+    Putting these computations together gives us the desired result.
+\end{proof}
+
+While the formalisation of \Cref{SP:Thm:CohnElkies} is beyond the scope of this thesis, the details we have included will give us important conditions that the magic function should obey. We will revisit this argument in \Cref{Ch3:Sec:Cohn_Elkies_Revisited}.
+
+We are now ready to discuss a key ingredient in the construction of the magic function: the theory of modular forms. Since much of the theory is beyond the scope of this thesis, we will not venture too far beyond the fundamentals.

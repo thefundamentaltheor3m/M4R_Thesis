@@ -1,0 +1,14 @@
+@article{KevinFamilies,
+ ISSN = {12467405, 21188572},
+ URL = {http://www.jstor.org/stable/43972594},
+ abstract = {Nous donnons une introduction terre à terre de la théorie des familles de formes modulaires, et discutons des démonstrations élémentaires de résultats suggérant que les formes modulaires apparaissent sous forme de familles. We give a down-to-earth introduction to the theory of families of modular forms, and discuss elementary proofs of results suggesting that modular forms come in families.},
+ author = {Kevin Buzzard},
+ journal = {Journal de Théorie des Nombres de Bordeaux},
+ number = {1},
+ pages = {43--52},
+ publisher = {Société Arithmétique de Bordeaux},
+ title = {Families of modular forms},
+ urldate = {2025-05-19},
+ volume = {13},
+ year = {2001}
+}

@@ -1,0 +1,408 @@
+\section{Establishing the Schwartzness Property}
+\label{Ch4:Sec:Schwartzness}
+
+The magic function is a linear combination of $a$ and $b$, which are each defined as compositions of $a\rad$ and $b\rad$ with the norm-squared function. From \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}, we know that it is enough to establish that $a\rad$ and $b\rad$ have Schwartz-like properties on $\Ico{0, \infty}$ to establish that $a$ and $b$ are Schwartz. In particular, this means the smoothness and decaying conditions need to be satisfied with respect to $\R$ inputs instead of $\R^8$ inputs, a substantial simplification.
+
+To show that $a\rad$ and $b\rad$ are Schwartz-like, we show that their constituent integrals $I_1, \ldots, I_6$ and $J_1, \ldots, J_6$ are Schwartz-like, as rapid decay and smoothness on $\Ico{0, \infty}$ are both compatible with addition. We do this by first bounding the $I_j$ and the $J_j$ and concluding their integrands are integrable, bounded by rapidly decaying functions. This will immediately give us rapid decay. Smoothness will follow from applying the Leibniz Integral Rule to differentiate with respect to $r$ under the integral sign.
+
+It turns out that we can establish a an upper-bound for all functions of the form $\frac{f}{\Delta}$, where $\Delta$ is the discriminant form and $f$ admits a Fourier expansion whose coefficients grow polynomially. The statement, and a significant portion of the proof, have been \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/704c085b1251cc0c208cc373f4e6105af359edd4/SpherePacking/MagicFunction/PolyFourierCoeffBound.lean#L355}{formalised} by the author as part of this project.
+
+\begin{boxtheorem}[{\cite[Lemma 7.4]{blueprint}}]\label{SP:PolyFourierCoeffBound}
+    Let $f : \C \to \C$ be holomorphic. Denote by $c_f(n)$ its $n$th Fourier coefficient, with $c_f\of{n_0} \neq 0$, so that
+    \begin{align*}
+        f(z) = \sum_{n=n_0}^{\infty} c_f(n) \, e^{i \pi n z}
+    \end{align*}
+    If there exists $k \in \N$ such that $c_f(n) = \BigO{n^k}$ as $n \to \infty$, then there exists a constant $C_f > 0$ such that for all $z \in \Halfplane$ with $\Im\of{z} > 1/2$,
+    \begin{align*}
+        \abs{\frac{f(z)}{\Delta(z)}} \leq C_f \, e^{-\pi \parenth{n_0 - 2} \Im(z)}
+    \end{align*}
+\end{boxtheorem}
+\begin{proof}
+    Fix $z \in \Halfplane$ and assume $\Im(z) > 1/2$. Recall from \Cref{Ch2:Thm:Delta_Product_Formula} that $\Delta$ can be expressed as a (convergent) infinite product. We can hence write
+    \begin{align*}
+        \abs{\frac{f(z)}{\Delta(z)}}
+        = \abs{\frac{\sum_{n = n_0}^{\infty} c_f(n) \, e^{\pi i n z}}{e^{2 \pi i z} \prod_{n=1}^{\infty} \parenth{1 - e^{2 \pi i n z}}^{24}}}
+        = \abs{e^{\pi i \parenth{n_0 - 2} z}} \cdot \frac{\abs{\sum_{n=n_0}^{\infty} c_f(n) \, e^{\pi i \parenth{n - n_0} z}}}{\prod_{n=1}^{\infty} \abs{1 - e^{2 \pi i n z}}^{24}}
+    \end{align*}
+    Noting that $\abs{e^{iz}} = e^{-\Im(z)}$ and $\Im(z) > \frac{1}{2}$, we can see that
+    \begin{align*}
+        \abs{e^{\pi i \parenth{n_0 - 2} z}} \cdot \frac{\abs{\sum_{n=n_0}^{\infty} c_f(n) \, e^{\pi i \parenth{n - n_0} z}}}{\abs{\prod_{n=1}^{\infty} {1 - e^{2 \pi i n z}}^{24}}}
+        \leq
+        e^{-\pi \parenth{n - n_0} \Im(z)} \cdot \frac{\sum_{n=0}^{\infty} \abs{c_f(n)} \, e^{-\pi \parenth{n - n_0}/2}}{\abs{\prod_{n=1}^{\infty} {1 - e^{2 \pi i n z}}^{24}}}
+    \end{align*}
+    It has been \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Topology/Algebra/InfiniteSum/Order.lean#L379-L380}{verified formally} that the absolute value of a convergent infinite product is the product of the absolute values, and moreover, that the product of the absolute values is \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Topology/Algebra/InfiniteSum/Order.lean#L373-L374}{convergent}. It has also been \href{https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean/blob/ba092be9cdebb1a9c170a22c234e71ca1842a173/SpherePacking/ForMathlib/tprod.lean#L28}{verified formally} that the infinite product is monotonic on convergent infinite products whose terms are nonnegative. Hence,
+    \begin{align*}
+        \abs{\prod_{n=1}^{\infty} \parenth{1 - e^{2 \pi i n z}}^{24}}
+        = \prod_{n=1}^{\infty} \abs{1 - e^{2 \pi i n z}}^{24}
+        \geq \prod_{n=1}^{\infty} \parenth{1 - e^{-2 \pi n \Im(z)}}^{24}
+        \geq \prod_{n=1}^{\infty}\parenth{1 - e^{-\pi n}}^{24}
+    \end{align*}
+    We note that the third and fourth products are convergent because they are expressible, via the product formula, as $e^{2\pi\Im(z)} \Delta\of{i \cdot \Im(z)}$ and $e^{\pi} \Delta\of{i/2}$ respectively. Hence, defining
+    \begin{align*}
+        C_f := \frac{\sum_{n=0}^{\infty} \abs{c_f(n)} \, e^{-\pi \parenth{n - n_0}/2}}{\prod_{n=1}^{\infty}\parenth{1 - e^{-\pi n}}^{24}}
+    \end{align*}
+    we can see that $\abs{\frac{f(z)}{\Delta(z)}} \leq C_f \, e^{-\pi \parenth{n_0 - 2} \Im(z)}$, as desired.
+\end{proof}
+
+The purpose of the above is to bound the $\phi$- and $\psi$-functions using \Cref{SP:PolyFourierCoeffBound}. Since these functions are defined as sums and products of the Eisenstein series and the $H$-functions, whose Fourier series have the properties that
+\begin{enumerate}
+    \item the coefficients grow polynomially
+    \item there is an index $n_0$ below which all Fourier coefficients are zero
+\end{enumerate}
+it is enough to show that sums and products of functions exhibiting this property inherit it.
+
+\begin{boxproposition}\label{Ch4:Prop:PolyGrowth_of_mul}
+    Let $f_1, f_2 : \Halfplane \to \C$ be have (absolutely convergent) Fourier expansions
+    \begin{align*}
+        f_1(z) = \sum_{n=n_1}^{\infty} c_1(n) \, e^{\pi i n z} \qquad \qquad
+        f_2(z) = \sum_{n=n_2}^{\infty} c_2(n) \, e^{\pi i n z}
+    \end{align*}
+    such that for $i \in \set{1, 2}$, $c_i(n_i) \neq 0$ and $\exists k_i \in \N$ such that $c_i(n) = \BigO{n^{k_i}}$ as $n \to \infty$. Then, their product $f_1 f_2$ is expressible as an absolutely convergent Fourier series
+    \begin{align*}
+        f_1(z) f_2(z) &= \sum_{n = n_1 + n_2}^{\infty} c(n) \, e^{\pi i n z}
+    \end{align*}
+    such that $c(n_1 + n_2) \neq 0$ and $\exists k \in \N$ such that $c(n) = \BigO{n^k}$ as $n \to \infty$.
+\end{boxproposition}
+% \begin{proof}[Proof sketch]
+%     Fix $z \in \Halfplane$. Then, due to absolute convergence, we can write
+%     \begin{align*}
+%         f_1(z) f_2(z)
+%         % &= \parenth{\sum_{n=n_1}^{\infty} c_1(n) \, e^{\pi i n z}} \parenth{\sum_{m=n_2}^{\infty} c_2(m) \, e^{\pi i m z}} \\
+%         &= \sum_{n = n_1}^{\infty} \sum_{m = n_2}^{\infty} c_1(n) c_2(m) \, e^{\pi i \parenth{n + m} z}
+%     \end{align*}
+%     The smallest value of $m + n$ is clearly $n_1 + n_2$. Denoting this by $n_0$, we can write
+%     \begin{align*}
+%         f_1(z) f_2(z) &= \sum_{\ell = n_0}^{\infty} c(\ell) \, e^{\pi i \ell z}
+%     \end{align*}
+%     For each $\ell \geq n_0$, $c(\ell)$ is a sum of finitely many terms of the form $c_1(n) c_2(m)$, with $n + m = \ell$. Since these grow polynomially in $n$ and $m$ respectively, so does $c$ in $\ell$.
+%     % Now, we know there exist positive numbers $C, D \in \R$ and $N, M \in \N$ such that for all $n \geq N$ and $m \geq M$, $\abs{c_1(n)} \leq C \abs{n^{k_1}} = C n^{k_1}$ and $\abs{c_2(m)} \leq D \abs{m^{k_2}} = D m^{k_2}$. Defining
+%     % \begin{align*}
+%     %     C' := \sum_{n=n_1}^{N} \abs{c_1(n)}
+%     %     \qquad \qquad
+%     %     D' := \sum_{m=n_2}^{M} \abs{c_2(m)}
+%     % \end{align*}
+%     % we can bound $\abs{c(\ell)}$ above by a sum of finitely many terms of the form $C' \abs{c_2(m)}$, $D' \abs{c_1(n)}$, and $\abs{c_1(n)} \cdot \abs{c_2(m)}$, with $n \geq N$ and $m \geq M$. Take $k = k_1 + k_2$. Then, $\abs{c_1(n)} \leq C n^{k_1} \leq C \parenth{m+n}^{k_1}$ and $\abs{c_2(n)} \leq D m^{k_2} \leq D \parenth{m+n}^{k_2}$, so $c(\ell) = \BigO{\parenth{m+n}^{k_1 + k_2}} = \BigO{\ell^k}$. % As Jaimin pointed out, max(k_1, k_2) should also be ok.
+% \end{proof}
+
+The analogous result for sums is clear, with $n_0 \geq \min\of{n_1, n_2}$ and $k = \max\of{k_1, k_2}$. Note that for sums, $n_0$ may not be exactly $\min\of{n_1, n_2}$ because the Fourier coefficients of smallest index may cancel each other out. For the remainder of this thesis, we use the following notation.
+
+\begin{boxnotation}
+    For a function $f$ with a Fourier expansion, denote by
+    \begin{itemize}
+        \item $n_0\of{f}$ the smallest index $n$ such that $c_f(n) \neq 0$ (if it exists)
+        \item $c_f(n)$ the $n$th Fourier coefficient of $f$
+    \end{itemize}
+    We will not use this notation for functions for which $n_0\of{f}$ does not exist.
+\end{boxnotation}
+
+In the following subsections, we apply the above results and show that $a\rad$ and $b\rad$ are Schwartz functions. In each case, since the bound in \Cref{SP:PolyFourierCoeffBound} is given in terms of $n_0$, we compute the values of $n_0$ explicitly.
+
+\subsection{The $+1$-Eigenfunction}
+\label{Ch4:Subec:Schwartzness_a}
+
+We begin by proving that $I_1, \ldots, I_6$ decay rapidly. As a first step, we show that we can apply \Cref{SP:PolyFourierCoeffBound}.
+
+\begin{boxlemma}\label{Ch4:Lemma:PolyFourierCoeffBound_Apply_a}
+    There exist real numbers $C_0, C_{-2}, C_{-4} > 0$ such that
+    \begin{align}
+        \abs{\phi_0\of{z}} &\leq C_{0} e^{-2\pi\Im(z)}  
+            \label{Ch4:Eq:PolyFourierCoeffBound_phi_0} \\
+        \abs{\phi_{-2}\of{z}} &\leq C_{-2}  
+            \label{Ch4:Eq:PolyFourierCoeffBound_phi_neg_2} \\
+        \abs{\phi_{-4}\of{z}} &\leq C_{-4} e^{2\pi\Im(z)}
+            \label{Ch4:Eq:PolyFourierCoeffBound_phi_neg_4}
+    \end{align}
+    for all $z \in \Halfplane$ with $\Im(z) > \frac{1}{2}$.
+\end{boxlemma}
+\begin{proof}
+    Fix $z \in \Halfplane$ and assume that $\Im(z) > 1/2$. Since the Fourier coefficients of $E_2$, $E_4$ and $E_6$ grow polynomially (see \Cref{Ch2:Def:E2_E3_E4}), by \Cref{Ch4:Prop:PolyGrowth_of_mul}, the Fourier coefficients of the numerators of $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$ grow polynomially as well. All that remains is to compute $n_0$ for the numerators of $\phi_0$, $\phi_{-2}$ and $\phi_{-4}$. Denote these $N_0$, $N_{-2}$ and $N_{-4}$ respectively. Note that $n_0\of{E_2} = n_0\of{E_4} = n_0\of{E_6} = 0$, with $c_{E_2}\of{0} = c_{E_4}\of{0} = C_{E_6}\of{0} = 1$.
+
+    \begin{itemize}
+        \item \underline{$N_0 = 4$.} Recall that the numerator of $\phi_0$ is $\parenth{E_2 E_4 - E_6}^2$. \Cref{Ch4:Prop:PolyGrowth_of_mul} then tells us that $n_0\of{E_2 E_4} = 0$. So, $n_0\of{E_2 E_4 - E_6} \geq 0$. In fact, the $0$th coefficients of both $E_2 E_4$ and $E_6$ are $1$, so they cancel. Hence, $n_0\of{E_2 E_4 - E_6} = 2$. Hence, by $n_0\of{\parenth{E_2 E_4 - E_6}^2} = 4$.
+        
+        \item \underline{$N_{-2} = 2$.} Recall that the numerator of $\phi_{-2}$ is $E_4\parenth{E_2 E_4 - E_6}$. $n_0\of{E_2 E_4 - E_6} = 2$ as shown above. Hence, $n_0\of{E_4\parenth{E_2 E_4 - E_6}} = 2$.
+        
+        \item \underline{$N_{-4} = 0$.} Recall that the numerator of $\phi_0$ is $E_4^2$. Hence, $n_0\of{E_4^2} = 0$.
+    \end{itemize}
+    Substituting these values into \Cref{SP:PolyFourierCoeffBound} then gives us the desired bounds.
+    \begin{comment}
+    The following is a consequence of a result proved by Ramanujan \todo{find citation for original paper} in the theory of (quasi-)modular forms:
+    \begin{align}
+        E_2 E_4 - E_6 &= 720 \sum_{n=1}^{\infty} n \, \sigma_3(n) \, e^{2\pi i nz}
+        \label{Ch4:Eq:E2E4_sub_E6_qexpansion}
+    \end{align}
+    with the sum converging absolutely. Furthermore, it is easily seen that $\sigma_3(n) = \BigO{n^4}$, since $\sigma_3(n)$ is the sum of at most $n$ elements that are each at most $n^3$. Then, combining \eqref{Ch4:Eq:E2E4_sub_E6_qexpansion} and \eqref{Ch2:Eq:E4_qexpansion}, one can show that $E_4^2$, $E_4\parenth{E_2 E_4 - E_6}$, and $\parenth{E_2 E_4 - E_6}$ all have Fourier expansions in which each Fourier coefficient is $\BigO{n^{10}}$. For instance, we know
+    \begin{align}
+        \parenth{E_2 E_4 - E_6}^2 = 720^2 \sum_{m=1}^{\infty} \sum_{n=1}^{\infty} n \, \sigma_3(n) \, e^{2\pi i z \parenth{m + n}}
+        \label{Ch4:Eq:E2E4_sub_E6_sq_qexpansion}
+    \end{align}
+    The Fourier coefficient corresponding to a term of the form $e^{2 \pi i z \parenth{m + n}}$ is a sum of at most $m + n$ terms that are each bounded above by $\parenth{\parenth{m + n}\sigma_3\of{m + n}}^2$, which is $\BigO{\parenth{m + n}^{10}}$. Similar computations can be performed for $E_4^2$ and $E_4\parenth{E_2 E_4 - E_6}$, proving that the polynomial growth assumption of \Cref{SP:PolyFourierCoeffBound} is satisfied by $\phi_{-4}$, $\phi_{-2}$ and $\phi_0$.
+
+    We also note from \eqref{Ch4:Eq:E2E4_sub_E6_sq_qexpansion} that the smallest nonzero Fourier coefficient corresponds to $m + n = 2$. Reconciling this with the fact that in the statement of \Cref{SP:PolyFourierCoeffBound}, we express the Fourier series in terms of powers of $e^{\pi i z}$ and not $e^{2 \pi i z}$, we conclude that the right choice of $n_0$ to bound $\phi_0$ is $4$. Similar computations show that the right value for $\phi_{-2}$ is $2$ and that for $\phi_{-4}$ is $0$, which allows us to apply \Cref{SP:PolyFourierCoeffBound} and conclude that there exist $C_0, C_{-2}, C_{-4} > 0$ such that
+    \begin{align*}
+        \abs{\phi_0\of{z}} &\leq C_{0} e^{-2\pi\Im(z)} \\
+        \abs{\phi_{-2}\of{z}} &\leq C_{-2} \\
+        \abs{\phi_{-4}\of{z}} &\leq C_{-4} e^{2\pi\Im(z)}
+    \end{align*}
+    as required.
+    \end{comment}
+\end{proof}
+
+We can now bound $I_1$, $I_3$ and $I_5$.
+
+\begin{boxlemma}\label{Ch4:Lemma:Bound_I1_I3_I5}
+    There exists a positive real number $C_0$ such that for all $r \in \R$,
+    \begin{align}
+        \abs{I_1(r)}, \abs{I_3(r)}, \abs{I_5(r)} &\leq \int_{1}^{\infty} C_0 \, e^{-2\pi s} \, e^{-\pi r/s} \, \diff{s}
+        \label{Ch4:Eq:Bound_I1_I3_I5}
+    \end{align}
+\end{boxlemma}
+\begin{proof}
+    For conciseness, we only bound $\abs{I_1}$ explicitly. Parametrise $z = -1 + it$ in \eqref{Ch4:Eq:I_1_def}. Then, for all $r \in \R$, we can write
+    \begin{align*}
+        I_1(r) &= -i \int_{0}^{1}
+            \phi_0\of{\frac{-1}{it}} \,
+            t^2 \,
+            e^{-\pi i r} \,
+            e^{-\pi r t}\,
+            \diff{t}
+    \end{align*}
+    Writing $s = \frac{1}{t}$ and simplifying, we get that
+    \begin{align*}
+        I_1(r) &= -i \int_{1}^{\infty}
+            \phi_0\of{is} \,
+            s^{-4} \,
+            e^{-\pi i r} \,
+            e^{-\pi r / s}\,
+            \diff{t}
+    \end{align*}
+    Applying the triangle inequality, multiplicativity and monotonicity, we get
+    \begin{align*}
+        \abs{I_1(r)} &\leq \int_{1}^{\infty} \abs{
+            \phi_0\of{is} \,
+            s^{-4} \,
+            e^{-\pi i r} \,
+            e^{-\pi r / s}\,
+            } \diff{t}
+        \leq \int_{1}^{\infty}
+            \abs{\phi_0\of{is}} \,
+            e^{-\pi r/s}
+    \end{align*}
+    Since $s > \frac{1}{2}$ inside the integral, we know from \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_a} that $\exists C_0 > 0$ such that
+    \begin{align*}
+        \abs{I_1(r)} \leq \int_{1}^{\infty} C_0 \, e^{-2\pi s} \, e^{-\pi r/s} \, \diff{s}
+    \end{align*}
+    as required. The bounds on $\abs{I_3}$ and $\abs{I_5}$ are computed similarly.
+\end{proof}
+
+In similar fashion, arguing by parametrising and applying \Cref{SP:PolyFourierCoeffBound}, we can show that there exist $C_1, C_2 > 0$ such that
+\begin{align}
+    \abs{I_2(r)}, \abs{I_4(r)} &\leq C_1 \, e^{-\pi r} \label{Ch4:Eq:Bound_I2_I4} \\
+    \abs{I_6(r)} &\leq C_2 \, \frac{e^{-\pi \parenth{r + 2}}}{r + 2} \label{Ch4:Eq:Bound_I6}
+\end{align}
+We omit the informal proofs, but note that we have formal proofs in the repository. We discuss this in greater detail in \Cref{Ch5:Subsec:Bounding_Integrals}.
+
+% Now that we have bounds on the integrals with bounded vertical contours, we compute bounds on the integrals with bounded horizontal contours.
+
+% \begin{boxlemma}\label{Ch4:Lemma:Bound_I2_I4}
+%     There exists a positive real number $C_1$ such that for all $r \in \R$,
+%     \begin{align*}
+%         \abs{I_2(r)}, \abs{I_4(r)} &\leq C_1 \, e^{-\pi r}
+%     \end{align*}
+% \end{boxlemma}
+% \begin{proof}
+%     For conciseness, we only bound $\abs{I_2}$ explicitly. Parametrise $z = -1 + t + i$ in \eqref{Ch4:Eq:I_2_def}. Then, for all $r \in \R$, we can write
+%     \begin{align*}
+%         I_2(r) = \int_{0}^{1}
+%             \phi_0\of{\frac{-1}{t + i}} \,
+%             \parenth{t + i}^2 \,
+%             e^{-\pi i r} \,
+%             e^{\pi i r t} \,
+%             e^{-\pi r} \,
+%             \diff{t}
+%     \end{align*}
+%     Applying the triangle inequality, multiplicativity and monotonicity, we get
+%     \begin{align*}
+%         \abs{I_2(r)} &\leq \int_{0}^{1} \abs{\phi_0\of{\frac{-1}{t + i}}} \cdot 2e^{-\pi r} \, dt
+%     \end{align*}
+%     One can show that for all $t \in \parenth{0, 1}$,
+%     \begin{align*}
+%         \Im\of{ \frac{-1}{t + i} } \geq \frac{1}{2}
+%     \end{align*}
+%     Then, \Cref{SP:PolyFourierCoeffBound} tells us that $\exists C_0 > 0$ such that
+%     \begin{align*}
+%         \abs{\phi_0\of{\frac{-1}{t + i}}}
+%         \leq C_0 \, e^{-2 \pi \cdot \frac{1}{t^2 + 1}}
+%         \leq C_0 \, e^{-2\pi \cdot \frac{1}{2}} = C_0 \, e^{-\pi}
+%     \end{align*}
+%     Then, taking $C_1 := 2 \, C_0 \, e^{-\pi}$ and applying monotonicity,
+%     \begin{align*}
+%         \abs{I_2(r)} \leq \int_{0}^{1} C_1 \, e^{-\pi r} \, \diff{t} = C_1 \, e^{-\pi r}
+%     \end{align*}
+%     as required. The bound on $\abs{I_4}$ is computed similarly.
+% \end{proof}
+
+% Finally, we bound the integral with the unbounded vertical contour.
+
+% \begin{boxlemma}\label{Ch4:Lemma:Bound_I6}
+%     There exists a positive real number $C_2$ such that for all $r \in \R$,
+%     \begin{align*}
+%         \abs{I_6(r)} &\leq C_2 \, \frac{e^{-\pi \parenth{r + 2}}}{r + 2}
+%     \end{align*}
+% \end{boxlemma}
+% \begin{proof}
+%     Parametrise $z = it$ in \eqref{Ch4:Eq:I_6_def}. Then, for all $r \in \R$, we can write
+%     \begin{align*}
+%         I_6(r) &= -2i \int_{1}^{\infty} \phi_0\of{it} \, e^{- \pi r t} \, \diff{t}
+%     \end{align*}
+%     Applying the triangle inequality, multiplicativity and monotonicity, we get
+%     \begin{align*}
+%         \abs{I_6(r)} \leq 2\int_{1}^{\infty}
+%             \abs{\phi_0\of{it}} \,
+%             e^{-\pi r t} \,
+%             \diff{t}
+%     \end{align*}
+%     Let $C_0$ be as in \Cref{SP:PolyFourierCoeffBound} and define $C_1 := 2 C_0$. Then,
+%     \begin{align*}
+%         \abs{I_6(r)} \leq 2\int_{1}^{\infty}
+%             C_0 \,
+%             e^{-2 \pi t} \,
+%             e^{-\pi r t} \,
+%             \diff{t}
+%         = C_1 \int_{1}^{\infty} e^{-\parenth{2\pi + \pi r}t} \, \diff{t}
+%         = C_1 \frac{e^{-\pi\parenth{r + 2}}}{\pi\parenth{r + 2}}
+%     \end{align*}
+%     Defining $C_2 := \frac{C_1}{\pi}$ then yields the desired result.
+% \end{proof}
+
+% The formal proofs of the bounds in \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6} are complete up to proofs that they are bounded by integrable functions, which is necessary to apply monotonicity of the integral due to the definition of the integral in \mathlib. The evaluation of the final integral in 
+
+It is clear that the estimates for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$ have at least exponential decay, making them more rapidly decaying than any inverse power of $r$ for $r \in \Ico{0, \infty}$. For $\abs{I_1}$, $\abs{I_3}$ and $\abs{I_5}$, the result is actually a consequence of deeper results involving the Gamma function.
+
+\begin{boxlemma}\label{Ch4:Lemma:Bessel_Bound}
+    For all $n \in \N$, there exists a constant $C'$ such that for all $r \geq 0$,
+    \begin{align*}
+        r^n \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s} \leq C'
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    Fix $n \in \N$. We know there exists a constant $C$ such that for all $x \geq 0$, $\abs{x}^n \cdot \abs{e^{-\pi x}} \leq C$. In particular, for all $r \geq 0$ and $s \geq 1$, $r^n \cdot e^{-\pi r/s} \leq C s^n$. Hence, for all $r \in \R$, we can write
+    \begin{align*}
+        r \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s}
+        = \int_{1}^{\infty} e^{-2\pi s} \, \parenth{\abs{r}^n \cdot e^{-\pi r /s}} \, \diff{s}
+        \leq C \int_{1}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
+    \end{align*}
+    It was \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/SpecialFunctions/Gamma/Basic.lean#L403}{previously known in \mathlib} that the $\Gamma$ function is given by
+    \begin{align*}
+        \Gamma(x) = \int_{0}^{\infty} e^{-u} \, u^{x-1} \, \diff{u}
+    \end{align*}
+    for all $x > 0$. Hence, writing $u = 2\pi s$ and \href{https://github.com/leanprover-community/mathlib4/blob/5a2eaa85c555c4263e15928cef249cbaad2eb2d2/Mathlib/Analysis/SpecialFunctions/Gamma/Basic.lean#L430}{relating $\Gamma$ with the factorial}, we get
+    \begin{align*}
+        C \int_{1}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
+        \leq C \int_{0}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
+        = C \int_{0}^{\infty} \frac{1}{\parenth{2\pi}^{n+1}} e^{-u} \, u^n \, \diff{u}
+        = \frac{C}{\parenth{2\pi}^n} \Gamma\of{n + 1}
+        = \frac{C \cdot n!}{\parenth{2\pi}^n}
+    \end{align*}
+    Defining $C' := \frac{C \cdot n!}{\parenth{2\pi}^n}$ finishes the proof.
+\end{proof}
+
+This proof has not been formalised, but the road to formalising it is clear.
+
+Next, we show that the $I_j$ are smooth and that their derivatives satisfy similar bounds to the ones computed above.
+
+\begin{boxlemma}\label{Ch4:Lemma:Ij_Smooth}
+    For all $1 \leq j \leq 6$ and $k \in \N$, $I_j(r)$ is $k$ times differentiable.
+\end{boxlemma}
+% \begin{proof}
+%     Fix $1 \leq j \leq 6$. We know, from \Cref{Ch4:Def:a}, that
+%     \begin{align*}
+%         I_j(r) = \int_{X_j} g_j\of{z} \, e^{\pi i r z} \, \diff{z}
+%     \end{align*}
+%     for intervals $X_j$ and holomorphic functions $g_j : \Halfplane \to \C$. The Leibniz Integral Rule then tells us that for all $k \in \N$, the $k$th derivative of $I_j$ at some $r \in \R$ is given by
+%     \begin{align}
+%         \int_{X_j} g_j\of{z} \, \parenth{\pi i z}^{k} \, e^{\pi i r z} \, \diff{z}
+%         \label{Ch4:Eq:Ij_deriv}
+%     \end{align}
+%     In particular, $I_j$ is smooth (in $r$) for all $j$.
+% \end{proof}
+The key to proving this is the Leibniz Integral Rule, which has been \href{https://github.com/leanprover-community/mathlib4/blob/dd2606726d6b0601d394911f9e7a6fa0f01367a3/Mathlib/Analysis/Calculus/ParametricIntegral.lean#L281-L303}{formalised previously}. It is not difficult to prove informally that the $I_j$ satisfy the conditions laid out in the formal statement of the theorem, though there may be some difficulties when arguing formally. We can use this to show that the derivatives of each $I_j$ can be bounded in the same manner as $I_j$.
+
+% We now demonstrate how bounds on higher derivatives of $I_1$ can be reduced to \eqref{Ch4:Eq:Bound_I1_I3_I5}.
+
+% \begin{boxlemma}\label{Ch4:Lemma:Reducing_higher_deriv_Schwartzness_I_1}
+%     For all $k \in \N$, there exists a positive real number $C_0^{(k)}$ such that for all $r \in \R$,
+%     \begin{align*}
+%         \abs{I_1^{(k)}\of{r}} \leq \int_{1}^{\infty} C_0^{(k)} \, e^{-2\pi s} \, e^{- \pi r / s} \, \diff{s}
+%     \end{align*}
+% \end{boxlemma}
+% \begin{proof}
+%     Fix $k \in \N$ and $r \in \R$. Parametrise $z = -1 + it$. Then, the $k$th derivative of $I_1$ at $r$ is
+%     \begin{align*}
+%         I_1^{(k)}\of{r} = -i \int_{0}^{1} \phi_0\of{\frac{-1}{it}} \, t^2 \, \parenth{-\pi i - \pi t}^k \, e^{-\pi i r} \, e^{\pi r t} \, \diff{z}
+%     \end{align*}
+%     Writing $s = \frac{1}{t}$ and simplifying, we get that
+%     \begin{align*}
+%         I_1^{(k)}\of{r} &= -i \int_{1}^{\infty}
+%             \phi_0\of{is} \,
+%             s^{-4} \,
+%             \parenth{-\pi i - \frac{\pi}{s}}^k \,
+%             e^{-\pi i r} \,
+%             e^{-\pi r / s}\,
+%             \diff{t}
+%     \end{align*}
+%     Observe that for all $s \in \Ico{1, \infty}$,
+%     \begin{align*}
+%         \abs{-\pi i - \frac{\pi}{s}} = \pi \abs{i + \frac{1}{s}} \leq \pi \sqrt{2}
+%     \end{align*}
+%     Combining this with the bound in the proof of \Cref{Ch4:Eq:Bound_I1_I3_I5}, $\exists C_0 > 0$ such that
+%     \begin{align*}
+%         \abs{I_1^{(k)}\of{r}} \leq \int_{1}^{\infty} C_0 \parenth{\pi \sqrt{2}}^{k} \, e^{-2\pi s} \, e^{- \pi r / s} \, \diff{s}
+%     \end{align*}
+%     Defining $C_0^{(k)} := C_0 \parenth{\pi \sqrt{2}}^{k}$ then gives the desired result.
+% \end{proof}
+
+% Analogous results can be proved for the other $I_j$, with any arising constants subsumed into the constants defined in \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6}. Therefore, if we can show that the functions (without the constants) on the right-hand sides of \Cref{Ch4:Eq:Bound_I1_I3_I5,Ch4:Eq:Bound_I2_I4,Ch4:Eq:Bound_I6} decay faster than any inverse power of $r$, we will have the result.
+
+Finally, we note that the $\R \to \C$ function $a\rad = I_1 + \cdots + I_6$ satisfies the Schwartz-like properties outlined in \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz} because $I_1, \ldots, I_6$ satisfy them. Hence, the $+1$-eigenfunction $a : \R^8 \to \C$, defined as in \eqref{Ch4:Eq:a_def}, lies in the Schwartz space $\Sch\of{\R^8, \C}$.
+
+\subsection{The $-1$-Eigenfunction}
+\label{Ch4:Subec:Schwartzness_b}
+
+At the end of \Cref{Ch4:Subsec:b_def}, we observed striking similarities between the $J_j$ and the $I_j$. As a result, much of the proof of Schwartzness is quite similar. Our main strategy is the same: we show that $J_1, \ldots, J_6$ are Schwartz-like and conclude that $b$ must be Schwartz by \Cref{Ch3:Prop:Multidimensional_Schwartz_of_Schwartz}.
+
+We begin by proving an analogue of \Cref{Ch4:Lemma:PolyFourierCoeffBound_Apply_a} for the $\psi$-functions.
+
+\begin{boxlemma}\label{Ch4:Lemma:PolyFourierCoeffBound_Apply_b}
+    There exist real numbers $C_S, C_I, C_T > 0$ such that
+    \begin{align}
+        \abs{\psi_S\of{z}} &\leq C_S \, e^{- \pi \Im(z)}
+            \label{Ch4:Eq:PolyFourierCoeffBound_psi_S} \\
+        \abs{\psi_I\of{z}} &\leq C_I \, e^{2\pi \Im(z)}
+            \label{Ch4:Eq:PolyFourierCoeffBound_psi_I} % \\
+        % \abs{\psi_T\of{z}} &\leq C_T \, % e^{2\pi \Im(z)} % What goes here?
+        %     \label{Ch4:Eq:PolyFourierCoeffBound_psi_T} \\
+    \end{align}
+    for all $z \in \Halfplane$ with $\Im(z) > 1/2$.
+\end{boxlemma}
+\begin{proof}
+    For the purposes of this proof, we will consider the $\psi$-functions to be expressed as in \Cref{Ch4:Prop:psi_as_div_disc}. We have seen in \Cref{Ch2:Subsec:ThetaFunctions} that the Fourier coefficients of the $H$-functions have polynomial growth. From \Cref{Ch4:Prop:PolyGrowth_of_mul} and the ensuing discussion, we can see that the numerators of the $\psi$-functions all admit Fourier expansions with polynomially growing coefficients. All that remains is to explicitly compute the value of $n_0$ for the numerators.
+    
+    Denote by $N_I$, $N_S$ and $N_T$ the values of $n_0$ for the numerators of $\psi_I$, $\psi_S$ and $\psi_T$ respectively. From \eqref{Ch2:Eq:H2_qexpansion_explicit}, we can see that $n_0\of{H_2} = 1$. Furthermore, from \Cref{Ch2:Def:Theta_H}, we can see that $n_0\of{\Theta_3} = n_0\of{\Theta_4} = 0$, from which we can conclude that $n_0\of{H_3} = n_0\of{H_4} = 0$. Finally, $c_{H_2}\of{1} = 16$ from \eqref{Ch2:Eq:H2_qexpansion_explicit} and $c_{H_2} = c_{H_3} = 1$ from \Cref{Ch2:Def:Theta_H}. We are now ready to compute $N_S$ and $N_I$.
+    \begin{itemize}
+        \item \underline{$N_S = 3$.} Note that $n_0\of{H_2^3} = 3$ and the smallest $n_0$ in the numerator of $\psi_S$ is $0$, with none of the $n_0$th coefficients cancelling. Hence, $N_S = n_0\of{H_2^3} = 3$. %. Since $n_0\of{H_4} = n_0\of{H_4^2} = 0$ but $n_0\of{H_2^2} = n_0\of{H_2 H_4} = 0$, we can conclude that $N_S = 3 + 0 = 3$.
+
+        \item \underline{$N_I = 0$.} Note that $n_0\of{H_4^3} = 0$ and the smallest $n_0$ in the numerator of $\psi_I$ is $0$, with none of the $n_0$th coefficients cancelling. Hence, $N_I = n_0\of{H_r^3} = 0$.
+    \end{itemize}
+    Substituting these into \Cref{SP:PolyFourierCoeffBound} then yields the desired result.
+\end{proof}
+
+We are now ready to compute bounds on the $J_j$. Observe that the bounding arguments in \eqref{Ch4:Eq:Bound_I1_I3_I5}, \eqref{Ch4:Eq:Bound_I2_I4}, \eqref{Ch4:Eq:Bound_I6} do not use any property of $\phi_0$ apart from the bound given in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0}. By inspection (cf. \eqref{Ch4:Eq:J1_like_I1}-\eqref{Ch4:Eq:J5_like_I5} and \eqref{Ch4:Eq:J_6_def}), it is possible to replicate those arguments almost verbatim to show that there exist constants $C_S, C_S', C_S'' > 0$ such that
+\begin{align}
+    \abs{J_1(r)}, \abs{J_3(r)}, \abs{J_5(r)} &\leq \int_{1}^{\infty} C_S \, e^{-\pi s} \, e^{- \pi r/s} \, \diff{s} \label{Ch4:Eq:Bound_J1_J5} \\
+    \abs{J_2(r)}, \abs{J_4(r)} &\leq C_S' \, e^{-\pi r} \label{Ch4:Eq:Bound_J_2} \\
+    \abs{J_6(r)} &\leq C_S'' \, \frac{e^{-\pi\parenth{r + 1}}}{\pi\parenth{r + 1}} \label{Ch4:Eq:Bound_J_6}
+\end{align}
+We note that some occurrences of $2\pi$ in the arguments in \Cref{Ch4:Subec:Schwartzness_a} must be replaced with occurrences of $\pi$ because of the differences in the $n_0$ values of the numerators of $\phi_0$ and $\psi_S$, which means the exponents in \eqref{Ch4:Eq:PolyFourierCoeffBound_phi_0} and \eqref{Ch4:Eq:PolyFourierCoeffBound_psi_S} are different. However, since they are still negative, this does not affect the argument.
+
+Finally, we note that smoothness and boundedness of derivatives are, once again, analogous to the results from \Cref{Ch4:Subec:Schwartzness_a}: the assumptions of the Leibniz Integral Rule are satisfied for the same reasons, and the process of reducing higher derivatives to lower derivatives is nearly identical. We can therefore conclude that $b$, like $a$, is a Schwartz function.

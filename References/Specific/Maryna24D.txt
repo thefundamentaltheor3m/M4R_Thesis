@@ -1,0 +1,14 @@
+@article{e479e0b5-bb9a-3e72-989b-ff361b0dd4fe,
+ ISSN = {0003486X},
+ URL = {http://www.jstor.org/stable/26395748},
+ abstract = {Building on Viazovska's recent solution of the sphere packing problem in eight dimensions, we prove that the Leech lattice is the densest packing of congruent spheres in twenty-four dimensions and that it is the unique optimal periodic packing. In particular, we find an optimal auxiliary function for the linear programming bounds, which is an analogue of Viazovska's function for the eight-dimensional case.},
+ author = {Henry Cohn and Abhinav Kumar and Stephen D. Miller and Danylo Radchenko and Maryna Viazovska},
+ journal = {Annals of Mathematics},
+ number = {3},
+ pages = {1017--1033},
+ publisher = {Annals of Mathematics},
+ title = {The sphere packing problem in dimension 24},
+ urldate = {2024-11-14},
+ volume = {185},
+ year = {2017}
+}

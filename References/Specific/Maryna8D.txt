@@ -1,0 +1,14 @@
+@article{e8b40be7-b23e-35af-b79b-0ab5686df7a9,
+ ISSN = {0003486X},
+ URL = {http://www.jstor.org/stable/26395747},
+ abstract = {In this paper we prove that no packing of unit balls in Euclidean space ℝ⁸ has density greater than that of the E₈-lattice packing.},
+ author = {Maryna S. Viazovska},
+ journal = {Annals of Mathematics},
+ number = {3},
+ pages = {991--1015},
+ publisher = {Annals of Mathematics},
+ title = {The sphere packing problem in dimension 8},
+ urldate = {2024-11-14},
+ volume = {185},
+ year = {2017}
+}

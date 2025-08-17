@@ -1,0 +1,133 @@
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Imperial Recommended Packages
+\usepackage{afterpage}
+
+% Lean colour configurations
+\usepackage{color}
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Listings (for displaying code):
+\usepackage{listings}
+\def\lstlanguagefiles{TeX_Setup/lstlean.tex}
+\lstset{
+    % frame = single, 
+    % framexleftmargin=15pt,
+    language = lean,
+    numbers = left,
+    backgroundcolor=\color{backcolour},
+    inputencoding=ansinew,
+    % extendchars=\true
+}
+
+% ----------- Algorithm2e setup
+\usepackage[ruled,vlined]{algorithm2e}
+\makeatletter
+\renewcommand{\SetKwInOut}[2]{%
+  \sbox\algocf@inoutbox{\KwSty{#2}\algocf@typo:}%
+  \expandafter\ifx\csname InOutSizeDefined\endcsname\relax% if first time used
+    \newcommand\InOutSizeDefined{}\setlength{\inoutsize}{\wd\algocf@inoutbox}%
+    \sbox\algocf@inoutbox{\parbox[t]{\inoutsize}{\KwSty{#2}\algocf@typo:\hfill}~}\setlength{\inoutindent}{\wd\algocf@inoutbox}%
+  \else% else keep the larger dimension
+    \ifdim\wd\algocf@inoutbox>\inoutsize%
+    \setlength{\inoutsize}{\wd\algocf@inoutbox}%
+    \sbox\algocf@inoutbox{\parbox[t]{\inoutsize}{\KwSty{#2}\algocf@typo:\hfill}~}\setlength{\inoutindent}{\wd\algocf@inoutbox}%
+    \fi%
+  \fi% the dimension of the box is now defined.
+  \algocf@newcommand{#1}[1]{%
+    \ifthenelse{\boolean{algocf@inoutnumbered}}{\relax}{\everypar={\relax}}%
+%     {\let\\\algocf@newinout\hangindent=\wd\algocf@inoutbox\hangafter=1\parbox[t]{\inoutsize}{\KwSty{#2}\algocf@typo\hfill:}~##1\par}%
+    {\let\\\algocf@newinout\hangindent=\inoutindent\hangafter=1\parbox[t]{\inoutsize}{\KwSty{#2}\algocf@typo:\hfill}~##1\par}%
+    \algocf@linesnumbered% reset the numbering of the lines
+  }}%
+\makeatother
+% --------- end algorithm2e setup
+
+\usepackage{bm}
+\usepackage[normalem]{ulem}
+
+\usepackage[colorinlistoftodos]{todonotes}
+
+% I have all of their other recommended packages somewhere on here.
+
+\usepackage[most]{tcolorbox}
+\usepackage{authblk}  % Lets you add an \affil{} to your title, stating your affiliation {eg. Sigma Mathematics Society}
+\usepackage{ragged2e}
+\usepackage{csquotes}
+\usepackage{pdfpages}
+
+
+
+\usepackage{xfrac}
+\usepackage{cancel}
+
+\usepackage[inline]{enumitem}
+
+%\usepackage{tgpagella}
+
+\usepackage{blindtext}
+\usepackage{lipsum}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\hypersetup{
+    citebordercolor = 1 1 1,
+    linkbordercolor = 1 1 1,
+    filebordercolor = 1 1 1,
+    menubordercolor = 1 1 1,
+    urlbordercolor = 1 1 1,
+    colorlinks  =   true,
+    linkcolor   =   blue,
+    citecolor   =   magenta,
+    urlcolor    =   blue
+}
+
+% This project uses natbib instead. See end of format file.
+% \usepackage{biblatex} % Modify citation format using [style=yourstyle] parameter--eg \usepackage[style=mla-new]{biblatex}
+% \bibliography{TeX_Setup/References.bib}
+% \addbibresource{TeX_Setup/References.bib}
+
+\usepackage{cancel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+% \usepackage{amsthm}  % In `environments.tex`
+%\usepackage{MnSymbol}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+% \usepackage{mathabx}
+\usepackage{mathdots}
+\usepackage{yhmath}
+
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+
+\usepackage{graphicx}
+\newcommand\sbullet[1][.5]{\mathbin{\vcenter{\hbox{\scalebox{#1}{$\bullet$}}}}}  % Bullet of customisable size
+\usepackage{wrapfig}
+% Imperial-recommended `caption` setup
+\usepackage{caption}
+\captionsetup[figure]{labelfont={bf}, name={Figure}, justification=centering}
+\captionsetup[table]{labelfont={bf}, name={Table}}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{float}
+
+% Tikz
+\usepackage{tikz-cd}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{positioning}
+\usetikzlibrary{cd}
+\usetikzlibrary{shapes.geometric}
+\usepackage{pgfplots}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\usepackage{qtree}

@@ -1,0 +1,159 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mathematics Final Year Research Projects
+% LaTeX Template
+% Version 1.0 (31/01/24)
+%
+% This template has been adapted from: https://www.overleaf.com/latex/templates/imperial-college-report-template/wncnzptkhnbc
+% Students should feel free to adapt this template to their needs.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----------------------------------------------------------------------------------------
+% PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+% IMPORTANT NOTE: This version of the document is NOT the one I'm submitting. This is a significantly longer version that contains several important details that can later be added to the blueprint. The text here, particularly in Chapter 4, is meant to mimic the arguments that we have and will formalise.
+
+\documentclass[a4paper,11pt, twoside]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\input{TeX_Setup/packages.tex}
+
+\input{TeX_Setup/format.tex}
+
+\input{TeX_Setup/environments.tex}
+
+\input{TeX_Setup/shortcuts.tex}
+
+% %% Useful packages
+% \usepackage{afterpage}
+% \usepackage{amsmath}
+% \usepackage{amsthm}
+% \usepackage{amssymb}
+% \usepackage{csquotes}
+% \usepackage{enumitem}
+% \usepackage{graphicx}
+% \usepackage{lipsum}
+% \usepackage{booktabs}
+
+% % Listings (for displaying code):
+% \usepackage{listings}
+% \lstset{
+%     frame = single, 
+%     framexleftmargin=15pt
+% }
+
+% % Center figure captions:
+% \usepackage{caption}
+% \captionsetup[figure]{labelfont={bf},name={Figure},labelsep=quad}
+% \captionsetup[table]{labelfont={bf},name={Table},labelsep=quad}
+
+
+% % ----------- Algorithm2e setup
+% \usepackage[ruled,vlined]{algorithm2e}
+% \makeatletter
+% \renewcommand{\SetKwInOut}[2]{%
+%   \sbox\algocf@inoutbox{\KwSty{#2}\algocf@typo:}%
+%   \expandafter\ifx\csname InOutSizeDefined\endcsname\relax% if first time used
+%     \newcommand\InOutSizeDefined{}\setlength{\inoutsize}{\wd\algocf@inoutbox}%
+%     \sbox\algocf@inoutbox{\parbox[t]{\inoutsize}{\KwSty{#2}\algocf@typo:\hfill}~}\setlength{\inoutindent}{\wd\algocf@inoutbox}%
+%   \else% else keep the larger dimension
+%     \ifdim\wd\algocf@inoutbox>\inoutsize%
+%     \setlength{\inoutsize}{\wd\algocf@inoutbox}%
+%     \sbox\algocf@inoutbox{\parbox[t]{\inoutsize}{\KwSty{#2}\algocf@typo:\hfill}~}\setlength{\inoutindent}{\wd\algocf@inoutbox}%
+%     \fi%
+%   \fi% the dimension of the box is now defined.
+%   \algocf@newcommand{#1}[1]{%
+%     \ifthenelse{\boolean{algocf@inoutnumbered}}{\relax}{\everypar={\relax}}%
+% %     {\let\\\algocf@newinout\hangindent=\wd\algocf@inoutbox\hangafter=1\parbox[t]{\inoutsize}{\KwSty{#2}\algocf@typo\hfill:}~##1\par}%
+%     {\let\\\algocf@newinout\hangindent=\inoutindent\hangafter=1\parbox[t]{\inoutsize}{\KwSty{#2}\algocf@typo:\hfill}~##1\par}%
+%     \algocf@linesnumbered% reset the numbering of the lines
+%   }}%
+% \makeatother
+% % --------- end algorithm2e setup
+
+% % \bm allows typing bold math:
+% \usepackage{bm}
+% \usepackage[normalem]{ulem}
+
+% \usepackage[colorinlistoftodos]{todonotes}
+% \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+% \renewcommand*{\rmdefault}{bch}
+% \renewcommand*{\ttdefault}{lmtt}
+% \newcommand{\citationneeded}{\textcolor{red}{[citation-needed]}}
+
+% % Add bigger skip between paragraphs, makes reading easier:
+% \setlength{\parskip}{0.5em}
+
+% % Bibliography
+% \usepackage[numbers, comma, square, sort&compress]{natbib}
+% \bibliographystyle{References/abbrvunsrtnat.bst}
+
+%----------------------------------------------------------------------------------------
+% END OF DOCUMENT CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+% IMPORTANT INFORMATION TO MODIFY FOR THE TITLE PAGE
+%----------------------------------------------------------------------------------------
+\newcommand{\reporttitle}{Viazovska's Magic Function in Dimension 8: \\ An Attempt at Formalisation} % Title of your research project
+\newcommand{\reportauthor}{Sidharth Hariharan} % First Name and Last Name
+\newcommand{\supervisor}{Bhavik Mehta} % First Name and Last Name of your supervisor(s)
+\newcommand{\degreetype}{MSci in Mathematics} % MSci in Mathematics, BSc in Mathematics, BSc in Mathematics with Statistics, ...
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+% To compile this file, use the following sequence: 
+%	latex main.tex
+%	bibtex main.tex
+%	latex main.tex
+%	latex main.tex
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+% START OF DOCUMENT
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+% Title page
+\input{Title/title.tex}
+
+% Abstract
+\input{Frontmatter/Abstract.tex}
+ 
+% Acknowledgements
+\clearpage
+\input{Frontmatter/Acknowledgements.tex}
+\clearpage
+
+% Plagiarism Statement
+\clearpage
+\input{Frontmatter/Plagiarism.tex}
+\clearpage
+
+% Table of contents
+\tableofcontents
+% \pagestyle{plain}
+
+% Main sections of the report
+% ===========================
+% Uncomment or add folders to add your own chapters and input files.
+
+% NOTE TO SELF: "I" (first person) used a lot early on. Need to change to "the author"
+
+\input{Chapters/1_Intro/1_Intro.tex}
+\input{Chapters/2_Dimension_8/2_Dimension_8.tex}
+\input{Chapters/3_Roadmap/3_Roadmap.tex}
+\input{Chapters/4_Magic_Fun/4_Magic_Fun.tex}
+\input{Chapters/5_Lean/5_Lean.tex}
+\input{Chapters/6_Conclusion/6_Conclusion.tex}
+
+% \appendix
+% \input{Appendices/appendix1.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{References/bibliography.bib}
+% \thispagestyle{empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

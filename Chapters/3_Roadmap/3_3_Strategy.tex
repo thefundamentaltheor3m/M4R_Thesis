@@ -1,0 +1,52 @@
+\section{The Properties Desired of Viazovska's Fourier Eigenfunctions}
+\label{Ch3:Sec:Properties}
+% WHAT DO I CALL THIS SECTION????????
+
+We begin by summarising the properties we would like the magic function to have. We then examine which of these properties come from the eigenfunctions. Finally, we will mention tools that are used to show that both its $\pm 1$-Fourier eigenfunctions satisfy the conditions we list below.
+
+For the remainder of this thesis, we will fix the following notation.
+
+\begin{boxnotation}
+    Going forward, the magic function for $8$-dimensional sphere packing shall be denoted $g$, its $+1$-eigenfunction shall be denoted $a$, and its $-1$-eigenfunction shall be denoted $b$.
+\end{boxnotation}
+
+We now list the properties we would require $g$ to have.
+
+\begin{enumerate}
+    \item $g$ needs to be a Schwartz function.
+    \item It suffices for $g$ to be radial.
+    \item The scaled function $g\of{\sqrt{2} \, x}$ needs to satisfy the Cohn-Elkies conditions \ref{CE1}, \ref{CE2} and \ref{CE3}. Equivalently, we need $g(x) \leq 0$ for all $x \in \R^8$ with $\norm{x} \geq \sqrt{2}$, $\hat{g}(x) \geq 0$ for all $x \in \R^8$, and $g(0) = \hat{g}(0) = 1$.
+    \item $g$ needs to have single zeroes at all non-zero points in $\Lambda_8$.
+    \item $g$ needs to have double zeroes at all but finitely many points in $\Lambda_8$.
+\end{enumerate}
+
+Of these properties, the following would be inherited from $a$ and $b$:
+
+\begin{enumerate}
+    \item Schwartzness
+    \item Radiality
+    \item Having single zeroes at all non-zero points in $\Lambda_8$
+    \item Having double zeroes at all but finitely many points in $\Lambda_8$
+\end{enumerate}
+
+That is, if we can construct $a$ and $b$ such that they satisfy the above properties, then $g$ will satisfy them as well. The remaining properties will have to do with the coefficients of the linear combination of $a$ and $b$ that makes up $g$.
+
+% While the properties of $g$ inform the properties we would like $a$ and $b$ to have, we construct $a$ and $b$ \textit{before} constructing $g$. That is, we are not so much constructing a magic function and splitting it into its constituent eigenfunctions as we are computing Fourier eigenfunctions and showing that a particular linear combination of them is the desired magic function. In the formalisation, too, it is necessary that the construction of $a$ and $b$ precede that of $g$. One advantage of this is that constructing $a$ and $b$ as terms of the right \verb|SchwartzMap| type means that any linear combination will yield a term of the same \verb|SchwartzMap| type, because there is a \verb|Module| instance in \mathlib\ on \verb|SchwartzMap| objects that tells us that the Schwartz space is a vector space. In similar fashion, if less directly, the other `inherited' properties will be easy to prove for the linear combination if we prove $a$ and $b$ satisfy those properties.
+
+%  In \Cref{Ch2:Sec:ModForms}, we briefly introduced the theory of modular forms, but we have yet to employ any of the theory we introduced. It is in the construction of the magic function that this theory becomes relevant. Viazovska's strategy was to express her magic function as an integral transform of some function and use the conditions desired of the magic function to deduce properties of this integrand. Expressing it as the product of a function $\psi$ with Gaussians, she was able to deduce that $\psi$ had to have an important slash-invariant property. T
+
+\begin{comment}
+    ** Note: we gotta include PolyFourierCoeffBound somewhere!! **
+
+    Maybe it's better to say ``here's how Viazovska did it'' and just outline her paper and then say ``here's what's different about the overall structure in Lean'' and outline a few things like the way we decided to structure the MagicFunction bit of the repo. Things like
+    1. Wanting reusability: keeping `PolyFourierCoeffBound` separate
+    2. Modularity: splitting it up from `ModularForms`
+    3. Namespacing to avoid clashes (eg. a as a function and a as a SchwartzMap term)
+    4. The strategy for the integrals: using real parametrisations and using straight contours instead of circular ones
+\end{comment}
+
+One of the most interesting conceptual breakthroughs in Viazovska's construction is her use of the theory of modular forms. While examining the proof of \Cref{SP:Thm:CohnElkies} gives us concrete criteria to look for when constructing the magic function, it also presents a fundamental challenge: constructing a function in a manner whereby we have control over both the function itself and its Fourier transform. This is a deceptively challenging task, and is explored in detail by Bourgain et al in \cite{UncertaintyPrincipleFR}. The eigenfunction property offers a way around this problem, but the challenge of constructing $\pm 1$-eigenfunctions remains. Viazovska's approach is to tackle the problem on the integrand level rather than the integral level. If a function is already expressed as an integral, then taking its Fourier transform produces a double-integral. If it is possible to reduce this double-integral to a single integral, it is conceivable that with a clever change of variables, one might be able to express this single integral as being equal to the original function, up to signs. It is not inherently difficult to construct integrals with respect to one variable of functions of two variables such that the double integral reduces to a single integral. Finding integrands with such versatile change-of-variable properties is more difficult. The fact that modular forms, and related functions like $E_2$, admit numerous functional relations through slash actions is a key motivator for their use in Viazovska's construction: she expresses $a$ and $b$ as sums of integrals whose integrands satisfy such relations because they are expressed in terms of modular forms and associated functions.
+
+There is a deeper story involving the theory of modular forms, but we will no more than scratch the surface in this exposition because the formalisation of the associated details is being handled by other collaborators. We refer the interested reader to Cohn's beautiful reverse-engineering of Viazovska's construction \cite{CohnOnViazovskaICM}, which explores the modular forms connection in greater detail.
+
+% We structure the remainder of this thesis as follows. In \Cref{Ch4:Chapter}, we provide a detailed exposition of Viazovska's construction, exploring the results in \cite[\S 4]{Viazovska8} and \cite[\S 7, which was written by Viazovska herself]{blueprint}. Our exposition will be informal, but is designed to serve as a bridge between the informal and the formal. In \Cref{Ch5:Chapter}, we discuss progress we have made over the course of the formalisation, highlighting general contributions that will have broad applications beyond this project as well as specific contributions that tackle important intricacies of Viazovska's work. We will conclude by consolidating the work that has been done so far and offering a glimpse of how the formalisation effort is poised to evolve in the coming months.

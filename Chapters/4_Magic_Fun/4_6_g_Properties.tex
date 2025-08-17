@@ -1,0 +1,61 @@
+\section{The Magic of $g$}
+\label{Ch4:Sec:g_Properties}
+
+In this section, we briefly describe the construction of $g$. We recall that we want $g$ to satisfy
+\begin{enumerate}[label=(Property \arabic*), leftmargin=0.8in]
+    \item\label{g1} For all $x \in \R^8$, $g(x) \in \R$
+    \item\label{g2} For all $x \in \R^8$, if $\norm{x} \geq \sqrt{2}$, then $g(x) \leq 0$
+    \item\label{g3} For all $x \in \R^8$, $\hat{g}(x) \geq 0$
+    \item\label{g4} For all $x \in \R^8$, $g(0) = \hat{g}(0)$
+\end{enumerate}
+as discussed in \Cref{Ch3:Sec:Properties}. We now define $g$.
+
+\begin{boxdefinition}[Viazovska's Magic Function]
+    Define $g \in \Sch\of{\R^8, \C}$ by
+    \begin{align*}
+        g = \frac{\pi i}{8640} a + \frac{i}{240\pi} b
+    \end{align*}
+    and define $g\rad$ to be the same linear combination of $a\rad$ and $b\rad$.
+\end{boxdefinition}
+It is obvious that $g(x) = g\rad\of{\norm{x}^2}$ for all $x \in \R^8$.
+
+Clearly, $g$ is Schwartz because $g$ is a linear combination of Schwartz functions. Furthermore, \ref{g4} is immediate:
+\begin{align*}
+    g(0) = \hat{g}(0) = \frac{\pi i}{8640} \cdot \frac{-8640 i}{\pi} = 1
+\end{align*}
+
+We now define two auxiliary functions $A$ and $B$.
+
+\begin{boxdefinition}[Auxiliary Functions for Viazovska's Inequalities]
+    For $t \in \Ico{0, \infty}$, define
+    \begin{align*}
+        A(t) &= -t^2 \, \phi_0\of{\frac{i}{t}} - \frac{36}{\pi^2} \psi_I\of{it} \\
+        B(t) &= -t^2 \, \phi_0\of{\frac{i}{t}} + \frac{36}{\pi^2} \psi_I\of{it}
+    \end{align*}
+\end{boxdefinition}
+
+Observe that for all $r > 2$, if we write $a\rad = d$ and $b\rad = c$, we have
+\begin{align*}
+    g\rad(r) = \frac{\pi}{2160} \sinsq{\frac{\pi r}{2}} \int_{0}^{\infty} A(t) \, e^{- \pi r t} \, \diff{t}
+\end{align*}
+as argued in \Cref{Ch4:Sec:Double_Zeroes}. Furthermore, observe that
+\begin{align}
+    \hat{g} = \frac{\pi i}{8640} a - \frac{i}{240\pi} b
+\end{align}
+and denote by $\hat{g}\rad$ the analogous linear combination of $a\rad$ and $b\rad$. In similar fashion, as argued in \Cref{Ch4:Sec:Analytic_Cont}, for all $r \geq 0$,
+\begin{align}
+    \hat{g}\rad = \frac{\pi}{2160} \sinsq{\frac{\pi r}{2}} \int_{0}^{\infty} B(t) \, e^{0\pi r t} \, \diff{t}
+\end{align}
+
+It is possible to show that for all $t \in \parenth{0, \infty}$,
+\begin{align}
+    A(t) &\in \R_{< 0} \label{Ch4:Eq:ModFormIneq_neg} \\
+    B(t) &\in \R_{> 0} \label{Ch4:Eq:ModFormIneq_pos}
+\end{align}
+There are numerous ways of showing these inequalities, the details of all of which are beyond the scope of this thesis. We briefly discuss three different approaches below, but do not offer further details.
+
+Viazovska's original approach in \cite{Viazovska8} was to perform asymptotic analyses and interval arithmetic, taking advantage of Fourier coefficient properties of weakly holomorphic modular forms, to estimate $A$ and $B$ to arbitrary precision and show that they are negative. Particularly, Viazovska's proof involved computer calculations. In 2023, Romik \cite{Romik_Ineq} proved the inequalities in a manner that did not rely on such calculations: instead, he proved the result using functional equations arising from the theory of modular forms, such as those listed in \Cref{Ch4:Subsec:b_def}. In 2024, when the collaboration to formalise Viazovska's work was initiated, there was some discussion as to whether this was the best approach. It was ultimately decided that an algebraic proof by Lee \cite{Seewoo_Ineq}, which uses the theory of quasimodular forms, particularly the positivity-preservation properties of Serre and anti-Serre derivatives. These fall significantly outside the scope of this project.
+
+We end by noting that \eqref{Ch4:Eq:ModFormIneq_neg} and \eqref{Ch4:Eq:ModFormIneq_pos} imply that $g$ is real-valued, proving \ref{g1}; that \eqref{Ch4:Eq:ModFormIneq_neg} directly implies \ref{g2}; and \eqref{Ch4:Eq:ModFormIneq_pos} directly implies \ref{g3}.
+
+% Viazovska's ingenuity stems from having successfully navigated the challenge posed by controlling the behaviour of both $g$ and $\hat{g}$, particularly around $0$, by tapping into the previously underexploited but visibly powerful intersection between the theory of radial Schwartz functions and that of modular forms. It truly is one of the greatest achievements in 21st Century mathematics, and an elegant example of how deeply the notion of symmetry, in this case arising from transformations in the theory of modular forms, is baked into the fabric of modern mathematics.

@@ -1,0 +1,366 @@
+\section{Defining Viazovska's Fourier Eigenfunctions}
+\label{Ch4:Sec:Defs}
+
+As we noted in \Cref{Ch3:Sec:Properties}, we construct our Fourier eigenfunctions as sums of integrals whose integrands obey several transformation properties. These transformation properties will be the result of well-known facts about modular forms, which we discussed in \Cref{Ch2:Sec:ModForms}. For each eigenfunction, we begin by defining families of functions---the $\phi$- and $\psi$-functions respectively---in terms of modular forms and associated functions. We then list their transformation rules, which we will apply throughout this chapter. We will end each subsection by defining their namesake eigenfunction.
+
+\subsection{The $+1$-Eigenfunction}
+
+We begin by defining the $\phi$-functions.
+
+\begin{boxdefinition}[The $\phi$-Functions]\label{Ch4:Def:phis}
+    Define the functions $\phi_0, \phi_{-2}, \phi_{-4} : \Halfplane \to \C$ by
+    \begin{align}
+        \phi_{-4} &:= \frac{E_4^2}{\Delta}
+            \label{Ch4:Eq:phi_-4_def} \\
+        \phi_{-2} &:= \frac{E_4\parenth{E_2 E_4 - E_6}}{\Delta}
+            \label{Ch4:Eq:phi_-2_def} \\
+        \phi_{0} &:= \frac{\parenth{E_2 E_4 - E_6}^2}{\Delta}
+            \label{Ch4:Eq:phi_0_def}
+    \end{align}
+\end{boxdefinition}
+
+Note first that these functions are holomorphic: their numerators are clearly holomorphic, as one can see from \Cref{Ch2:Sec:ModForms}, and we know that $\Delta$ does not vanish on the upper half-plane. We now give important transformation properties exhibited by these functions that will later allow us to change variables inside the integrands making up $a$. We only sketch the proof.
+
+\begin{boxlemma}\label{Ch4:Lemma:phi_transformations}
+    For all $z \in \Halfplane$,
+    \begin{align}
+        \phi_0\of{z + 1}
+        &= \phi_0\of{z}
+        \label{Ch4:Eq:phi_0_add_one} \\
+        \phi_0\of{\frac{-1}{z}}
+        &= \phi_0\of{z}
+        - \frac{12 i}{\pi} \cdot \frac{1}{z} \cdot \phi_{-2}\of{z}
+        - \frac{36}{\pi^2} \cdot \frac{1}{z^2} \cdot \phi_{-4}\of{z}
+        \label{Ch4:Eq:phi_0_neg_inv}
+    \end{align}
+\end{boxlemma}
+\begin{proof}[Proof sketch]
+    \eqref{Ch4:Eq:phi_0_add_one} is immediate because all of the functions in the definition of $\phi_0$ are $1$-periodic---even $E_2$, despite not being a modular form, because of \Cref{Ch2:Lemma:E2_slash_action}. To prove \eqref{Ch4:Eq:phi_0_neg_inv}, since $E_4$, $E_6$ and $\Delta$ are level $1$ modular forms of weights $4$, $6$ and $12$ respectively, we know $E_4\of{\frac{-1}{z}} = z^4 E_4\of{z}$, $E_6\of{\frac{-1}{z}} = z^6 E_6\of{z}$ and $\Delta\of{\frac{-1}{z}} = z^{12} \Delta\of{z}$. We can also get an explicit formula for $E_2\of{\frac{-1}{z}}$ from \Cref{Ch2:Lemma:E2_slash_action}. Putting these together gives the desired result.
+\end{proof}
+
+We do not prove these here, but mention that they both follow from the weight $k$ slash action formulae on $E_k$ for $k \in \set{2, 4, 6}$. When $k = 4$ and $k = 6$, we have weight $k$ invariance, because $E_4$ and $E_6$ are modular forms, but when $k = 2$, we need to use \Cref{Ch2:Lemma:E2_slash_action}. A detailed proof of these transformations can be found in \cite{blueprint}. We now define the $+1$-eigenfunction $a$.
+
+\begin{boxdefinition}[Viazovska's $+1$-Fourier Eigenfunction]\label{Ch4:Def:a}
+    Define $a\rad : \R \to \C$ by
+    \begin{align}
+        a\rad\of{r} := I_1(r) + I_2(r) + I_3(r) + I_4(r) + I_5(r) + I_6(r)
+            \label{Ch4:Eq:a_rad_def}
+    \end{align}
+    where, for all $r \in \R$,
+    \begin{align}
+        I_1(r) &:= \int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z+1}} \,
+                                 \parenth{z + 1}^2 \,
+                                 e^{\pi i r z} \,
+                                 \diff{z}
+            \label{Ch4:Eq:I_1_def} \\
+        I_2(r) &:= \int_{-1 + i}^{i} \phi_0\of{\frac{-1}{z+1}} \,
+                                 \parenth{z + 1}^2 \,
+                                 e^{\pi i r z} \,
+                                 \diff{z}
+            \label{Ch4:Eq:I_2_def} \\
+        I_3(r) &:= \int_{1}^{1 + i} \phi_0\of{\frac{-1}{z - 1}} \,
+                                \parenth{z - 1}^2 \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:I_3_def} \\
+        I_4(r) &:= \int_{1 + i}^{i} \phi_0\of{\frac{-1}{z - 1}} \,
+                                \parenth{z - 1}^2 \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:I_4_def} \\
+        I_5(r) &:= -2 \int_{0}^{i} \phi_0\of{\frac{-1}{z}} \,
+                                z^2 \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:I_5_def} \\
+        I_6(r) &:= 2 \int_{i}^{i \infty} \phi_0\of{z} \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:I_6_def}
+    \end{align}
+    Define the $+1$-Fourier eigenfunction $a : \R^8 \to \C$ by
+    \begin{align}
+        a(x) := a\rad\of{\norm{x}^2}
+            \label{Ch4:Eq:a_def}
+    \end{align}
+\end{boxdefinition}
+
+It is immediate from \eqref{Ch4:Eq:a_def} that $a$ is radial. All of its properties are determined by its radial part $a\rad$. There are similar definitions in Lean.
+
+There is an important remark that must be made about the definitions in \eqref{Ch4:Eq:I_1_def}-\eqref{Ch4:Eq:I_6_def}: in the original paper \cite{Viazovska8}, the integrals $I_1$ and $I_2$ are combined, as are $I_3$ and $I_4$, and expressed in the following manner:
+\begin{align*}
+    I_1(r) + I_2(r) &= \int_{-1}^{i} \phi_0\of{\frac{-1}{z+1}} \, \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+    I_3(r) + I_4(r) &= \int_{1}^{i} \phi_0\of{\frac{-1}{z - 1}} \, \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z}
+\end{align*}
+with the contours not specified. The most `classical' choice would be quarter-circular contours, though the same results can be achieved working with straight and rectangular contours.
+
+\begin{figure}[ht]
+    \centering
+    % First subfigure: quarter-circular contour
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.75]
+            % Axes
+            \draw[->] (-1.2,0) -- (1.2,0) node[right] {$\Re$};
+            \draw[->] (0,-1.2) -- (0,1.2) node[above] {$\Im$};
+
+            % Quarter-circle from -1 to i
+            \draw[thick, domain=180:135, ->] plot ({cos(\x)}, {sin(\x)}) node[above left] {$I_1 + I_2$};
+            \draw[thick, domain=135:90, -] plot ({cos(\x)}, {sin(\x)}) ;
+
+            % Points of interest
+            \labelledpoint{-1}{0}{0}{-0.8}{$-1$}
+            \labelledpoint{0}{1}{0.25}{-0.4}{$i$}
+        \end{tikzpicture}
+        \label{Ch4:subfig:a_circ_contour}
+        \caption{Quarter-Circular Contour}
+    \end{subfigure}
+    \hfill
+    % Second subfigure: straight line
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.75]
+            % Axes
+            \draw[->] (-1.2,0) -- (1.2,0) node[right] {$\Re$};
+            \draw[->] (0,-1.2) -- (0,1.2) node[above] {$\Im$};
+
+            % Straight line from -1 to 1
+            \draw[thick, ->] (-1,0) -- (-0.5,0.5) node[above left] {$I_1 + I_2$};
+            \draw[thick, -] (-0.5,0.5) -- (0,1);
+
+            % Points of interest
+            \labelledpoint{-1}{0}{0}{-0.8}{$-1$}
+            \labelledpoint{0}{1}{0.25}{-0.4}{$i$}
+        \end{tikzpicture}
+        \label{Ch4:subfig:a_lin_contour}
+        \caption{Straight Line Contour}
+    \end{subfigure}
+    \hfill
+    % Third subfigure: rectangular contour
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.75]
+            % Axes
+            \draw[->] (-1.2,0) -- (1.2,0) node[right] {$\Re$};
+            \draw[->] (0,-1.2) -- (0,1.2) node[above] {$\Im$};
+
+            % Rectangular contour
+            \draw[thick, ->] (-1,0) -- (-1,0.5) node[left] {$I_1$};
+            \draw[thick, -] (-1,0.5) -- (-1,1);
+            \draw[thick, ->] (-1,1) -- (-0.5,1) node[above] {$I_2$};m
+            \draw[thick, -] (-0.5,1) -- (0,1);
+
+            % Points of interest
+            \labelledpoint{-1}{0}{0}{-0.8}{$-1$}
+            \labelledpoint{0}{1}{0.25}{-0.4}{$i$}
+            \labelledpoint{-1}{1}{-0.7}{-0.2}{$-1 + i$}
+        \end{tikzpicture}
+        \label{Ch4:subfig:a_rect_contour}
+        \caption{Rectangular Contour}
+    \end{subfigure}
+    \caption{\centering Different contours along which we can integrate the integrand of $I_1$ and $I_2$ to get an integral equal to $I_1 + I_2$}
+    \label{Ch4:fig:a_contours}
+\end{figure}
+
+The reason the choice of contours does not matter is that the integrands of $I_1, \ldots, I_6$ are holomorphic on the upper half-plane. This is clear for $I_6$, and for the others, if we multiply terms of the form $\phi_0\of{\frac{-1}{z}}$ by $z^2$, apply \eqref{Ch4:Eq:phi_0_neg_inv} and multiply through, we end up with a holomorphic function.
+
+The choice of rectangular contours (as in \Cref{Ch4:subfig:a_rect_contour}) as opposed to quarter-circles or straight lines for $I_1 + I_2$ and $I_3 + I_4$ is motivated by the versions of the Cauchy-Goursat Theorem that have been formalised in Lean. We discuss this further in \Cref{Ch5:Sec:Cauchy-Goursat}.
+
+We are now ready to define the $-1$-eigenfunction $b$.
+
+\subsection{The $-1$-Eigenfunction}
+\label{Ch4:Subsec:b_def}
+
+Recall the $H$-functions defined as the fourth powers of the Theta functions in \Cref{Ch2:Def:Theta_H}. We begin by defining the $h$ function, in terms of which we define the $\psi$-functions.
+
+\begin{boxdefinition}[The $h$-Function]\label{Ch4:Def:h}
+    Define the function $h : \Halfplane \to \C$ by
+    \begin{align}
+        h\of{z} := 128 \frac{H_3(z) + H_4(z)}{H_2(z)^2} \label{Ch4:Eq:h_def}
+    \end{align}
+    where $H_2$, $H_3$ and $H_4$ are as defined in \Cref{Ch2:Def:Theta_H}.
+\end{boxdefinition}
+
+In \cite{Viazovska8}, the $\psi$-functions are defined in terms of the $h$-function via slash actions.
+
+\begin{boxdefinition}[The $\psi$-Functions]\label{Ch4:Def:psis_in_terms_of_h}
+    Define the functions $\psi_I, \psi_S, \psi_T : \Halfplane \to \C$ by
+    \begin{align*}
+        \psi_I := h - h\mid_{-2} ST
+        \qquad\qquad
+        \psi_T := \psi_I \mid_{-2} T
+        \qquad\qquad
+        \psi_S := \psi_I \mid_{-2} S
+    \end{align*}
+    where $h$ is as defined in \Cref{Ch4:Def:h} and $I, S, T \in \SL{2, \Z}$ are as defined just before \Cref{Ch2:Prop:H_Rels}.
+\end{boxdefinition}
+
+It is possible to use the weight-$2$ slash action relations seen in \Cref{Ch2:Prop:H_Rels} to express the $\psi$-functions explicitly in terms of the $H$-functions.
+
+\begin{boxlemma}\label{Ch4:Lemma:psi_explicitly}
+    The $\psi$-functions can be expressed in the following manner:
+    % Note that there's a missing - sign in the blueprint (need to fix ALL of the typos next week!)
+    \begin{align*}
+        \psi_I &= 128 \parenth{\frac{H_3 + H_4}{H_2^2} + \frac{H_4 - H_2}{H_3^2}} \\
+        \psi_T &= 128 \parenth{\frac{H_3 + H_4}{H_2^2} + \frac{H_2 + H_3}{H_4^2}} \\
+        \psi_S &= 128 \parenth{\frac{H_4 - H_2}{H_3^2} - \frac{H_2 + H_3}{H_4^2}}
+    \end{align*}
+\end{boxlemma}
+\begin{proof}
+    We prove the result for $\psi_I$ and sketch how to prove it for the others. Since $\psi_I = h - h \mid_{-2} ST$ and the first summand of $\psi_I$ given above is precisely $h$, we show that $h \mid_{-2} ST$ gives precisely the second summand.
+
+    First, note that $j_{-2}\of{ST} = \parenth{z + 1}^2$. Observe that for all $z \in \Halfplane$, $\parenth{z + 1}^2 = \frac{\parenth{z + 1}^{-2}}{\parenth{\parenth{z + 1}^{-2}}^2}$. Hence,
+    \begin{align*}
+        h \mid_{-2} ST
+        = 128 \frac{\parenth{H_3 \mid_2 ST} + \parenth{H_4 \mid_2 ST}}{\parenth{H_2 \mid_2 ST}^2}
+        = 128 \frac{-\parenth{H_3 \mid_2 T} - \parenth{H_2 \mid_2 T}}{\parenth{-H_2 \mid_2 T}^2}
+        = -128 \frac{H_4 - H_2}{H_3^2}
+    \end{align*}
+    with the second equality following from \Cref{Ch2:Lemma:Slash_Mul}. Subtracting $h \mid_{-2} ST$ from $h$ then gives the desired result. The explicit expressions for $\psi_T$ and $\psi_S$ can be obtained by performing similar computations on $\psi_I$.
+\end{proof}
+
+The proof of \Cref{Ch4:Lemma:psi_explicitly} shows us that weight $-2$ slash actions on the $\psi$-functions come directly from the analogous weight $2$ slash operations on the $H$-functions. We have seen several of these in \Cref{Ch2:Prop:H_Rels} and can combine them with \Cref{Ch2:Lemma:Slash_Mul} to generate the following relations between the $\psi$-functions.
+\begin{align}
+    \psi_T &= \psi_I \mid_{-2} T &
+    \psi_T(z) &= \psi_I\of{z + 1}
+    \label{Ch4:Eq:psi_T_eq_psi_I_add_one}
+    \\
+    \psi_I &= \psi_T \mid_{-2} T &
+    \psi_I(z) &= \psi_T\of{z + 1}
+    \label{Ch4:Eq:psi_I_eq_psi_T_add_one}
+    \\
+    \psi_S &= \psi_I \mid_{-2} S &
+    \psi_S(z) &= z^2 \, \psi_I\of{\frac{-1}{z}}
+    \label{Ch4:Eq:psi_S_eq_zsq_mul_psi_I_neg_inv}
+    \\
+    \psi_I &= \psi_S \mid_{-2} S &
+    \psi_I(z) &= z^2 \psi_S\of{\frac{-1}{z}}
+    \label{Ch4:Eq:psi_I_to_psi_S}
+    \\
+    \psi_S &= \psi_I \mid_{-2} S &
+    \psi_S(z) &= z^2 \psi_I\of{\frac{-1}{z}}
+    \label{Ch4:Eq:psi_S_to_psi_I}
+    \\
+    \psi_T &= \psi_S \mid_{-2} ST &
+    \psi_T(z) &= \parenth{z+1}^2 \psi_S\of{\frac{-1}{z+1}}
+    \label{Ch4:Eq:psi_T_to_psi_S_add}
+    \\
+    \psi_{S} &= \psi_S \mid_{-2} T &
+    \psi_S(z) &= \psi_S(z + 1)
+    \label{Ch4:Eq:psi_S_one_periodic}
+    \\
+    - \psi_{T} &= \psi_T \mid_{-2} S &
+    - \psi_T(z) &= z^2 \psi_T\of{\frac{-1}{z}} \label{Ch4:Eq:psi_T_eq_zsq_mul_psi_T_neg_inv}
+    \\
+    - \psi_{T} &= \psi_I \mid_{-2} TS &
+    - \psi_T(z) &= z^2 \psi_I\of{\frac{z - 1}{z}}
+    \label{Ch4:Eq:psi_T_eq_neg_psi_I_slash_TS}
+    \\
+    - \psi_{T} &= \psi_S \mid_{-2} STS &
+    - \psi_T(z) &= \parenth{z - 1}^2 \psi_S\of{\frac{-z}{z - 1}}
+    \label{Ch4:Eq:psi_T_eq_neg_psi_S_slash_STS}
+    \\
+    - \psi_{T} &= \psi_S \mid_{-2} TSTS &
+    - \psi_T(z) &= \parenth{z - 1}^2 \psi_S\of{\frac{-1}{z - 1}}
+    \label{Ch4:Eq:psi_T_as_psi_S_for_J3_J4}
+\end{align}
+where we note that
+\begin{align*}
+    ST &= \begin{bmatrix}
+        0 & -1 \\ 1 & 0
+    \end{bmatrix}\begin{bmatrix}
+        1 & 1 \\ 0 & 1
+    \end{bmatrix} =  \begin{bmatrix}
+        0 & -1 \\ 1 & 1
+    \end{bmatrix} &
+    TS &= \begin{bmatrix}
+        1 & 1 \\ 0 & 1
+    \end{bmatrix}\begin{bmatrix}
+        0 & -1 \\ 1 & 0
+    \end{bmatrix} = \begin{bmatrix}
+        1 & -1 \\ 1 & 0
+    \end{bmatrix} \\
+    STS &= \begin{bmatrix}
+        0 & -1 \\ 1 & 0
+    \end{bmatrix}\begin{bmatrix}
+        1 & -1 \\ 1 & 0
+    \end{bmatrix} = \begin{bmatrix}
+        -1 & 0 \\ 1 & -1
+    \end{bmatrix} &
+    TSTS &= \begin{bmatrix}
+        1 & 1 \\ 0 & 1
+    \end{bmatrix}\begin{bmatrix}
+        -1 & 0 \\ 1 & -1
+    \end{bmatrix} = \begin{bmatrix}
+        0 & -1 \\ 1 & -1
+    \end{bmatrix}
+\end{align*}
+
+It will be useful, particularly to prove Schwartzness, to express the $\psi$-functions in an alternate form, as fractions with the discriminant in the denominator. We can therefore express the $\psi$-functions in yet another form.
+
+\begin{boxproposition}\label{Ch4:Prop:psi_as_div_disc}
+    We can express $\psi_I, \psi_S, \psi_T$ in the following manner:
+    \begin{align}
+        \psi_I &= \frac{H_4^3\parenth{2 H_4^2 + 5 H_4 H_2 + 5 H_2^2}}{2 \Delta}
+            \label{Ch4:Eq:psi_I_div_disc} \\
+        \psi_S &= \frac{- H_2^3 \parenth{2 H_2^3 + 5 H_2 H_4 + 5 H_4^2}}{2 \Delta}
+            \label{Ch4:Eq:psi_S_div_disc} \\
+        \psi_T &= \psi_I - \psi_S
+            \label{Ch4:Eq:psi_T_eq_psi_I_sub_psi_S}
+    \end{align}
+    where $\Delta$ is the discriminant form.
+\end{boxproposition}
+
+\eqref{Ch4:Eq:psi_I_div_disc} and \eqref{Ch4:Eq:psi_S_div_disc} can be proved by finding common denominators for the expressions in \Cref{Ch4:Lemma:psi_explicitly} and applying \eqref{Ch2:Eq:H_Jacobi} and \eqref{Ch2:Eq:Disc_H}. \eqref{Ch4:Eq:psi_T_eq_psi_I_sub_psi_S} is proved using slash actions, but we include it in \Cref{Ch4:Prop:psi_as_div_disc} because this gives us a clear way of seeing that the $\psi$-functions are holomorphic on the upper half-plane: $\Delta$ is holomorphic and non-vanishing, and the numerators are made entirely of holomorphic functions.
+
+We are now ready to define the $-1$-eigenfunction, denoted $b$.
+
+\begin{boxdefinition}[Viazovska's $-1$-Fourier Eigenfunction]\label{Ch4:Def:b}
+    Define $b\rad : \R \to \C$ by
+    \begin{align}
+        b\rad\of{r} := J_1(r) + J_2(r) + J_3(r) + J_4(r) + J_5(r) + J_6(r)
+        \label{Ch4:Eq:b_rad_def}
+    \end{align}
+    where, for all $r \in \R$,
+    \begin{align}
+        J_1(r) &:= \int_{-1}^{-1 + i} \psi_T\of{z} \,
+                                 e^{\pi i r z} \,
+                                 \diff{z}
+            \label{Ch4:Eq:J_1_def} \\
+        J_2(r) &:= \int_{-1 + i}^{i} \psi_T\of{z} \,
+                                 e^{\pi i r z} \,
+                                 \diff{z}
+            \label{Ch4:Eq:J_2_def} \\
+        J_3(r) &:= \int_{1}^{1 + i} \psi_T\of{z} \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:J_3_def} \\
+        J_4(r) &:= \int_{1 + i}^{i} \psi_T\of{z} \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:J_4_def} \\
+        J_5(r) &:= -2 \int_{0}^{i} \psi_I\of{z} \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:J_5_def} \\
+        J_6(r) &:= -2 \int_{i}^{i \infty} \psi_S\of{z} \,
+                                e^{\pi i r z} \,
+                                \diff{z}
+            \label{Ch4:Eq:J_6_def}
+    \end{align}
+    Define the $-1$-Fourier eigenfunction $a : \R^8 \to \C$ by
+    \begin{align}
+        b(x) := b\rad\of{\norm{x}^2}
+            \label{Ch4:Eq:b_def}
+    \end{align}
+\end{boxdefinition}
+
+Note that by applying \eqref{Ch4:Eq:psi_T_to_psi_S_add} and \eqref{Ch4:Eq:psi_T_as_psi_S_for_J3_J4}, we can express $J_1, \ldots, J_5$ in the following manner:
+\begin{align}
+    J_1(r) &= \int_{-1}^{-1 + i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \label{Ch4:Eq:J1_like_I1} \\
+    J_2(r) &= \int_{-1 + i}^{i} \psi_S\of{\frac{-1}{z + 1}} \, \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \label{Ch4:Eq:J2_like_I2} \\
+    J_3(r) &= -\int_{1}^{1 + i} \psi_S\of{\frac{-1}{z - 1}} \, \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} \label{Ch4:Eq:J3_like_I3} \\
+    J_4(r) &= -\int_{1 + i}^{i} \psi_S\of{\frac{-1}{z - 1}} \, \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} \label{Ch4:Eq:J4_like_I4} \\
+    J_5(r) &= -2 \int_{0}^{i} \psi_S\of{\frac{-1}{z}} \, z^2 \, e^{\pi i r z} \, \diff{z} \label{Ch4:Eq:J5_like_I5}
+\end{align}
+With $J_1, \ldots, J_5$ expressed in this manner, and $J_6$ expressed as in \eqref{Ch4:Eq:J_6_def}, there are striking similarities between the $J_j$ and the $I_j$, with $\psi_S$ being the analogue of $\phi_0$. We can hence use similar approaches to prove properties about both $a$ and $b$. The differences in the signs between $J_3$ and $I_r$, $J_4$ and $I_4$, and $J_6$ and $I_6$, as well as the differences between the relations between the $\phi$- and $\psi$-functions, will account for the differences in the way we treat $a$ and $b$.

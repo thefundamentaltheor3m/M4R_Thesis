@@ -1,0 +1,14 @@
+\chapter{Viazovska's Magic Function, Formally}
+\label{Ch5:Chapter}
+\thispagestyle{empty}
+% I really don't like this chapter name because idt it reflects the essence of the chapter, which is "the key aspects of the formalisation/challenges faced and overcome". But that's not a good title either. Gotta find something in the middle!
+
+In this chapter, we discuss aspects of the formalisation that we alluded to, but did not discuss in detail, in \Cref{Ch4:Chapter}.
+
+Throughout \Cref{Ch4:Chapter}, particularly in \Cref{Ch4:Sec:Defs,Ch4:Sec:Schwartzness,Ch4:Sec:Double_Zeroes}, we provided incredibly detailed arguments. The purpose of doing this was to ensure a correspondence between the informal text in this document and the formal proof or proof path written or envisioned by the author. This approach was also intended to pre-empt challenges that would be faced when ultimately formalising Viazovska's proof.
+
+We note that while the formalisation is still actively in progress, over the course of this M4R, the author has made significant progress towards formalising the contents of \Cref{Ch4:Chapter}. These steps are highlighted across this chapter. In \Cref{Ch5:Sec:Gen_Overview_of_Formalisation}, we give a broad overview of the author's contributions and account for the minor but deliberate and carefully considered differences between Viazovska's original proof in \cite{Viazovska8} and the author's exposition of it in \Cref{Ch4:Chapter}.  In \Cref{Ch5:Sec:Meta}, we briefly discuss an innovative approach conceived by Macbeth and the author to simplify computations in $\C$, which has since been implemented with significant contributions by Xie. In \Cref{Ch5:Sec:Cauchy-Goursat}, we discuss the nuances that make the \CGT, an integral part of Viazovska's proof, a challenging theorem to formalise, and outline how some, but not all, of these challenges have been overcome by the author over the course of this M4R.
+
+\input{Chapters/5_Lean/5_1_Project.tex}
+\input{Chapters/5_Lean/5_2_norm_numI.tex}
+\input{Chapters/5_Lean/5_3_Cauchy-Goursat.tex}

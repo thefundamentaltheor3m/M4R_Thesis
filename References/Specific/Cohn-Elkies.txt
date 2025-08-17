@@ -1,0 +1,14 @@
+@article{6266dd8d-7161-33c7-860d-21e017a96b0e,
+ ISSN = {0003486X},
+ URL = {http://www.jstor.org/stable/3597215},
+ abstract = {We develop an analogue for sphere packing of the linear programming bounds for error-correcting codes, and use it to prove upper bounds for the density of sphere packings, which are the best bounds known at least for dimensions 4 through 36. We conjecture that our approach can be used to solve the sphere packing problem in dimensions 8 and 24.},
+ author = {Henry Cohn and Noam Elkies},
+ journal = {Annals of Mathematics},
+ number = {2},
+ pages = {689--714},
+ publisher = {Annals of Mathematics},
+ title = {New Upper Bounds on Sphere Packings I},
+ urldate = {2024-11-14},
+ volume = {157},
+ year = {2003}
+}

@@ -1,0 +1,55 @@
+%% Sets page size and margins
+\usepackage[a4paper,top=1in,bottom=1in,left=1in,right=1in,marginparwidth=1.75cm]{geometry}
+
+% Font
+
+% \usepackage{sansmathfonts}
+% % \usepackage{mathrsfs}
+% \usepackage[T1]{fontenc}
+% \renewcommand*\familydefault{\sfdefault}
+
+\renewcommand*{\rmdefault}{bch}
+\renewcommand*{\ttdefault}{lmtt}
+
+% Structure and Numbering
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\rhead{{Page \thepage}}%\hspace{1pt} of \pageref{LastPage}}}
+\lhead{\textit\slshape\nouppercase{\leftmark}}
+
+\numberwithin{equation}{section}
+
+% Lists
+
+\setlist[description]{font=\normalfont}
+\setlist[enumerate]{font=\normalfont}
+
+% Spacing and indentation
+
+% Not sure if 1.5-spacing is permitted. I'll leave it commented out for now.
+% \usepackage{setspace}
+% \renewcommand{\baselinestretch}{1.5}
+
+\usepackage[skip=11pt, indent=0pt]{parskip}
+% Here's what Imperial's recommended setup is:
+% \setlength{\parskip}{0.5em}
+% \usepackage{indentfirst}  % Uncomment if using above
+
+\allowdisplaybreaks  % Allows align environments to continue for several pages
+
+% Colours
+
+\usepackage{xcolor}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+\definecolor{pink}{rgb}{0.858, 0.188, 0.478}
+\definecolor{brown}{rgb}{0.8, 0.4, 0.0}
+
+% Bibliography
+\usepackage[numbers, comma, square, sort&compress]{natbib}
+\bibliographystyle{References/abbrvunsrtnat.bst}
+% \bibliographystyle{unsrtnat}
