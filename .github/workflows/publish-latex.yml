@@ -141,9 +141,14 @@ jobs:
           # fi
           mkdir ./public
           cp TeX_Outputs/main.pdf public/LastLocallyCompiled.pdf
-          cp *.tex public/
+          cp main.tex public/
           cp -r Chapters public/
           cp -r TeX_Setup public/
+          cp -r Title public/
+          cp -r References public/
+          cp -r Frontmatter public/
+          cp -r Appendices public/
+          cp -r Figures public/
           cd public/
           pdflatex main.tex
           pdflatex main.tex  # Cleveref uses aux files. Need to compile twice!
