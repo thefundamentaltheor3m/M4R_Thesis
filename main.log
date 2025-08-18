@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.8.18)  18 AUG 2025 00:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.8.18)  18 AUG 2025 00:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -48,9 +48,9 @@ Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
 (babel)             (\language0). Reported on input line 102.
 Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
-(babel)             (\language5). Reported on input line 105.
+(babel)             (\language31). Reported on input line 105.
 Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
-(babel)             (\language5). Reported on input line 108.
+(babel)             (\language31). Reported on input line 108.
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/babel/locale/en/babel-english.tex
 Package babel Info: Importing font and identification data for english
@@ -3509,7 +3509,7 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Here is how much of TeX's memory you used:
  53475 strings out of 474222
  1220576 string characters out of 5748733
- 2045975 words of memory out of 5000000
+ 2044975 words of memory out of 5000000
  74197 multiletter control sequences out of 15000+600000
  656386 words of font info for 177 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -3536,7 +3536,7 @@ usr/share/texmf/fonts/type1/public/lm/lmtt9.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/yhmath/yhcmex.pfb>
-Output written on main.pdf (64 pages, 4453627 bytes).
+Output written on main.pdf (64 pages, 4453632 bytes).
 PDF statistics:
  1370 PDF objects out of 1440 (max. 8388607)
  1201 compressed objects within 13 object streams
