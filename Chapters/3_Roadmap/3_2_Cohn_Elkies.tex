@@ -11,7 +11,7 @@ In our argument, we fix an arbitrary $\Lambda$-periodic sphere packing $\Pa(X)$ 
 \begin{align*}
     \abs{\quotient{X}{\Lambda}}  \cdot f(0)
     = \sum_{x \in {\tiny{\quotient{X}{\Lambda}}}} \fof{x - x}
-    = \sum_{x \in X} \sum_{\substack{y \in {\tiny \quotient{X}{\Lambda}} \\ y = x}}
+    = \sum_{x \in X} \sum_{\substack{y \in {\tiny \quotient{X}{\Lambda}} \\ y = x}} \fof{x - y}
     \geq \sum_{x \in X} \sum_{y \in {\tiny \quotient{X}{\Lambda}}} \fof{x - y}
 \end{align*}
 The terms we discard to prove the inequality are non-positive, as they are of the form $\fof{x - y}$ for $y \neq x$ (meaning $\norm{y - x} \geq 1$, allowing us to apply \ref{CE2}). If this inequality is an equality, then all the terms we discard must not merely be non-positive: they must, in fact, be zero. That is, we need
