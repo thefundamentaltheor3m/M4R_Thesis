@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.8.30)  30 AUG 2025 20:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.8.31)  31 AUG 2025 14:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -48,9 +48,9 @@ Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
 (babel)             (\language0). Reported on input line 102.
 Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
-(babel)             (\language9). Reported on input line 105.
+(babel)             (\language82). Reported on input line 105.
 Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
-(babel)             (\language9). Reported on input line 108.
+(babel)             (\language82). Reported on input line 108.
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/babel/locale/en/babel-english.tex
 Package babel Info: Importing font and identification data for english
@@ -1705,34 +1705,7 @@ been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.6 \end{abstract}
-                   [1]) (./Frontmatter/Acknowledgements.tex
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-2.
-
-(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-Package csquotes Info: Input encoding change on input line 12.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
-File: ansinew.def 2021/02/14 v1.3d Input encoding file
-)
-
-Package xcolor Warning: Incompatible color definition on input line 12.
-
-) [2
-
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}]
-(./Frontmatter/Plagiarism.tex
-Underfull \hbox (badness 10000) in paragraph at lines 3--4
-
- []
-
-) [3
-
-
-] (./main.toc [4
-
+                   [1]) (./main.toc [2
 
 ])
 \tf@toc=\write5
@@ -1747,65 +1720,65 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[5]
+[3]
 Chapter 1.
 
-Package natbib Warning: Citation `Viazovska8' on page 6 undefined on input line
+Package natbib Warning: Citation `Viazovska8' on page 4 undefined on input line
  5.
 
 
-Package natbib Warning: Citation `Viazovska24' on page 6 undefined on input lin
+Package natbib Warning: Citation `Viazovska24' on page 4 undefined on input lin
 e 5.
 
 
-Package natbib Warning: Citation `CohnOnViazovskaICM' on page 6 undefined on in
+Package natbib Warning: Citation `CohnOnViazovskaICM' on page 4 undefined on in
 put line 7.
 
 
-Package natbib Warning: Citation `HalesKeplerInformal' on page 6 undefined on i
+Package natbib Warning: Citation `HalesKeplerInformal' on page 4 undefined on i
 nput line 7.
 
 
-Package natbib Warning: Citation `QuantaPiece' on page 6 undefined on input lin
+Package natbib Warning: Citation `QuantaPiece' on page 4 undefined on input lin
 e 7.
 
 (./Chapters/1_Intro/1_1_Sphere_Packing_Problem.tex
 
-Package natbib Warning: Citation `CohnOnViazovskaICM' on page 6 undefined on in
+Package natbib Warning: Citation `CohnOnViazovskaICM' on page 4 undefined on in
 put line 9.
 
 
-Package natbib Warning: Citation `CohnOnViazovskaAMS' on page 6 undefined on in
+Package natbib Warning: Citation `CohnOnViazovskaAMS' on page 4 undefined on in
 put line 9.
 
-[6
+[4
 
 ]
 
-Package natbib Warning: Citation `Thue' on page 7 undefined on input line 39.
+Package natbib Warning: Citation `Thue' on page 5 undefined on input line 39.
 
 
-Package natbib Warning: Citation `CannonHoney' on page 7 undefined on input lin
+Package natbib Warning: Citation `CannonHoney' on page 5 undefined on input lin
 e 39.
 
-<Chapters/1_Intro/Images/Kepler_1.pdf, id=340, 130.17897pt x 113.01433pt>
+<Chapters/1_Intro/Images/Kepler_1.pdf, id=328, 130.17897pt x 113.01433pt>
 File: Chapters/1_Intro/Images/Kepler_1.pdf Graphic file (type pdf)
 <use Chapters/1_Intro/Images/Kepler_1.pdf>
 Package pdftex.def Info: Chapters/1_Intro/Images/Kepler_1.pdf  used on input li
 ne 85.
 (pdftex.def)             Requested size: 122.30325pt x 106.18173pt.
-<Chapters/1_Intro/Images/Kepler_2.pdf, id=341, 115.75737pt x 204.6573pt>
+<Chapters/1_Intro/Images/Kepler_2.pdf, id=329, 115.75737pt x 204.6573pt>
 File: Chapters/1_Intro/Images/Kepler_2.pdf Graphic file (type pdf)
 <use Chapters/1_Intro/Images/Kepler_2.pdf>
 Package pdftex.def Info: Chapters/1_Intro/Images/Kepler_2.pdf  used on input li
 ne 91.
 (pdftex.def)             Requested size: 122.30325pt x 216.24242pt.
 
-Package natbib Warning: Citation `KeplerSnowflake' on page 7 undefined on input
+Package natbib Warning: Citation `KeplerSnowflake' on page 5 undefined on input
  line 95.
 
 
-Package natbib Warning: Citation `KeplerSnowflake' on page 7 undefined on input
+Package natbib Warning: Citation `KeplerSnowflake' on page 5 undefined on input
  line 95.
 
 
@@ -1816,21 +1789,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[7]
+[5]
 
-Package natbib Warning: Citation `KeplerSnowflake' on page 8 undefined on input
+Package natbib Warning: Citation `KeplerSnowflake' on page 6 undefined on input
  line 152.
 
 
-Package natbib Warning: Citation `HalesKeplerInformal' on page 8 undefined on i
+Package natbib Warning: Citation `HalesKeplerInformal' on page 6 undefined on i
 nput line 152.
 
 
-Package natbib Warning: Citation `CannonHoney' on page 8 undefined on input lin
+Package natbib Warning: Citation `CannonHoney' on page 6 undefined on input lin
 e 154.
 
 
-Package natbib Warning: Citation `HalesKeplerFormal' on page 8 undefined on inp
+Package natbib Warning: Citation `HalesKeplerFormal' on page 6 undefined on inp
 ut line 154.
 
 ) (./Chapters/1_Intro/1_2_Formalisation.tex
@@ -1845,26 +1818,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[8 <./Chapters/1_Intro/Images/Kepler_1.pdf> <./Chapters/1_Intro/Images/Kepler_2
+[6 <./Chapters/1_Intro/Images/Kepler_1.pdf> <./Chapters/1_Intro/Images/Kepler_2
 .pdf>]
 
-Package natbib Warning: Citation `FlyspeckAnnouncement' on page 9 undefined on 
+Package natbib Warning: Citation `FlyspeckAnnouncement' on page 7 undefined on 
 input line 5.
 
 
-Package natbib Warning: Citation `PFRPublished' on page 9 undefined on input li
+Package natbib Warning: Citation `PFRPublished' on page 7 undefined on input li
 ne 9.
 
 
-Package natbib Warning: Citation `liquidtensor' on page 9 undefined on input li
+Package natbib Warning: Citation `liquidtensor' on page 7 undefined on input li
 ne 11.
 
 
-Package natbib Warning: Citation `blueprint' on page 9 undefined on input line 
+Package natbib Warning: Citation `blueprint' on page 7 undefined on input line 
 13.
 
 
-Package natbib Warning: Citation `Leanblueprint' on page 9 undefined on input l
+Package natbib Warning: Citation `Leanblueprint' on page 7 undefined on input l
 ine 15.
 
 ) (./Chapters/1_Intro/1_3_Scope.tex
@@ -1879,22 +1852,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[9]
+[7]
 
-Package natbib Warning: Citation `Viazovska8' on page 10 undefined on input lin
-e 7.
-
-
-Package natbib Warning: Citation `CohnElkies' on page 10 undefined on input lin
-e 7.
+Package natbib Warning: Citation `Viazovska8' on page 8 undefined on input line
+ 7.
 
 
-Package natbib Warning: Citation `Viazovska8' on page 10 undefined on input lin
-e 11.
+Package natbib Warning: Citation `CohnElkies' on page 8 undefined on input line
+ 7.
 
 
-Package natbib Warning: Citation `mathlib' on page 10 undefined on input line 1
+Package natbib Warning: Citation `Viazovska8' on page 8 undefined on input line
+ 11.
+
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
 3.
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+Package natbib Warning: Citation `mathlib' on page 8 undefined on input line 13
+.
 
 )) (./Chapters/2_Dimension_8/2_Dimension_8.tex
 
@@ -1905,21 +1883,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[10]
+[8{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}]
 Chapter 2.
 
-Package natbib Warning: Citation `CohnElkies' on page 11 undefined on input lin
-e 5.
+Package natbib Warning: Citation `CohnElkies' on page 9 undefined on input line
+ 5.
 
 
-Package natbib Warning: Citation `Viazovska8' on page 11 undefined on input lin
-e 5.
+Package natbib Warning: Citation `Viazovska8' on page 9 undefined on input line
+ 5.
 
-(./Chapters/2_Dimension_8/2_1_Defs.tex [11
+(./Chapters/2_Dimension_8/2_1_Defs.tex [9
 
 ]
 
-Package natbib Warning: Citation `CohnElkies' on page 12 undefined on input lin
+Package natbib Warning: Citation `CohnElkies' on page 10 undefined on input lin
 e 50.
 
 
@@ -1934,18 +1912,18 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 63.
 
-<Chapters/2_Dimension_8/Images/Gorbe_E8.png, id=387, 777.90625pt x 770.88pt>
+<Chapters/2_Dimension_8/Images/Gorbe_E8.png, id=377, 777.90625pt x 770.88pt>
 File: Chapters/2_Dimension_8/Images/Gorbe_E8.png Graphic file (type png)
 <use Chapters/2_Dimension_8/Images/Gorbe_E8.png>
 Package pdftex.def Info: Chapters/2_Dimension_8/Images/Gorbe_E8.png  used on in
 put line 69.
 (pdftex.def)             Requested size: 221.9533pt x 219.9501pt.
 
-Package natbib Warning: Citation `Gorbe_E8' on page 12 undefined on input line 
+Package natbib Warning: Citation `Gorbe_E8' on page 10 undefined on input line 
 70.
 
 
-Package natbib Warning: Citation `Gorbe_E8' on page 12 undefined on input line 
+Package natbib Warning: Citation `Gorbe_E8' on page 10 undefined on input line 
 70.
 
 
@@ -1956,7 +1934,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[12]) (./Chapters/2_Dimension_8/2_2_Cohn_Elkies.tex
+[10]) (./Chapters/2_Dimension_8/2_2_Cohn_Elkies.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1968,9 +1946,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[13 <./Chapters/2_Dimension_8/Images/Gorbe_E8.png>]
+[11 <./Chapters/2_Dimension_8/Images/Gorbe_E8.png>]
 
-Package natbib Warning: Citation `SchwartzDistrib' on page 14 undefined on inpu
+Package natbib Warning: Citation `SchwartzDistrib' on page 12 undefined on inpu
 t line 5.
 
 
@@ -1981,17 +1959,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[14]
+[12]
 
-Package natbib Warning: Citation `SerreArith' on page 15 undefined on input lin
+Package natbib Warning: Citation `SerreArith' on page 13 undefined on input lin
 e 53.
 
 
-Package natbib Warning: Citation `SchwartzDistrib' on page 15 undefined on inpu
+Package natbib Warning: Citation `SchwartzDistrib' on page 13 undefined on inpu
 t line 53.
 
 
-Package natbib Warning: Citation `CohnElkies' on page 15 undefined on input lin
+Package natbib Warning: Citation `CohnElkies' on page 13 undefined on input lin
 e 61.
 
 
@@ -2008,7 +1986,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[15]
+[13]
 
 LaTeX Font Warning: Command \tiny invalid in math mode on input line 94.
 
@@ -2035,7 +2013,7 @@ LaTeX Font Warning: Command \tiny invalid in math mode on input line 101.
 
 ) (./Chapters/2_Dimension_8/2_3_Modular_Forms.tex
 
-Package natbib Warning: Citation `DiamondShurman' on page 16 undefined on input
+Package natbib Warning: Citation `DiamondShurman' on page 14 undefined on input
  line 13.
 
 
@@ -2046,9 +2024,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[16]
+[14]
 
-Package natbib Warning: Citation `KevinFamilies' on page 17 undefined on input 
+Package natbib Warning: Citation `KevinFamilies' on page 15 undefined on input 
 line 82.
 
 
@@ -2059,9 +2037,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[17]
+[15]
 
-Package natbib Warning: Citation `DiamondShurman' on page 18 undefined on input
+Package natbib Warning: Citation `DiamondShurman' on page 16 undefined on input
  line 124.
 
 
@@ -2072,7 +2050,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[18]
+[16]
 Underfull \vbox (badness 4441) has occurred while \output is active []
 
 
@@ -2084,9 +2062,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[19]
+[17]
 
-Package natbib Warning: Citation `SerreArith' on page 20 undefined on input lin
+Package natbib Warning: Citation `SerreArith' on page 18 undefined on input lin
 e 273.
 
 
@@ -2097,17 +2075,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[20]
+[18]
 
-Package natbib Warning: Citation `Viazovska8' on page 21 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 19 undefined on input lin
 e 344.
 
 
-Package natbib Warning: Citation `blueprint' on page 21 undefined on input line
+Package natbib Warning: Citation `blueprint' on page 19 undefined on input line
  344.
 
 
-Package natbib Warning: Citation `Viazovska8' on page 21 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 19 undefined on input lin
 e 344.
 
 )) (./Chapters/3_Roadmap/3_Roadmap.tex
@@ -2119,9 +2097,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[21]
+[19]
 Chapter 3.
-(./Chapters/3_Roadmap/3_1_Schwartz.tex [22
+(./Chapters/3_Roadmap/3_1_Schwartz.tex [20
 
 ]
 
@@ -2132,9 +2110,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[23]) (./Chapters/3_Roadmap/3_2_Cohn_Elkies.tex
+[21]) (./Chapters/3_Roadmap/3_2_Cohn_Elkies.tex
 
-Package natbib Warning: Citation `CohnOnViazovskaICM' on page 24 undefined on i
+Package natbib Warning: Citation `CohnOnViazovskaICM' on page 22 undefined on i
 nput line 4.
 
 
@@ -2145,7 +2123,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[24]
+[22]
 
 LaTeX Font Warning: Command \tiny invalid in math mode on input line 16.
 
@@ -2165,7 +2143,7 @@ LaTeX Font Warning: Command \tiny invalid in math mode on input line 16.
 LaTeX Font Warning: Command \tiny invalid in math mode on input line 16.
 
 
-Package natbib Warning: Citation `Viazovska8' on page 25 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 23 undefined on input lin
 e 40.
 
 
@@ -2176,9 +2154,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[25]
+[23]
 
-Package natbib Warning: Citation `Viazovska8' on page 26 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 24 undefined on input lin
 e 42.
 
 ) (./Chapters/3_Roadmap/3_3_Strategy.tex
@@ -2190,13 +2168,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[26]
+[24]
 
-Package natbib Warning: Citation `UncertaintyPrincipleFR' on page 27 undefined 
+Package natbib Warning: Citation `UncertaintyPrincipleFR' on page 25 undefined 
 on input line 48.
 
 
-Package natbib Warning: Citation `CohnOnViazovskaICM' on page 27 undefined on i
+Package natbib Warning: Citation `CohnOnViazovskaICM' on page 25 undefined on i
 nput line 50.
 
 )) (./Chapters/4_Magic_Fun/4_Magic_Fun.tex
@@ -2208,14 +2186,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[27]
+[25]
 Chapter 4.
 
-Package natbib Warning: Citation `Viazovska8' on page 28 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 26 undefined on input lin
 e 7.
 
 
-Package natbib Warning: Citation `blueprint' on page 28 undefined on input line
+Package natbib Warning: Citation `blueprint' on page 26 undefined on input line
  7.
 
 (./Chapters/4_Magic_Fun/4_1_Defs.tex
@@ -2227,11 +2205,11 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 6.
 
-[28
+[26
 
 ]
 
-Package natbib Warning: Citation `blueprint' on page 29 undefined on input line
+Package natbib Warning: Citation `blueprint' on page 27 undefined on input line
  41.
 
 
@@ -2242,9 +2220,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[29]
+[27]
 
-Package natbib Warning: Citation `Viazovska8' on page 30 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 28 undefined on input lin
 e 90.
 
 
@@ -2279,9 +2257,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[30]
+[28]
 
-Package natbib Warning: Citation `Viazovska8' on page 31 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 29 undefined on input lin
 e 184.
 
 
@@ -2292,27 +2270,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
+[29]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[30]) (./Chapters/4_Magic_Fun/4_2_Schwartzness.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
 [31]
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[32]) (./Chapters/4_Magic_Fun/4_2_Schwartzness.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[33]
-
-Package natbib Warning: Citation `blueprint' on page 34 undefined on input line
+Package natbib Warning: Citation `blueprint' on page 32 undefined on input line
  10.
 
 
@@ -2323,7 +2301,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[34]
+[32]
 LaTeX Font Info:    Trying to load font information for TS1+bch on input line 9
 2.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1bch.fd
@@ -2345,7 +2323,33 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[35]
+[33]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[34]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 369.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 369.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[35]) (./Chapters/4_Magic_Fun/4_3_Eigenfunctions.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2357,11 +2361,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [36]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 369.
+(hyperref)                removing `math shift' on input line 92.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 369.
+(hyperref)                removing `math shift' on input line 92.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2371,7 +2375,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[37]) (./Chapters/4_Magic_Fun/4_3_Eigenfunctions.tex
+[37]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2383,11 +2387,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [38]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 92.
+(hyperref)                removing `math shift' on input line 329.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 92.
+(hyperref)                removing `math shift' on input line 329.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2397,7 +2401,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[39]
+[39]) (./Chapters/4_Magic_Fun/4_4_Double_Zeroes.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2409,32 +2413,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [40]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 329.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 329.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[41]) (./Chapters/4_Magic_Fun/4_4_Double_Zeroes.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[42]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 52.
 
 
@@ -2449,7 +2427,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[43]
+[41]
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 143.
 
@@ -2469,7 +2447,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[44]
+[42]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 191.
@@ -2477,6 +2455,32 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 191.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[43]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[44]) (./Chapters/4_Magic_Fun/4_5_Specific_Values.tex
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 8.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 8.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2488,33 +2492,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [45]
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[46]) (./Chapters/4_Magic_Fun/4_5_Specific_Values.tex
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 8.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 8.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[47]
-
-Package natbib Warning: Citation `Viazovska8' on page 48 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 46 undefined on input lin
 e 34.
 
 
@@ -2526,7 +2504,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 42.
 
 
-Package natbib Warning: Citation `Viazovska8' on page 48 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 46 undefined on input lin
 e 68.
 
 ) (./Chapters/4_Magic_Fun/4_6_g_Properties.tex
@@ -2546,7 +2524,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[48]
+[46]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2555,17 +2533,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[49]
+[47]
 
-Package natbib Warning: Citation `Viazovska8' on page 50 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 48 undefined on input lin
 e 57.
 
 
-Package natbib Warning: Citation `Romik_Ineq' on page 50 undefined on input lin
+Package natbib Warning: Citation `Romik_Ineq' on page 48 undefined on input lin
 e 57.
 
 
-Package natbib Warning: Citation `Seewoo_Ineq' on page 50 undefined on input li
+Package natbib Warning: Citation `Seewoo_Ineq' on page 48 undefined on input li
 ne 57.
 
 )) (./Chapters/5_Lean/5_Lean.tex
@@ -2577,25 +2555,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[50]
+[48]
 Chapter 5.
 
-Package natbib Warning: Citation `Viazovska8' on page 51 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 49 undefined on input lin
 e 10.
 
-(./Chapters/5_Lean/5_1_Project.tex [51
+(./Chapters/5_Lean/5_1_Project.tex [49
 
 ]
 
-Package natbib Warning: Citation `blueprint' on page 52 undefined on input line
+Package natbib Warning: Citation `blueprint' on page 50 undefined on input line
  10.
 
 
-Package natbib Warning: Citation `Viazovska8' on page 52 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 50 undefined on input lin
 e 17.
 
 
-Package natbib Warning: Citation `Viazovska8' on page 52 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 50 undefined on input lin
 e 17.
 
 Package csquotes Info: Input encoding change on input line 17.
@@ -2618,7 +2596,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[52]
+[50]
 Package csquotes Info: Input encoding change on input line 24.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2021/02/14 v1.3d Input encoding file
@@ -2659,7 +2637,7 @@ Package csquotes Info: Input encoding change on input line 43.
 File: ansinew.def 2021/02/14 v1.3d Input encoding file
 )
 
-Package natbib Warning: Citation `Viazovska8' on page 53 undefined on input lin
+Package natbib Warning: Citation `Viazovska8' on page 51 undefined on input lin
 e 50.
 
 
@@ -2674,7 +2652,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[53]
+[51]
 Package csquotes Info: Input encoding change on input line 70.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2021/02/14 v1.3d Input encoding file
@@ -2705,7 +2683,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[54]) (./Chapters/5_Lean/5_2_norm_numI.tex
+[52]) (./Chapters/5_Lean/5_2_norm_numI.tex
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 19.
 Package csquotes Info: Input encoding change on input line 19.
@@ -2830,7 +2808,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[55]
+[53]
 Package csquotes Info: Input encoding change on input line 41.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2021/02/14 v1.3d Input encoding file
@@ -3130,7 +3108,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[56]
+[54]
 Package csquotes Info: Input encoding change on input line 71.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
 File: ansinew.def 2021/02/14 v1.3d Input encoding file
@@ -3194,8 +3172,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[57]
-<Chapters/5_Lean/Images/norm_numI_parse_output.png, id=1113, 485.815pt x 246.92
+[55]
+<Chapters/5_Lean/Images/norm_numI_parse_output.png, id=1103, 485.815pt x 246.92
 25pt>
 File: Chapters/5_Lean/Images/norm_numI_parse_output.png Graphic file (type png)
 
@@ -3418,7 +3396,7 @@ Package xcolor Warning: Incompatible color definition on input line 214.
 
 ) (./Chapters/5_Lean/5_3_Cauchy-Goursat.tex
 
-Package natbib Warning: Citation `JordanCurve' on page 58 undefined on input li
+Package natbib Warning: Citation `JordanCurve' on page 56 undefined on input li
 ne 14.
 
 
@@ -3429,7 +3407,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[58 <./Chapters/5_Lean/Images/norm_numI_parse_output.png>]
+[56 <./Chapters/5_Lean/Images/norm_numI_parse_output.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -3438,7 +3416,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[59])) (./Chapters/6_Conclusion/6_Conclusion.tex
+[57])) (./Chapters/6_Conclusion/6_Conclusion.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -3447,18 +3425,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[60]
+[58]
 Chapter 6.
 
-Package natbib Warning: Citation `UniversalOptimality' on page 61 undefined on 
+Package natbib Warning: Citation `UniversalOptimality' on page 59 undefined on 
 input line 5.
 
 (./Chapters/6_Conclusion/6_1_Summary_Informal.tex
 
-Package natbib Warning: Citation `CohnOnViazovskaICM' on page 61 undefined on i
+Package natbib Warning: Citation `CohnOnViazovskaICM' on page 59 undefined on i
 nput line 7.
 
-[61
+[59
 
 ]) (./Chapters/6_Conclusion/6_2_Summary_Formal.tex)
 (./Chapters/6_Conclusion/6_3_Look_Ahead.tex
@@ -3485,7 +3463,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[62]))
+[60]))
 No file main.bbl.
 
 Package caption Warning: Unused \captionsetup[table] on input line 119.
@@ -3502,7 +3480,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[63] 
+[61] 
 enddocument/afterlastpage: lastpage setting LastPage.
 (./main.aux)
  ***********
@@ -3517,10 +3495,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: F281A6DE2F299B08AD67407A1DF0B641;10418.
  ) 
 Here is how much of TeX's memory you used:
- 53479 strings out of 474222
- 1220800 string characters out of 5748733
+ 53461 strings out of 474222
+ 1220282 string characters out of 5748733
  2044975 words of memory out of 5000000
- 74197 multiletter control sequences out of 15000+600000
+ 74191 multiletter control sequences out of 15000+600000
  656386 words of font info for 177 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  122i,19n,124p,1956b,1771s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -3546,10 +3524,10 @@ usr/share/texmf/fonts/type1/public/lm/lmtt9.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/yhmath/yhcmex.pfb>
-Output written on main.pdf (64 pages, 4453781 bytes).
+Output written on main.pdf (62 pages, 4450006 bytes).
 PDF statistics:
- 1370 PDF objects out of 1440 (max. 8388607)
- 1201 compressed objects within 13 object streams
- 372 named destinations out of 1000 (max. 500000)
+ 1359 PDF objects out of 1440 (max. 8388607)
+ 1193 compressed objects within 12 object streams
+ 368 named destinations out of 1000 (max. 500000)
  574 words of extra memory for PDF output out of 10000 (max. 10000000)
 
