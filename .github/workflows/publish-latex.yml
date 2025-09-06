@@ -152,7 +152,9 @@ jobs:
           cp -r Title public/
           cd public/
           pdflatex main.tex
-          pdflatex main.tex  # Cleveref uses aux files. Need to compile twice!
+          bibtex main  # See https://www.latex-tutorial.com/tutorials/bibtex/
+          pdflatex main.tex
+          pdflatex main.tex  # Cleveref uses aux files. Need to compile twice! Also need twice for bibtex.
           # make4ht main.tex
           # mv main.html index.html
   
