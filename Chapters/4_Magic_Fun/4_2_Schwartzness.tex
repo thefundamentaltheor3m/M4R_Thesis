@@ -288,7 +288,7 @@ It is clear that the estimates for $\abs{I_2}$, $\abs{I_4}$ and $\abs{I_6}$ have
 \begin{proof}
     Fix $n \in \N$. We know there exists a constant $C$ such that for all $x \geq 0$, $\abs{x}^n \cdot \abs{e^{-\pi x}} \leq C$. In particular, for all $r \geq 0$ and $s \geq 1$, $r^n \cdot e^{-\pi r/s} \leq C s^n$. Hence, for all $r \in \R$, we can write
     \begin{align*}
-        r \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s}
+        r^n \cdot \int_{1}^{\infty} e^{-2\pi s} \, e^{-\pi r /s} \, \diff{s}
         = \int_{1}^{\infty} e^{-2\pi s} \, \parenth{\abs{r}^n \cdot e^{-\pi r /s}} \, \diff{s}
         \leq C \int_{1}^{\infty} e^{-2\pi s} \, s^n \, \diff{s}
     \end{align*}
