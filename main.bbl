@@ -1,0 +1,175 @@
+\begin{thebibliography}{27}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Viazovska(2017)]{Viazovska8}
+M.~S. Viazovska.
+\newblock {The sphere packing problem in dimension 8}.
+\newblock \emph{Annals of Mathematics}, 185\penalty0 (3):\penalty0 991--1015,
+  2017.
+
+\bibitem[Cohn et~al.(2017)Cohn, Kumar, Miller, Radchenko, and
+  Viazovska]{Viazovska24}
+H.~Cohn, A.~Kumar, S.~D. Miller, D.~Radchenko, and M.~Viazovska.
+\newblock {The sphere packing problem in dimension 24}.
+\newblock \emph{Annals of Mathematics}, 185\penalty0 (3):\penalty0 1017--1033,
+  2017.
+
+\bibitem[Cohn(2023)]{CohnOnViazovskaICM}
+H.~Cohn.
+\newblock {The work of Maryna Viazovska}.
+\newblock In \emph{Proceedings of the International Congress of
+  Mathematicians}, volume~1, pages 82--105. EMS Press, 2023.
+\newblock Presented at ICM, July 6--14, 2022.
+
+\bibitem[Hales(2005)]{HalesKeplerInformal}
+T.~C. Hales.
+\newblock {A Proof of the Kepler Conjecture}.
+\newblock \emph{Annals of Mathematics}, 162\penalty0 (3):\penalty0 1065--1185,
+  2005.
+
+\bibitem[Klarreich(2016)]{QuantaPiece}
+E.~Klarreich.
+\newblock {Sphere Packing Solved in Higher Dimensions}.
+\newblock \emph{Quanta Magazine}, March 2016.
+
+\bibitem[Cohn(2017)]{CohnOnViazovskaAMS}
+H.~Cohn.
+\newblock {A Conceptual Breakthrough in Sphere Packing}.
+\newblock \emph{Notices of the American Mathematical Society}, 64\penalty0
+  (02):\penalty0 102–115, Feb. 2017.
+
+\bibitem[Thue(1892)]{Thue}
+A.~Thue.
+\newblock {Om nogle geometrisk-taltheoretiske Theoremer}.
+\newblock \emph{Forhandlingerne ved de Skandinaviske Naturforskeres}, 14, 1892.
+\newblock Zbl
+  \href{https://zbmath.org/?q=an:24.0259.01}{\color{black}{24.0259.01}}.
+
+\bibitem[Hales(2000)]{CannonHoney}
+T.~C. Hales.
+\newblock {Cannonballs and Honeycombs}.
+\newblock \emph{Notices of the American Mathematical Society}, 47\penalty0
+  (4):\penalty0 440--449, Apr. 2000.
+
+\bibitem[Kepler(1611)]{KeplerSnowflake}
+J.~Kepler.
+\newblock \emph{Strena seu de nive sexangula}.
+\newblock Francofurti ad Moenum : apud Godefridum Tampach, 1611.
+\newblock ETH-Bibliothek Zürich, Rar 4342: 2,
+  \url{https://doi.org/10.3931/e-rara-478}.
+
+\bibitem[{T. C. Hales et al.}(2017)]{HalesKeplerFormal}
+{T. C. Hales et al.}
+\newblock {A Formal Proof of the Kepler Conjecture}.
+\newblock \emph{Forum of Mathematics, Pi}, 5:\penalty0 e2, 2017.
+
+\bibitem[Hales(2006)]{FlyspeckAnnouncement}
+T.~C. Hales.
+\newblock {Introduction to the Flyspeck Project}.
+\newblock In T.~Coquand, H.~Lombardi, and M.-F. Roy, editors,
+  \emph{Mathematics, Algorithms, Proofs}, volume 5021 of \emph{Dagstuhl Seminar
+  Proceedings (DagSemProc)}, pages 1--11, Dagstuhl, Germany, 2006. Schloss
+  Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik.
+
+\bibitem[Gowers et~al.(2025)Gowers, Green, Manners, and Tao]{PFRPublished}
+W.~Gowers, B.~Green, F.~Manners, and T.~Tao.
+\newblock {On a conjecture of Marton}.
+\newblock \emph{Annals of Mathematics}, 201\penalty0 (2):\penalty0 515 -- 549,
+  2025.
+
+\bibitem[Scholze et~al.(2023)Scholze, Clausen, Commelin, and
+  Massot]{liquidtensor}
+P.~Scholze, D.~Clausen, J.~Commelin, and P.~Massot.
+\newblock {Blueprint for the Liquid Tensor Experiment}, September 2023.
+\newblock \url{https://leanprover-community.github.io/liquid/}.
+
+\bibitem[Birkbeck et~al.(2025)Birkbeck, Hariharan, Lee, Ma, Mehta, and
+  Viazovska]{blueprint}
+C.~Birkbeck, S.~Hariharan, S.~Lee, G.~Ma, B.~Mehta, and M.~Viazovska.
+\newblock {Sphere Packing in Lean - Project Blueprint}, 2025.
+\newblock
+  \url{https://thefundamentaltheor3m.github.io/Sphere-Packing-Lean/blueprint/index.html}.
+
+\bibitem[Massot and {et al.}()]{Leanblueprint}
+P.~Massot and {et al.}
+\newblock leanblueprint.
+\newblock \url{https://github.com/PatrickMassot/leanblueprint}.
+
+\bibitem[Cohn and Elkies(2003)]{CohnElkies}
+H.~Cohn and N.~Elkies.
+\newblock {New Upper Bounds on Sphere Packings I}.
+\newblock \emph{Annals of Mathematics}, 157\penalty0 (2):\penalty0 689--714,
+  2003.
+
+\bibitem[{The mathlib Community}(2020)]{mathlib}
+{The mathlib Community}.
+\newblock The lean mathematical library.
+\newblock In \emph{Proceedings of the 9th ACM SIGPLAN International Conference
+  on Certified Programs and Proofs}, CPP 2020, page 367–381, New York, NY,
+  USA, 2020. Association for Computing Machinery.
+
+\bibitem[Görbe()]{Gorbe_E8}
+T.~F. Görbe.
+\newblock {Exceptionally Beautiful Symmetries}.
+\newblock \url{https://tamasgorbe.com/symmetry}.
+
+\bibitem[Schwartz(1978)]{SchwartzDistrib}
+L.~Schwartz.
+\newblock \emph{Théorie des distributions}.
+\newblock Hermann, Paris, 1978.
+\newblock {Nouvelle \'{e}dition}.
+
+\bibitem[Serre(1973)]{SerreArith}
+J.-P. Serre.
+\newblock \emph{A Course in Arithmetic}.
+\newblock Springer-Verlag, New York, 1973.
+
+\bibitem[Diamond and Shurman(2006)]{DiamondShurman}
+F.~Diamond and J.~Shurman.
+\newblock \emph{A First Course in Modular Farms}.
+\newblock Number 228 in Graduate Texts in Mathematics. Springer New York, NY,
+  New York, first edition, March 2006.
+
+\bibitem[Buzzard(2001)]{KevinFamilies}
+K.~Buzzard.
+\newblock Families of modular forms.
+\newblock \emph{Journal de Théorie des Nombres de Bordeaux}, 13\penalty0
+  (1):\penalty0 43--52, 2001.
+
+\bibitem[Bourgain et~al.(2010)Bourgain, Clozel, and
+  Kahane]{UncertaintyPrincipleFR}
+J.~Bourgain, L.~Clozel, and J.-P. Kahane.
+\newblock Principe {d{\textquoteright}Heisenberg} et fonctions positives.
+\newblock \emph{Annales de l'Institut Fourier}, 60\penalty0 (4):\penalty0
+  1215--1232, 2010.
+
+\bibitem[{Romik}(2023)]{Romik_Ineq}
+D.~{Romik}.
+\newblock {On Viazovska's modular form inequalities}.
+\newblock \emph{Proceedings of the National Academy of Science}, 120\penalty0
+  (43):\penalty0 e2304891120, Oct. 2023.
+
+\bibitem[Lee(2024)]{Seewoo_Ineq}
+S.~Lee.
+\newblock Algebraic proof of modular form inequalities for optimal sphere
+  packings, 2024.
+
+\bibitem[Hales(2007)]{JordanCurve}
+T.~C. Hales.
+\newblock {The Jordan Curve Theorem, Formally and Informally}.
+\newblock \emph{The American Mathematical Monthly}, 114\penalty0 (10):\penalty0
+  882--894, 2007.
+
+\bibitem[Cohn et~al.(2022)Cohn, Kumar, Miller, Radchenko, and
+  Viazovska]{UniversalOptimality}
+H.~Cohn, A.~Kumar, S.~Miller, D.~Radchenko, and M.~Viazovska.
+\newblock {Universal optimality of the $E_8$ and Leech lattices and
+  interpolation formulas}.
+\newblock \emph{Annals of Mathematics}, 196\penalty0 (3):\penalty0 983 -- 1082,
+  2022.
+
+\end{thebibliography}

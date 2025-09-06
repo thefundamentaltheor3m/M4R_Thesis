@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: References/abbrvunsrtnat.bst.bst
+Database file #1: References/bibliography.bib
+Warning--entry type for "Leanblueprint" isn't style-file defined
+--line 302 of file References/bibliography.bib
+Warning--empty year in Leanblueprint
+Warning--empty year in Gorbe_E8
+You've used 27 entries,
+            2465 wiz_defined-function locations,
+            786 strings with 9766 characters,
+and the built_in function-call counts, 9606 in all, are:
+= -- 842
+> -- 362
+< -- 27
++ -- 159
+- -- 105
+* -- 661
+:= -- 1488
+add.period$ -- 88
+call.type$ -- 27
+change.case$ -- 51
+chr.to.int$ -- 27
+cite$ -- 29
+duplicate$ -- 527
+empty$ -- 960
+format.name$ -- 138
+if$ -- 2078
+int.to.chr$ -- 1
+int.to.str$ -- 28
+missing$ -- 26
+newline$ -- 146
+num.names$ -- 83
+pop$ -- 246
+preamble$ -- 1
+purify$ -- 27
+quote$ -- 0
+skip$ -- 323
+stack$ -- 0
+substring$ -- 427
+swap$ -- 96
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 177
+warning$ -- 2
+while$ -- 83
+width$ -- 0
+write$ -- 365
+(There were 3 warnings)
