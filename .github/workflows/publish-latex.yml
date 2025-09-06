@@ -141,7 +141,7 @@ jobs:
           # fi
           mkdir ./public
           cp TeX_Outputs/main.pdf public/LastLocallyCompiled.pdf
-          cp TeX_Outputs/Submitted_Version.pdf public/
+          cp TeX_Outputs/V6.pdf public/Submitted_Version.pdf
           cp main.tex public/
           cp -r Appendices public/
           cp -r Chapters public/
