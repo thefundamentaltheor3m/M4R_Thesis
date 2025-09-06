@@ -143,7 +143,7 @@ jobs:
           cp TeX_Outputs/main.pdf public/LastLocallyCompiled.pdf
           cp TeX_Outputs/V6.pdf public/Submitted_Version.pdf
           cp main.tex public/
-          cp -r Appendices public/
+          # cp -r Appendices public/
           cp -r Chapters public/
           cp -r Figures public/
           cp -r Frontmatter public/
