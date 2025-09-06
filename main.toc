@@ -48,3 +48,4 @@
 \contentsline {chapter}{\numberline {6}Conclusion}{59}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Viazovska's Monumental Breakthrough}{59}{section.6.1}%
 \contentsline {section}{\numberline {6.2}The Road to Formalising Sphere Packing}{60}{section.6.2}%
+\contentsline {chapter}{Bibliography}{63}{chapter*.15}%

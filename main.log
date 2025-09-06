@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.6)  6 SEP 2025 03:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.6)  6 SEP 2025 04:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -48,9 +48,9 @@ Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
 (babel)             (\language0). Reported on input line 102.
 Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
-(babel)             (\language81). Reported on input line 105.
+(babel)             (\language26). Reported on input line 105.
 Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
-(babel)             (\language81). Reported on input line 108.
+(babel)             (\language26). Reported on input line 108.
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/babel/locale/en/babel-english.tex
 Package babel Info: Importing font and identification data for english
@@ -1662,7 +1662,7 @@ your preamble.
 
 Couldn't patch \deferred@thm@head!
 (./Title/title.tex
-<Title/logo.png, id=240, 14370.68875pt x 2844.6275pt>
+<Title/logo.png, id=244, 14370.68875pt x 2844.6275pt>
 File: Title/logo.png Graphic file (type png)
 <use Title/logo.png>
 Package pdftex.def Info: Title/logo.png  used on input line 9.
@@ -1725,13 +1725,13 @@ Chapter 1.
 (./Chapters/1_Intro/1_1_Sphere_Packing_Problem.tex [4
 
 ]
-<Chapters/1_Intro/Images/Kepler_1.pdf, id=342, 130.17897pt x 113.01433pt>
+<Chapters/1_Intro/Images/Kepler_1.pdf, id=347, 130.17897pt x 113.01433pt>
 File: Chapters/1_Intro/Images/Kepler_1.pdf Graphic file (type pdf)
 <use Chapters/1_Intro/Images/Kepler_1.pdf>
 Package pdftex.def Info: Chapters/1_Intro/Images/Kepler_1.pdf  used on input li
 ne 85.
 (pdftex.def)             Requested size: 122.30325pt x 106.18173pt.
-<Chapters/1_Intro/Images/Kepler_2.pdf, id=343, 115.75737pt x 204.6573pt>
+<Chapters/1_Intro/Images/Kepler_2.pdf, id=348, 115.75737pt x 204.6573pt>
 File: Chapters/1_Intro/Images/Kepler_2.pdf Graphic file (type pdf)
 <use Chapters/1_Intro/Images/Kepler_2.pdf>
 Package pdftex.def Info: Chapters/1_Intro/Images/Kepler_2.pdf  used on input li
@@ -1803,7 +1803,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 63.
 
-<Chapters/2_Dimension_8/Images/Gorbe_E8.png, id=421, 777.90625pt x 770.88pt>
+<Chapters/2_Dimension_8/Images/Gorbe_E8.png, id=426, 777.90625pt x 770.88pt>
 File: Chapters/2_Dimension_8/Images/Gorbe_E8.png Graphic file (type png)
 <use Chapters/2_Dimension_8/Images/Gorbe_E8.png>
 Package pdftex.def Info: Chapters/2_Dimension_8/Images/Gorbe_E8.png  used on in
@@ -2923,7 +2923,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [55]
-<Chapters/5_Lean/Images/norm_numI_parse_output.png, id=1189, 485.815pt x 246.92
+<Chapters/5_Lean/Images/norm_numI_parse_output.png, id=1194, 485.815pt x 246.92
 25pt>
 File: Chapters/5_Lean/Images/norm_numI_parse_output.png Graphic file (type png)
 
@@ -3226,6 +3226,14 @@ Underfull \hbox (badness 5316) in paragraph at lines 98--101
 Package caption Warning: Unused \captionsetup[table] on input line 119.
 See the caption package documentation for explanation.
 
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
 [63] 
 enddocument/afterlastpage: lastpage setting LastPage.
 (./main.aux)
@@ -3234,13 +3242,13 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F281A6DE2F299B08AD67407A1DF0B641;10418.
+(rerunfilecheck)             Checksum: C7F29139E11DC150902796403CC5ED25;10524.
  ) 
 Here is how much of TeX's memory you used:
- 53579 strings out of 474222
- 1222610 string characters out of 5748734
+ 53580 strings out of 474222
+ 1222623 string characters out of 5748734
  2045975 words of memory out of 5000000
- 74276 multiletter control sequences out of 15000+600000
+ 74277 multiletter control sequences out of 15000+600000
  656386 words of font info for 177 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  122i,19n,124p,1956b,1771s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -3266,10 +3274,10 @@ usr/share/texmf/fonts/type1/public/lm/lmtt9.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/yhmath/yhcmex.pfb>
-Output written on main.pdf (64 pages, 4459455 bytes).
+Output written on main.pdf (64 pages, 4459748 bytes).
 PDF statistics:
- 1476 PDF objects out of 1728 (max. 8388607)
- 1304 compressed objects within 14 object streams
+ 1480 PDF objects out of 1728 (max. 8388607)
+ 1308 compressed objects within 14 object streams
  398 named destinations out of 1000 (max. 500000)
- 574 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 582 words of extra memory for PDF output out of 10000 (max. 10000000)
 
