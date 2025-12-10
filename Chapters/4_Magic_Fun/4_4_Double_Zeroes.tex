@@ -47,7 +47,7 @@ The version of the Cauchy-Goursat Theorem we use is the following.
 
 We discuss the informal and formal proofs of this theorem in \Cref{Ch5:Sec:Cauchy-Goursat}.
 
-For both $a\rad$ and $b\rad$, we begin by their alternate expressions for them. We then make estimates to prove that the integrals in these expressions converge. We finally manipulate the expressions and apply \Cref{Ch4:Thm:CauchyGoursat_Unbounded} to show that they do, indeed, agree with $a\rad$ and $b\rad$ on inputs $> 2$.
+For both $a\rad$ and $b\rad$, we begin by defining alternative expressions for them. We then make estimates to prove that the integrals in these expressions converge. We finally manipulate the expressions and apply \Cref{Ch4:Thm:CauchyGoursat_Unbounded} to show that they do, indeed, agree with $a\rad$ and $b\rad$ on inputs $> 2$.
 
 \subsection{The $+1$-Eigenfunction}
 
@@ -135,8 +135,7 @@ We are now ready for the main result of this subsection.
          d(r)
          =
          \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 e^{\pi i r \parenth{z - 1}} \diff{z}
-         +
-         \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 e^{\pi i r z} \diff{z}
+         -2 \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
          +
          \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 e^{\pi i r \parenth{z + 1}} \diff{z}
          \label{Ch4:Eq:d_after_sinsq_trick}
@@ -145,17 +144,18 @@ We are now ready for the main result of this subsection.
     \begin{align*}
         \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r \parenth{z - 1}} \, \diff{z}
         &=
-        \int_{-1}^{-1 + i \infty} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z} \\
-        \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r \parenth{z + 1}} \, \diff{z}
-        &=
-        \int_{1}^{1 + i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z} \\
+        \int_{-1}^{-1 + i \infty} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z}
+        \\
         -2 \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
         &=
         \underbrace{-2 \int_{0}^{i} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}}_{I_5}
-        -2 \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z} % \\
-        % &= I_5(r) - 2\int_{i}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
+        -2 \int_{i}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r z} \, \diff{z}
+        \\
+        \int_{0}^{i \infty} \phi_0\of{\frac{-1}{z}} z^2 \, e^{\pi i r \parenth{z + 1}} \, \diff{z}
+        &=
+        \int_{1}^{1 + i \infty} \phi_0\of{\frac{-1}{z - 1}} \parenth{z - 1}^2 \, e^{\pi i r z} \, \diff{z}
     \end{align*}
-    We can now apply \Cref{Ch4:Thm:CauchyGoursat_Unbounded} to the first and third integrals, noting that the required integrability conditions do hold because the integrals making up $d$ and $a\rad$ converge absolutely.
+    We can now apply \Cref{Ch4:Thm:CauchyGoursat_Unbounded} to the first and third integrals in \eqref{Ch4:Eq:d_after_sinsq_trick}. The required integrability conditions do hold because the integrals making up $d$ and $a\rad$ converge absolutely.
     \begin{align*}
         \int_{-1}^{-1 + i \infty} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z}
         =& \underbrace{\int_{-1}^{-1 + i} \phi_0\of{\frac{-1}{z + 1}} \parenth{z + 1}^2 \, e^{\pi i r z} \, \diff{z}}_{I_1} \\
